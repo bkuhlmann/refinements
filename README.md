@@ -6,10 +6,19 @@
 [![Gemnasium Status](https://gemnasium.com/bkuhlmann/refinements.png)](https://gemnasium.com/bkuhlmann/refinements)
 [![Travis CI Status](https://secure.travis-ci.org/bkuhlmann/refinements.png)](http://travis-ci.org/bkuhlmann/refinements)
 
+Provides a collection of refinements to the standard Ruby objects.
+
 # Features
+
+- Adds the following Array refinements:
+    - Array#compress - Removes nil and empty values without modifying original values.
+    - Array#compress! - Removes nil and empty values and modifies original values.
+- Adds the following BigDecimal refinements:
+    - BigDecimal#inspect - Allows one to inspect a big decimal with numeric representation.
 
 # Requirements
 
+0. [MRI 2.x.x](http://www.ruby-lang.org).
 
 # Setup
 
@@ -25,8 +34,26 @@ For an insecure install, type the following (not recommended):
 
     gem install refinements
 
-
 # Usage
+
+## Array
+
+    using Refinements::ArrayExtensions
+
+    example = ["An", nil, "", "Example"]
+    example.compress # => ["An", "Example"]
+    example # => ["An", nil, "", "Example"]
+
+    example = ["An", nil, "", "Example"]
+    example.compress! # => ["An", "Example"]
+    example # => ["An", "Example"]
+
+## Big Decimal
+
+    using Refinements::BigDecimalExtensions
+
+    big = BigDecimal.new "5.0E-10"
+    big.inspect # => "#<BigDecimal:3fd3d458fe84 0.0000000005>"
 
 # Tests
 

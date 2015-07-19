@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.authors = ["Brooke Kuhlmann"]
   spec.email = ["brooke@alchemists.io"]
   spec.homepage = "https://www.alchemists.io"
-  spec.summary = "Provides a collection of refinements to standard Ruby objects."
-  spec.description = "Provides a collection of refinements to standard Ruby objects."
+  spec.summary = "Provides a collection of refinements to the standard Ruby objects."
+  spec.description = "Provides a collection of refinements to the standard Ruby objects."
   spec.license = "MIT"
 
   if ENV["RUBY_GEM_SECURITY"] == "enabled"
