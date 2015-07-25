@@ -1,4 +1,4 @@
-# Overview
+# Refinements
 
 [![Gem Version](https://badge.fury.io/rb/refinements.png)](http://badge.fury.io/rb/refinements)
 [![Code Climate GPA](https://codeclimate.com/github/bkuhlmann/refinements.png)](https://codeclimate.com/github/bkuhlmann/refinements)
