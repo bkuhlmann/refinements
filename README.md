@@ -8,6 +8,26 @@
 
 Provides a collection of refinements to the standard Ruby objects.
 
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+# Table of Contents
+
+- [Features](#features)
+- [Requirements](#requirements)
+- [Setup](#setup)
+- [Usage](#usage)
+    - [Array](#array)
+    - [Big Decimal](#big-decimal)
+- [Tests](#tests)
+- [Versioning](#versioning)
+- [Code of Conduct](#code-of-conduct)
+- [Contributions](#contributions)
+- [License](#license)
+- [History](#history)
+- [Credits](#credits)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # Features
 
 - Adds the following Array refinements:
