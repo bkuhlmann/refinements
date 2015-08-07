@@ -1,8 +1,8 @@
 # Refinements
 
 [![Gem Version](https://badge.fury.io/rb/refinements.svg)](http://badge.fury.io/rb/refinements)
-[![Code Climate GPA](https://codeclimate.com/github/bkuhlmann/refinements.png)](https://codeclimate.com/github/bkuhlmann/refinements)
-[![Code Climate Coverage](https://codeclimate.com/github/bkuhlmann/refinements/coverage.png)](https://codeclimate.com/github/bkuhlmann/refinements)
+[![Code Climate GPA](https://codeclimate.com/github/bkuhlmann/refinements.svg)](https://codeclimate.com/github/bkuhlmann/refinements)
+[![Code Climate Coverage](https://codeclimate.com/github/bkuhlmann/refinements/coverage.svg)](https://codeclimate.com/github/bkuhlmann/refinements)
 [![Gemnasium Status](https://gemnasium.com/bkuhlmann/refinements.png)](https://gemnasium.com/bkuhlmann/refinements)
 [![Travis CI Status](https://secure.travis-ci.org/bkuhlmann/refinements.png)](http://travis-ci.org/bkuhlmann/refinements)
 
