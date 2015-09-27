@@ -1,4 +1,5 @@
 module Refinements
+  # Gem identity information.
   module Identity
     def self.name
       "refinements"
