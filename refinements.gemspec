@@ -7,7 +7,7 @@ Gem::Specification.new do |spec|
   spec.platform = Gem::Platform::RUBY
   spec.authors = ["Brooke Kuhlmann"]
   spec.email = ["brooke@alchemists.io"]
-  spec.homepage = "https://www.alchemists.io"
+  spec.homepage = "https://github.com/bkuhlmann/refinements"
   spec.summary = "Provides a collection of refinements to the standard Ruby objects."
   spec.description = "Provides a collection of refinements to the standard Ruby objects."
   spec.license = "MIT"
