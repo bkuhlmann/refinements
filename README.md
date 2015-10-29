@@ -5,6 +5,7 @@
 [![Code Climate Coverage](https://codeclimate.com/github/bkuhlmann/refinements/coverage.svg)](https://codeclimate.com/github/bkuhlmann/refinements)
 [![Gemnasium Status](https://gemnasium.com/bkuhlmann/refinements.svg)](https://gemnasium.com/bkuhlmann/refinements)
 [![Travis CI Status](https://secure.travis-ci.org/bkuhlmann/refinements.svg)](http://travis-ci.org/bkuhlmann/refinements)
+[![Patreon](https://img.shields.io/badge/patreon-donate-brightgreen.svg)](https://www.patreon.com/bkuhlmann)
 
 Provides a collection of refinements to the standard Ruby objects.
 
