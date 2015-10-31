@@ -1,6 +1,7 @@
 require "bigdecimal"
 
 module Refinements
+  # Refinements for Big Decimals.
   module BigDecimalExtensions
     refine BigDecimal do
       def inspect

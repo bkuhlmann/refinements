@@ -1,12 +1,13 @@
 module Refinements
+  # Refinements for Arrays.
   module ArrayExtensions
     refine Array do
       def compress
-        self.compact.reject(&:empty?)
+        compact.reject(&:empty?)
       end
 
       def compress!
-        self.replace(compress)
+        replace(compress)
       end
     end
   end
