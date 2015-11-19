@@ -9,16 +9,16 @@
 
 Provides a collection of refinements to the standard Ruby objects.
 
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+<!-- Tocer[start]: Auto-generated, don't remove. -->
+
 # Table of Contents
 
 - [Features](#features)
 - [Requirements](#requirements)
 - [Setup](#setup)
 - [Usage](#usage)
-    - [Array](#array)
-    - [Big Decimal](#big-decimal)
+  - [Array](#array)
+  - [Big Decimal](#big-decimal)
 - [Tests](#tests)
 - [Versioning](#versioning)
 - [Code of Conduct](#code-of-conduct)
@@ -27,7 +27,7 @@ Provides a collection of refinements to the standard Ruby objects.
 - [History](#history)
 - [Credits](#credits)
 
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+<!-- Tocer[finish]: Auto-generated, don't remove. -->
 
 # Features
 
