@@ -80,7 +80,7 @@ For an insecure install, type the following (not recommended):
 
 To test, run:
 
-    bundle exec rspec spec
+    bundle exec rake
 
 # Versioning
 
