@@ -7,7 +7,7 @@
 [![Travis CI Status](https://secure.travis-ci.org/bkuhlmann/refinements.svg)](http://travis-ci.org/bkuhlmann/refinements)
 [![Patreon](https://img.shields.io/badge/patreon-donate-brightgreen.svg)](https://www.patreon.com/bkuhlmann)
 
-Provides a collection of refinements to the standard Ruby objects.
+Provides a collection of refinements for core Ruby objects.
 
 <!-- Tocer[start]: Auto-generated, don't remove. -->
 
@@ -17,8 +17,11 @@ Provides a collection of refinements to the standard Ruby objects.
 - [Requirements](#requirements)
 - [Setup](#setup)
 - [Usage](#usage)
-  - [Array](#array)
-  - [Big Decimal](#big-decimal)
+  - [Requires](#requires)
+  - [Using](#using)
+  - [Examples](#examples)
+    - [Array](#array)
+    - [Big Decimal](#big-decimal)
 - [Tests](#tests)
 - [Versioning](#versioning)
 - [Code of Conduct](#code-of-conduct)
@@ -31,11 +34,11 @@ Provides a collection of refinements to the standard Ruby objects.
 
 # Features
 
-- Adds the following Array refinements:
-    - Array#compress - Removes nil and empty values without modifying original values.
-    - Array#compress! - Removes nil and empty values and modifies original values.
-- Adds the following BigDecimal refinements:
-    - BigDecimal#inspect - Allows one to inspect a big decimal with numeric representation.
+- Adds Array refinements:
+    - `Array#compress` - Removes nil and empty values without modifying original values.
+    - `Array#compress!` - Removes nil and empty values and modifies original values.
+- Adds BigDecimal refinements:
+    - `BigDecimal#inspect` - Allows one to inspect a big decimal with numeric representation.
 
 # Requirements
 
@@ -55,11 +58,37 @@ For an insecure install, type the following (not recommended):
 
     gem install refinements
 
+Add the following to your Gemfile file:
+
+    gem "refinements"
+
 # Usage
 
-## Array
+## Requires
 
-    using Refinements::ArrayExtensions
+Due to this gem being a collection of Ruby refinements, none of the refinements are auto-loaded by default in order to
+reduce code bloat for your app. Instead, require the specific requirement for the code that needs it. You'll want to
+require one or all of the following:
+
+    require "refinements/array_extensions"
+    require "refinements/big_decimal_extensions"
+
+## Using
+
+In addition to requiring the appropriate refinement file for the code that needs it, you'll also need to use the
+refinement by using the `using` keyword within your object. You'll want to use one or all of the following:
+
+    class Example
+      using Refinements::ArrayExtensions
+      using Refinements::BigDecimalExtensions
+    end
+
+## Examples
+
+With the appropriate refinements required and used within your objects, the following sections demonstrates how each
+refinement enriches your objects with new capabilities.
+
+### Array
 
     example = ["An", nil, "", "Example"]
     example.compress # => ["An", "Example"]
@@ -69,9 +98,7 @@ For an insecure install, type the following (not recommended):
     example.compress! # => ["An", "Example"]
     example # => ["An", "Example"]
 
-## Big Decimal
-
-    using Refinements::BigDecimalExtensions
+### Big Decimal
 
     big = BigDecimal.new "5.0E-10"
     big.inspect # => "#<BigDecimal:3fd3d458fe84 0.0000000005>"
