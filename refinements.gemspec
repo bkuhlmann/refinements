@@ -17,7 +17,6 @@ Gem::Specification.new do |spec|
     spec.cert_chain = [File.expand_path("~/.ssh/gem-public.pem")]
   end
 
-  spec.required_ruby_version = "~> 2.2.2"
   spec.add_development_dependency "rake"
   spec.add_development_dependency "gemsmith"
   spec.add_development_dependency "pry"
