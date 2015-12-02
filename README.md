@@ -4,7 +4,7 @@
 [![Code Climate GPA](https://codeclimate.com/github/bkuhlmann/refinements.svg)](https://codeclimate.com/github/bkuhlmann/refinements)
 [![Code Climate Coverage](https://codeclimate.com/github/bkuhlmann/refinements/coverage.svg)](https://codeclimate.com/github/bkuhlmann/refinements)
 [![Gemnasium Status](https://gemnasium.com/bkuhlmann/refinements.svg)](https://gemnasium.com/bkuhlmann/refinements)
-[![Travis CI Status](https://secure.travis-ci.org/bkuhlmann/refinements.svg)](http://travis-ci.org/bkuhlmann/refinements)
+[![Travis CI Status](https://secure.travis-ci.org/bkuhlmann/refinements.svg)](https://travis-ci.org/bkuhlmann/refinements)
 [![Patreon](https://img.shields.io/badge/patreon-donate-brightgreen.svg)](https://www.patreon.com/bkuhlmann)
 
 Provides a collection of refinements for core Ruby objects.
@@ -42,14 +42,14 @@ Provides a collection of refinements for core Ruby objects.
 
 # Requirements
 
-0. [MRI 2.x.x](http://www.ruby-lang.org).
+0. [MRI 2.x.x](https://www.ruby-lang.org).
 0. A solid understanding of [Ruby refinements and lexical scope](https://www.youtube.com/watch?v=qXC9Gk4dCEw).
 
 # Setup
 
 For a secure install, type the following from the command line (recommended):
 
-    gem cert --add <(curl -Ls http://www.my-website.com/gem-public.pem)
+    gem cert --add <(curl -Ls https://www.my-website.com/gem-public.pem)
     gem install refinements --trust-policy MediumSecurity
 
 NOTE: A HighSecurity trust policy would be best but MediumSecurity enables signed gem verification while
