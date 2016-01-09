@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe Refinements::ArrayExtensions do
+RSpec.describe Refinements::ArrayExtensions do
   using Refinements::ArrayExtensions
 
   describe "#compress" do

@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe Refinements::BigDecimalExtensions do
+RSpec.describe Refinements::BigDecimalExtensions do
   using Refinements::BigDecimalExtensions
   subject { BigDecimal.new "1.0E-15" }
 
