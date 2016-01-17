@@ -34,15 +34,20 @@ Provides a collection of refinements for core Ruby objects.
 
 # Features
 
-- Adds Array refinements:
-    - `Array#compress` - Removes nil and empty values without modifying original values.
-    - `Array#compress!` - Removes nil and empty values and modifies original values.
 - Adds BigDecimal refinements:
-    - `BigDecimal#inspect` - Allows one to inspect a big decimal with numeric representation.
+  - `BigDecimal#inspect` - Allows one to inspect a big decimal with numeric representation.
+- Adds Array refinements:
+  - `Array#compress` - Removes nil and empty values without modifying itself.
+  - `Array#compress!` - Removes nil and empty values and modifies itself.
+- Adds Hash refinements:
+  - `#deep_merge` - Merges deeply nested hashes together without itself.
+  - `#deep_merge!` - Merges deeply nested hashes together and modifies itself.
+  - `#reverse_merge` - Merges calling hash into passed in hash without modifying calling hash.
+  - `#reverse_merge!` - Merges calling hash into passed in hash and modifies calling hash.
 
 # Requirements
 
-0. [MRI 2.x.x](https://www.ruby-lang.org).
+0. [MRI 2.3.x](https://www.ruby-lang.org).
 0. A solid understanding of [Ruby refinements and lexical scope](https://www.youtube.com/watch?v=qXC9Gk4dCEw).
 
 # Setup
@@ -71,8 +76,9 @@ Due to this gem being a collection of Ruby refinements, none of the refinements 
 reduce code bloat for your app. Instead, require the specific requirement for the code that needs it. You'll want to
 require one or all of the following:
 
-    require "refinements/array_extensions"
     require "refinements/big_decimal_extensions"
+    require "refinements/array_extensions"
+    require "refinements/hash_extensions"
 
 ## Using
 
@@ -80,14 +86,20 @@ In addition to requiring the appropriate refinement file for the code that needs
 refinement by using the `using` keyword within your object. You'll want to use one or all of the following:
 
     class Example
-      using Refinements::ArrayExtensions
       using Refinements::BigDecimalExtensions
+      using Refinements::ArrayExtensions
+      using Refinements::HashExtensions
     end
 
 ## Examples
 
 With the appropriate refinements required and used within your objects, the following sections demonstrates how each
 refinement enriches your objects with new capabilities.
+
+### Big Decimal
+
+    big = BigDecimal.new "5.0E-10"
+    big.inspect # => "#<BigDecimal:3fd3d458fe84 0.0000000005>"
 
 ### Array
 
@@ -99,10 +111,23 @@ refinement enriches your objects with new capabilities.
     example.compress! # => ["An", "Example"]
     example # => ["An", "Example"]
 
-### Big Decimal
+### Hash
 
-    big = BigDecimal.new "5.0E-10"
-    big.inspect # => "#<BigDecimal:3fd3d458fe84 0.0000000005>"
+    example = {a: "A", b: {one: "One", two: "Two"}}
+    example.deep_merge b: {one: 1} # => {a: "A", b: {one: 1, two: "Two"}}
+    example # => {a: "A", b: {one: "One", two: "Two"}}
+
+    example = {a: "A", b: {one: "One", two: "Two"}}
+    example.deep_merge! b: {one: 1} # => {a: "A", b: {one: 1, two: "Two"}}
+    example # => {a: "A", b: {one: 1, two: "Two"}}
+
+    example = {a: 1, b: 2}
+    example.reverse_merge a: 0, c: 3 # => {a: 1, b: 2, c: 3}
+    example # => {a: 1, b: 2}
+
+    example = {a: 1, b: 2}
+    example.reverse_merge! a: 0, c: 3 # => {a: 1, b: 2, c: 3}
+    example # => {a: 1, b: 2, c: 3}
 
 # Tests
 

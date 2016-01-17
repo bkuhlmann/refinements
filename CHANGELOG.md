@@ -1,3 +1,14 @@
+# v2.0.0 (2016-01-16)
+
+- Fixed README URLs to use HTTPS schemes where possible.
+- Added Hash refinements.
+- Added IRB development console Rake task support.
+- Added README requirement for Ruby refinements and lexical scope.
+- Added Rubocop Style/StringLiteralsInInterpolation cop.
+- Updated to Ruby 2.3.0.
+- Removed RSpec default monkey patching behavior.
+- Removed Ruby 2.1.x and 2.2.x support.
+
 # v1.0.0 (2015-11-21)
 
 - Fixed README test command instructions.
