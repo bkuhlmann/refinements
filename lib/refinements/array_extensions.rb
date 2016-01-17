@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Refinements
   # Refinements for Arrays.
   module ArrayExtensions
