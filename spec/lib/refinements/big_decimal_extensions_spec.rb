@@ -1,4 +1,5 @@
 require "spec_helper"
+require "refinements/big_decimal_extensions"
 
 RSpec.describe Refinements::BigDecimalExtensions do
   using Refinements::BigDecimalExtensions

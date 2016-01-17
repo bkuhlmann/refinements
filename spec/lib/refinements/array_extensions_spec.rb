@@ -1,4 +1,5 @@
 require "spec_helper"
+require "refinements/array_extensions"
 
 RSpec.describe Refinements::ArrayExtensions do
   using Refinements::ArrayExtensions
