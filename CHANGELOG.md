@@ -1,3 +1,9 @@
+# v2.1.0 (2016-01-20)
+
+- Fixed secure gem install issues.
+- Added frozen string literal to source files.
+- Removed frozen string literal support from Rake files.
+
 # v2.0.0 (2016-01-16)
 
 - Fixed README URLs to use HTTPS schemes where possible.

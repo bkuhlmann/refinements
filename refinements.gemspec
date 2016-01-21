@@ -19,7 +19,7 @@ Gem::Specification.new do |spec|
 
   spec.required_ruby_version = "~> 2.3"
   spec.add_development_dependency "rake"
-  spec.add_development_dependency "gemsmith"
+  spec.add_development_dependency "gemsmith", "~> 7.0"
   spec.add_development_dependency "pry"
   spec.add_development_dependency "pry-byebug"
   spec.add_development_dependency "pry-remote"
@@ -34,7 +34,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rubocop"
   spec.add_development_dependency "codeclimate-test-reporter"
 
-  spec.files = Dir["lib/**/*", "vendor/**/*"]
+  spec.files = Dir["lib/**/*"]
   spec.extra_rdoc_files = Dir["README*", "LICENSE*"]
   spec.require_paths = ["lib"]
 end

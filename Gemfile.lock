@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    refinements (2.0.0)
+    refinements (2.1.0)
 
 GEM
   remote: https://rubygems.org/
@@ -18,10 +18,11 @@ GEM
     docile (1.1.5)
     ffi (1.9.10)
     formatador (0.2.5)
-    gemsmith (5.6.0)
-      milestoner (~> 1.0)
+    gemsmith (7.0.0)
+      milestoner (~> 2.0)
       thor (~> 0.19)
-      thor_plus (~> 2.1)
+      thor_plus (~> 3.0)
+      tocer (~> 2.0)
     guard (2.13.0)
       formatador (>= 0.2.4)
       listen (>= 2.7, <= 4.0)
@@ -43,9 +44,9 @@ GEM
       rb-inotify (>= 0.9)
     lumberjack (1.0.10)
     method_source (0.8.2)
-    milestoner (1.2.0)
+    milestoner (2.0.0)
       thor (~> 0.19)
-      thor_plus (~> 2.1)
+      thor_plus (~> 3.0)
     nenv (0.2.0)
     notiffany (0.0.8)
       nenv (~> 0.1)
@@ -105,15 +106,19 @@ GEM
     terminal-notifier (1.6.3)
     terminal-notifier-guard (1.6.4)
     thor (0.19.1)
-    thor_plus (2.2.0)
+    thor_plus (3.1.0)
       thor (~> 0.19)
+    tocer (2.0.0)
+      refinements (~> 2.0)
+      thor (~> 0.19)
+      thor_plus (~> 3.0)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   codeclimate-test-reporter
-  gemsmith
+  gemsmith (~> 7.0)
   guard-rspec
   pry
   pry-byebug
