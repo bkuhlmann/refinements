@@ -15,7 +15,7 @@ module Refinements
       "2.1.0"
     end
 
-    def self.label_version
+    def self.version_label
       "#{label} #{version}"
     end
   end
