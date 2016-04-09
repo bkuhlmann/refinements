@@ -8,7 +8,7 @@ RSpec.describe Refinements::ArrayExtensions do
 
   describe "#compress" do
     it "answers original array when nothing to do" do
-      subject = %w(one two)
+      subject = %w[one two]
       expect(subject.compress).to contain_exactly("one", "two")
     end
 
@@ -32,7 +32,7 @@ RSpec.describe Refinements::ArrayExtensions do
 
   describe "#compress!" do
     it "answers original array when nothing to do" do
-      subject = %w(one two)
+      subject = %w[one two]
       expect(subject.compress!).to contain_exactly("one", "two")
     end
 

@@ -10,14 +10,14 @@ RSpec.describe Refinements::HashExtensions do
     {
       label: "Kaleidoscope",
       categories: {
-        colors: %w(red black white cyan),
-        styles: %w(solid dotted)
+        colors: %w[red black white cyan],
+        styles: %w[solid dotted]
       },
       tags: {
         emoji: {
           faces: {
-            happy: %w(happy estatic),
-            confused: %w(pensive sweating),
+            happy: %w[happy estatic],
+            confused: %w[pensive sweating],
             sad: "frown"
           }
         },
@@ -37,7 +37,7 @@ RSpec.describe Refinements::HashExtensions do
 
     it "does not modify itself" do
       proof = subject.dup
-      subject.deep_merge categories: {colors: %w(yellow brown)}
+      subject.deep_merge categories: {colors: %w[yellow brown]}
 
       expect(subject).to eq(proof)
     end
