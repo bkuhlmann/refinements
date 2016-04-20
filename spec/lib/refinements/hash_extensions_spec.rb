@@ -27,6 +27,32 @@ RSpec.describe Refinements::HashExtensions do
     }
   end
 
+  describe "#compact" do
+    subject { {a: 1, b: nil} }
+
+    it "answers hash with key/value pairs removed which had nil values" do
+      expect(subject.compact).to eq(a: 1)
+    end
+
+    it "does not modify original hash" do
+      subject.compact
+      expect(subject).to eq(a: 1, b: nil)
+    end
+  end
+
+  describe "#compact!" do
+    subject { {a: 1, b: nil} }
+
+    it "answers hash with key/value pairs removed which had nil values" do
+      expect(subject.compact!).to eq(a: 1)
+    end
+
+    it "modifies original hash" do
+      subject.compact!
+      expect(subject).to eq(a: 1)
+    end
+  end
+
   describe "#deep_merge" do
     it "merges nested hash" do
       proof = subject.merge tags: {emoji: {faces: "test"}, positive: "red", negative: "black", neutral: "grey"}

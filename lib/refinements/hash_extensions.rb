@@ -4,6 +4,14 @@ module Refinements
   # Refinements for Hashes.
   module HashExtensions
     refine Hash do
+      def compact
+        dup.compact!
+      end
+
+      def compact!
+        reject! { |_, value| value.nil? }
+      end
+
       def deep_merge other_hash
         dup.deep_merge! other_hash
       end
