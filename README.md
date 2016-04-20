@@ -20,6 +20,7 @@ Provides a collection of refinements for core Ruby objects.
   - [Requires](#requires)
   - [Using](#using)
   - [Examples](#examples)
+    - [String](#string)
     - [Big Decimal](#big-decimal)
     - [Array](#array)
     - [Hash](#hash)
@@ -41,10 +42,16 @@ Provides a collection of refinements for core Ruby objects.
   - `Array#compress` - Removes nil and empty values without modifying itself.
   - `Array#compress!` - Removes nil and empty values and modifies itself.
 - Adds Hash refinements:
+  - `#compact` - Removes key/value pairs with nil values without modifying itself.
+  - `#compact!` - Removes key/value pairs with nil values and modifies itself.
   - `#deep_merge` - Merges deeply nested hashes together without itself.
   - `#deep_merge!` - Merges deeply nested hashes together and modifies itself.
   - `#reverse_merge` - Merges calling hash into passed in hash without modifying calling hash.
   - `#reverse_merge!` - Merges calling hash into passed in hash and modifies calling hash.
+- Adds String refinements:
+  - `#camelcase` - Answers a camelcased string. Example: "ThisIsCamelcase".
+  - `#snakecase` - Answers a snakecased string. Example: "this_is_snakecase".
+  - `#titleize` - Answers titleized string. Example: "This Is Titleized".
 
 # Requirements
 
@@ -77,6 +84,7 @@ Due to this gem being a collection of Ruby refinements, none of the refinements 
 reduce code bloat for your app. Instead, require the specific requirement for the code that needs it. You'll want to
 require one or all of the following:
 
+    require "refinements/string_extensions"
     require "refinements/big_decimal_extensions"
     require "refinements/array_extensions"
     require "refinements/hash_extensions"
@@ -87,6 +95,7 @@ In addition to requiring the appropriate refinement file for the code that needs
 refinement by using the `using` keyword within your object. You'll want to use one or all of the following:
 
     class Example
+      using Refinements::StringExtensions
       using Refinements::BigDecimalExtensions
       using Refinements::ArrayExtensions
       using Refinements::HashExtensions
@@ -96,6 +105,13 @@ refinement by using the `using` keyword within your object. You'll want to use o
 
 With the appropriate refinements required and used within your objects, the following sections demonstrates how each
 refinement enriches your objects with new capabilities.
+
+### String
+
+    example = "This is-an EXAMPLE"
+    example.camelcase # => "ThisIsAnExample"
+    example.snakecase # => "this_is_an_example"
+    example.titleize # => "This Is An Example"
 
 ### Big Decimal
 
