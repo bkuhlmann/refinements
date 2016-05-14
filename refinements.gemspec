@@ -18,24 +18,21 @@ Gem::Specification.new do |spec|
   end
 
   spec.required_ruby_version = "~> 2.3"
-  spec.add_development_dependency "rake"
-  spec.add_development_dependency "gemsmith", "~> 7.0"
+  spec.add_development_dependency "rake", "~> 11.0"
+  spec.add_development_dependency "gemsmith", "~> 7.6"
   spec.add_development_dependency "pry"
   spec.add_development_dependency "pry-byebug"
-  spec.add_development_dependency "pry-remote"
   spec.add_development_dependency "pry-state"
-  spec.add_development_dependency "pry-rescue"
-  spec.add_development_dependency "pry-stack_explorer"
   spec.add_development_dependency "bond"
   spec.add_development_dependency "wirb"
   spec.add_development_dependency "hirb"
   spec.add_development_dependency "awesome_print"
-  spec.add_development_dependency "rspec"
+  spec.add_development_dependency "rspec", "~> 3.4"
   spec.add_development_dependency "rb-fsevent" # Guard file events for OSX.
   spec.add_development_dependency "guard-rspec"
   spec.add_development_dependency "terminal-notifier"
   spec.add_development_dependency "terminal-notifier-guard"
-  spec.add_development_dependency "rubocop"
+  spec.add_development_dependency "rubocop", "~> 0.40"
   spec.add_development_dependency "codeclimate-test-reporter"
 
   spec.files = Dir["lib/**/*"]
