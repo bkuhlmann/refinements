@@ -7,15 +7,23 @@ RSpec.describe Refinements::StringExtensions do
   using Refinements::StringExtensions
 
   describe "#camelcase" do
-    it "answer an empty string with an empty string" do
+    it "answer empty string for empty string" do
       expect("".camelcase).to eq("")
     end
 
-    it "answers camelcase with camelcase" do
+    it "answers camelcase for camelcase" do
       expect("ThisIsATest".camelcase).to eq("ThisIsATest")
     end
 
-    it "downcases and capitalizes" do
+    it "answers capitalized for downcase" do
+      expect("test".camelcase).to eq("Test")
+    end
+
+    it "answers capitalized for capitalized" do
+      expect("Test".camelcase).to eq("Test")
+    end
+
+    it "answers upcase as capitalized" do
       expect("TEST".camelcase).to eq("Test")
     end
 
@@ -32,7 +40,7 @@ RSpec.describe Refinements::StringExtensions do
     end
 
     it "removes repeating, non-alphabetic characters" do
-      expect("This---is__a   Test".camelcase).to eq("ThisIsATest")
+      expect("This---is__a5   Test9".camelcase).to eq("ThisIsATest")
     end
 
     it "does not remove repeating, alphabetic characters" do

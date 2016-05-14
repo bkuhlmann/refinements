@@ -5,7 +5,7 @@ module Refinements
   module StringExtensions
     refine String do
       def camelcase
-        return self if self =~ /\A[a-zA-Z]{1,}\z/ && self !~ /\A[A-Z]{1,}\z/
+        return self if self =~ /\A\w+\z/ && self =~ /[A-Z]/ && self =~ /[a-z]/
         snakecase.split("_").map(&:capitalize).join ""
       end
 
