@@ -1,3 +1,8 @@
+# v2.2.1 (2016-05-14)
+
+- Fixed camelcase issue where downcased string wasn't capitalized.
+- Updated to Ruby 2.3.1.
+
 # v2.2.0 (2016-04-19)
 
 - Fixed README gem certificate install instructions.
