@@ -55,7 +55,7 @@ Provides a collection of refinements for core Ruby objects.
 
 # Requirements
 
-0. [MRI 2.3.x](https://www.ruby-lang.org).
+0. [Ruby 2.3.x](https://www.ruby-lang.org).
 0. A solid understanding of [Ruby refinements and lexical scope](https://www.youtube.com/watch?v=qXC9Gk4dCEw).
 
 # Setup
