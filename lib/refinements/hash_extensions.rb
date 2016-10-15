@@ -3,6 +3,7 @@
 module Refinements
   # Refinements for Hashes.
   module HashExtensions
+    # rubocop:disable Metrics/BlockLength
     refine Hash do
       def compact
         dup.compact!
