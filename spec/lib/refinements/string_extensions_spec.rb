@@ -6,6 +6,20 @@ require "refinements/string_extensions"
 RSpec.describe Refinements::StringExtensions do
   using Refinements::StringExtensions
 
+  describe "#cap" do
+    it "answers empty string as empty string" do
+      expect("".cap).to eq("")
+    end
+
+    it "capitalizes first letter only" do
+      expect("test".cap).to eq("Test")
+    end
+
+    it "does not downcase remaining characters" do
+      expect("TEST".cap).to eq("TEST")
+    end
+  end
+
   describe "#camelcase" do
     it "answer empty string for empty string" do
       expect("".camelcase).to eq("")

@@ -4,6 +4,11 @@ module Refinements
   # Refinements for Strings.
   module StringExtensions
     refine String do
+      def cap
+        return self if empty?
+        self[0].upcase + self[1, size]
+      end
+
       def camelcase
         return self if self =~ /\A\w+\z/ && self =~ /[A-Z]/ && self =~ /[a-z]/
         snakecase.split("_").map(&:capitalize).join ""
