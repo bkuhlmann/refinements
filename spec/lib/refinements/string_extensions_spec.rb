@@ -21,104 +21,276 @@ RSpec.describe Refinements::StringExtensions do
   end
 
   describe "#camelcase" do
-    it "answer empty string for empty string" do
+    it "answers empty string as empty string" do
       expect("".camelcase).to eq("")
     end
 
-    it "answers camelcase for camelcase" do
+    it "answers camelcase as camelcase" do
       expect("ThisIsATest".camelcase).to eq("ThisIsATest")
     end
 
-    it "answers capitalized for downcase" do
-      expect("test".camelcase).to eq("Test")
-    end
-
-    it "answers capitalized for capitalized" do
+    it "answers capitalized as capitalized" do
       expect("Test".camelcase).to eq("Test")
     end
 
-    it "answers upcase as capitalized" do
-      expect("TEST".camelcase).to eq("Test")
+    it "answers upcase as upcase" do
+      expect("TEST".camelcase).to eq("TEST")
     end
 
-    it "removes spaces" do
+    it "answers downcase as capitalized" do
+      expect("test".camelcase).to eq("Test")
+    end
+
+    it "answers consecutive spaces as as empty string" do
+      expect("   ".camelcase).to eq("")
+    end
+
+    it "answers consecutive underscores as empty string" do
+      expect("___".camelcase).to eq("")
+    end
+
+    it "answers consecutive dashes as empty string" do
+      expect("---".camelcase).to eq("")
+    end
+
+    it "answers consecutive forward slashes as empty string" do
+      expect("///".camelcase).to eq("")
+    end
+
+    it "answers consecutive, odd colons as empty string" do
+      expect(":::".camelcase).to eq("")
+    end
+
+    it "answers consecutive, even colons as empty string" do
+      expect("::::".camelcase).to eq("")
+    end
+
+    it "answers space delimitation as capitalized words delimited by nothing" do
       expect("this is a test".camelcase).to eq("ThisIsATest")
     end
 
-    it "removes underscores" do
+    it "answers underscore delimitation as capitalized words delimited by nothing" do
       expect("this_is_a_test".camelcase).to eq("ThisIsATest")
     end
 
-    it "removes dashes" do
-      expect("this-is-a-test".camelcase).to eq("ThisIsATest")
+    it "answers dash delimitation as capitalized words delimited by double colons" do
+      expect("this-is-a-test".camelcase).to eq("This::Is::A::Test")
     end
 
-    it "removes repeating, non-alphabetic characters" do
-      expect("This---is__a5   Test9".camelcase).to eq("ThisIsATest")
+    it "answers forward slash delimitation as capitalized words delimited by double colons" do
+      expect("this/is/a/test".camelcase).to eq("This::Is::A::Test")
     end
 
-    it "does not remove repeating, alphabetic characters" do
-      expect("Thiiiis Is Aaaaa Testt".camelcase).to eq("ThiiiisIsAaaaaTestt")
+    it "answers single colon delimitation as capitalized words delimited by double colons" do
+      expect("this:is:a:test".camelcase).to eq("This::Is::A::Test")
+    end
+
+    it "answers double colon delimitation as capitalized words delimited by double colons" do
+      expect("this::is::a::test".camelcase).to eq("This::Is::A::Test")
+    end
+
+    it "answers multi-space delimitation as capitalized words delimited by nothing" do
+      expect("example   test".camelcase).to eq("ExampleTest")
+    end
+
+    it "answers spaced, underscore delimitation as capitalized words delimited by nothing" do
+      expect("example _ test".camelcase).to eq("ExampleTest")
+    end
+
+    it "answers spaced, dash delimitation as capitalized words delimited by double colon" do
+      expect("example - test".camelcase).to eq("Example::Test")
+    end
+
+    it "answers spaced, forward slash delimitation as capitalized words delimited by double colon" do
+      expect("example / test".camelcase).to eq("Example::Test")
+    end
+
+    it "answers spaced, single colon delimitation as capitalized words delimited by double colon" do
+      expect("example : test".camelcase).to eq("Example::Test")
+    end
+
+    it "answers spaced, double colon delimitation as capitalized words delimited by double colon" do
+      expect("example :: test".camelcase).to eq("Example::Test")
+    end
+
+    it "transforms mixed space, underscore, dash, forward slash, colon, and double colon delimiters" do
+      expect("this is_a-mixed/test:case::example".camelcase).to eq("ThisIsA::Mixed::Test::Case::Example")
     end
   end
 
   describe "#snakecase" do
-    it "answer an empty string with an empty string" do
+    it "answers empty string as empty string" do
       expect("".snakecase).to eq("")
     end
 
-    it "answers snakecase with snakecase" do
-      expect("this_is_a_test".snakecase).to eq("this_is_a_test")
-    end
-
-    it "downcases" do
+    it "answers upcase as downcase" do
       expect("TEST".snakecase).to eq("test")
     end
 
-    it "replaces spaces with underscores" do
-      expect("this is a test".snakecase).to eq("this_is_a_test")
+    it "answers consecutive spaces as empty string" do
+      expect("   ".snakecase).to eq("")
     end
 
-    it "replaces dashes with underscores" do
-      expect("this-is-a-test".snakecase).to eq("this_is_a_test")
+    it "answers consecutive underscores as empty string" do
+      expect("___".snakecase).to eq("")
     end
 
-    it "removes repeating, non-alphabetic characters" do
-      expect("This---is__a   Test".snakecase).to eq("this_is_a_test")
+    it "answers consecutive dashes as empty string" do
+      expect("---".snakecase).to eq("")
     end
 
-    it "does not remove repeating, alphabetic characters" do
-      expect("Thiiiis Is Aaaaa Testt".snakecase).to eq("thiiiis_is_aaaaa_testt")
+    it "answers consecutive forward slashes as empty string" do
+      expect("///".snakecase).to eq("")
+    end
+
+    it "answers consecutive, odd colons as empty string" do
+      expect(":::".snakecase).to eq("")
+    end
+
+    it "answers consecutive, even colons as empty string" do
+      expect("::::".snakecase).to eq("")
+    end
+
+    it "answers space delimitation as downcased words delimited by underscores" do
+      expect("This Is a Test".snakecase).to eq("this_is_a_test")
+    end
+
+    it "answers underscore delimitation as downcased words delimited by underscores" do
+      expect("This_Is_A_Test".snakecase).to eq("this_is_a_test")
+    end
+
+    it "answers dash delimitation as downcased words delimited by forward slashes" do
+      expect("This-Is-A-Test".snakecase).to eq("this/is/a/test")
+    end
+
+    it "answers forward slash delimitation as downcased words delimited by forward slashes" do
+      expect("This/Is/A/Test".snakecase).to eq("this/is/a/test")
+    end
+
+    it "answers single colon delimitation as downcased words delimited by forward slashes" do
+      expect("This:Is:A:Test".snakecase).to eq("this/is/a/test")
+    end
+
+    it "answers double colon delimitation as downcased words delimited by forward slashes" do
+      expect("This::Is::A::Test".snakecase).to eq("this/is/a/test")
+    end
+
+    it "answers multi-space delimitation as downcased words delimited by underscore" do
+      expect("Example   Test".snakecase).to eq("example_test")
+    end
+
+    it "answers spaced, underscore delimitation as downcased words delimited by underscore" do
+      expect("Example _ Test".snakecase).to eq("example_test")
+    end
+
+    it "answers spaced, dash delimitation as downcased words delimited by forward slash" do
+      expect("Example - Test".snakecase).to eq("example/test")
+    end
+
+    it "answers spaced, forward slash delimitation as downcased words delimited by forward slash" do
+      expect("Example / Test".snakecase).to eq("example/test")
+    end
+
+    it "answers spaced, single colon delimitation as downcased words delimited by forward slash" do
+      expect("Example : Test".snakecase).to eq("example/test")
+    end
+
+    it "answers spaced, double colon delimitation as downcased words delimited by forward slash" do
+      expect("Example :: Test".snakecase).to eq("example/test")
+    end
+
+    it "transforms mixed space, underscore, dash, forward slash, colon, and double colon delimiters" do
+      expect("This Is_A-Mixed/Test:Case::Example".snakecase).to eq("this_is_a/mixed/test/case/example")
     end
   end
 
   describe "#titleize" do
-    it "answer an empty string with an empty string" do
+    it "answers empty string as empty string" do
       expect("".titleize).to eq("")
     end
 
-    it "answers titleize with titleize" do
+    it "answers titleize as titleize" do
       expect("This Is A Test".titleize).to eq("This Is A Test")
     end
 
-    it "capitalizes each word" do
+    it "answers upcase with first letter capitalized and remaining characters downcased" do
+      expect("TEST".titleize).to eq("Test")
+    end
+
+    it "answers consecutive spaces as empty string" do
+      expect("   ".titleize).to eq("")
+    end
+
+    it "answers consecutive underscores as empty string" do
+      expect("___".titleize).to eq("")
+    end
+
+    it "answers consecutive dashes as empty string" do
+      expect("---".titleize).to eq("")
+    end
+
+    it "answers consecutive forward slashes as empty string" do
+      expect("///".titleize).to eq("")
+    end
+
+    it "answers consecutive, odd colons as empty string" do
+      expect(":::".titleize).to eq("")
+    end
+
+    it "answers consecutive, even colons as empty string" do
+      expect("::::".titleize).to eq("")
+    end
+
+    it "answers space delimitation as capitalized words delimited by spaces" do
       expect("this is a test".titleize).to eq("This Is A Test")
     end
 
-    it "replaces underscores with spaces" do
+    it "answers underscore delimitation as capitalized words delimited by spaces" do
       expect("this_is_a_test".titleize).to eq("This Is A Test")
     end
 
-    it "replaces dashes with spaces" do
+    it "answers dash delimitation as capitalized words delimited by spaces" do
       expect("this-is-a-test".titleize).to eq("This Is A Test")
     end
 
-    it "removes repeating, non-alphabetic characters" do
-      expect("This---is__a   Test".titleize).to eq("This Is A Test")
+    it "answers forward slash delimitation as capitalized words delimited by forward slashes" do
+      expect("this/is/a/test".titleize).to eq("This/Is/A/Test")
     end
 
-    it "does not remove repeating, alphabetic characters" do
-      expect("Thiiiis Is Aaaaa Testt".titleize).to eq("Thiiiis Is Aaaaa Testt")
+    it "answers single colon delimitation as capitalized words delimited by forward slashes" do
+      expect("this:is:a:test".titleize).to eq("This/Is/A/Test")
+    end
+
+    it "answers double colon delimitation as capitalized words delimited by forward slashes" do
+      expect("this::is::a::test".titleize).to eq("This/Is/A/Test")
+    end
+
+    it "answers multi-spaced delimitation as capitalized words delimited by space" do
+      expect("example   test".titleize).to eq("Example Test")
+    end
+
+    it "answers spaced, underscore delimitation as capitalized words delimited by space" do
+      expect("example _ test".titleize).to eq("Example Test")
+    end
+
+    it "answers spaced, dash delimitation as capitalized words delimited by space" do
+      expect("example - test".titleize).to eq("Example Test")
+    end
+
+    it "answers spaced, forward slash delimitation as capitalized words delimited by forward slash" do
+      expect("example / test".titleize).to eq("Example/Test")
+    end
+
+    it "answers spaced, single colon delimitation as capitalized words delimited by forward slash" do
+      expect("example : test".titleize).to eq("Example/Test")
+    end
+
+    it "answers spaced, double colon delimitation as capitalized words delimited by forward slash" do
+      expect("example :: test".titleize).to eq("Example/Test")
+    end
+
+    it "transforms mixed space, underscore, dash, forward slash, colon, and double colon delimiters" do
+      expect("this is_a-mixed/test:case::example".titleize).to eq("This Is A Mixed/Test/Case/Example")
     end
   end
 end

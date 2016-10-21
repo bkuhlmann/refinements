@@ -3,6 +3,13 @@
 module Refinements
   # Refinements for Strings.
   module StringExtensions
+    refine String.singleton_class do
+      def delimiters
+        %r(\s*\-\s*|\s*\/\s*|\s*\:+\s*|\s*\_\s*|\s+)
+      end
+    end
+
+    # rubocop:disable Metrics/BlockLength
     refine String do
       def cap
         return self if empty?
@@ -10,16 +17,52 @@ module Refinements
       end
 
       def camelcase
-        return self if self =~ /\A\w+\z/ && self =~ /[A-Z]/ && self =~ /[a-z]/
-        snakecase.split("_").map(&:capitalize).join ""
+        if self =~ self.class.delimiters
+          result = cap_and_join split(%r(\s*\-\s*|\s*\/\s*|\s*\:+\s*)), delimiter: "::"
+          cap_and_join result.split(/\s*\_\s*|\s+/)
+        else
+          cap
+        end
       end
 
       def snakecase
-        downcase.gsub(/[^a-z]/, "_").squeeze "_"
+        if self =~ self.class.delimiters
+          result = transform_and_join split(%r(\s*\-\s*|\s*\/\s*|\s*\:+\s*)),
+                                      method: :downcase,
+                                      delimiter: "/"
+          transform_and_join result.split(/\s*\_\s*|\s+/), method: :downcase, delimiter: "_"
+        else
+          downcase
+        end
       end
 
       def titleize
-        snakecase.split("_").map(&:capitalize).join " "
+        if self =~ self.class.delimiters
+          result = transform_and_join split(%r(\s*\/\s*|\s*\:+\s*)),
+                                      method: :capitalize,
+                                      delimiter: "/"
+          cap_and_join result.split(/\s*\_\s*|\s*\-\s*|\s+/), delimiter: " "
+        else
+          capitalize
+        end
+      end
+
+      private
+
+      # Can't be replaced by #transform_and_join due to dynamic method dispatch limitations with
+      # refinements.
+      def cap_and_join items, delimiter: ""
+        items.reduce "" do |result, item|
+          next item.cap if result.empty?
+          "#{result}#{delimiter}#{item.cap}"
+        end
+      end
+
+      def transform_and_join parts, method:, delimiter: ""
+        parts.reduce "" do |result, part|
+          next part.public_send(method) if result.empty?
+          "#{result}#{delimiter}#{part.public_send method}"
+        end
       end
     end
   end
