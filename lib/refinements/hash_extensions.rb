@@ -5,11 +5,15 @@ module Refinements
   module HashExtensions
     # rubocop:disable Metrics/BlockLength
     refine Hash do
+      # TODO: Remove when Ruby 2.4 is released.
       def compact
+        puts "[DEPRECATION]: #compact is deprecated and is included, by default, in Ruby 2.4."
         dup.compact!
       end
 
+      # TODO: Remove when Ruby 2.4 is released.
       def compact!
+        puts "[DEPRECATION]: #compact! is deprecated and is included, by default, in Ruby 2.4."
         reject! { |_, value| value.nil? }
       end
 

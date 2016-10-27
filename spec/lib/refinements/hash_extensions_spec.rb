@@ -38,6 +38,11 @@ RSpec.describe Refinements::HashExtensions do
       subject.compact
       expect(subject).to eq(a: 1, b: nil)
     end
+
+    it "prints deprecation warning" do
+      result = -> { subject.compact }
+      expect(&result).to output(/#compact is deprecated/).to_stdout
+    end
   end
 
   describe "#compact!" do
@@ -50,6 +55,11 @@ RSpec.describe Refinements::HashExtensions do
     it "modifies original hash" do
       subject.compact!
       expect(subject).to eq(a: 1)
+    end
+
+    it "prints deprecation warning" do
+      result = -> { subject.compact! }
+      expect(&result).to output(/#compact! is deprecated/).to_stdout
     end
   end
 
