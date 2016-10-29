@@ -11,6 +11,10 @@ module Refinements
 
     # rubocop:disable Metrics/BlockLength
     refine String do
+      def blank?
+        !match(/\A\s*\z/).nil?
+      end
+
       def cap
         return self if empty?
         self[0].upcase + self[1, size]

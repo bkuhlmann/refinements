@@ -6,6 +6,44 @@ require "refinements/string_extensions"
 RSpec.describe Refinements::StringExtensions do
   using Refinements::StringExtensions
 
+  describe "#blank?" do
+    it "answers true when empty" do
+      expect("".blank?).to eq(true)
+    end
+
+    it "answers true when space" do
+      expect(" ".blank?).to eq(true)
+    end
+
+    it "answers true when tab" do
+      expect("\t".blank?).to eq(true)
+    end
+
+    it "answers true when new line" do
+      expect("\n".blank?).to eq(true)
+    end
+
+    it "answers true when return" do
+      expect("\r".blank?).to eq(true)
+    end
+
+    it "answers true when space, tab, new line, and return" do
+      expect(" \t\n\r".blank?).to eq(true)
+    end
+
+    it "answers false when a word" do
+      expect("test".blank?).to eq(false)
+    end
+
+    it "answers false when a word" do
+      expect("test".blank?).to eq(false)
+    end
+
+    it "answers false when a word, space, tab, new line, and return" do
+      expect("test \t\n\r".blank?).to eq(false)
+    end
+  end
+
   describe "#cap" do
     it "answers empty string as empty string" do
       expect("".cap).to eq("")
