@@ -175,6 +175,10 @@ RSpec.describe Refinements::StringExtensions do
       expect("TEST".snakecase).to eq("test")
     end
 
+    it "answers camelcase as snakecase" do
+      expect("ExampleTest".snakecase).to eq("example_test")
+    end
+
     it "answers consecutive spaces as empty string" do
       expect("   ".snakecase).to eq("")
     end

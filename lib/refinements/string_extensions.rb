@@ -5,7 +5,7 @@ module Refinements
   module StringExtensions
     refine String.singleton_class do
       def delimiters
-        %r(\s*\-\s*|\s*\/\s*|\s*\:+\s*|\s*\_\s*|\s+)
+        %r([a-z][A-Z]|\s*\-\s*|\s*\/\s*|\s*\:+\s*|\s*\_\s*|\s+)
       end
     end
 
@@ -36,10 +36,8 @@ module Refinements
 
       def snakecase
         if self =~ self.class.delimiters
-          result = transform_and_join split(%r(\s*\-\s*|\s*\/\s*|\s*\:+\s*)),
-                                      method: :downcase,
-                                      delimiter: "/"
-          transform_and_join result.split(/\s*\_\s*|\s+/), method: :downcase, delimiter: "_"
+          result = down_and_join split(%r(\s*\-\s*|\s*\/\s*|\s*\:+\s*)), delimiter: "/"
+          down_and_join result.split(/(?=[A-Z])|\s*\_\s*|\s+/), delimiter: "_"
         else
           downcase
         end
@@ -64,6 +62,15 @@ module Refinements
         items.reduce "" do |result, item|
           next item.cap if result.empty?
           "#{result}#{delimiter}#{item.cap}"
+        end
+      end
+
+      # Can't be replaced by #transform_and_join due to dynamic method dispatch limitations with
+      # refinements.
+      def down_and_join items, delimiter: ""
+        items.reduce "" do |result, item|
+          next item.down if result.empty?
+          "#{result}#{delimiter}#{item.down}"
         end
       end
 
