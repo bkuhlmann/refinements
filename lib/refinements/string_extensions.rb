@@ -20,6 +20,11 @@ module Refinements
         self[0].upcase + self[1, size]
       end
 
+      def down
+        return self if empty?
+        self[0].downcase + self[1, size]
+      end
+
       def camelcase
         if self =~ self.class.delimiters
           result = cap_and_join split(%r(\s*\-\s*|\s*\/\s*|\s*\:+\s*)), delimiter: "::"

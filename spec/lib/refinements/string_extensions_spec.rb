@@ -58,6 +58,16 @@ RSpec.describe Refinements::StringExtensions do
     end
   end
 
+  describe "#down" do
+    it "answers empty string as empty string" do
+      expect("".down).to eq("")
+    end
+
+    it "downcases first letter only" do
+      expect("TEST".down).to eq("tEST")
+    end
+  end
+
   describe "#camelcase" do
     it "answers empty string as empty string" do
       expect("".camelcase).to eq("")
