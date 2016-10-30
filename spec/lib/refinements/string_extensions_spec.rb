@@ -44,17 +44,13 @@ RSpec.describe Refinements::StringExtensions do
     end
   end
 
-  describe "#cap" do
+  describe "#up" do
     it "answers empty string as empty string" do
-      expect("".cap).to eq("")
+      expect("".up).to eq("")
     end
 
-    it "capitalizes first letter only" do
-      expect("test".cap).to eq("Test")
-    end
-
-    it "does not downcase remaining characters" do
-      expect("TEST".cap).to eq("TEST")
+    it "upcases first letter only" do
+      expect("test".up).to eq("Test")
     end
   end
 

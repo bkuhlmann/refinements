@@ -15,7 +15,7 @@ module Refinements
         !match(/\A\s*\z/).nil?
       end
 
-      def cap
+      def up
         return self if empty?
         self[0].upcase + self[1, size]
       end
@@ -27,10 +27,10 @@ module Refinements
 
       def camelcase
         if self =~ self.class.delimiters
-          result = cap_and_join split(%r(\s*\-\s*|\s*\/\s*|\s*\:+\s*)), delimiter: "::"
-          cap_and_join result.split(/\s*\_\s*|\s+/)
+          result = up_and_join split(%r(\s*\-\s*|\s*\/\s*|\s*\:+\s*)), delimiter: "::"
+          up_and_join result.split(/\s*\_\s*|\s+/)
         else
-          cap
+          up
         end
       end
 
@@ -45,10 +45,8 @@ module Refinements
 
       def titleize
         if self =~ self.class.delimiters
-          result = transform_and_join split(%r(\s*\/\s*|\s*\:+\s*)),
-                                      method: :capitalize,
-                                      delimiter: "/"
-          cap_and_join result.split(/\s*\_\s*|\s*\-\s*|\s+/), delimiter: " "
+          result = capitalize_and_join split(%r(\s*\/\s*|\s*\:+\s*)), delimiter: "/"
+          up_and_join result.split(/\s*\_\s*|\s*\-\s*|\s+/), delimiter: " "
         else
           capitalize
         end
@@ -56,28 +54,24 @@ module Refinements
 
       private
 
-      # Can't be replaced by #transform_and_join due to dynamic method dispatch limitations with
-      # refinements.
-      def cap_and_join items, delimiter: ""
-        items.reduce "" do |result, item|
-          next item.cap if result.empty?
-          "#{result}#{delimiter}#{item.cap}"
-        end
-      end
-
-      # Can't be replaced by #transform_and_join due to dynamic method dispatch limitations with
-      # refinements.
-      def down_and_join items, delimiter: ""
-        items.reduce "" do |result, item|
-          next item.down if result.empty?
-          "#{result}#{delimiter}#{item.down}"
-        end
-      end
-
-      def transform_and_join parts, method:, delimiter: ""
+      def up_and_join parts, delimiter: ""
         parts.reduce "" do |result, part|
-          next part.public_send(method) if result.empty?
-          "#{result}#{delimiter}#{part.public_send method}"
+          next part.up if result.empty?
+          "#{result}#{delimiter}#{part.up}"
+        end
+      end
+
+      def down_and_join parts, delimiter: ""
+        parts.reduce "" do |result, part|
+          next part.down if result.empty?
+          "#{result}#{delimiter}#{part.down}"
+        end
+      end
+
+      def capitalize_and_join parts, delimiter: ""
+        parts.reduce "" do |result, part|
+          next part.capitalize if result.empty?
+          "#{result}#{delimiter}#{part.capitalize}"
         end
       end
     end
