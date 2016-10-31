@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 require "spec_helper"
-require "refinements/string_extensions"
+require "refinements/strings"
 
-RSpec.describe Refinements::StringExtensions do
-  using Refinements::StringExtensions
+RSpec.describe Refinements::Strings do
+  using Refinements::Strings
 
   describe "#blank?" do
     it "answers true when empty" do

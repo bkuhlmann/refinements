@@ -4,7 +4,7 @@ require "bigdecimal"
 
 module Refinements
   # Refinements for Big Decimals.
-  module BigDecimalExtensions
+  module BigDecimals
     refine BigDecimal do
       def inspect
         format "#<BigDecimal:%x %s>", object_id, to_s("F")

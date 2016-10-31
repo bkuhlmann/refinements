@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 require "spec_helper"
-require "refinements/array_extensions"
+require "refinements/arrays"
 
-RSpec.describe Refinements::ArrayExtensions do
-  using Refinements::ArrayExtensions
+RSpec.describe Refinements::Arrays do
+  using Refinements::Arrays
 
   describe "#compress" do
     it "answers original array when nothing to do" do

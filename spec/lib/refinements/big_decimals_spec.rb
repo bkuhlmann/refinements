@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 require "spec_helper"
-require "refinements/big_decimal_extensions"
+require "refinements/big_decimals"
 
-RSpec.describe Refinements::BigDecimalExtensions do
-  using Refinements::BigDecimalExtensions
+RSpec.describe Refinements::BigDecimals do
+  using Refinements::BigDecimals
   subject { BigDecimal.new "1.0E-15" }
 
   describe "#inspect" do

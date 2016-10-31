@@ -2,7 +2,7 @@
 
 module Refinements
   # Refinements for Arrays.
-  module ArrayExtensions
+  module Arrays
     refine Array do
       def compress
         compact.reject(&:empty?)

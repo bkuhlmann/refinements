@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 require "spec_helper"
-require "refinements/hash_extensions"
+require "refinements/hashes"
 
-RSpec.describe Refinements::HashExtensions do
-  using Refinements::HashExtensions
+RSpec.describe Refinements::Hashes do
+  using Refinements::Hashes
 
   subject do
     {

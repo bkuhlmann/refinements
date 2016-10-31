@@ -2,7 +2,7 @@
 
 module Refinements
   # Refinements for Strings.
-  module StringExtensions
+  module Strings
     refine String.singleton_class do
       def delimiters
         %r([a-z][A-Z]|\s*\-\s*|\s*\/\s*|\s*\:+\s*|\s*\_\s*|\s+)

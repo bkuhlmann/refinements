@@ -2,7 +2,7 @@
 
 module Refinements
   # Refinements for Hashes.
-  module HashExtensions
+  module Hashes
     # rubocop:disable Metrics/BlockLength
     refine Hash do
       # TODO: Remove when Ruby 2.4 is released.
