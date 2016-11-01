@@ -261,6 +261,10 @@ RSpec.describe Refinements::Strings do
       expect("This Is A Test".titleize).to eq("This Is A Test")
     end
 
+    it "answers camelcase as titleize" do
+      expect("ThisIsATest".titleize).to eq("This Is A Test")
+    end
+
     it "answers upcase with first letter capitalized and remaining characters downcased" do
       expect("TEST".titleize).to eq("Test")
     end

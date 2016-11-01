@@ -45,8 +45,8 @@ module Refinements
 
       def titleize
         if self =~ self.class.delimiters
-          result = capitalize_and_join split(%r(\s*\/\s*|\s*\:+\s*)), delimiter: "/"
-          up_and_join result.split(/\s*\_\s*|\s*\-\s*|\s+/), delimiter: " "
+          result = up_and_join split(/(?=[A-Z])|\s*\_\s*|\s*\-\s*|\s+/), delimiter: " "
+          up_and_join result.split(%r(\s*\/\s*|\s*\:+\s*)), delimiter: "/"
         else
           capitalize
         end
@@ -65,13 +65,6 @@ module Refinements
         parts.reduce "" do |result, part|
           next part.down if result.empty?
           "#{result}#{delimiter}#{part.down}"
-        end
-      end
-
-      def capitalize_and_join parts, delimiter: ""
-        parts.reduce "" do |result, part|
-          next part.capitalize if result.empty?
-          "#{result}#{delimiter}#{part.capitalize}"
         end
       end
     end
