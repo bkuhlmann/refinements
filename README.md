@@ -7,7 +7,7 @@
 [![Travis CI Status](https://secure.travis-ci.org/bkuhlmann/refinements.svg)](https://travis-ci.org/bkuhlmann/refinements)
 [![Patreon](https://img.shields.io/badge/patreon-donate-brightgreen.svg)](https://www.patreon.com/bkuhlmann)
 
-Provides a collection of refinements for core Ruby objects.
+Provides a collection of refinements to core Ruby objects.
 
 <!-- Tocer[start]: Auto-generated, don't remove. -->
 
@@ -36,19 +36,23 @@ Provides a collection of refinements for core Ruby objects.
 
 # Features
 
-- Adds BigDecimal refinements:
+- Provides Array refinements:
+  - `Array#compress` - Removes `nil` and empty values without modifying itself.
+  - `Array#compress!` - Removes `nil` and empty values while modifying itself.
+- Provides BigDecimal refinements:
   - `BigDecimal#inspect` - Allows one to inspect a big decimal with numeric representation.
-- Adds Array refinements:
-  - `Array#compress` - Removes nil and empty values without modifying itself.
-  - `Array#compress!` - Removes nil and empty values and modifies itself.
-- Adds Hash refinements:
-  - `#compact` - Removes key/value pairs with nil values without modifying itself.
-  - `#compact!` - Removes key/value pairs with nil values and modifies itself.
-  - `#deep_merge` - Merges deeply nested hashes together without itself.
-  - `#deep_merge!` - Merges deeply nested hashes together and modifies itself.
+- Provides Hash refinements:
+  - `#compact` - Removes key/value pairs with `nil` values without modifying itself.
+  - `#compact!` - Removes key/value pairs with `nil` values while modifying itself.
+  - `#deep_merge` - Merges deeply nested hashes together without modifying itself.
+  - `#deep_merge!` - Merges deeply nested hashes together while modifying itself.
   - `#reverse_merge` - Merges calling hash into passed in hash without modifying calling hash.
-  - `#reverse_merge!` - Merges calling hash into passed in hash and modifies calling hash.
-- Adds String refinements:
+  - `#reverse_merge!` - Merges calling hash into passed in hash while modifying calling hash.
+- Provides String refinements:
+  - `#blank?` - Answers `true`/`false` based on whether string is blank
+    or not (i.e. `<space>`, `\n`, `\t`, `\r`).
+  - `#up` - Answers string with only first letter upcased.
+  - `#down` - Answers string with only first letter downcased.
   - `#camelcase` - Answers a camelcased string. Example: "ThisIsCamelcase".
   - `#snakecase` - Answers a snakecased string. Example: "this_is_snakecase".
   - `#titleize` - Answers titleized string. Example: "This Is Titleized".
@@ -65,8 +69,9 @@ For a secure install, type the following from the command line (recommended):
     gem cert --add <(curl --location --silent https://www.alchemists.io/gem-public.pem)
     gem install refinements --trust-policy MediumSecurity
 
-NOTE: A HighSecurity trust policy would be best but MediumSecurity enables signed gem verification while
-allowing the installation of unsigned dependencies since they are beyond the scope of this gem.
+NOTE: A HighSecurity trust policy would be best but MediumSecurity enables signed gem verification
+while allowing the installation of unsigned dependencies since they are beyond the scope of this
+gem.
 
 For an insecure install, type the following (not recommended):
 
@@ -80,38 +85,41 @@ Add the following to your Gemfile file:
 
 ## Requires
 
-Due to this gem being a collection of Ruby refinements, none of the refinements are auto-loaded by default in order to
-reduce code bloat for your app. Instead, require the specific requirement for the code that needs it. You'll want to
-require one or all of the following:
+Due to this gem being a collection of Ruby refinements, none of the refinements are auto-loaded by
+default in order to reduce application bloat. Instead, require the specific requirement for the code
+that needs it. You'll want to require one or all of the following:
 
-    require "refinements/string_extensions"
-    require "refinements/big_decimal_extensions"
-    require "refinements/array_extensions"
-    require "refinements/hash_extensions"
+    require "refinements/arrays"
+    require "refinements/big_decimals"
+    require "refinements/hashes"
+    require "refinements/strings"
 
 ## Using
 
-In addition to requiring the appropriate refinement file for the code that needs it, you'll also need to use the
-refinement by using the `using` keyword within your object. You'll want to use one or all of the following:
+In addition to requiring the appropriate refinement for the code that needs it, you'll also need to
+use the refinement by using the `using` keyword within your object. You'll want to use one or all of
+the following:
 
     class Example
-      using Refinements::StringExtensions
-      using Refinements::BigDecimalExtensions
-      using Refinements::ArrayExtensions
-      using Refinements::HashExtensions
+      using Refinements::Arrays
+      using Refinements::BigDecimals
+      using Refinements::Hashes
+      using Refinements::Strings
     end
 
 ## Examples
 
-With the appropriate refinements required and used within your objects, the following sections demonstrates how each
-refinement enriches your objects with new capabilities.
+With the appropriate refinements required and used within your objects, the following sections
+demonstrate how each refinement enriches your objects with new capabilities.
 
 ### String
 
-    example = "This is-an EXAMPLE"
-    example.camelcase # => "ThisIsAnExample"
-    example.snakecase # => "this_is_an_example"
-    example.titleize # => "This Is An Example"
+    " \n\t\r".blank? # => true
+    "example".up # => "Example"
+    "EXAMPLE".down # => "eXAMPLE"
+    "this_is_an_example".camelcase # => "ThisIsAnExample"
+    "ThisIsAnExample".snakecase # => "this_is_an_example"
+    "ThisIsAnExample".titleize # => "This Is An Example"
 
 ### Big Decimal
 
@@ -129,6 +137,14 @@ refinement enriches your objects with new capabilities.
     example # => ["An", "Example"]
 
 ### Hash
+
+    example = {a: 1, b: nil}
+    example.compact # => {a: 1}
+    example # => {a: 1, b: nil}
+
+    example = {a: 1, b: nil}
+    example.compact! # => {a: 1}
+    example # => {a: 1}
 
     example = {a: "A", b: {one: "One", two: "Two"}}
     example.deep_merge b: {one: 1} # => {a: "A", b: {one: 1, two: "Two"}}
@@ -162,8 +178,8 @@ Read [Semantic Versioning](http://semver.org) for details. Briefly, it means:
 
 # Code of Conduct
 
-Please note that this project is released with a [CODE OF CONDUCT](CODE_OF_CONDUCT.md). By participating in this project
-you agree to abide by its terms.
+Please note that this project is released with a [CODE OF CONDUCT](CODE_OF_CONDUCT.md). By
+participating in this project you agree to abide by its terms.
 
 # Contributions
 
@@ -181,4 +197,5 @@ Built with [Gemsmith](https://github.com/bkuhlmann/gemsmith).
 
 # Credits
 
-Developed by [Brooke Kuhlmann](https://www.alchemists.io) at [Alchemists](https://www.alchemists.io).
+Developed by [Brooke Kuhlmann](https://www.alchemists.io) at
+[Alchemists](https://www.alchemists.io).

@@ -1,3 +1,28 @@
+# v3.0.0 (2016-11-01)
+
+- Fixed #camelcase, #snakecase, and #titleize delimiter string transforms.
+- Fixed Rakefile to safely load Gemsmith tasks.
+- Added Hash#compact and Hash#compact! deprecation warnings.
+- Added `String#blank?` refinement.
+- Added `String#down` refinement.
+- Added first letter string capitalization support.
+- Added frozen string literal pragma.
+- Updated README to mention "Ruby" instead of "MRI".
+- Updated README versioning documentation.
+- Updated RSpec temp directory to use Bundler root path.
+- Updated gemspec with conservative versions.
+- Updated to Gemsmith 7.7.0.
+- Updated to RSpec 3.5.0.
+- Updated to Rubocop 0.44.
+- Removed "Extensions" suffix from all refinements.
+- Removed CHANGELOG.md (use CHANGES.md instead).
+- Removed Rake console task.
+- Removed gemspec description.
+- Removed rb-fsevent development dependency from gemspec.
+- Removed terminal notifier gems from gemspec.
+- Refactored RSpec spec helper configuration.
+- Refactored gemspec to use default security keys.
+
 # v2.2.1 (2016-05-14)
 
 - Fixed camelcase issue where downcased string wasn't capitalized.
