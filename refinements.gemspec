@@ -30,7 +30,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "awesome_print", "~> 1.7"
   spec.add_development_dependency "rspec", "~> 3.5"
   spec.add_development_dependency "guard-rspec", "~> 4.7"
-  spec.add_development_dependency "rubocop", "~> 0.44"
+  spec.add_development_dependency "rubocop", "~> 0.45"
   spec.add_development_dependency "codeclimate-test-reporter", "~> 0.6"
 
   spec.files = Dir["lib/**/*"]
