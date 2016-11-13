@@ -63,6 +63,32 @@ RSpec.describe Refinements::Hashes do
     end
   end
 
+  describe "#symbolize_keys" do
+    subject { {"a" => 1, "b" => 2, c: 3} }
+
+    it "answers keys as symbols" do
+      expect(subject.symbolize_keys.keys).to contain_exactly(:a, :b, :c)
+    end
+
+    it "does not modify original hash" do
+      subject.symbolize_keys
+      expect(subject).to eq("a" => 1, "b" => 2, c: 3)
+    end
+  end
+
+  describe "#symbolize_keys!" do
+    subject { {"a" => 1, "b" => 2, c: 3} }
+
+    it "answers keys as symbols" do
+      expect(subject.symbolize_keys!.keys).to contain_exactly(:a, :b, :c)
+    end
+
+    it "modifies original hash" do
+      subject.symbolize_keys!
+      expect(subject).to eq(a: 1, b: 2, c: 3)
+    end
+  end
+
   describe "#deep_merge" do
     it "merges nested hash" do
       proof = subject.merge tags: {emoji: {faces: "test"}, positive: "red", negative: "black", neutral: "grey"}

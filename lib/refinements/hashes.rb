@@ -17,6 +17,15 @@ module Refinements
         reject! { |_, value| value.nil? }
       end
 
+      def symbolize_keys
+        dup.symbolize_keys!
+      end
+
+      def symbolize_keys!
+        keys.each { |key| self[key.to_sym] = delete(key) }
+        self
+      end
+
       def deep_merge other_hash
         dup.deep_merge! other_hash
       end
