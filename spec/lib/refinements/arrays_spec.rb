@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "spec_helper"
-require "refinements/arrays"
 
 RSpec.describe Refinements::Arrays do
   using Refinements::Arrays

@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "spec_helper"
-require "refinements/big_decimals"
 
 RSpec.describe Refinements::BigDecimals do
   using Refinements::BigDecimals

@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "spec_helper"
-require "refinements/hashes"
 
 RSpec.describe Refinements::Hashes do
   using Refinements::Hashes

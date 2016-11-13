@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "spec_helper"
-require "refinements/strings"
 
 RSpec.describe Refinements::Strings do
   using Refinements::Strings
