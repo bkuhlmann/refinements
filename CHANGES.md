@@ -1,3 +1,13 @@
+# v3.1.0 (2016-11-13)
+
+- Added Code Climate engine support.
+- Added Reek support.
+- Added `Hash#slice` and `Hash#slice!` support.
+- Added `Hash#symbolize_keys` and `Hash#symbolize_keys!` support.
+- Updated to Code Climate Test Reporter 1.0.0.
+- Updated to Gemsmith 8.0.0.
+- Refactored source requirements.
+
 # v3.0.0 (2016-11-01)
 
 - Fixed #camelcase, #snakecase, and #titleize delimiter string transforms.

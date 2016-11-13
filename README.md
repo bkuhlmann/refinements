@@ -44,13 +44,17 @@ Provides a collection of refinements to core Ruby objects.
 - Provides Hash refinements:
   - `#compact` - Removes key/value pairs with `nil` values without modifying itself.
   - `#compact!` - Removes key/value pairs with `nil` values while modifying itself.
+  - `#symbolize_keys` - Converts keys to symbols without modifying itself.
+  - `#symbolize_keys!` - Converts keys to symbols while modifying itself.
+  - `#slice` - Selects hash subset for given keys without modifying itself.
+  - `#slice!` - Selects hash subset for given keys while modifying itself.
   - `#deep_merge` - Merges deeply nested hashes together without modifying itself.
   - `#deep_merge!` - Merges deeply nested hashes together while modifying itself.
   - `#reverse_merge` - Merges calling hash into passed in hash without modifying calling hash.
   - `#reverse_merge!` - Merges calling hash into passed in hash while modifying calling hash.
 - Provides String refinements:
-  - `#blank?` - Answers `true`/`false` based on whether string is blank
-    or not (i.e. `<space>`, `\n`, `\t`, `\r`).
+  - `#blank?` - Answers `true`/`false` based on whether string is blank or not (i.e. `<space>`,
+    `\n`, `\t`, `\r`).
   - `#up` - Answers string with only first letter upcased.
   - `#down` - Answers string with only first letter downcased.
   - `#camelcase` - Answers a camelcased string. Example: "ThisIsCamelcase".
@@ -85,9 +89,11 @@ Add the following to your Gemfile file:
 
 ## Requires
 
-Due to this gem being a collection of Ruby refinements, none of the refinements are auto-loaded by
-default in order to reduce application bloat. Instead, require the specific requirement for the code
-that needs it. You'll want to require one or all of the following:
+If all refinements are not desired, add the following to your `Gemfile` instead:
+
+    gem "refinements", require: false
+
+...then require the specific refinement, as needed. Example:
 
     require "refinements/arrays"
     require "refinements/big_decimals"
@@ -96,9 +102,7 @@ that needs it. You'll want to require one or all of the following:
 
 ## Using
 
-In addition to requiring the appropriate refinement for the code that needs it, you'll also need to
-use the refinement by using the `using` keyword within your object. You'll want to use one or all of
-the following:
+Much like including/extending a module, you'll need modify your object(s) to use the refinement(s):
 
     class Example
       using Refinements::Arrays
@@ -109,8 +113,7 @@ the following:
 
 ## Examples
 
-With the appropriate refinements required and used within your objects, the following sections
-demonstrate how each refinement enriches your objects with new capabilities.
+The following sections demonstrate how each refinement enriches your objects with new capabilities.
 
 ### String
 
@@ -145,6 +148,22 @@ demonstrate how each refinement enriches your objects with new capabilities.
     example = {a: 1, b: nil}
     example.compact! # => {a: 1}
     example # => {a: 1}
+
+    example = {"a" => 1, "b" => 2}
+    example.symbolize_key # => {a: 1, b: 2}
+    example # => {"a" => 1, "b" => 2}
+
+    example = {"a" => 1, "b" => 2}
+    example.symbolize_key! # => {a: 1, b: 2}
+    example # => {a: 1, b: 2}
+
+    example = {a: 1, b: 2, c: 3}
+    example.slice :a, :c # => {a: 1, c: 3}
+    example # => {a: 1, b: 2, c: 3}
+
+    example = {a: 1, b: 2, c: 3}
+    example.slice! :a, :c # => {a: 1, c: 3}
+    example # => {a: 1, c: 3}
 
     example = {a: "A", b: {one: "One", two: "Two"}}
     example.deep_merge b: {one: 1} # => {a: "A", b: {one: 1, two: "Two"}}
