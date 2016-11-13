@@ -26,6 +26,16 @@ module Refinements
         self
       end
 
+      def slice *keys
+        keys.each.with_object({}) do |key, sliced_hash|
+          sliced_hash[key] = self[key] if key?(key)
+        end
+      end
+
+      def slice! *keys
+        replace slice(*keys)
+      end
+
       def deep_merge other_hash
         dup.deep_merge! other_hash
       end
