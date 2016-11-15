@@ -150,11 +150,11 @@ The following sections demonstrate how each refinement enriches your objects wit
     example # => {a: 1}
 
     example = {"a" => 1, "b" => 2}
-    example.symbolize_key # => {a: 1, b: 2}
+    example.symbolize_keys # => {a: 1, b: 2}
     example # => {"a" => 1, "b" => 2}
 
     example = {"a" => 1, "b" => 2}
-    example.symbolize_key! # => {a: 1, b: 2}
+    example.symbolize_keys! # => {a: 1, b: 2}
     example # => {a: 1, b: 2}
 
     example = {a: 1, b: 2, c: 3}
