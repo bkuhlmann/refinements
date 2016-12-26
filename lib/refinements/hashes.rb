@@ -30,23 +30,30 @@ module Refinements
         replace slice(*keys)
       end
 
-      def deep_merge other_hash
-        dup.deep_merge! other_hash
+      def deep_merge other
+        dup.deep_merge! other
       end
 
-      def deep_merge! other_hash
-        other_hash.each.with_object self do |(other_key, other_value), original_hash|
-          current_value = original_hash[other_key]
-          original_hash[other_key] = deep_merge_value current_value, other_value
+      def deep_merge! other
+        other.each do |(other_key, other_value)|
+          current_value = self[other_key]
+
+          self[other_key] = if current_value.is_a?(Hash) && other_value.is_a?(Hash)
+                              current_value.deep_merge! other_value
+                            else
+                              other_value
+                            end
         end
+
+        self
       end
 
-      def reverse_merge other_hash
-        other_hash.merge self
+      def reverse_merge other
+        other.merge self
       end
 
-      def reverse_merge! other_hash
-        merge!(other_hash) { |_, left_value, _| left_value }
+      def reverse_merge! other
+        merge!(other) { |_key, old_value, _new_value| old_value }
       end
 
       def use &block
@@ -54,14 +61,6 @@ module Refinements
 
         values = block.parameters.map { |(_type, key)| self[key] }
         yield values
-      end
-
-      private
-
-      # :reek:UtilityFunction
-      def deep_merge_value current_value, other_value
-        return current_value.deep_merge(other_value) if current_value.is_a?(Hash) && other_value.is_a?(Hash)
-        other_value
       end
     end
   end

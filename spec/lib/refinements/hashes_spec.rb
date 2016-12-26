@@ -5,27 +5,6 @@ require "spec_helper"
 RSpec.describe Refinements::Hashes do
   using Refinements::Hashes
 
-  subject do
-    {
-      label: "Kaleidoscope",
-      categories: {
-        colors: %w[red black white cyan],
-        styles: %w[solid dotted]
-      },
-      tags: {
-        emoji: {
-          faces: {
-            happy: %w[happy estatic],
-            confused: %w[pensive sweating],
-            sad: "frown"
-          }
-        },
-        positive: "red",
-        negative: "black"
-      }
-    }
-  end
-
   describe "#except" do
     subject { {a: 1, b: 2, c: 3} }
 
@@ -105,31 +84,128 @@ RSpec.describe Refinements::Hashes do
   end
 
   describe "#deep_merge" do
-    it "merges nested hash" do
-      proof = subject.merge tags: {emoji: {faces: "test"}, positive: "red", negative: "black", neutral: "grey"}
-      result = subject.deep_merge tags: {emoji: {faces: "test"}, neutral: "grey"}
+    subject do
+      {
+        label: "Example",
+        nested: {
+          one: {
+            two: {
+              three: {
+                value: "bottom"
+              }
+            }
+          }
+        }
+      }
+    end
+
+    it "merges existing values" do
+      proof = {
+        label: "Test",
+        nested: {
+          one: {
+            two: {
+              three: {
+                value: "pit"
+              }
+            }
+          }
+        }
+      }
+
+      result = subject.deep_merge label: "Test",
+                                  nested: {
+                                    one: {
+                                      two: {
+                                        three: {
+                                          value: "pit"
+                                        }
+                                      }
+                                    }
+                                  }
+
+      expect(result).to eq(proof)
+    end
+
+    it "merges new values" do
+      proof = {
+        label: "Example",
+        basic: {
+          a: 1,
+          b: 2
+        },
+        nested: {
+          one: {
+            two: {
+              three: {
+                value: "bottom"
+              }
+            }
+          }
+        }
+      }
+
+      result = subject.deep_merge basic: {a: 1, b: 2}
 
       expect(result).to eq(proof)
     end
 
     it "does not modify itself" do
       proof = subject.dup
-      subject.deep_merge categories: {colors: %w[yellow brown]}
+      subject.deep_merge label: "Test"
 
       expect(subject).to eq(proof)
     end
   end
 
   describe "#deep_merge!" do
+    subject do
+      {
+        label: "Example",
+        items: {
+          a: 1,
+          b: 2
+        }
+      }
+    end
+
     it "modifies itself" do
-      proof = subject.merge tags: {emoji: {faces: "test"}, positive: "red", negative: "black"}
-      subject.deep_merge! tags: {emoji: {faces: "test"}}
+      proof = {
+        label: "Test",
+        items: {
+          a: 1,
+          b: 10
+        }
+      }
+
+      subject.deep_merge! label: "Test", items: {b: 10}
 
       expect(subject).to eq(proof)
     end
   end
 
   describe "#reverse_merge" do
+    subject do
+      {
+        label: "Kaleidoscope",
+        categories: {
+          colors: %w[red black white cyan],
+          styles: %w[solid dotted]
+        },
+        tags: {
+          emoji: {
+            faces: {
+              happy: %w[happy estatic],
+              confused: %w[pensive sweating],
+              sad: "frown"
+            }
+          },
+          positive: "red",
+          negative: "black"
+        }
+      }
+    end
+
     it "answers itself when keys match" do
       result = subject.reverse_merge label: "empty", categories: "empty", tags: "empty"
       expect(result).to eq(subject)
@@ -151,9 +227,11 @@ RSpec.describe Refinements::Hashes do
   end
 
   describe "#reverse_merge!" do
+    subject { {a: 1, b: 2} }
+
     it "modifies itself" do
-      proof = subject.dup.merge test: "example"
-      subject.reverse_merge! test: "example"
+      proof = {a: 1, b: 2, c: 3}
+      subject.reverse_merge! c: 3
 
       expect(subject).to eq(proof)
     end
