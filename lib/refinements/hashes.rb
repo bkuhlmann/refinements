@@ -58,6 +58,7 @@ module Refinements
 
       private
 
+      # :reek:UtilityFunction
       def deep_merge_value current_value, other_value
         return current_value.deep_merge(other_value) if current_value.is_a?(Hash) && other_value.is_a?(Hash)
         other_value

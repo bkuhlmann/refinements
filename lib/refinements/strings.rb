@@ -78,6 +78,8 @@ module Refinements
 
       private
 
+      # :reek:DuplicateMethodCall
+      # :reek:UtilityFunction
       def join_parts parts, method:, delimiter: ""
         parts.reduce "" do |result, part|
           next part.send(method) if result.empty?

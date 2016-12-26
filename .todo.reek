@@ -1,8 +1,0 @@
----
-UtilityFunction:
-  exclude:
-  - Refinements::Hashes#deep_merge_value
-  - Refinements::Strings#join_parts
-DuplicateMethodCall:
-  exclude:
-  - Refinements::Strings#join_parts
