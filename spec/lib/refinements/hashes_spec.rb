@@ -26,6 +26,32 @@ RSpec.describe Refinements::Hashes do
     }
   end
 
+  describe "#except" do
+    subject { {a: 1, b: 2, c: 3} }
+
+    it "answers subset of original hash" do
+      expect(subject.except(:a, :b)).to eq(c: 3)
+    end
+
+    it "does not modify original hash" do
+      subject.except :a, :b
+      expect(subject).to eq(a: 1, b: 2, c: 3)
+    end
+  end
+
+  describe "#except!" do
+    subject { {a: 1, b: 2, c: 3} }
+
+    it "answers subset of original hash" do
+      expect(subject.except!(:a, :b)).to eq(c: 3)
+    end
+
+    it "does not modify original hash" do
+      subject.except! :a, :b
+      expect(subject).to eq(c: 3)
+    end
+  end
+
   describe "#symbolize_keys" do
     subject { {"a" => 1, "b" => 2, c: 3} }
 

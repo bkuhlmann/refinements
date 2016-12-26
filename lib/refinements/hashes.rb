@@ -5,6 +5,14 @@ module Refinements
   module Hashes
     # rubocop:disable Metrics/BlockLength
     refine Hash do
+      def except *keys
+        reject { |key, _value| keys.include? key }
+      end
+
+      def except! *keys
+        replace except(*keys)
+      end
+
       def symbolize_keys
         dup.symbolize_keys!
       end
