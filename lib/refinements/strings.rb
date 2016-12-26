@@ -11,6 +11,17 @@ module Refinements
 
     # rubocop:disable Metrics/BlockLength
     refine String do
+      def first number = 0
+        return self if empty?
+
+        max = Integer number
+
+        return self[0] if max.zero?
+        return "" if max.negative?
+
+        self[0..(max - 1)]
+      end
+
       def blank?
         match?(/\A\s*\z/)
       end

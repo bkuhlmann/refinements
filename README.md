@@ -117,6 +117,8 @@ The following sections demonstrate how each refinement enriches your objects wit
 
 ### String
 
+    "example".first # => "e"
+    "example".first 4 # => "exam"
     " \n\t\r".blank? # => true
     "example".up # => "Example"
     "EXAMPLE".down # => "eXAMPLE"
