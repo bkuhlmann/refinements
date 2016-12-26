@@ -12,7 +12,7 @@ module Refinements
     # rubocop:disable Metrics/BlockLength
     refine String do
       def blank?
-        !match(/\A\s*\z/).nil?
+        match?(/\A\s*\z/)
       end
 
       def up

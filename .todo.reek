@@ -2,7 +2,6 @@
 NilCheck:
   exclude:
   - Refinements::Hashes#compact!
-  - Refinements::Strings#blank?
 UtilityFunction:
   exclude:
   - Refinements::Hashes#deep_merge_value
