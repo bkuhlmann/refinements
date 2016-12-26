@@ -42,8 +42,6 @@ Provides a collection of refinements to core Ruby objects.
 - Provides BigDecimal refinements:
   - `BigDecimal#inspect` - Allows one to inspect a big decimal with numeric representation.
 - Provides Hash refinements:
-  - `#compact` - Removes key/value pairs with `nil` values without modifying itself.
-  - `#compact!` - Removes key/value pairs with `nil` values while modifying itself.
   - `#symbolize_keys` - Converts keys to symbols without modifying itself.
   - `#symbolize_keys!` - Converts keys to symbols while modifying itself.
   - `#slice` - Selects hash subset for given keys without modifying itself.
@@ -146,14 +144,6 @@ The following sections demonstrate how each refinement enriches your objects wit
     example # => ["An", "Example"]
 
 ### Hash
-
-    example = {a: 1, b: nil}
-    example.compact # => {a: 1}
-    example # => {a: 1, b: nil}
-
-    example = {a: 1, b: nil}
-    example.compact! # => {a: 1}
-    example # => {a: 1}
 
     example = {"a" => 1, "b" => 2}
     example.symbolize_keys # => {a: 1, b: 2}

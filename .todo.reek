@@ -1,7 +1,4 @@
 ---
-NilCheck:
-  exclude:
-  - Refinements::Hashes#compact!
 UtilityFunction:
   exclude:
   - Refinements::Hashes#deep_merge_value

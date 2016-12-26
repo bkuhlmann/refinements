@@ -26,42 +26,6 @@ RSpec.describe Refinements::Hashes do
     }
   end
 
-  describe "#compact" do
-    subject { {a: 1, b: nil} }
-
-    it "answers hash with key/value pairs removed which had nil values" do
-      expect(subject.compact).to eq(a: 1)
-    end
-
-    it "does not modify original hash" do
-      subject.compact
-      expect(subject).to eq(a: 1, b: nil)
-    end
-
-    it "prints deprecation warning" do
-      result = -> { subject.compact }
-      expect(&result).to output(/#compact is deprecated/).to_stdout
-    end
-  end
-
-  describe "#compact!" do
-    subject { {a: 1, b: nil} }
-
-    it "answers hash with key/value pairs removed which had nil values" do
-      expect(subject.compact!).to eq(a: 1)
-    end
-
-    it "modifies original hash" do
-      subject.compact!
-      expect(subject).to eq(a: 1)
-    end
-
-    it "prints deprecation warning" do
-      result = -> { subject.compact! }
-      expect(&result).to output(/#compact! is deprecated/).to_stdout
-    end
-  end
-
   describe "#symbolize_keys" do
     subject { {"a" => 1, "b" => 2, c: 3} }
 
