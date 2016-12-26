@@ -132,4 +132,17 @@ RSpec.describe Refinements::Hashes do
       expect(subject).to eq(proof)
     end
   end
+
+  describe "#use" do
+    subject { {width: 10, height: 5, depth: 22} }
+
+    it "answers result of selected values" do
+      area = subject.use { |width, height| width * height }
+      expect(area).to eq(50)
+    end
+
+    it "answers empty array when no block is given" do
+      expect(subject.use).to eq([])
+    end
+  end
 end

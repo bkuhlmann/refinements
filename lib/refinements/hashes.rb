@@ -43,6 +43,13 @@ module Refinements
         merge!(other_hash) { |_, left_value, _| left_value }
       end
 
+      def use &block
+        return [] unless block_given?
+
+        values = block.parameters.map { |(_type, key)| self[key] }
+        yield values
+      end
+
       private
 
       def deep_merge_value current_value, other_value

@@ -177,6 +177,9 @@ The following sections demonstrate how each refinement enriches your objects wit
     example.reverse_merge! a: 0, c: 3 # => {a: 1, b: 2, c: 3}
     example # => {a: 1, b: 2, c: 3}
 
+    example = {unit: "221B", street: "Baker Street", city: "London", country: "UK"}
+    example.use { |unit, street| "#{unit} #{street}" } # => "221B Baker Street"
+
 # Tests
 
 To test, run:
