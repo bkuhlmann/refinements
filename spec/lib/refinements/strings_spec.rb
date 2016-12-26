@@ -30,6 +30,31 @@ RSpec.describe Refinements::Strings do
     end
   end
 
+  describe "#last" do
+    subject { "weather" }
+
+    it "answers last letter" do
+      expect(subject.last).to eq("r")
+    end
+
+    it "answers last letters with positive number" do
+      expect(subject.last(3)).to eq("her")
+    end
+
+    it "answers empty string with negative number" do
+      expect(subject.last(-1)).to eq("")
+    end
+
+    it "answers itself when empty" do
+      expect("".last).to eq("")
+    end
+
+    it "fails with type error when unable to cast number to integer" do
+      result = -> { subject.last :bogus }
+      expect(&result).to raise_error(TypeError, "can't convert Symbol into Integer")
+    end
+  end
+
   describe "#blank?" do
     it "answers true when empty" do
       expect("".blank?).to eq(true)

@@ -22,6 +22,19 @@ module Refinements
         self[0..(max - 1)]
       end
 
+      # :reek:TooManyStatements
+      def last number = 0
+        return self if empty?
+
+        min = Integer number
+        max = size - 1
+
+        return self[max] if min.zero?
+        return "" if min.negative?
+
+        self[(min + 1)..max]
+      end
+
       def blank?
         match?(/\A\s*\z/)
       end
