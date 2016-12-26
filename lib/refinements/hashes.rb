@@ -23,9 +23,7 @@ module Refinements
       end
 
       def slice *keys
-        keys.each.with_object({}) do |key, sliced_hash|
-          sliced_hash[key] = self[key] if key?(key)
-        end
+        select { |key, _value| keys.include? key }
       end
 
       def slice! *keys
