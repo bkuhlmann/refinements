@@ -41,12 +41,12 @@ module Refinements
 
       def up
         return self if empty?
-        self[0].upcase + self[1, size]
+        first.upcase + self[1, size]
       end
 
       def down
         return self if empty?
-        self[0].downcase + self[1, size]
+        first.downcase + self[1, size]
       end
 
       def camelcase
