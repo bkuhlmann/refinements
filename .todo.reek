@@ -5,9 +5,7 @@ NilCheck:
 UtilityFunction:
   exclude:
   - Refinements::Hashes#deep_merge_value
-  - Refinements::Strings#down_and_join
-  - Refinements::Strings#up_and_join
+  - Refinements::Strings#join_parts
 DuplicateMethodCall:
   exclude:
-  - Refinements::Strings#down_and_join
-  - Refinements::Strings#up_and_join
+  - Refinements::Strings#join_parts

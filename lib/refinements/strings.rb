@@ -27,8 +27,8 @@ module Refinements
 
       def camelcase
         if self =~ self.class.delimiters
-          result = up_and_join split(%r(\s*\-\s*|\s*\/\s*|\s*\:+\s*)), delimiter: "::"
-          up_and_join result.split(/\s*\_\s*|\s+/)
+          result = join_parts split(%r(\s*\-\s*|\s*\/\s*|\s*\:+\s*)), method: :up, delimiter: "::"
+          join_parts result.split(/\s*\_\s*|\s+/), method: :up
         else
           up
         end
@@ -36,8 +36,8 @@ module Refinements
 
       def snakecase
         if self =~ self.class.delimiters
-          result = down_and_join split(%r(\s*\-\s*|\s*\/\s*|\s*\:+\s*)), delimiter: "/"
-          down_and_join result.split(/(?=[A-Z])|\s*\_\s*|\s+/), delimiter: "_"
+          result = join_parts split(%r(\s*\-\s*|\s*\/\s*|\s*\:+\s*)), method: :down, delimiter: "/"
+          join_parts result.split(/(?=[A-Z])|\s*\_\s*|\s+/), method: :down, delimiter: "_"
         else
           downcase
         end
@@ -45,8 +45,8 @@ module Refinements
 
       def titleize
         if self =~ self.class.delimiters
-          result = up_and_join split(/(?=[A-Z])|\s*\_\s*|\s*\-\s*|\s+/), delimiter: " "
-          up_and_join result.split(%r(\s*\/\s*|\s*\:+\s*)), delimiter: "/"
+          result = join_parts split(/(?=[A-Z])|\s*\_\s*|\s*\-\s*|\s+/), method: :up, delimiter: " "
+          join_parts result.split(%r(\s*\/\s*|\s*\:+\s*)), method: :up, delimiter: "/"
         else
           capitalize
         end
@@ -54,17 +54,10 @@ module Refinements
 
       private
 
-      def up_and_join parts, delimiter: ""
+      def join_parts parts, method:, delimiter: ""
         parts.reduce "" do |result, part|
-          next part.up if result.empty?
-          "#{result}#{delimiter}#{part.up}"
-        end
-      end
-
-      def down_and_join parts, delimiter: ""
-        parts.reduce "" do |result, part|
-          next part.down if result.empty?
-          "#{result}#{delimiter}#{part.down}"
+          next part.send(method) if result.empty?
+          "#{result}#{delimiter}#{part.send method}"
         end
       end
     end
