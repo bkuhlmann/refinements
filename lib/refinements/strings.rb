@@ -50,7 +50,7 @@ module Refinements
       end
 
       def camelcase
-        if self =~ self.class.delimiters
+        if match?(self.class.delimiters)
           result = join_parts split(%r(\s*\-\s*|\s*\/\s*|\s*\:+\s*)), method: :up, delimiter: "::"
           join_parts result.split(/\s*\_\s*|\s+/), method: :up
         else
@@ -59,7 +59,7 @@ module Refinements
       end
 
       def snakecase
-        if self =~ self.class.delimiters
+        if match?(self.class.delimiters)
           result = join_parts split(%r(\s*\-\s*|\s*\/\s*|\s*\:+\s*)), method: :down, delimiter: "/"
           join_parts result.split(/(?=[A-Z])|\s*\_\s*|\s+/), method: :down, delimiter: "_"
         else
@@ -68,7 +68,7 @@ module Refinements
       end
 
       def titleize
-        if self =~ self.class.delimiters
+        if match?(self.class.delimiters)
           result = join_parts split(/(?=[A-Z])|\s*\_\s*|\s*\-\s*|\s+/), method: :up, delimiter: " "
           join_parts result.split(%r(\s*\/\s*|\s*\:+\s*)), method: :up, delimiter: "/"
         else
