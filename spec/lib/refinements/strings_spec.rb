@@ -2,6 +2,7 @@
 
 require "spec_helper"
 
+# rubocop:disable Metrics/LineLength
 RSpec.describe Refinements::Strings do
   using Refinements::Strings
 
