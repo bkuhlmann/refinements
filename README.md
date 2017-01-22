@@ -42,6 +42,8 @@ Provides a collection of refinements to core Ruby objects.
 - Provides BigDecimal refinements:
   - `BigDecimal#inspect` - Allows one to inspect a big decimal with numeric representation.
 - Provides Hash refinements:
+  - `except` - Answers new hash with given with given keys removed without modifying calling hash.
+  - `except!` - Answers new hash with given with given keys removed while modifying calling hash.
   - `#symbolize_keys` - Converts keys to symbols without modifying itself.
   - `#symbolize_keys!` - Converts keys to symbols while modifying itself.
   - `#slice` - Selects hash subset for given keys without modifying itself.
@@ -51,6 +53,8 @@ Provides a collection of refinements to core Ruby objects.
   - `#reverse_merge` - Merges calling hash into passed in hash without modifying calling hash.
   - `#reverse_merge!` - Merges calling hash into passed in hash while modifying calling hash.
 - Provides String refinements:
+  - `#first` - Answers first character of a string or first set of characters if given a number.
+  - `#last` - Answers last character of a string or last set of characters if given a number.
   - `#blank?` - Answers `true`/`false` based on whether string is blank or not (i.e. `<space>`,
     `\n`, `\t`, `\r`).
   - `#up` - Answers string with only first letter upcased.
@@ -58,10 +62,12 @@ Provides a collection of refinements to core Ruby objects.
   - `#camelcase` - Answers a camelcased string. Example: "ThisIsCamelcase".
   - `#snakecase` - Answers a snakecased string. Example: "this_is_snakecase".
   - `#titleize` - Answers titleized string. Example: "This Is Titleized".
+  - `#use` - Provides hash value computation, via a block, by using
+    only the keys as arguments to the block.
 
 # Requirements
 
-0. [Ruby 2.3.x](https://www.ruby-lang.org).
+0. [Ruby 2.4.x](https://www.ruby-lang.org).
 0. A solid understanding of [Ruby refinements and lexical scope](https://www.youtube.com/watch?v=qXC9Gk4dCEw).
 
 # Setup
