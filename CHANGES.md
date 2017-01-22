@@ -1,3 +1,24 @@
+# v4.0.0 (2017-01-22)
+
+- Added `Hash#except` and `Hash#except!` refinements.
+- Added `Hash#use` refinement.
+- Added `String#first` refinement.
+- Added `String#last` refinement.
+- Updated Rubocop Metrics/LineLength to 100 characters.
+- Updated Rubocop Metrics/ParameterLists max to three.
+- Updated Travis CI configuration to use latest RubyGems version.
+- Updated gemspec to require Ruby 2.4.x.
+- Updated to Rubocop 0.47.
+- Updated to Ruby 2.4.0.
+- Removed Rubocop Style/Documentation check.
+- Removed deprecated `Hash#compact` and `Hash#compact!` methods.
+- Refactored Reek issues.
+- Refactored String refinements to use `#match?`.
+- Refactored String refinements to use `#send`.
+- Refactored `Hash#slice` implementation.
+- Refactored `String#up` and `String#down` to use `String#first`.
+- Refactored hash implementation and specs.
+
 # v3.2.0 (2016-12-18)
 
 - Fixed README `#symbolize_keys` typo.

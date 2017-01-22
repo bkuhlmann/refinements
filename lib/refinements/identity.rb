@@ -12,7 +12,7 @@ module Refinements
     end
 
     def self.version
-      "3.2.0"
+      "4.0.0"
     end
 
     def self.version_label

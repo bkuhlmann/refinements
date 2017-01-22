@@ -145,6 +145,14 @@ The following sections demonstrate how each refinement enriches your objects wit
 
 ### Hash
 
+    example = {a: 1, b: 2, c: 3}
+    example.except :a, :b # => {c: 3}
+    example # => {a: 1, b: 2, c: 3}
+
+    example = {a: 1, b: 2, c: 3}
+    example.except! :a, :b # => {c: 3}
+    example # => {c: 3}
+
     example = {"a" => 1, "b" => 2}
     example.symbolize_keys # => {a: 1, b: 2}
     example # => {"a" => 1, "b" => 2}
