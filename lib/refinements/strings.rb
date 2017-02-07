@@ -82,8 +82,8 @@ module Refinements
       # :reek:UtilityFunction
       def join_parts parts, method:, delimiter: ""
         parts.reduce "" do |result, part|
-          next part.send(method) if result.empty?
-          "#{result}#{delimiter}#{part.send method}"
+          next part.__send__(method) if result.empty?
+          "#{result}#{delimiter}#{part.__send__ method}"
         end
       end
     end
