@@ -4,7 +4,7 @@
 [![Code Climate GPA](https://codeclimate.com/github/bkuhlmann/refinements.svg)](https://codeclimate.com/github/bkuhlmann/refinements)
 [![Code Climate Coverage](https://codeclimate.com/github/bkuhlmann/refinements/coverage.svg)](https://codeclimate.com/github/bkuhlmann/refinements)
 [![Gemnasium Status](https://gemnasium.com/bkuhlmann/refinements.svg)](https://gemnasium.com/bkuhlmann/refinements)
-[![Travis CI Status](https://secure.travis-ci.org/bkuhlmann/refinements.svg)](https://travis-ci.org/bkuhlmann/refinements)
+[![Circle CI Status](https://circleci.com/gh/bkuhlmann/refinements.svg?style=svg)](https://circleci.com/gh/bkuhlmann/refinements)
 [![Patreon](https://img.shields.io/badge/patreon-donate-brightgreen.svg)](https://www.patreon.com/bkuhlmann)
 
 Provides a collection of refinements to core Ruby objects.
