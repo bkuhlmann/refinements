@@ -11,30 +11,30 @@ Provides a collection of refinements to core Ruby objects.
 
 <!-- Tocer[start]: Auto-generated, don't remove. -->
 
-# Table of Contents
+## Table of Contents
 
-- [Features](#features)
-- [Requirements](#requirements)
-- [Setup](#setup)
-- [Usage](#usage)
-  - [Requires](#requires)
-  - [Using](#using)
-  - [Examples](#examples)
-    - [String](#string)
-    - [Big Decimal](#big-decimal)
-    - [Array](#array)
-    - [Hash](#hash)
-- [Tests](#tests)
-- [Versioning](#versioning)
-- [Code of Conduct](#code-of-conduct)
-- [Contributions](#contributions)
-- [License](#license)
-- [History](#history)
-- [Credits](#credits)
+  - [Features](#features)
+  - [Requirements](#requirements)
+  - [Setup](#setup)
+  - [Usage](#usage)
+    - [Requires](#requires)
+    - [Using](#using)
+    - [Examples](#examples)
+      - [String](#string)
+      - [Big Decimal](#big-decimal)
+      - [Array](#array)
+      - [Hash](#hash)
+  - [Tests](#tests)
+  - [Versioning](#versioning)
+  - [Code of Conduct](#code-of-conduct)
+  - [Contributions](#contributions)
+  - [License](#license)
+  - [History](#history)
+  - [Credits](#credits)
 
 <!-- Tocer[finish]: Auto-generated, don't remove. -->
 
-# Features
+## Features
 
 - Provides Array refinements:
   - `Array#compress` - Removes `nil` and empty values without modifying itself.
@@ -65,12 +65,12 @@ Provides a collection of refinements to core Ruby objects.
   - `#use` - Provides hash value computation, via a block, by using
     only the keys as arguments to the block.
 
-# Requirements
+## Requirements
 
 0. [Ruby 2.4.x](https://www.ruby-lang.org).
 0. A solid understanding of [Ruby refinements and lexical scope](https://www.youtube.com/watch?v=qXC9Gk4dCEw).
 
-# Setup
+## Setup
 
 For a secure install, type the following from the command line (recommended):
 
@@ -89,9 +89,9 @@ Add the following to your Gemfile file:
 
     gem "refinements"
 
-# Usage
+## Usage
 
-## Requires
+### Requires
 
 If all refinements are not desired, add the following to your `Gemfile` instead:
 
@@ -104,7 +104,7 @@ If all refinements are not desired, add the following to your `Gemfile` instead:
     require "refinements/hashes"
     require "refinements/strings"
 
-## Using
+### Using
 
 Much like including/extending a module, you'll need modify your object(s) to use the refinement(s):
 
@@ -115,11 +115,11 @@ Much like including/extending a module, you'll need modify your object(s) to use
       using Refinements::Strings
     end
 
-## Examples
+### Examples
 
 The following sections demonstrate how each refinement enriches your objects with new capabilities.
 
-### String
+#### String
 
     "example".first # => "e"
     "example".first 4 # => "exam"
@@ -134,12 +134,12 @@ The following sections demonstrate how each refinement enriches your objects wit
     "ThisIsAnExample".snakecase # => "this_is_an_example"
     "ThisIsAnExample".titleize # => "This Is An Example"
 
-### Big Decimal
+#### Big Decimal
 
     big = BigDecimal.new "5.0E-10"
     big.inspect # => "#<BigDecimal:3fd3d458fe84 0.0000000005>"
 
-### Array
+#### Array
 
     example = ["An", nil, "", "Example"]
     example.compress # => ["An", "Example"]
@@ -149,7 +149,7 @@ The following sections demonstrate how each refinement enriches your objects wit
     example.compress! # => ["An", "Example"]
     example # => ["An", "Example"]
 
-### Hash
+#### Hash
 
     example = {a: 1, b: 2, c: 3}
     example.except :a, :b # => {c: 3}
@@ -194,13 +194,13 @@ The following sections demonstrate how each refinement enriches your objects wit
     example = {unit: "221B", street: "Baker Street", city: "London", country: "UK"}
     example.use { |unit, street| "#{unit} #{street}" } # => "221B Baker Street"
 
-# Tests
+## Tests
 
 To test, run:
 
     bundle exec rake
 
-# Versioning
+## Versioning
 
 Read [Semantic Versioning](http://semver.org) for details. Briefly, it means:
 
@@ -208,26 +208,26 @@ Read [Semantic Versioning](http://semver.org) for details. Briefly, it means:
 - Minor (x.Y.z) - Incremented for new, backwards compatible, public API enhancements/fixes.
 - Patch (x.y.Z) - Incremented for small, backwards compatible, bug fixes.
 
-# Code of Conduct
+## Code of Conduct
 
 Please note that this project is released with a [CODE OF CONDUCT](CODE_OF_CONDUCT.md). By
 participating in this project you agree to abide by its terms.
 
-# Contributions
+## Contributions
 
 Read [CONTRIBUTING](CONTRIBUTING.md) for details.
 
-# License
+## License
 
 Copyright (c) 2015 [Alchemists](https://www.alchemists.io).
 Read [LICENSE](LICENSE.md) for details.
 
-# History
+## History
 
 Read [CHANGES](CHANGES.md) for details.
 Built with [Gemsmith](https://github.com/bkuhlmann/gemsmith).
 
-# Credits
+## Credits
 
 Developed by [Brooke Kuhlmann](https://www.alchemists.io) at
 [Alchemists](https://www.alchemists.io).
