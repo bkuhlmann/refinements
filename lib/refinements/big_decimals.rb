@@ -7,7 +7,7 @@ module Refinements
   module BigDecimals
     refine BigDecimal do
       def inspect
-        format "#<BigDecimal:%x %s>", object_id, to_s("F")
+        format "#<BigDecimal:%{id} %{string}>", id: object_id, string: to_s("F")
       end
     end
   end

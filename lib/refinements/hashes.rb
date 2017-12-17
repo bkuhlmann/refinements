@@ -22,6 +22,7 @@ module Refinements
         keys.each { |key| self[key.to_sym] = delete key }
         self
       end
+      # rubocop:enable Performance/HashEachMethods
 
       def slice *keys
         select { |key, _value| keys.include? key }
@@ -64,5 +65,6 @@ module Refinements
         yield values
       end
     end
+    # rubocop:enable Metrics/BlockLength
   end
 end

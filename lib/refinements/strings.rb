@@ -87,5 +87,6 @@ module Refinements
         end
       end
     end
+    # rubocop:enable Metrics/BlockLength
   end
 end
