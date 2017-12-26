@@ -72,16 +72,7 @@ Provides a collection of refinements to core Ruby objects.
 
 ## Setup
 
-For a secure install, type the following from the command line (recommended):
-
-    gem cert --add <(curl --location --silent https://www.alchemists.io/gem-public.pem)
-    gem install refinements --trust-policy MediumSecurity
-
-NOTE: A HighSecurity trust policy would be best but MediumSecurity enables signed gem verification
-while allowing the installation of unsigned dependencies since they are beyond the scope of this
-gem.
-
-For an insecure install, type the following (not recommended):
+Type the following to install:
 
     gem install refinements
 
