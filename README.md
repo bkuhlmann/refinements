@@ -46,8 +46,6 @@ Provides a collection of refinements to core Ruby objects.
   - `except!` - Answers new hash with given with given keys removed while modifying calling hash.
   - `#symbolize_keys` - Converts keys to symbols without modifying itself.
   - `#symbolize_keys!` - Converts keys to symbols while modifying itself.
-  - `#slice` - Selects hash subset for given keys without modifying itself.
-  - `#slice!` - Selects hash subset for given keys while modifying itself.
   - `#deep_merge` - Merges deeply nested hashes together without modifying itself.
   - `#deep_merge!` - Merges deeply nested hashes together while modifying itself.
   - `#reverse_merge` - Merges calling hash into passed in hash without modifying calling hash.

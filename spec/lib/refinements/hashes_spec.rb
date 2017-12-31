@@ -57,32 +57,6 @@ RSpec.describe Refinements::Hashes do
     end
   end
 
-  describe "#slice" do
-    subject { {a: 1, b: 2, c: 3} }
-
-    it "answers subset of original hash" do
-      expect(subject.slice(:a, :b)).to eq(a: 1, b: 2)
-    end
-
-    it "does not modify original hash" do
-      subject.slice :a, :b
-      expect(subject).to eq(a: 1, b: 2, c: 3)
-    end
-  end
-
-  describe "#slice!" do
-    subject { {a: 1, b: 2, c: 3} }
-
-    it "answers subset of original hash" do
-      expect(subject.slice!(:a, :b)).to eq(a: 1, b: 2)
-    end
-
-    it "does not modify original hash" do
-      subject.slice! :a, :b
-      expect(subject).to eq(a: 1, b: 2)
-    end
-  end
-
   describe "#deep_merge" do
     subject do
       {

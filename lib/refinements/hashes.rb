@@ -24,14 +24,6 @@ module Refinements
       end
       # rubocop:enable Performance/HashEachMethods
 
-      def slice *keys
-        select { |key, _value| keys.include? key }
-      end
-
-      def slice! *keys
-        replace slice(*keys)
-      end
-
       def deep_merge other
         dup.deep_merge! other
       end
