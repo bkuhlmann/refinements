@@ -1,3 +1,7 @@
+# v5.0.2 (2018-01-01)
+
+- Updated to Gemsmith 11.0.0.
+
 # v5.0.1 (2018-01-01)
 
 - Fixed v5.0.0 yanked version and gem dependency issues.

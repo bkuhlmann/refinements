@@ -5,7 +5,6 @@
 [![Code Climate Test Coverage](https://api.codeclimate.com/v1/badges/98be62123a95d5ac32d2/test_coverage)](https://codeclimate.com/github/bkuhlmann/refinements/test_coverage)
 [![Gemnasium Status](https://gemnasium.com/bkuhlmann/refinements.svg)](https://gemnasium.com/bkuhlmann/refinements)
 [![Circle CI Status](https://circleci.com/gh/bkuhlmann/refinements.svg?style=svg)](https://circleci.com/gh/bkuhlmann/refinements)
-[![Patreon](https://img.shields.io/badge/patreon-donate-brightgreen.svg)](https://www.patreon.com/bkuhlmann)
 
 Provides additional enhancements (refinements) to core Ruby objects.
 
