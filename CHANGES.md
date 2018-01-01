@@ -1,3 +1,7 @@
+# v5.0.1 (2018-01-01)
+
+- Fixed v5.0.0 yanked version and gem dependency issues.
+
 # v5.0.0 (2018-01-01)
 
 - Updated Code Climate badges.
