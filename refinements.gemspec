@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.authors = ["Brooke Kuhlmann"]
   spec.email = ["brooke@alchemists.io"]
   spec.homepage = "https://github.com/bkuhlmann/refinements"
-  spec.summary = "Provides a collection of refinements to core Ruby objects."
+  spec.summary = "Provides additional enhancements (refinements) to core Ruby objects."
   spec.license = "MIT"
 
   if File.exist?(Gem.default_key_path) && File.exist?(Gem.default_cert_path)
@@ -23,8 +23,8 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "bond", "~> 0.5"
   spec.add_development_dependency "bundler-audit", "~> 0.6"
   spec.add_development_dependency "codeclimate-test-reporter", "~> 1.0"
-  spec.add_development_dependency "gemsmith", "~> 10.4"
-  spec.add_development_dependency "git-cop", "~> 1.7"
+  # spec.add_development_dependency "gemsmith", "~> 10.4"
+  # spec.add_development_dependency "git-cop", "~> 1.7"
   spec.add_development_dependency "guard-rspec", "~> 4.7"
   spec.add_development_dependency "hirb", "~> 0.7"
   spec.add_development_dependency "pry", "~> 0.10"

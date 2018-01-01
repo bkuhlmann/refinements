@@ -7,7 +7,7 @@
 [![Circle CI Status](https://circleci.com/gh/bkuhlmann/refinements.svg?style=svg)](https://circleci.com/gh/bkuhlmann/refinements)
 [![Patreon](https://img.shields.io/badge/patreon-donate-brightgreen.svg)](https://www.patreon.com/bkuhlmann)
 
-Provides a collection of refinements to core Ruby objects.
+Provides additional enhancements (refinements) to core Ruby objects.
 
 <!-- Tocer[start]: Auto-generated, don't remove. -->
 

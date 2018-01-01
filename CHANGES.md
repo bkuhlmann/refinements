@@ -1,3 +1,16 @@
+# v5.0.0 (2018-01-01)
+
+- Updated Code Climate badges.
+- Updated Code Climate configuration to Version 2.0.0.
+- Updated to Apache 2.0 license.
+- Updated to Rubocop 0.52.0.
+- Updated to Ruby 2.4.3.
+- Updated to Ruby 2.5.0.
+- Removed `Hash#slice` methods.
+- Removed documentation for secure installs.
+- Removed pry-state gem.
+- Refactored code to use Ruby 2.5.0 `Array#append` syntax.
+
 # v4.3.1 (2017-11-19)
 
 - Updated to Git Cop 1.7.0.
