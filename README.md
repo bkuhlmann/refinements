@@ -3,7 +3,6 @@
 [![Gem Version](https://badge.fury.io/rb/refinements.svg)](http://badge.fury.io/rb/refinements)
 [![Code Climate Maintainability](https://api.codeclimate.com/v1/badges/98be62123a95d5ac32d2/maintainability)](https://codeclimate.com/github/bkuhlmann/refinements/maintainability)
 [![Code Climate Test Coverage](https://api.codeclimate.com/v1/badges/98be62123a95d5ac32d2/test_coverage)](https://codeclimate.com/github/bkuhlmann/refinements/test_coverage)
-[![Gemnasium Status](https://gemnasium.com/bkuhlmann/refinements.svg)](https://gemnasium.com/bkuhlmann/refinements)
 [![Circle CI Status](https://circleci.com/gh/bkuhlmann/refinements.svg?style=svg)](https://circleci.com/gh/bkuhlmann/refinements)
 
 Provides additional enhancements (refinements) to core Ruby objects.
