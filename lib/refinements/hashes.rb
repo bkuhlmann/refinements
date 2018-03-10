@@ -17,12 +17,10 @@ module Refinements
         dup.symbolize_keys!
       end
 
-      # rubocop:disable Performance/HashEachMethods
       def symbolize_keys!
         keys.each { |key| self[key.to_sym] = delete key }
         self
       end
-      # rubocop:enable Performance/HashEachMethods
 
       def deep_merge other
         dup.deep_merge! other

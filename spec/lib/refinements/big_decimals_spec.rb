@@ -4,7 +4,7 @@ require "spec_helper"
 
 RSpec.describe Refinements::BigDecimals do
   using Refinements::BigDecimals
-  subject { BigDecimal.new "1.0E-15" }
+  subject { BigDecimal "1.0E-15" }
 
   describe "#inspect" do
     it "answers object ID" do
