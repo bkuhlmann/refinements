@@ -13,6 +13,12 @@ Gem::Specification.new do |spec|
   spec.summary = "Provides additional enhancements (refinements) to core Ruby objects."
   spec.license = "Apache-2.0"
 
+  spec.metadata = {
+    "source_code_uri" => "https://github.com/bkuhlmann/refinements",
+    "changelog_uri" => "https://github.com/bkuhlmann/refinements/blob/master/CHANGES.md",
+    "bug_tracker_uri" => "https://github.com/bkuhlmann/refinements/issues"
+  }
+
   spec.signing_key = Gem.default_key_path
   spec.cert_chain = [Gem.default_cert_path]
 
@@ -30,7 +36,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rake", "~> 12.3"
   spec.add_development_dependency "reek", "~> 4.8"
   spec.add_development_dependency "rspec", "~> 3.7"
-  spec.add_development_dependency "rubocop", "~> 0.53"
+  spec.add_development_dependency "rubocop", "~> 0.54"
   spec.add_development_dependency "wirb", "~> 2.1"
 
   spec.files = Dir["lib/**/*"]
