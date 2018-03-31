@@ -62,13 +62,10 @@ RSpec.describe Refinements::Hashes do
       {
         label: "Example",
         nested: {
-          one: {
-            two: {
-              three: {
-                value: "bottom"
-              }
-            }
-          }
+          level_1: {
+            value: "example"
+          },
+          level_2: %w[a b c]
         }
       }
     end
@@ -77,25 +74,19 @@ RSpec.describe Refinements::Hashes do
       proof = {
         label: "Test",
         nested: {
-          one: {
-            two: {
-              three: {
-                value: "pit"
-              }
-            }
-          }
+          level_1: {
+            value: "test"
+          },
+          level_2: %w[x y z]
         }
       }
 
       result = subject.deep_merge label: "Test",
                                   nested: {
-                                    one: {
-                                      two: {
-                                        three: {
-                                          value: "pit"
-                                        }
-                                      }
-                                    }
+                                    level_1: {
+                                      value: "test"
+                                    },
+                                    level_2: %w[x y z]
                                   }
 
       expect(result).to eq(proof)
@@ -106,26 +97,32 @@ RSpec.describe Refinements::Hashes do
         label: "Example",
         basic: {
           a: 1,
-          b: 2
+          b: [1, 2, 3]
         },
         nested: {
-          one: {
-            two: {
-              three: {
-                value: "bottom"
-              }
-            }
-          }
+          level_1: {
+            value: "example"
+          },
+          level_2: %w[a b c]
         }
       }
 
-      result = subject.deep_merge basic: {a: 1, b: 2}
+      result = subject.deep_merge basic: {a: 1, b: [1, 2, 3]}
 
       expect(result).to eq(proof)
     end
 
     it "does not modify itself" do
-      proof = subject.dup
+      proof = {
+        label: "Example",
+        nested: {
+          level_1: {
+            value: "example"
+          },
+          level_2: %w[a b c]
+        }
+      }
+
       subject.deep_merge label: "Test"
 
       expect(subject).to eq(proof)
@@ -136,23 +133,69 @@ RSpec.describe Refinements::Hashes do
     subject do
       {
         label: "Example",
-        items: {
-          a: 1,
-          b: 2
+        nested: {
+          level_1: {
+            value: "example"
+          },
+          level_2: %w[a b c]
         }
       }
+    end
+
+    it "merges existing values" do
+      proof = {
+        label: "Test",
+        nested: {
+          level_1: {
+            value: "test"
+          },
+          level_2: %w[x y z]
+        }
+      }
+
+      result = subject.deep_merge! label: "Test",
+                                   nested: {
+                                     level_1: {
+                                       value: "test"
+                                     },
+                                     level_2: %w[x y z]
+                                   }
+
+      expect(result).to eq(proof)
+    end
+
+    it "merges new values" do
+      proof = {
+        label: "Example",
+        basic: {
+          a: 1,
+          b: [1, 2, 3]
+        },
+        nested: {
+          level_1: {
+            value: "example"
+          },
+          level_2: %w[a b c]
+        }
+      }
+
+      result = subject.deep_merge! basic: {a: 1, b: [1, 2, 3]}
+
+      expect(result).to eq(proof)
     end
 
     it "modifies itself" do
       proof = {
         label: "Test",
-        items: {
-          a: 1,
-          b: 10
+        nested: {
+          level_1: {
+            value: "example"
+          },
+          level_2: %w[a b c]
         }
       }
 
-      subject.deep_merge! label: "Test", items: {b: 10}
+      subject.deep_merge! label: "Test"
 
       expect(subject).to eq(proof)
     end

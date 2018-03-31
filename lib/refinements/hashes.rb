@@ -26,18 +26,15 @@ module Refinements
         dup.deep_merge! other
       end
 
+      # :reek:FeatureEnvy
       def deep_merge! other
-        other.each do |(other_key, other_value)|
-          current_value = self[other_key]
-
-          self[other_key] = if current_value.is_a?(Hash) && other_value.is_a?(Hash)
-                              current_value.deep_merge! other_value
-                            else
-                              other_value
-                            end
+        merge! other do |_key, this_value, other_value|
+          if this_value.is_a?(Hash) && other_value.is_a?(Hash)
+            this_value.deep_merge other_value
+          else
+            other_value
+          end
         end
-
-        self
       end
 
       def reverse_merge other
