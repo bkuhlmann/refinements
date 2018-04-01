@@ -1,3 +1,17 @@
+# v5.1.0 (2018-04-01)
+
+- Fixed gemspec issues with missing gem signing key/certificate.
+- Added gemspec metadata for source, changes, and issue tracker URLs.
+- Updated README license information.
+- Updated gem dependencies.
+- Updated to Circle CI 2.0.0 configuration.
+- Updated to Rubocop 0.53.0.
+- Updated to Ruby 2.5.1.
+- Removed Circle CI Bundler cache.
+- Removed Gemnasium support.
+- Refactored `Hash#deep_merge` implementation.
+- Refactored temp dir shared context as a pathname.
+
 # v5.0.2 (2018-01-01)
 
 - Updated to Gemsmith 11.0.0.
