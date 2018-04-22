@@ -3,7 +3,7 @@
 require "bigdecimal"
 
 module Refinements
-  # Refinements for Big Decimals.
+  # Refinements for big decimals.
   module BigDecimals
     refine BigDecimal do
       def inspect

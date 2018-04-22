@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Refinements
-  # Refinements for Hashes.
+  # Refinements for hashes.
   module Hashes
     # rubocop:disable Metrics/BlockLength
     refine Hash do

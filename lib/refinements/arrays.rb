@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Refinements
-  # Refinements for Arrays.
+  # Refinements for arrays.
   module Arrays
     refine Array do
       def compress

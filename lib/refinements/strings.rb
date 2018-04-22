@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Refinements
-  # Refinements for Strings.
+  # Refinements for strings.
   module Strings
     refine String.singleton_class do
       def delimiters
