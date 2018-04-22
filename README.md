@@ -22,6 +22,7 @@ Provides additional enhancements (refinements) to core Ruby objects.
       - [Big Decimal](#big-decimal)
       - [Array](#array)
       - [Hash](#hash)
+      - [Object](#object)
   - [Tests](#tests)
   - [Versioning](#versioning)
   - [Code of Conduct](#code-of-conduct)
@@ -180,6 +181,12 @@ The following sections demonstrate how each refinement enriches your objects wit
 
     example = {unit: "221B", street: "Baker Street", city: "London", country: "UK"}
     example.use { |unit, street| "#{unit} #{street}" } # => "221B Baker Street"
+
+#### Object
+
+    # Contrived for simplicity.
+    example = "example"
+    example.then(&:capitalize) # "Example"
 
 ## Tests
 
