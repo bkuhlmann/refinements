@@ -18,11 +18,11 @@ Provides additional enhancements (refinements) to core Ruby objects.
     - [Requires](#requires)
     - [Using](#using)
     - [Examples](#examples)
-      - [String](#string)
-      - [Big Decimal](#big-decimal)
       - [Array](#array)
+      - [Big Decimal](#big-decimal)
       - [Hash](#hash)
       - [Object](#object)
+      - [String](#string)
   - [Tests](#tests)
   - [Versioning](#versioning)
   - [Code of Conduct](#code-of-conduct)
@@ -107,26 +107,6 @@ Much like including/extending a module, you'll need modify your object(s) to use
 
 The following sections demonstrate how each refinement enriches your objects with new capabilities.
 
-#### String
-
-    "example".first # => "e"
-    "example".first 4 # => "exam"
-
-    "instant".last # => "t"
-    "instant".first 3 # => "ant"
-
-    " \n\t\r".blank? # => true
-    "example".up # => "Example"
-    "EXAMPLE".down # => "eXAMPLE"
-    "this_is_an_example".camelcase # => "ThisIsAnExample"
-    "ThisIsAnExample".snakecase # => "this_is_an_example"
-    "ThisIsAnExample".titleize # => "This Is An Example"
-
-#### Big Decimal
-
-    big = BigDecimal.new "5.0E-10"
-    big.inspect # => "#<BigDecimal:3fd3d458fe84 0.0000000005>"
-
 #### Array
 
     example = ["An", nil, "", "Example"]
@@ -136,6 +116,11 @@ The following sections demonstrate how each refinement enriches your objects wit
     example = ["An", nil, "", "Example"]
     example.compress! # => ["An", "Example"]
     example # => ["An", "Example"]
+
+#### Big Decimal
+
+    big = BigDecimal.new "5.0E-10"
+    big.inspect # => "#<BigDecimal:3fd3d458fe84 0.0000000005>"
 
 #### Hash
 
@@ -187,6 +172,21 @@ The following sections demonstrate how each refinement enriches your objects wit
     # Contrived for simplicity.
     example = "example"
     example.then(&:capitalize) # "Example"
+
+#### String
+
+    "example".first # => "e"
+    "example".first 4 # => "exam"
+
+    "instant".last # => "t"
+    "instant".first 3 # => "ant"
+
+    " \n\t\r".blank? # => true
+    "example".up # => "Example"
+    "EXAMPLE".down # => "eXAMPLE"
+    "this_is_an_example".camelcase # => "ThisIsAnExample"
+    "ThisIsAnExample".snakecase # => "this_is_an_example"
+    "ThisIsAnExample".titleize # => "This Is An Example"
 
 ## Tests
 
