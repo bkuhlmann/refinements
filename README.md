@@ -36,19 +36,21 @@ Provides additional enhancements (refinements) to core Ruby objects.
 ## Features
 
 - Provides Array refinements:
-  - `Array#compress` - Removes `nil` and empty values without modifying itself.
-  - `Array#compress!` - Removes `nil` and empty values while modifying itself.
+  - `#compress` - Removes `nil` and empty values without modifying itself.
+  - `#compress!` - Removes `nil` and empty values while modifying itself.
 - Provides BigDecimal refinements:
-  - `BigDecimal#inspect` - Allows one to inspect a big decimal with numeric representation.
+  - `#inspect` - Allows one to inspect a big decimal with numeric representation.
 - Provides Hash refinements:
-  - `except` - Answers new hash with given with given keys removed without modifying calling hash.
-  - `except!` - Answers new hash with given with given keys removed while modifying calling hash.
+  - `#except` - Answers new hash with given with given keys removed without modifying calling hash.
+  - `#except!` - Answers new hash with given with given keys removed while modifying calling hash.
   - `#symbolize_keys` - Converts keys to symbols without modifying itself.
   - `#symbolize_keys!` - Converts keys to symbols while modifying itself.
   - `#deep_merge` - Merges deeply nested hashes together without modifying itself.
   - `#deep_merge!` - Merges deeply nested hashes together while modifying itself.
   - `#reverse_merge` - Merges calling hash into passed in hash without modifying calling hash.
   - `#reverse_merge!` - Merges calling hash into passed in hash while modifying calling hash.
+- Provides Object refinements:
+  - `#then` - Provides an alias to `yield_self` that is shorter to type.
 - Provides String refinements:
   - `#first` - Answers first character of a string or first set of characters if given a number.
   - `#last` - Answers last character of a string or last set of characters if given a number.
@@ -90,6 +92,7 @@ If all refinements are not desired, add the following to your `Gemfile` instead:
     require "refinements/arrays"
     require "refinements/big_decimals"
     require "refinements/hashes"
+    require "refinements/objects"
     require "refinements/strings"
 
 ### Using
@@ -100,6 +103,7 @@ Much like including/extending a module, you'll need modify your object(s) to use
       using Refinements::Arrays
       using Refinements::BigDecimals
       using Refinements::Hashes
+      using Refinements::Objects
       using Refinements::Strings
     end
 
