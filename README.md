@@ -66,8 +66,8 @@ Provides additional enhancements (refinements) to core Ruby objects.
 
 ## Requirements
 
-0. [Ruby 2.5.x](https://www.ruby-lang.org).
-0. A solid understanding of [Ruby refinements and lexical scope](https://www.youtube.com/watch?v=qXC9Gk4dCEw).
+1. [Ruby 2.5.x](https://www.ruby-lang.org).
+1. A solid understanding of [Ruby refinements and lexical scope](https://www.youtube.com/watch?v=qXC9Gk4dCEw).
 
 ## Setup
 
