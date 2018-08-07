@@ -3,7 +3,6 @@
 module Refinements
   # Refinements for hashes.
   module Hashes
-    # rubocop:disable Metrics/BlockLength
     refine Hash do
       def except *keys
         reject { |key, _value| keys.include? key }
@@ -52,6 +51,5 @@ module Refinements
         yield values
       end
     end
-    # rubocop:enable Metrics/BlockLength
   end
 end

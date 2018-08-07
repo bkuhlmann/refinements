@@ -9,7 +9,6 @@ module Refinements
       end
     end
 
-    # rubocop:disable Metrics/BlockLength
     refine String do
       def first number = 0
         return self if empty?
@@ -87,6 +86,5 @@ module Refinements
         end
       end
     end
-    # rubocop:enable Metrics/BlockLength
   end
 end
