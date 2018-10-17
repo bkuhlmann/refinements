@@ -40,11 +40,13 @@ module Refinements
 
       def up
         return self if empty?
+
         first.upcase + self[1, size]
       end
 
       def down
         return self if empty?
+
         first.downcase + self[1, size]
       end
 
@@ -82,6 +84,7 @@ module Refinements
       def join_parts parts, method:, delimiter: ""
         parts.reduce "" do |result, part|
           next part.__send__(method) if result.empty?
+
           "#{result}#{delimiter}#{part.__send__ method}"
         end
       end
