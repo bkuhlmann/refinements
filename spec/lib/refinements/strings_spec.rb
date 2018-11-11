@@ -3,7 +3,7 @@
 require "spec_helper"
 
 RSpec.describe Refinements::Strings do
-  using Refinements::Strings
+  using described_class
 
   describe "#first" do
     subject(:strings) { "seedlings" }

@@ -3,7 +3,8 @@
 require "spec_helper"
 
 RSpec.describe Refinements::BigDecimals do
-  using Refinements::BigDecimals
+  using described_class
+
   subject(:big_decimal) { BigDecimal "1.0E-15" }
 
   describe "#inspect" do

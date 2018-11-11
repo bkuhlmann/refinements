@@ -3,7 +3,7 @@
 require "spec_helper"
 
 RSpec.describe Refinements::Objects do
-  using Refinements::Objects
+  using described_class
 
   # These are contrived examples for simplicity to ensure method calls work.
   describe "#then" do

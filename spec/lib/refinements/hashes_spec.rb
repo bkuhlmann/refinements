@@ -3,7 +3,7 @@
 require "spec_helper"
 
 RSpec.describe Refinements::Hashes do
-  using Refinements::Hashes
+  using described_class
 
   describe "#except" do
     subject(:hashes) { {a: 1, b: 2, c: 3} }

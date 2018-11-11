@@ -3,7 +3,7 @@
 require "spec_helper"
 
 RSpec.describe Refinements::Arrays do
-  using Refinements::Arrays
+  using described_class
 
   describe "#compress" do
     it "answers original array when nothing to do" do
