@@ -57,6 +57,7 @@ RSpec.describe Refinements::Hashes do
     end
   end
 
+  # rubocop:disable RSpec/ExampleLength
   describe "#deep_merge" do
     subject(:hashes) do
       {
@@ -128,7 +129,9 @@ RSpec.describe Refinements::Hashes do
       expect(hashes).to eq(proof)
     end
   end
+  # rubocop:enable RSpec/ExampleLength
 
+  # rubocop:disable RSpec/ExampleLength
   describe "#deep_merge!" do
     subject(:hashes) do
       {
@@ -200,6 +203,7 @@ RSpec.describe Refinements::Hashes do
       expect(hashes).to eq(proof)
     end
   end
+  # rubocop:enable RSpec/ExampleLength
 
   describe "#reverse_merge" do
     subject(:hashes) do
