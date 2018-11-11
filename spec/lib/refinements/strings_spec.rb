@@ -84,10 +84,6 @@ RSpec.describe Refinements::Strings do
       expect("test".blank?).to eq(false)
     end
 
-    it "answers false when a word" do
-      expect("test".blank?).to eq(false)
-    end
-
     it "answers false when a word, space, tab, new line, and return" do
       expect("test \t\n\r".blank?).to eq(false)
     end
