@@ -7,15 +7,15 @@ RSpec.describe Refinements::Objects do
 
   # These are contrived examples for simplicity to ensure method calls work.
   describe "#then" do
-    subject { "one two three" }
+    subject(:objects) { "one two three" }
 
     it "responds to single call" do
-      result = subject.then(&:capitalize)
+      result = objects.then(&:capitalize)
       expect(result).to eq("One two three")
     end
 
     it "reponds to multiple calls" do
-      result = subject.then(&:capitalize).then(&:size)
+      result = objects.then(&:capitalize).then(&:size)
       expect(result).to eq(13)
     end
   end

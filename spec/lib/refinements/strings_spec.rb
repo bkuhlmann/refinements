@@ -6,18 +6,18 @@ RSpec.describe Refinements::Strings do
   using Refinements::Strings
 
   describe "#first" do
-    subject { "seedlings" }
+    subject(:strings) { "seedlings" }
 
     it "answers first letter" do
-      expect(subject.first).to eq("s")
+      expect(strings.first).to eq("s")
     end
 
     it "answers first letters with positive number" do
-      expect(subject.first(3)).to eq("see")
+      expect(strings.first(3)).to eq("see")
     end
 
     it "answers empty string with negative number" do
-      expect(subject.first(-1)).to eq("")
+      expect(strings.first(-1)).to eq("")
     end
 
     it "answers itself when empty" do
@@ -25,24 +25,24 @@ RSpec.describe Refinements::Strings do
     end
 
     it "fails with type error when unable to cast number to integer" do
-      result = -> { subject.first :bogus }
+      result = -> { strings.first :bogus }
       expect(&result).to raise_error(TypeError, "can't convert Symbol into Integer")
     end
   end
 
   describe "#last" do
-    subject { "weather" }
+    subject(:strings) { "weather" }
 
     it "answers last letter" do
-      expect(subject.last).to eq("r")
+      expect(strings.last).to eq("r")
     end
 
     it "answers last letters with positive number" do
-      expect(subject.last(3)).to eq("her")
+      expect(strings.last(3)).to eq("her")
     end
 
     it "answers empty string with negative number" do
-      expect(subject.last(-1)).to eq("")
+      expect(strings.last(-1)).to eq("")
     end
 
     it "answers itself when empty" do
@@ -50,7 +50,7 @@ RSpec.describe Refinements::Strings do
     end
 
     it "fails with type error when unable to cast number to integer" do
-      result = -> { subject.last :bogus }
+      result = -> { strings.last :bogus }
       expect(&result).to raise_error(TypeError, "can't convert Symbol into Integer")
     end
   end
