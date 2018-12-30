@@ -21,7 +21,6 @@ Provides additional enhancements (refinements) to core Ruby objects.
       - [Array](#array)
       - [Big Decimal](#big-decimal)
       - [Hash](#hash)
-      - [Object](#object)
       - [String](#string)
   - [Tests](#tests)
   - [Versioning](#versioning)
@@ -41,16 +40,14 @@ Provides additional enhancements (refinements) to core Ruby objects.
 - Provides BigDecimal refinements:
   - `#inspect` - Allows one to inspect a big decimal with numeric representation.
 - Provides Hash refinements:
-  - `#except` - Answers new hash with given with given keys removed without modifying calling hash.
-  - `#except!` - Answers new hash with given with given keys removed while modifying calling hash.
+  - `#except` - Answers new hash with given keys removed without modifying calling hash.
+  - `#except!` - Answers new hash with given keys removed while modifying calling hash.
   - `#symbolize_keys` - Converts keys to symbols without modifying itself.
   - `#symbolize_keys!` - Converts keys to symbols while modifying itself.
   - `#deep_merge` - Merges deeply nested hashes together without modifying itself.
   - `#deep_merge!` - Merges deeply nested hashes together while modifying itself.
   - `#reverse_merge` - Merges calling hash into passed in hash without modifying calling hash.
   - `#reverse_merge!` - Merges calling hash into passed in hash while modifying calling hash.
-- Provides Object refinements:
-  - `#then` - Provides an alias to `yield_self` that is shorter to type.
 - Provides String refinements:
   - `#first` - Answers first character of a string or first set of characters if given a number.
   - `#last` - Answers last character of a string or last set of characters if given a number.
@@ -66,7 +63,7 @@ Provides additional enhancements (refinements) to core Ruby objects.
 
 ## Requirements
 
-1. [Ruby 2.5.x](https://www.ruby-lang.org).
+1. [Ruby 2.6.x](https://www.ruby-lang.org).
 1. A solid understanding of [Ruby refinements and lexical scope](https://www.youtube.com/watch?v=qXC9Gk4dCEw).
 
 ## Setup
@@ -170,12 +167,6 @@ The following sections demonstrate how each refinement enriches your objects wit
 
     example = {unit: "221B", street: "Baker Street", city: "London", country: "UK"}
     example.use { |unit, street| "#{unit} #{street}" } # => "221B Baker Street"
-
-#### Object
-
-    # Contrived for simplicity.
-    example = "example"
-    example.then(&:capitalize) # "Example"
 
 #### String
 

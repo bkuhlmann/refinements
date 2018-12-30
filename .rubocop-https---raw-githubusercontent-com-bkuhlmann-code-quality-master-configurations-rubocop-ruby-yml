@@ -1,0 +1,111 @@
+AllCops:
+  DisplayCopNames: true
+  Exclude:
+    - "db/schema.rb"
+    - "node_modules/**/*"
+    - "tmp/**/*"
+    - "vendor/**/*"
+Layout/CaseIndentation:
+  IndentOneStep: true
+Layout/ClassStructure:
+  Enabled: true
+  Categories:
+    module_inclusion:
+      - extend
+      - include
+      - prepend
+    associations:
+      - belongs_to
+      - has_one
+      - has_many
+  ExpectedOrder:
+    - module_inclusion
+    - constants
+    - associations
+    - public_class_methods
+    - initializer
+    - public_methods
+    - protected_methods
+    - private_methods
+Layout/FirstArrayElementLineBreak:
+  Enabled: true
+Layout/FirstHashElementLineBreak:
+  Enabled: true
+Layout/FirstMethodArgumentLineBreak:
+  Enabled: true
+Layout/FirstMethodParameterLineBreak:
+  Enabled: true
+Layout/MultilineAssignmentLayout:
+  Enabled: true
+  EnforcedStyle: same_line
+Layout/SpaceInsideHashLiteralBraces:
+  EnforcedStyle: no_space
+Lint/Void:
+  CheckForMethodsWithNoSideEffects: true
+Metrics/BlockLength:
+  Exclude:
+    - "**/*.gemspec"
+    - "spec/**/*"
+Metrics/LineLength:
+  Max: 100
+Metrics/ParameterLists:
+  Max: 3
+Naming/VariableNumber:
+  EnforcedStyle: snake_case
+Naming/UncommunicativeMethodParamName:
+  AllowNamesEndingInNumbers: false
+Performance/OpenStruct:
+  Enabled: true
+Style/AndOr:
+  EnforcedStyle: conditionals
+Style/AutoResourceCleanup:
+  Enabled: true
+Style/CollectionMethods:
+  Enabled: true
+Style/Documentation:
+  Enabled: false
+Style/EmptyLiteral:
+  Enabled: false
+Style/EmptyMethod:
+  EnforcedStyle: expanded
+Style/FormatStringToken:
+  EnforcedStyle: template
+Style/ImplicitRuntimeError:
+  Enabled: true
+Style/IpAddresses:
+  Enabled: true
+Style/MethodCalledOnDoEndBlock:
+  Enabled: true
+Style/MethodDefParentheses:
+  EnforcedStyle: require_no_parentheses
+Style/MissingElse:
+  Enabled: true
+Style/MultilineMethodSignature:
+  Enabled: true
+Style/NumericLiterals:
+  Enabled: false
+Style/OptionHash:
+  Enabled: true
+Style/PercentLiteralDelimiters:
+  PreferredDelimiters:
+    "%w": "[]"
+    "%W": "[]"
+    "%i": "[]"
+    "%I": "[]"
+    "%r": "()"
+Style/ReturnNil:
+  Enabled: true
+Style/SafeNavigation:
+  Enabled: false
+Style/Send:
+  Enabled: true
+Style/SignalException:
+  EnforcedStyle: semantic
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+Style/StringLiteralsInInterpolation:
+  EnforcedStyle: double_quotes
+Style/StringMethods:
+  Enabled: true
+Style/SymbolArray:
+  Enabled: true
