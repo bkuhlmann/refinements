@@ -1,3 +1,23 @@
+# 6.0.0 (2019-01-01)
+
+- Fixed Circle CI cache for Ruby version.
+- Fixed Layout/EmptyLineAfterGuardClause cop issues.
+- Fixed Markdown ordered list numbering.
+- Fixed Rubocop RSpec/DescribedClass issues.
+- Fixed Rubocop RSpec/ExampleLength issues.
+- Fixed Rubocop RSpec/NamedSubject issues.
+- Fixed Rubocop RSpec/RepeatedExample.
+- Added Circle CI Bundler cache.
+- Added Rubocop RSpec gem.
+- Updated Circle CI Code Climate test reporting.
+- Updated Semantic Versioning links to be HTTPS.
+- Updated to Contributor Covenant Code of Conduct 1.4.1.
+- Updated to RSpec 3.8.0.
+- Updated to Reek 5.0.
+- Updated to Rubocop 0.62.0.
+- Updated to Ruby 2.6.0.
+- Removed `Object#then` refinement.
+
 # 5.2.0 (2018-05-01)
 
 - Added `Object#then` method.
