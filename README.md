@@ -174,7 +174,7 @@ The following sections demonstrate how each refinement enriches your objects wit
     "example".first 4 # => "exam"
 
     "instant".last # => "t"
-    "instant".first 3 # => "ant"
+    "instant".last 3 # => "ant"
 
     " \n\t\r".blank? # => true
     "example".up # => "Example"
