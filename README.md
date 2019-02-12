@@ -40,8 +40,8 @@ Provides additional enhancements (refinements) to core Ruby objects.
 - Provides BigDecimal refinements:
   - `#inspect` - Allows one to inspect a big decimal with numeric representation.
 - Provides Hash refinements:
-  - `#except` - Answers new hash with given with given keys removed without modifying calling hash.
-  - `#except!` - Answers new hash with given with given keys removed while modifying calling hash.
+  - `#except` - Answers new hash with given keys removed without modifying calling hash.
+  - `#except!` - Answers new hash with given keys removed while modifying calling hash.
   - `#symbolize_keys` - Converts keys to symbols without modifying itself.
   - `#symbolize_keys!` - Converts keys to symbols while modifying itself.
   - `#deep_merge` - Merges deeply nested hashes together without modifying itself.
