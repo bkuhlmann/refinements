@@ -51,7 +51,7 @@ module Refinements
       end
 
       def camelcase
-        if match?(self.class.delimiters)
+        if match? self.class.delimiters
           result = join_parts split(%r(\s*\-\s*|\s*\/\s*|\s*\:+\s*)), method: :up, delimiter: "::"
           join_parts result.split(/\s*\_\s*|\s+/), method: :up
         else
@@ -60,7 +60,7 @@ module Refinements
       end
 
       def snakecase
-        if match?(self.class.delimiters)
+        if match? self.class.delimiters
           result = join_parts split(%r(\s*\-\s*|\s*\/\s*|\s*\:+\s*)), method: :down, delimiter: "/"
           join_parts result.split(/(?=[A-Z])|\s*\_\s*|\s+/), method: :down, delimiter: "_"
         else
@@ -69,7 +69,7 @@ module Refinements
       end
 
       def titleize
-        if match?(self.class.delimiters)
+        if match? self.class.delimiters
           result = join_parts split(/(?=[A-Z])|\s*\_\s*|\s*\-\s*|\s+/), method: :up, delimiter: " "
           join_parts result.split(%r(\s*\/\s*|\s*\:+\s*)), method: :up, delimiter: "/"
         else
@@ -83,7 +83,7 @@ module Refinements
       # :reek:UtilityFunction
       def join_parts parts, method:, delimiter: ""
         parts.reduce "" do |result, part|
-          next part.__send__(method) if result.empty?
+          next part.__send__ method if result.empty?
 
           "#{result}#{delimiter}#{part.__send__ method}"
         end

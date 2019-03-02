@@ -9,7 +9,7 @@ module Refinements
       end
 
       def compress!
-        replace(compress)
+        replace compress
       end
     end
   end

@@ -59,7 +59,7 @@ RSpec.describe Refinements::Hashes do
 
   # rubocop:disable RSpec/ExampleLength
   describe "#deep_merge" do
-    subject(:hashes) do
+    subject :hashes do
       {
         label: "Example",
         nested: {
@@ -133,7 +133,7 @@ RSpec.describe Refinements::Hashes do
 
   # rubocop:disable RSpec/ExampleLength
   describe "#deep_merge!" do
-    subject(:hashes) do
+    subject :hashes do
       {
         label: "Example",
         nested: {
@@ -206,7 +206,7 @@ RSpec.describe Refinements::Hashes do
   # rubocop:enable RSpec/ExampleLength
 
   describe "#reverse_merge" do
-    subject(:hashes) do
+    subject :hashes do
       {
         label: "Kaleidoscope",
         categories: {
