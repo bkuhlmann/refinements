@@ -1,3 +1,11 @@
+# 6.2.0 (2019-04-01)
+
+- Fixed README `Hash#except` and `Hash#except!` typos.
+- Fixed Rubocop Style/MethodCallWithArgsParentheses issues.
+- Fixed error in README example.
+- Updated to Ruby 2.6.2.
+- Removed RSpec standard output/error suppression.
+
 # 6.1.0 (2019-02-01)
 
 - Updated to Gemsmith 13.0.0.
