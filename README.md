@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="refinements.png" alt="Refinements Icon"/>
+</p>
+
 # Refinements
 
 [![Gem Version](https://badge.fury.io/rb/refinements.svg)](http://badge.fury.io/rb/refinements)
