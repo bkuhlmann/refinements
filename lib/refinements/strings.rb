@@ -52,8 +52,9 @@ module Refinements
 
       def camelcase
         if match? self.class.delimiters
-          result = join_parts split(%r(\s*\-\s*|\s*\/\s*|\s*\:+\s*)), method: :up, delimiter: "::"
-          join_parts result.split(/\s*\_\s*|\s+/), method: :up
+          split(%r(\s*\-\s*|\s*\/\s*|\s*\:+\s*)).then { |parts| combine parts, :up, "::" }
+                                                .then { |text| text.split(/\s*\_\s*|\s+/) }
+                                                .then { |parts| combine parts, :up }
         else
           up
         end
@@ -61,8 +62,9 @@ module Refinements
 
       def snakecase
         if match? self.class.delimiters
-          result = join_parts split(%r(\s*\-\s*|\s*\/\s*|\s*\:+\s*)), method: :down, delimiter: "/"
-          join_parts result.split(/(?=[A-Z])|\s*\_\s*|\s+/), method: :down, delimiter: "_"
+          split(%r(\s*\-\s*|\s*\/\s*|\s*\:+\s*)).then { |parts| combine parts, :down, "/" }
+                                                .then { |txt| txt.split(/(?=[A-Z])|\s*\_\s*|\s+/) }
+                                                .then { |parts| combine parts, :down, "_" }
         else
           downcase
         end
@@ -70,8 +72,9 @@ module Refinements
 
       def titleize
         if match? self.class.delimiters
-          result = join_parts split(/(?=[A-Z])|\s*\_\s*|\s*\-\s*|\s+/), method: :up, delimiter: " "
-          join_parts result.split(%r(\s*\/\s*|\s*\:+\s*)), method: :up, delimiter: "/"
+          split(/(?=[A-Z])|\s*\_\s*|\s*\-\s*|\s+/).then { |parts| combine parts, :up, " " }
+                                                  .then { |text| text.split %r(\s*\/\s*|\s*\:+\s*) }
+                                                  .then { |parts| combine parts, :up, "/" }
         else
           capitalize
         end
@@ -81,7 +84,7 @@ module Refinements
 
       # :reek:DuplicateMethodCall
       # :reek:UtilityFunction
-      def join_parts parts, method:, delimiter: ""
+      def combine parts, method, delimiter = ""
         parts.reduce "" do |result, part|
           next part.__send__ method if result.empty?
 

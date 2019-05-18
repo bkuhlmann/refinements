@@ -47,8 +47,9 @@ module Refinements
       def use &block
         return [] unless block_given?
 
-        values = block.parameters.map { |(_type, key)| self[key] }
-        yield values
+        block.parameters
+             .map { |(_type, key)| self[key] }
+             .then { |values| yield values }
       end
     end
   end
