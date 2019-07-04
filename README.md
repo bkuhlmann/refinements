@@ -24,6 +24,7 @@ Provides additional enhancements (refinements) to core Ruby objects.
     - [Examples](#examples)
       - [Array](#array)
       - [Big Decimal](#big-decimal)
+      - [File](#file)
       - [Hash](#hash)
       - [String](#string)
   - [Tests](#tests)
@@ -43,6 +44,9 @@ Provides additional enhancements (refinements) to core Ruby objects.
   - `#compress!` - Removes `nil` and empty values while modifying itself.
 - Provides BigDecimal refinements:
   - `#inspect` - Allows one to inspect a big decimal with numeric representation.
+- Provides File refinements:
+  - `.rewrite` - When given a file path and a block, it provides the contents of the recently read
+    file for manipulation and immediate writing back to the same file.
 - Provides Hash refinements:
   - `#except` - Answers new hash with given keys removed without modifying calling hash.
   - `#except!` - Answers new hash with given keys removed while modifying calling hash.
@@ -92,6 +96,7 @@ If all refinements are not desired, add the following to your `Gemfile` instead:
 
     require "refinements/arrays"
     require "refinements/big_decimals"
+    require "refinements/files"
     require "refinements/hashes"
     require "refinements/objects"
     require "refinements/strings"
@@ -103,6 +108,7 @@ Much like including/extending a module, you'll need modify your object(s) to use
     class Example
       using Refinements::Arrays
       using Refinements::BigDecimals
+      using Refinements::Files
       using Refinements::Hashes
       using Refinements::Objects
       using Refinements::Strings
@@ -126,6 +132,10 @@ The following sections demonstrate how each refinement enriches your objects wit
 
     big = BigDecimal.new "5.0E-10"
     big.inspect # => "#<BigDecimal:3fd3d458fe84 0.0000000005>"
+
+#### File
+
+    File.rewrite("/test.txt") { |contents| contents.gsub "[placeholder]", "example" }
 
 #### Hash
 
