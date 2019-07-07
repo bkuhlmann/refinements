@@ -26,6 +26,7 @@ Provides additional enhancements (refinements) to core Ruby objects.
       - [Big Decimal](#big-decimal)
       - [File](#file)
       - [Hash](#hash)
+      - [Pathname](#pathname)
       - [String](#string)
   - [Tests](#tests)
   - [Versioning](#versioning)
@@ -56,6 +57,9 @@ Provides additional enhancements (refinements) to core Ruby objects.
   - `#deep_merge!` - Merges deeply nested hashes together while modifying itself.
   - `#reverse_merge` - Merges calling hash into passed in hash without modifying calling hash.
   - `#reverse_merge!` - Merges calling hash into passed in hash while modifying calling hash.
+- Provides Pathname refinements:
+  - `#rewrite` - When given a block, it provides the contents of the recently read file for
+    manipulation and immediate writing back to the same file.
 - Provides String refinements:
   - `#first` - Answers first character of a string or first set of characters if given a number.
   - `#last` - Answers last character of a string or last set of characters if given a number.
@@ -98,7 +102,7 @@ If all refinements are not desired, add the following to your `Gemfile` instead:
     require "refinements/big_decimals"
     require "refinements/files"
     require "refinements/hashes"
-    require "refinements/objects"
+    require "refinements/pathnames"
     require "refinements/strings"
 
 ### Using
@@ -110,7 +114,7 @@ Much like including/extending a module, you'll need modify your object(s) to use
       using Refinements::BigDecimals
       using Refinements::Files
       using Refinements::Hashes
-      using Refinements::Objects
+      using Refinements::Pathnames
       using Refinements::Strings
     end
 
@@ -135,7 +139,7 @@ The following sections demonstrate how each refinement enriches your objects wit
 
 #### File
 
-    File.rewrite("/test.txt") { |contents| contents.gsub "[placeholder]", "example" }
+    File.rewrite("/test.txt") { |content| content.gsub "[placeholder]", "example" }
 
 #### Hash
 
@@ -181,6 +185,10 @@ The following sections demonstrate how each refinement enriches your objects wit
 
     example = {unit: "221B", street: "Baker Street", city: "London", country: "UK"}
     example.use { |unit, street| "#{unit} #{street}" } # => "221B Baker Street"
+
+#### Pathname
+
+    Pathname("/test.txt").rewrite { |content| content.sub "[placeholder]", "example" }
 
 #### String
 
