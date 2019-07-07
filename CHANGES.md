@@ -1,3 +1,11 @@
+# 6.3.0 (2019-07-07)
+
+- Added File refinement.
+- Added Pathname refinement.
+- Updated BigDecimal example documentation.
+- Updated to Rubocop Performance 1.4.0.
+- Refactored RSpec helper support requirements.
+
 # 6.2.2 (2019-06-01)
 
 - Fixed RSpec/ContextWording issues.
