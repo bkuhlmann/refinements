@@ -134,8 +134,7 @@ The following sections demonstrate how each refinement enriches your objects wit
 
 #### Big Decimal
 
-    big = BigDecimal.new "5.0E-10"
-    big.inspect # => "#<BigDecimal:3fd3d458fe84 0.0000000005>"
+    BigDecimal.new("5.0E-10").inspect # => "#<BigDecimal:3fd3d458fe84 0.0000000005>"
 
 #### File
 
