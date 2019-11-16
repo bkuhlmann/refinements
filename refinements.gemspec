@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.authors = ["Brooke Kuhlmann"]
   spec.email = ["brooke@alchemists.io"]
   spec.homepage = "https://github.com/bkuhlmann/refinements"
-  spec.summary = "Provides additional enhancements (refinements) to core Ruby objects."
+  spec.summary = "A collection of refinements to core Ruby objects."
   spec.license = "Apache-2.0"
 
   spec.metadata = {
