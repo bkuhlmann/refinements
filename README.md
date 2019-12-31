@@ -23,6 +23,7 @@ A collection of refinements (enhancements) to core Ruby objects.
     - [Using](#using)
     - [Examples](#examples)
       - [Array](#array)
+      - [DateTime](#datetime)
       - [Big Decimal](#big-decimal)
       - [File](#file)
       - [Hash](#hash)
@@ -43,6 +44,8 @@ A collection of refinements (enhancements) to core Ruby objects.
 - Provides Array refinements:
   - `#compress` - Removes `nil` and empty values without modifying itself.
   - `#compress!` - Removes `nil` and empty values while modifying itself.
+- Provides DateTime refinements:
+  - `.utc` - Answers new DateTime object for current UTC date/time.
 - Provides BigDecimal refinements:
   - `#inspect` - Allows one to inspect a big decimal with numeric representation.
 - Provides File refinements:
@@ -99,6 +102,7 @@ If all refinements are not desired, add the following to your `Gemfile` instead:
 ...then require the specific refinement, as needed. Example:
 
     require "refinements/arrays"
+    require "refinements/date_times"
     require "refinements/big_decimals"
     require "refinements/files"
     require "refinements/hashes"
@@ -111,6 +115,7 @@ Much like including/extending a module, you'll need modify your object(s) to use
 
     class Example
       using Refinements::Arrays
+      using Refinements::DateTimes
       using Refinements::BigDecimals
       using Refinements::Files
       using Refinements::Hashes
@@ -131,6 +136,10 @@ The following sections demonstrate how each refinement enriches your objects wit
     example = ["An", nil, "", "Example"]
     example.compress! # => ["An", "Example"]
     example # => ["An", "Example"]
+
+#### DateTime
+
+    DateTime.utc # => #<DateTime: 2019-12-31T18:17:00+00:00 ((2458849j,65820s,181867000n),+0s,2299161j)>
 
 #### Big Decimal
 

@@ -2,6 +2,7 @@
 
 require "refinements/identity"
 require "refinements/arrays"
+require "refinements/date_times"
 require "refinements/big_decimals"
 require "refinements/files"
 require "refinements/hashes"
