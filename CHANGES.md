@@ -1,3 +1,20 @@
+# 7.0.0 (2020-01-01)
+
+- Added DateTime UTC refinement.
+- Added gem console.
+- Added setup script.
+- Fixed SimpleCov setup in RSpec spec helper.
+- Removed unused development dependencies.
+- Updated gem summary.
+- Updated Pry development dependencies.
+- Updated to Rubocop 0.77.0.
+- Updated to Rubocop 0.78.0.
+- Updated to Rubocop Performance 1.5.0.
+- Updated to Rubocop Rake 0.5.0.
+- Updated to Rubocop RSpec 1.37.0.
+- Updated to Ruby 2.7.0.
+- Updated to SimpleCov 0.17.0.
+
 # 6.3.2 (2019-11-01)
 
 - Added Rubocop Rake support.
