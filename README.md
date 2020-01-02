@@ -78,7 +78,7 @@ A collection of refinements (enhancements) to core Ruby objects.
 
 ## Requirements
 
-1. [Ruby 2.6.x](https://www.ruby-lang.org).
+1. [Ruby 2.7.x](https://www.ruby-lang.org).
 1. A solid understanding of [Ruby refinements and lexical scope](https://www.youtube.com/watch?v=qXC9Gk4dCEw).
 
 ## Setup
