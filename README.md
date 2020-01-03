@@ -50,6 +50,7 @@ A collection of refinements (enhancements) to core Ruby objects.
   - `#inspect` - Allows one to inspect a big decimal with numeric representation.
 - Provides File refinements:
   - `#name` - Answers the *name* of file without extension.
+  - `#copy` - Copies an existing file to new file. Both directory structures must exist.
   - `#rewrite` - When given a file path and a block, it provides the contents of the recently read
     file for manipulation and immediate writing back to the same file.
 - Provides Hash refinements:
@@ -198,6 +199,9 @@ The following sections demonstrate how each refinement enriches your objects wit
 #### Pathname
 
     Pathname("test.txt").name # => Pathname("test")
+
+    Pathname("input.txt").copy Pathname("output.txt")
+
     Pathname("/test.txt").rewrite { |content| content.sub "[placeholder]", "example" }
 
 #### String

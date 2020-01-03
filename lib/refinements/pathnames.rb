@@ -9,6 +9,12 @@ module Refinements
         basename extname
       end
 
+      def copy to
+        destination = to.directory? ? to.join(basename) : to
+        read.then { |content| destination.write content }
+        self
+      end
+
       def rewrite
         read.then { |content| write yield(content) }
       end
