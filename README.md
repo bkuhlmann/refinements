@@ -49,7 +49,8 @@ A collection of refinements (enhancements) to core Ruby objects.
 - Provides BigDecimal refinements:
   - `#inspect` - Allows one to inspect a big decimal with numeric representation.
 - Provides File refinements:
-  - `.rewrite` - When given a file path and a block, it provides the contents of the recently read
+  - `#name` - Answers the *name* of file without extension.
+  - `#rewrite` - When given a file path and a block, it provides the contents of the recently read
     file for manipulation and immediate writing back to the same file.
 - Provides Hash refinements:
   - `#except` - Answers new hash with given keys removed without modifying calling hash.
@@ -196,6 +197,7 @@ The following sections demonstrate how each refinement enriches your objects wit
 
 #### Pathname
 
+    Pathname("test.txt").name # => Pathname("test")
     Pathname("/test.txt").rewrite { |content| content.sub "[placeholder]", "example" }
 
 #### String

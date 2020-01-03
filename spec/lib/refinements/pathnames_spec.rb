@@ -5,6 +5,18 @@ require "spec_helper"
 RSpec.describe Refinements::Pathnames do
   using described_class
 
+  describe "#name" do
+    it "answers name of file without extension" do
+      path = Pathname "example.txt"
+      expect(path.name).to eq(Pathname("example"))
+    end
+
+    it "answers empty string when empty string" do
+      path = Pathname ""
+      expect(path.name).to eq(Pathname(""))
+    end
+  end
+
   describe ".rewrite", :temp_dir do
     let(:test_path) { temp_dir.join "test.txt" }
 
