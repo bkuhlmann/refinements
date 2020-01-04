@@ -53,6 +53,8 @@ A collection of refinements (enhancements) to core Ruby objects.
   - `#copy` - Copies an existing file to new file. Both directory structures must exist.
   - `#rewrite` - When given a file path and a block, it provides the contents of the recently read
     file for manipulation and immediate writing back to the same file.
+  - `#touch` - Updates the access and modified times of an existing file or creates the file when
+    not existing.
 - Provides Hash refinements:
   - `#except` - Answers new hash with given keys removed without modifying calling hash.
   - `#except!` - Answers new hash with given keys removed while modifying calling hash.
@@ -203,6 +205,9 @@ The following sections demonstrate how each refinement enriches your objects wit
     Pathname("input.txt").copy Pathname("output.txt")
 
     Pathname("/test.txt").rewrite { |content| content.sub "[placeholder]", "example" }
+
+    Pathname("test.txt").touch
+    Pathname("test.txt").touch accessed_at: Time.now - 1, modified_at: Time.now - 1
 
 #### String
 

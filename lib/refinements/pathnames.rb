@@ -17,6 +17,12 @@ module Refinements
 
       def rewrite
         read.then { |content| write yield(content) }
+        self
+      end
+
+      def touch at: Time.now
+        exist? ? utime(at, at) : write("")
+        self
       end
     end
   end
