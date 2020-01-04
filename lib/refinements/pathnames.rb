@@ -16,7 +16,7 @@ module Refinements
       end
 
       def rewrite
-        read.then { |content| write yield(content) }
+        read.then { |content| write yield(content) if block_given? }
         self
       end
 

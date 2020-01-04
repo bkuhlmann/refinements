@@ -71,6 +71,16 @@ RSpec.describe Refinements::Pathnames, :temp_dir do
       test_path.rewrite { |content| content.sub "[text]", "test" }
       expect(test_path.read).to eq("This is a test.")
     end
+
+    it "does nothing without a block" do
+      test_path.rewrite
+      expect(test_path.read).to eq("This is a [text].")
+    end
+
+    it "answers self" do
+      rewrite = test_path.rewrite { "Test." }
+      expect(rewrite).to eq(test_path)
+    end
   end
 
   describe "touch" do
