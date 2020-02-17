@@ -41,21 +41,21 @@ A collection of refinements (enhancements) to core Ruby objects.
 
 ## Features
 
-- Provides Array refinements:
+- Arrays:
   - `#compress` - Removes `nil` and empty values without modifying itself.
   - `#compress!` - Removes `nil` and empty values while modifying itself.
-- Provides DateTime refinements:
+- DateTimes:
   - `.utc` - Answers new DateTime object for current UTC date/time.
-- Provides BigDecimal refinements:
+- BigDecimals:
   - `#inspect` - Allows one to inspect a big decimal with numeric representation.
-- Provides File refinements:
+- Files:
   - `#name` - Answers the *name* of file without extension.
   - `#copy` - Copies an existing file to new file. Both directory structures must exist.
   - `#rewrite` - When given a file path and a block, it provides the contents of the recently read
     file for manipulation and immediate writing back to the same file.
   - `#touch` - Updates the access and modified times of an existing file or creates the file when
     not existing.
-- Provides Hash refinements:
+- Hashes:
   - `#except` - Answers new hash with given keys removed without modifying calling hash.
   - `#except!` - Answers new hash with given keys removed while modifying calling hash.
   - `#symbolize_keys` - Converts keys to symbols without modifying itself.
@@ -64,10 +64,10 @@ A collection of refinements (enhancements) to core Ruby objects.
   - `#deep_merge!` - Merges deeply nested hashes together while modifying itself.
   - `#reverse_merge` - Merges calling hash into passed in hash without modifying calling hash.
   - `#reverse_merge!` - Merges calling hash into passed in hash while modifying calling hash.
-- Provides Pathname refinements:
+- Pathnames:
   - `#rewrite` - When given a block, it provides the contents of the recently read file for
     manipulation and immediate writing back to the same file.
-- Provides String refinements:
+- Strings:
   - `#first` - Answers first character of a string or first set of characters if given a number.
   - `#last` - Answers last character of a string or last set of characters if given a number.
   - `#blank?` - Answers `true`/`false` based on whether string is blank or not (i.e. `<space>`,
