@@ -10,6 +10,10 @@ module Refinements
       def compress!
         replace compress
       end
+
+      def ring &block
+        [last, *self, first].each_cons 3, &block
+      end
     end
   end
 end

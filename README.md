@@ -44,6 +44,7 @@ A collection of refinements (enhancements) to core Ruby objects.
 - Arrays:
   - `#compress` - Removes `nil` and empty values without modifying itself.
   - `#compress!` - Removes `nil` and empty values while modifying itself.
+  - `#ring` - Answers a circular array which can enumerate before, current, after elements.
 - DateTimes:
   - `.utc` - Answers new DateTime object for current UTC date/time.
 - BigDecimals:
@@ -154,6 +155,13 @@ The following sections demonstrate how each refinement enriches your objects wit
     example = ["An", nil, "", "Example"]
     example.compress! # => ["An", "Example"]
     example # => ["An", "Example"]
+
+    example = [1, 2, 3]
+    example.ring # => #<Enumerator: ...>
+    example.ring { |(before, current, after)| puts "#{before} #{current} #{after}" }
+    # 3 1 2
+    # 1 2 3
+    # 2 3 1
 
 #### DateTime
 

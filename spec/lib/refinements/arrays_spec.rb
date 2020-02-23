@@ -52,4 +52,25 @@ RSpec.describe Refinements::Arrays do
       expect(arrays).to contain_exactly("one", "two")
     end
   end
+
+  describe "#ring" do
+    it "answers slices without block" do
+      expect([1, 2, 3].ring).to contain_exactly(
+        [1, 2, 3],
+        [2, 3, 1],
+        [3, 1, 2]
+      )
+    end
+
+    it "yields slices when given block" do
+      expectation = []
+      [1, 2, 3].ring { |slice| expectation.append slice }
+
+      expect(expectation).to contain_exactly(
+        [1, 2, 3],
+        [2, 3, 1],
+        [3, 1, 2]
+      )
+    end
+  end
 end
