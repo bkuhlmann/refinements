@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 module Refinements
-  # Refinements for hashes.
   module Hashes
     refine Hash do
       def except *keys
