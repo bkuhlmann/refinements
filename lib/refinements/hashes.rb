@@ -13,12 +13,11 @@ module Refinements
       end
 
       def symbolize_keys
-        dup.symbolize_keys!
+        reduce({}) { |hash, (key, value)| hash.merge key.to_sym => value }
       end
 
       def symbolize_keys!
-        keys.each { |key| self[key.to_sym] = delete key }
-        self
+        replace symbolize_keys
       end
 
       def deep_merge other
