@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="refinements.png" alt="Refinements Icon"/>
+  <img src="https://www.alchemists.io/images/projects/refinements/icon.png" alt="Refinements Icon"/>
 </p>
 
 # Refinements
