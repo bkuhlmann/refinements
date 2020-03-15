@@ -5,8 +5,6 @@
 # Refinements
 
 [![Gem Version](https://badge.fury.io/rb/refinements.svg)](http://badge.fury.io/rb/refinements)
-[![Code Climate Maintainability](https://api.codeclimate.com/v1/badges/98be62123a95d5ac32d2/maintainability)](https://codeclimate.com/github/bkuhlmann/refinements/maintainability)
-[![Code Climate Test Coverage](https://api.codeclimate.com/v1/badges/98be62123a95d5ac32d2/test_coverage)](https://codeclimate.com/github/bkuhlmann/refinements/test_coverage)
 [![Circle CI Status](https://circleci.com/gh/bkuhlmann/refinements.svg?style=svg)](https://circleci.com/gh/bkuhlmann/refinements)
 
 A collection of refinements (enhancements) to core Ruby objects.
