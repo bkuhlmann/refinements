@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-$LOAD_PATH.append File.expand_path("lib", __dir__)
-require "refinements/identity"
+require_relative "lib/refinements/identity"
 
 Gem::Specification.new do |spec|
   spec.name = Refinements::Identity.name
