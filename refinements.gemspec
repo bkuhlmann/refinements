@@ -3,8 +3,8 @@
 require_relative "lib/refinements/identity"
 
 Gem::Specification.new do |spec|
-  spec.name = Refinements::Identity.name
-  spec.version = Refinements::Identity.version
+  spec.name = Refinements::Identity::NAME
+  spec.version = Refinements::Identity::VERSION
   spec.platform = Gem::Platform::RUBY
   spec.authors = ["Brooke Kuhlmann"]
   spec.email = ["brooke@alchemists.io"]

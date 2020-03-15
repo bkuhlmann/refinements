@@ -3,20 +3,9 @@
 module Refinements
   # Gem identity information.
   module Identity
-    def self.name
-      "refinements"
-    end
-
-    def self.label
-      "Refinements"
-    end
-
-    def self.version
-      "7.1.0"
-    end
-
-    def self.version_label
-      "#{label} #{version}"
-    end
+    NAME = "refinements"
+    LABEL = "Refinements"
+    VERSION = "7.1.0"
+    VERSION_LABEL = "#{LABEL} #{VERSION}"
   end
 end
