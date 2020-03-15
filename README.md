@@ -16,6 +16,8 @@ A collection of refinements (enhancements) to core Ruby objects.
   - [Features](#features)
   - [Requirements](#requirements)
   - [Setup](#setup)
+    - [Production](#production)
+    - [Development](#development)
   - [Usage](#usage)
     - [Requires](#requires)
     - [Using](#using)
@@ -85,13 +87,27 @@ A collection of refinements (enhancements) to core Ruby objects.
 
 ## Setup
 
-Type the following to install:
+### Production
+
+To install, run:
 
     gem install refinements
 
 Add the following to your Gemfile file:
 
     gem "refinements"
+
+### Development
+
+To contribute, run:
+
+    git clone https://github.com/bkuhlmann/refinements.git
+    cd refinements
+    bin/setup
+
+You can also use the IRB console for direct access to all objects:
+
+    bin/console
 
 ## Usage
 
