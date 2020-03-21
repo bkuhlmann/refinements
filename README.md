@@ -92,23 +92,35 @@ A collection of refinements (enhancements) to core Ruby objects.
 
 To install, run:
 
-    gem install refinements
+[source,bash]
+----
+gem install refinements
+----
 
 Add the following to your Gemfile file:
 
-    gem "refinements"
+[source,ruby]
+----
+gem "refinements"
+----
 
 ### Development
 
 To contribute, run:
 
-    git clone https://github.com/bkuhlmann/refinements.git
-    cd refinements
-    bin/setup
+[source,bash]
+----
+git clone https://github.com/bkuhlmann/refinements.git
+cd refinements
+bin/setup
+----
 
 You can also use the IRB console for direct access to all objects:
 
-    bin/console
+[source,bash]
+----
+bin/console
+----
 
 ## Usage
 
@@ -116,31 +128,40 @@ You can also use the IRB console for direct access to all objects:
 
 If all refinements are not desired, add the following to your `Gemfile` instead:
 
-    gem "refinements", require: false
+[source,ruby]
+----
+gem "refinements", require: false
+----
 
 ...then require the specific refinement, as needed. Example:
 
-    require "refinements/arrays"
-    require "refinements/date_times"
-    require "refinements/big_decimals"
-    require "refinements/files"
-    require "refinements/hashes"
-    require "refinements/pathnames"
-    require "refinements/strings"
+[source,ruby]
+----
+require "refinements/arrays"
+require "refinements/date_times"
+require "refinements/big_decimals"
+require "refinements/files"
+require "refinements/hashes"
+require "refinements/pathnames"
+require "refinements/strings"
+----
 
 ### Using
 
 Much like including/extending a module, you'll need modify your object(s) to use the refinement(s):
 
-    class Example
-      using Refinements::Arrays
-      using Refinements::DateTimes
-      using Refinements::BigDecimals
-      using Refinements::Files
-      using Refinements::Hashes
-      using Refinements::Pathnames
-      using Refinements::Strings
-    end
+[source,ruby]
+----
+class Example
+  using Refinements::Arrays
+  using Refinements::DateTimes
+  using Refinements::BigDecimals
+  using Refinements::Files
+  using Refinements::Hashes
+  using Refinements::Pathnames
+  using Refinements::Strings
+end
+----
 
 ### Examples
 
@@ -148,109 +169,133 @@ The following sections demonstrate how each refinement enriches your objects wit
 
 #### Array
 
-    example = ["An", nil, "", "Example"]
-    example.compress # => ["An", "Example"]
-    example # => ["An", nil, "", "Example"]
+[source,ruby]
+----
+example = ["An", nil, "", "Example"]
+example.compress # => ["An", "Example"]
+example # => ["An", nil, "", "Example"]
 
-    example = ["An", nil, "", "Example"]
-    example.compress! # => ["An", "Example"]
-    example # => ["An", "Example"]
+example = ["An", nil, "", "Example"]
+example.compress! # => ["An", "Example"]
+example # => ["An", "Example"]
 
-    example = [1, 2, 3]
-    example.ring # => #<Enumerator: ...>
-    example.ring { |(before, current, after)| puts "#{before} #{current} #{after}" }
-    # 3 1 2
-    # 1 2 3
-    # 2 3 1
+example = [1, 2, 3]
+example.ring # => #<Enumerator: ...>
+example.ring { |(before, current, after)| puts "#{before} #{current} #{after}" }
+# 3 1 2
+# 1 2 3
+# 2 3 1
+----
 
 #### DateTime
 
-    DateTime.utc # => #<DateTime: 2019-12-31T18:17:00+00:00 ((2458849j,65820s,181867000n),+0s,2299161j)>
+[source,ruby]
+----
+DateTime.utc # => #<DateTime: 2019-12-31T18:17:00+00:00 ((2458849j,65820s,181867000n),+0s,2299161j)>
+----
 
 #### Big Decimal
 
-    BigDecimal.new("5.0E-10").inspect # => "#<BigDecimal:3fd3d458fe84 0.0000000005>"
+[source,ruby]
+----
+BigDecimal.new("5.0E-10").inspect # => "#<BigDecimal:3fd3d458fe84 0.0000000005>"
+----
 
 #### File
 
-    File.rewrite("/test.txt") { |content| content.gsub "[placeholder]", "example" }
+[source,ruby]
+----
+File.rewrite("/test.txt") { |content| content.gsub "[placeholder]", "example" }
+----
 
 #### Hash
 
-    example = {a: 1, b: 2, c: 3}
-    example.except :a, :b # => {c: 3}
-    example # => {a: 1, b: 2, c: 3}
+[source,ruby]
+----
+example = {a: 1, b: 2, c: 3}
+example.except :a, :b # => {c: 3}
+example # => {a: 1, b: 2, c: 3}
 
-    example = {a: 1, b: 2, c: 3}
-    example.except! :a, :b # => {c: 3}
-    example # => {c: 3}
+example = {a: 1, b: 2, c: 3}
+example.except! :a, :b # => {c: 3}
+example # => {c: 3}
 
-    example = {"a" => 1, "b" => 2}
-    example.symbolize_keys # => {a: 1, b: 2}
-    example # => {"a" => 1, "b" => 2}
+example = {"a" => 1, "b" => 2}
+example.symbolize_keys # => {a: 1, b: 2}
+example # => {"a" => 1, "b" => 2}
 
-    example = {"a" => 1, "b" => 2}
-    example.symbolize_keys! # => {a: 1, b: 2}
-    example # => {a: 1, b: 2}
+example = {"a" => 1, "b" => 2}
+example.symbolize_keys! # => {a: 1, b: 2}
+example # => {a: 1, b: 2}
 
-    example = {a: 1, b: 2, c: 3}
-    example.slice :a, :c # => {a: 1, c: 3}
-    example # => {a: 1, b: 2, c: 3}
+example = {a: 1, b: 2, c: 3}
+example.slice :a, :c # => {a: 1, c: 3}
+example # => {a: 1, b: 2, c: 3}
 
-    example = {a: 1, b: 2, c: 3}
-    example.slice! :a, :c # => {a: 1, c: 3}
-    example # => {a: 1, c: 3}
+example = {a: 1, b: 2, c: 3}
+example.slice! :a, :c # => {a: 1, c: 3}
+example # => {a: 1, c: 3}
 
-    example = {a: "A", b: {one: "One", two: "Two"}}
-    example.deep_merge b: {one: 1} # => {a: "A", b: {one: 1, two: "Two"}}
-    example # => {a: "A", b: {one: "One", two: "Two"}}
+example = {a: "A", b: {one: "One", two: "Two"}}
+example.deep_merge b: {one: 1} # => {a: "A", b: {one: 1, two: "Two"}}
+example # => {a: "A", b: {one: "One", two: "Two"}}
 
-    example = {a: "A", b: {one: "One", two: "Two"}}
-    example.deep_merge! b: {one: 1} # => {a: "A", b: {one: 1, two: "Two"}}
-    example # => {a: "A", b: {one: 1, two: "Two"}}
+example = {a: "A", b: {one: "One", two: "Two"}}
+example.deep_merge! b: {one: 1} # => {a: "A", b: {one: 1, two: "Two"}}
+example # => {a: "A", b: {one: 1, two: "Two"}}
 
-    example = {a: 1, b: 2}
-    example.reverse_merge a: 0, c: 3 # => {a: 1, b: 2, c: 3}
-    example # => {a: 1, b: 2}
+example = {a: 1, b: 2}
+example.reverse_merge a: 0, c: 3 # => {a: 1, b: 2, c: 3}
+example # => {a: 1, b: 2}
 
-    example = {a: 1, b: 2}
-    example.reverse_merge! a: 0, c: 3 # => {a: 1, b: 2, c: 3}
-    example # => {a: 1, b: 2, c: 3}
+example = {a: 1, b: 2}
+example.reverse_merge! a: 0, c: 3 # => {a: 1, b: 2, c: 3}
+example # => {a: 1, b: 2, c: 3}
 
-    example = {unit: "221B", street: "Baker Street", city: "London", country: "UK"}
-    example.use { |unit, street| "#{unit} #{street}" } # => "221B Baker Street"
+example = {unit: "221B", street: "Baker Street", city: "London", country: "UK"}
+example.use { |unit, street| "#{unit} #{street}" } # => "221B Baker Street"
+----
 
 #### Pathname
 
-    Pathname("test.txt").name # => Pathname("test")
+[source,ruby]
+----
+Pathname("test.txt").name # => Pathname("test")
 
-    Pathname("input.txt").copy Pathname("output.txt")
+Pathname("input.txt").copy Pathname("output.txt")
 
-    Pathname("/test.txt").rewrite { |content| content.sub "[placeholder]", "example" }
+Pathname("/test.txt").rewrite { |content| content.sub "[placeholder]", "example" }
 
-    Pathname("test.txt").touch
-    Pathname("test.txt").touch accessed_at: Time.now - 1, modified_at: Time.now - 1
+Pathname("test.txt").touch
+Pathname("test.txt").touch accessed_at: Time.now - 1, modified_at: Time.now - 1
+----
 
 #### String
 
-    "example".first # => "e"
-    "example".first 4 # => "exam"
+[source,ruby]
+----
+"example".first # => "e"
+"example".first 4 # => "exam"
 
-    "instant".last # => "t"
-    "instant".last 3 # => "ant"
+"instant".last # => "t"
+"instant".last 3 # => "ant"
 
-    " \n\t\r".blank? # => true
-    "example".up # => "Example"
-    "EXAMPLE".down # => "eXAMPLE"
-    "this_is_an_example".camelcase # => "ThisIsAnExample"
-    "ThisIsAnExample".snakecase # => "this_is_an_example"
-    "ThisIsAnExample".titleize # => "This Is An Example"
+" \n\t\r".blank? # => true
+"example".up # => "Example"
+"EXAMPLE".down # => "eXAMPLE"
+"this_is_an_example".camelcase # => "ThisIsAnExample"
+"ThisIsAnExample".snakecase # => "this_is_an_example"
+"ThisIsAnExample".titleize # => "This Is An Example"
+----
 
 ## Tests
 
 To test, run:
 
-    bundle exec rake
+[source,bash]
+----
+bundle exec rake
+----
 
 ## Versioning
 
