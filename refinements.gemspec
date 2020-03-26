@@ -8,14 +8,15 @@ Gem::Specification.new do |spec|
   spec.platform = Gem::Platform::RUBY
   spec.authors = ["Brooke Kuhlmann"]
   spec.email = ["brooke@alchemists.io"]
-  spec.homepage = "https://github.com/bkuhlmann/refinements"
+  spec.homepage = "https://www.alchemists.io/projects/refinements"
   spec.summary = "A collection of refinements to core Ruby objects."
   spec.license = "Apache-2.0"
 
   spec.metadata = {
-    "source_code_uri" => "https://github.com/bkuhlmann/refinements",
-    "changelog_uri" => "https://github.com/bkuhlmann/refinements/blob/master/CHANGES.md",
-    "bug_tracker_uri" => "https://github.com/bkuhlmann/refinements/issues"
+    "bug_tracker_uri" => "https://github.com/bkuhlmann/refinements/issues",
+    "changelog_uri" => "https://www.alchemists.io/projects/refinements/changes.html",
+    "documentation_uri" => "https://www.alchemists.io/projects/refinements",
+    "source_code_uri" => "https://github.com/bkuhlmann/refinements"
   }
 
   spec.signing_key = Gem.default_key_path
