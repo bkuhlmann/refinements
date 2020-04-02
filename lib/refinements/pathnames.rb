@@ -15,6 +15,11 @@ module Refinements
         self
       end
 
+      def make_ancestors
+        dirname.mkpath
+        self
+      end
+
       def rewrite
         read.then { |content| write yield(content) if block_given? }
         self

@@ -62,6 +62,43 @@ RSpec.describe Refinements::Pathnames, :temp_dir do
     end
   end
 
+  describe "#make_ancestors" do
+    context "when directory" do
+      let(:path) { ancestry.join "three" }
+      let(:ancestry) { temp_dir.join "one", "two" }
+
+      it "creates ancestry" do
+        path.make_ancestors
+        expect(ancestry.exist?).to eq(true)
+      end
+
+      it "does not create descendant path" do
+        path.make_ancestors
+        expect(path.exist?).to eq(false)
+      end
+    end
+
+    context "when file" do
+      let(:path) { ancestry.join "three.txt" }
+      let(:ancestry) { temp_dir.join "one", "two" }
+
+      it "creates ancestry" do
+        path.make_ancestors
+        expect(ancestry.exist?).to eq(true)
+      end
+
+      it "does not create descendant path" do
+        path.make_ancestors
+        expect(path.exist?).to eq(false)
+      end
+    end
+
+    it "answers itself" do
+      path = temp_dir.join "one", "two", "three.txt"
+      expect(path.make_ancestors).to eq(path)
+    end
+  end
+
   describe "#rewrite" do
     let(:test_path) { temp_dir.join "test.txt" }
 
