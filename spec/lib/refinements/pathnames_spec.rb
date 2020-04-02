@@ -62,6 +62,24 @@ RSpec.describe Refinements::Pathnames, :temp_dir do
     end
   end
 
+  describe "#relative_parent_from" do
+    it "answers relative path with absolute path" do
+      expect(Pathname("/one/two/three").relative_parent_from("/one")).to eq(Pathname("two"))
+    end
+
+    it "answers relative path with relative path" do
+      expect(Pathname("one/two/three").relative_parent_from("one")).to eq(Pathname("two"))
+    end
+
+    it "answers relative path with no defined parent" do
+      expect(Pathname("one").relative_parent_from("one")).to eq(Pathname(".."))
+    end
+
+    it "answers relative path with empty path" do
+      expect(Pathname("").relative_parent_from("")).to eq(Pathname(".."))
+    end
+  end
+
   describe "#make_ancestors" do
     context "when directory" do
       let(:path) { ancestry.join "three" }

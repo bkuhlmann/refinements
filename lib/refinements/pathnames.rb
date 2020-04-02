@@ -15,6 +15,10 @@ module Refinements
         self
       end
 
+      def relative_parent_from root
+        relative_path_from(root).parent
+      end
+
       def make_ancestors
         dirname.mkpath
         self
