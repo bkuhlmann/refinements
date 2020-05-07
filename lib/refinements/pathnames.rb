@@ -15,6 +15,10 @@ module Refinements
         self
       end
 
+      def extensions
+        basename.to_s.split(/(?=\.)+/).tap(&:shift)
+      end
+
       def relative_parent_from root
         relative_path_from(root).parent
       end

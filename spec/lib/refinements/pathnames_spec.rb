@@ -62,6 +62,24 @@ RSpec.describe Refinements::Pathnames, :temp_dir do
     end
   end
 
+  describe "#extensions" do
+    it "answers single extension" do
+      expect(Pathname("test.txt").extensions).to contain_exactly(".txt")
+    end
+
+    it "answers single extension with dot in absolute path" do
+      expect(Pathname("/Users/guest/.cache/test.txt").extensions).to contain_exactly(".txt")
+    end
+
+    it "answers multiple extensions" do
+      expect(Pathname("test.html.adoc").extensions).to contain_exactly(".html", ".adoc")
+    end
+
+    it "answers empty extensions" do
+      expect(Pathname("test").extensions).to eq([])
+    end
+  end
+
   describe "#relative_parent_from" do
     it "answers relative path with absolute path" do
       expect(Pathname("/one/two/three").relative_parent_from("/one")).to eq(Pathname("two"))
@@ -82,12 +100,12 @@ RSpec.describe Refinements::Pathnames, :temp_dir do
 
   describe "#make_ancestors" do
     context "when directory" do
-      let(:path) { ancestry.join "three" }
-      let(:ancestry) { temp_dir.join "one", "two" }
+      let(:path) { ancestors.join "three" }
+      let(:ancestors) { temp_dir.join "one", "two" }
 
-      it "creates ancestry" do
+      it "creates ancestors" do
         path.make_ancestors
-        expect(ancestry.exist?).to eq(true)
+        expect(ancestors.exist?).to eq(true)
       end
 
       it "does not create descendant path" do
@@ -97,12 +115,12 @@ RSpec.describe Refinements::Pathnames, :temp_dir do
     end
 
     context "when file" do
-      let(:path) { ancestry.join "three.txt" }
-      let(:ancestry) { temp_dir.join "one", "two" }
+      let(:path) { ancestors.join "three.txt" }
+      let(:ancestors) { temp_dir.join "one", "two" }
 
-      it "creates ancestry" do
+      it "creates ancestors" do
         path.make_ancestors
-        expect(ancestry.exist?).to eq(true)
+        expect(ancestors.exist?).to eq(true)
       end
 
       it "does not create descendant path" do
