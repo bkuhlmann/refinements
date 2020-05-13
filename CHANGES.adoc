@@ -1,21 +1,30 @@
 = Changes
 
+== 7.3.0 (2020-05-13)
+
+* Added Pathname extensions
+* Added Pathname make ancestors
+* Added Pathname relative parent from
+* Updated Pry gem dependencies
+* Updated README credit URL
+* Updated Rubocop gem dependencies
+
 == 7.2.0 (2020-04-01)
 
-- Added Enumerator ring
-- Added README production and development setup instructions
-- Updated documentation to ASCII Doc format
-- Updated gem identity to use constants
-- Updated gemspec URLs
-- Updated gemspec to require relative path
-- Updated to Code of Conduct 2.0.0
-- Updated to Reek 6.0.0
-- Updated to Ruby 2.7.1
-- Removed Code Climate support
-- Removed README images
-- Removed extraneous wording for README features
-- Removed inconsistent module comments
-- Refactored hash symbolize keys implementation
+* Added Enumerator ring
+* Added README production and development setup instructions
+* Updated documentation to ASCII Doc format
+* Updated gem identity to use constants
+* Updated gemspec URLs
+* Updated gemspec to require relative path
+* Updated to Code of Conduct 2.0.0
+* Updated to Reek 6.0.0
+* Updated to Ruby 2.7.1
+* Removed Code Climate support
+* Removed README images
+* Removed extraneous wording for README features
+* Removed inconsistent module comments
+* Refactored hash symbolize keys implementation
 
 == 7.1.0 (2020-01-30)
 

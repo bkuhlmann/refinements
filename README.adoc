@@ -19,17 +19,13 @@ toc::[]
 ** `#compress` - Removes `nil` and empty values without modifying itself.
 ** `#compress!` - Removes `nil` and empty values while modifying itself.
 ** `#ring` - Answers a circular array which can enumerate before, current, after elements.
-* *DateTimes*:
-** `.utc` - Answers new DateTime object for current UTC date/time.
 * *BigDecimals*:
 ** `#inspect` - Allows one to inspect a big decimal with numeric representation.
+* *DateTimes*:
+** `.utc` - Answers new DateTime object for current UTC date/time.
 * *Files*:
-** `#name` - Answers the _name_ of file without extension.
-** `#copy` - Copies an existing file to new file. Both directory structures must exist.
 ** `#rewrite` - When given a file path and a block, it provides the contents of the recently read
 file for manipulation and immediate writing back to the same file.
-** `#touch` - Updates the access and modified times of an existing file or creates the file when
-not existing.
 * *Hashes*:
 ** `#except` - Answers new hash with given keys removed without modifying calling hash.
 ** `#except!` - Answers new hash with given keys removed while modifying calling hash.
@@ -39,9 +35,17 @@ not existing.
 ** `#deep_merge!` - Merges deeply nested hashes together while modifying itself.
 ** `#reverse_merge` - Merges calling hash into passed in hash without modifying calling hash.
 ** `#reverse_merge!` - Merges calling hash into passed in hash while modifying calling hash.
+** `#use` - Passes each hash value as a block argument for further processing.
 * *Pathnames*:
+** `#name` - Answers file name without extension.
+** `#copy` - Copies file from current location to new location.
+** `#extensions` - Answers file extensions as an array.
+** `#relative_parent_from` - Answers relative path from parent directory. This is a complement to
+   `#relative_path_from`.
+** `#make_ancestors` - Ensures all ancestor directories are created for a path.
 ** `#rewrite` - When given a block, it provides the contents of the recently read file for
 manipulation and immediate writing back to the same file.
+** `#touch` - Updates access and modification times to current time for path.
 * *Strings*:
 ** `#first` - Answers first character of a string or first set of characters if given a number.
 ** `#last` - Answers last character of a string or last set of characters if given a number.
@@ -49,11 +53,9 @@ manipulation and immediate writing back to the same file.
 (i.e. `<space>`, `\n`, `\t`, `\r`).
 ** `#up` - Answers string with only first letter upcased.
 ** `#down` - Answers string with only first letter downcased.
-** `#camelcase` - Answers a camelcased string. Example: "`ThisIsCamelcase`".
-** `#snakecase` - Answers a snakecased string. Example: "`this_is_snakecase`".
-** `#titleize` - Answers titleized string. Example: "`This Is Titleized`".
-** `#use` - Provides hash value computation, via a block, by using only the keys as arguments to
-the block.
+** `#camelcase` - Answers a camelcased string.
+** `#snakecase` - Answers a snakecased string.
+** `#titleize` - Answers titleized string.
 
 == Requirements
 
@@ -113,8 +115,8 @@ gem "refinements", require: false
 [source,ruby]
 ----
 require "refinements/arrays"
-require "refinements/date_times"
 require "refinements/big_decimals"
+require "refinements/date_times"
 require "refinements/files"
 require "refinements/hashes"
 require "refinements/pathnames"
@@ -129,8 +131,8 @@ Much like including/extending a module, you’ll need modify your object(s) to u
 ----
 class Example
   using Refinements::Arrays
-  using Refinements::DateTimes
   using Refinements::BigDecimals
+  using Refinements::DateTimes
   using Refinements::Files
   using Refinements::Hashes
   using Refinements::Pathnames
@@ -162,18 +164,18 @@ example.ring { |(before, current, after)| puts "#{before} #{current} #{after}" }
 # [2 3 1]
 ----
 
-==== DateTime
-
-[source,ruby]
-----
-DateTime.utc # => #<DateTime: 2019-12-31T18:17:00+00:00 ((2458849j,65820s,181867000n),+0s,2299161j)>
-----
-
 ==== Big Decimal
 
 [source,ruby]
 ----
 BigDecimal.new("5.0E-10").inspect # => "#<BigDecimal:3fd3d458fe84 0.0000000005>"
+----
+
+==== DateTime
+
+[source,ruby]
+----
+DateTime.utc # => #<DateTime: 2019-12-31T18:17:00+00:00 ((2458849j,65820s,181867000n),+0s,2299161j)>
 ----
 
 ==== File
@@ -235,14 +237,22 @@ example.use { |unit, street| "#{unit} #{street}" } # => "221B Baker Street"
 
 [source,ruby]
 ----
-Pathname("test.txt").name # => Pathname("test")
+Pathname("example.txt").name # => Pathname("example")
 
 Pathname("input.txt").copy Pathname("output.txt")
 
+Pathname("example.txt.erb").extensions # => [".txt", ".erb"]
+
+Pathname("/one/two/three").relative_parent_from("/one") # => Pathname "two"
+
+Pathname("/one/two").make_ancestors
+Pathname("/one").exist? # => true
+Pathname("/one/two").exist? # => false
+
 Pathname("/test.txt").rewrite { |content| content.sub "[placeholder]", "example" }
 
-Pathname("test.txt").touch
-Pathname("test.txt").touch accessed_at: Time.now - 1, modified_at: Time.now - 1
+Pathname("example.txt").touch
+Pathname("example.txt").touch accessed_at: Time.now - 1, modified_at: Time.now - 1
 ----
 
 ==== String
