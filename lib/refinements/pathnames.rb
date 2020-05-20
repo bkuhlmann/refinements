@@ -19,6 +19,10 @@ module Refinements
         basename.to_s.split(/(?=\.)+/).tap(&:shift)
       end
 
+      def files pattern = "*"
+        glob(pattern).select(&:file?).sort
+      end
+
       def relative_parent_from root
         relative_path_from(root).parent
       end

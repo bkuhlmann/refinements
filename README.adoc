@@ -40,6 +40,7 @@ file for manipulation and immediate writing back to the same file.
 ** `#name` - Answers file name without extension.
 ** `#copy` - Copies file from current location to new location.
 ** `#extensions` - Answers file extensions as an array.
+** `#files` - Answers all or filtered files for current path.
 ** `#relative_parent_from` - Answers relative path from parent directory. This is a complement to
    `#relative_path_from`.
 ** `#make_ancestors` - Ensures all ancestor directories are created for a path.
@@ -242,6 +243,9 @@ Pathname("example.txt").name # => Pathname("example")
 Pathname("input.txt").copy Pathname("output.txt")
 
 Pathname("example.txt.erb").extensions # => [".txt", ".erb"]
+
+Pathname("/example").files # => [Pathname("a.txt"), Pathname("a.png")]
+Pathname("/example").files "*.png" # => [Pathname("a.png")]
 
 Pathname("/one/two/three").relative_parent_from("/one") # => Pathname "two"
 

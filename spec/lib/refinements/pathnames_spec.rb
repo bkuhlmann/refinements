@@ -80,6 +80,34 @@ RSpec.describe Refinements::Pathnames, :temp_dir do
     end
   end
 
+  describe "#files" do
+    it "answers only files when mixed with directories and files" do
+      a = temp_dir.join("a.txt").tap(&:touch)
+      temp_dir.join("a").mkdir
+
+      expect(temp_dir.files).to contain_exactly(a)
+    end
+
+    it "answers filtered files" do
+      a = temp_dir.join("a.txt").tap(&:touch)
+      temp_dir.join("a.dot").tap(&:touch)
+
+      expect(temp_dir.files("*.txt")).to contain_exactly(a)
+    end
+
+    it "answers sorted files" do
+      a = temp_dir.join("a.txt").tap(&:touch)
+      b = temp_dir.join("b.txt").tap(&:touch)
+      c = temp_dir.join("c.txt").tap(&:touch)
+
+      expect(temp_dir.files).to eq([a, b, c])
+    end
+
+    it "answers empty array without files" do
+      expect(temp_dir.files).to eq([])
+    end
+  end
+
   describe "#relative_parent_from" do
     it "answers relative path with absolute path" do
       expect(Pathname("/one/two/three").relative_parent_from("/one")).to eq(Pathname("two"))
