@@ -39,6 +39,7 @@ file for manipulation and immediate writing back to the same file.
 * *Pathnames*:
 ** `#name` - Answers file name without extension.
 ** `#copy` - Copies file from current location to new location.
+** `#directories` - Answers all or filtered directories for current path.
 ** `#extensions` - Answers file extensions as an array.
 ** `#files` - Answers all or filtered files for current path.
 ** `#relative_parent_from` - Answers relative path from parent directory. This is a complement to
@@ -241,6 +242,9 @@ example.use { |unit, street| "#{unit} #{street}" } # => "221B Baker Street"
 Pathname("example.txt").name # => Pathname("example")
 
 Pathname("input.txt").copy Pathname("output.txt")
+
+Pathname("/example").directories # => [Pathname("a"), Pathname("b")]
+Pathname("/example").directories "a*" # => [Pathname("a")]
 
 Pathname("example.txt.erb").extensions # => [".txt", ".erb"]
 

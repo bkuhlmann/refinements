@@ -15,6 +15,10 @@ module Refinements
         self
       end
 
+      def directories pattern = "*"
+        glob(pattern).select(&:directory?).sort
+      end
+
       def extensions
         basename.to_s.split(/(?=\.)+/).tap(&:shift)
       end

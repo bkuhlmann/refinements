@@ -62,6 +62,34 @@ RSpec.describe Refinements::Pathnames, :temp_dir do
     end
   end
 
+  describe "#directories" do
+    it "answers only directories when mixed with directories and files" do
+      a = temp_dir.join("a").tap(&:mkdir)
+      temp_dir.join("a.txt").tap(&:touch)
+
+      expect(temp_dir.directories).to contain_exactly(a)
+    end
+
+    it "answers filtered directories" do
+      a = temp_dir.join("a").tap(&:mkdir)
+      temp_dir.join("b").tap(&:mkdir)
+
+      expect(temp_dir.directories("a*")).to contain_exactly(a)
+    end
+
+    it "answers sorted directories" do
+      a = temp_dir.join("a").tap(&:mkdir)
+      b = temp_dir.join("b").tap(&:mkdir)
+      c = temp_dir.join("c").tap(&:mkdir)
+
+      expect(temp_dir.directories).to eq([a, b, c])
+    end
+
+    it "answers empty array without directories" do
+      expect(temp_dir.directories).to eq([])
+    end
+  end
+
   describe "#extensions" do
     it "answers single extension" do
       expect(Pathname("test.txt").extensions).to contain_exactly(".txt")
