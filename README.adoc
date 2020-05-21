@@ -33,6 +33,10 @@ file for manipulation and immediate writing back to the same file.
 ** `#symbolize_keys!` - Converts keys to symbols while modifying itself.
 ** `#deep_merge` - Merges deeply nested hashes together without modifying itself.
 ** `#deep_merge!` - Merges deeply nested hashes together while modifying itself.
+** `#deep_symbolize_keys` - Symbolizes keys of nested hash without modifying itself. Does not handle
+   nested arrays, though.
+** `#deep_symbolize_keys!` - Symbolizes keys of nested hash while modifying itself. Does not handle
+   nested arrays, though.
 ** `#recurse` - Applies block to nested hash. Does not handle nested arrays, though.
 ** `#rekey` - Transforms keys per mapping (size of mapping can vary).
 ** `#reverse_merge` - Merges calling hash into passed in hash without modifying calling hash.
@@ -224,6 +228,14 @@ example # => {a: "A", b: {one: "One", two: "Two"}}
 example = {a: "A", b: {one: "One", two: "Two"}}
 example.deep_merge! b: {one: 1} # => {a: "A", b: {one: 1, two: "Two"}}
 example # => {a: "A", b: {one: 1, two: "Two"}}
+
+example = {"a" => {"b" => 2}}
+example.deep_symbolize_keys # => {a: {b: 1}}
+example # => {"a" => {"b" => 2}}
+
+example = {"a" => {"b" => 2}}
+example.deep_symbolize_keys! # => {a: {b: 1}}
+example # => {a: {b: 1}}
 
 example = {"a" => {"b" => 1}}
 example.recurse(&:symbolize_keys) # => {a: {b: 1}}

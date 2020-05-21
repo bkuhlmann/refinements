@@ -34,6 +34,14 @@ module Refinements
         end
       end
 
+      def deep_symbolize_keys
+        recurse(&:symbolize_keys)
+      end
+
+      def deep_symbolize_keys!
+        recurse(&:symbolize_keys!)
+      end
+
       def recurse &block
         return self unless block_given?
 

@@ -344,6 +344,68 @@ RSpec.describe Refinements::Hashes do
     end
   end
 
+  describe "#deep_symbolize_keys" do
+    let :sample do
+      {
+        "a" => [
+          {"b" => 1}
+        ],
+        "c" => {
+          "d" => 2
+        }
+      }
+    end
+
+    it "answers symbolized keys" do
+      expect(sample.deep_symbolize_keys).to eq(
+        a: [
+          {"b" => 1}
+        ],
+        c: {
+          d: 2
+        }
+      )
+    end
+
+    it "does not mutate hash" do
+      example = {"a" => 1}
+      example.deep_symbolize_keys
+
+      expect(example).to eq("a" => 1)
+    end
+  end
+
+  describe "#deep_symbolize_keys!" do
+    let :sample do
+      {
+        "a" => [
+          {"b" => 1}
+        ],
+        "c" => {
+          "d" => 2
+        }
+      }
+    end
+
+    it "answers symbolized keys" do
+      expect(sample.deep_symbolize_keys!).to eq(
+        a: [
+          {"b" => 1}
+        ],
+        c: {
+          d: 2
+        }
+      )
+    end
+
+    it "mutates hash" do
+      example = {"a" => 1}
+      example.deep_symbolize_keys!
+
+      expect(example).to eq(a: 1)
+    end
+  end
+
   describe "#use" do
     subject(:hashes) { {width: 10, height: 5, depth: 22} }
 
