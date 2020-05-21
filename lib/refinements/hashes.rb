@@ -64,10 +64,12 @@ module Refinements
       end
 
       def reverse_merge other
+        warn "[DEPRECATION]: #reverse_merge is deprecated, use #merge instead."
         other.merge self
       end
 
       def reverse_merge! other
+        warn "[DEPRECATION]: #reverse_merge! is deprecated, use #merge! instead."
         merge!(other) { |_key, old_value, _new_value| old_value }
       end
 

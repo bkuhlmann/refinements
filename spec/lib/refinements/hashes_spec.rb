@@ -313,6 +313,11 @@ RSpec.describe Refinements::Hashes do
       }
     end
 
+    it "outputs deprecation warning" do
+      result = proc { hashes.reverse_merge label: "test" }
+      expect(&result).to output(/DEPRECATION/).to_stderr
+    end
+
     it "answers itself when keys match" do
       result = hashes.reverse_merge label: "empty", categories: "empty", tags: "empty"
       expect(result).to eq(hashes)
@@ -335,6 +340,11 @@ RSpec.describe Refinements::Hashes do
 
   describe "#reverse_merge!" do
     subject(:hashes) { {a: 1, b: 2} }
+
+    it "outputs deprecation warning" do
+      result = proc { hashes.reverse_merge! c: 3 }
+      expect(&result).to output(/DEPRECATION/).to_stderr
+    end
 
     it "modifies itself" do
       proof = {a: 1, b: 2, c: 3}
