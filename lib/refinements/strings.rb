@@ -79,6 +79,10 @@ module Refinements
         end
       end
 
+      def to_bool
+        %w[true yes on t y 1].include? downcase.strip
+      end
+
       private
 
       # :reek:DuplicateMethodCall

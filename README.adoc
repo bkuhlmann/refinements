@@ -64,6 +64,7 @@ manipulation and immediate writing back to the same file.
 ** `#camelcase` - Answers a camelcased string.
 ** `#snakecase` - Answers a snakecased string.
 ** `#titleize` - Answers titleized string.
+** `#to_bool` - Answers string as a boolean.
 
 == Requirements
 
@@ -295,11 +296,22 @@ Pathname("example.txt").touch accessed_at: Time.now - 1, modified_at: Time.now -
 "instant".last 3 # => "ant"
 
 " \n\t\r".blank? # => true
+
 "example".up # => "Example"
+
 "EXAMPLE".down # => "eXAMPLE"
+
 "this_is_an_example".camelcase # => "ThisIsAnExample"
+
 "ThisIsAnExample".snakecase # => "this_is_an_example"
+
 "ThisIsAnExample".titleize # => "This Is An Example"
+
+"true".to_bool # => true
+"yes".to_bool # => true
+"1".to_bool # => true
+"".to_bool # => false
+"example".to_bool # => false
 ----
 
 == Tests

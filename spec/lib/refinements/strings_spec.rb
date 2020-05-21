@@ -396,4 +396,28 @@ RSpec.describe Refinements::Strings do
       )
     end
   end
+
+  describe "#to_bool" do
+    %w[true yes on t y 1].each do |value|
+      it %(answers true with "#{value}") do
+        expect(value.to_bool).to eq(true)
+      end
+    end
+
+    it "answers true when surrounded by empty spaces" do
+      expect(" yes  ".to_bool).to eq(true)
+    end
+
+    it "answers true with mixed case" do
+      expect("TrUe".to_bool).to eq(true)
+    end
+
+    it "answers false with empty string" do
+      expect("".to_bool).to eq(false)
+    end
+
+    it "answers false with invalid value" do
+      expect("bogus".to_bool).to eq(false)
+    end
+  end
 end
