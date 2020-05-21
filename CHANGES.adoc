@@ -1,5 +1,16 @@
 = Changes
 
+== 7.4.0 (2020-05-21)
+
+* Fixed hash deep merge feature envy issue
+* Added Pathname directories
+* Added Pathname files
+* Added hash deep symbolize key methods
+* Added hash recurse
+* Added hash rekey methods
+* Added hash reverse merge deprecation warnings
+* Added string boolean
+
 == 7.3.0 (2020-05-13)
 
 * Added Pathname extensions
