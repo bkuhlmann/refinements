@@ -205,6 +205,38 @@ RSpec.describe Refinements::Hashes do
   end
   # rubocop:enable RSpec/ExampleLength
 
+  describe "#recurse" do
+    let :sample do
+      {
+        "a" => [
+          {"b" => 1}
+        ],
+        "c" => 1
+      }
+    end
+
+    it "recursively processes nested hash" do
+      expect(sample.recurse(&:symbolize_keys)).to eq(
+        a: [
+          {"b" => 1}
+        ],
+        c: 1
+      )
+    end
+
+    it "does not mutate itself" do
+      example = {"a" => 1}
+      example.recurse(&:symbolize_keys)
+
+      expect(example).to eq("a" => 1)
+    end
+
+    it "answers self when not given a block" do
+      example = {a: 1}
+      expect(example.recurse).to equal(example)
+    end
+  end
+
   describe "#rekey" do
     let(:mapping) { {a: :apples, b: :blueberries} }
 

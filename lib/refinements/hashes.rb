@@ -34,6 +34,16 @@ module Refinements
         end
       end
 
+      def recurse &block
+        return self unless block_given?
+
+        transform = yield self
+
+        transform.each do |key, value|
+          transform[key] = value.recurse(&block) if value.is_a? self.class
+        end
+      end
+
       def rekey mapping = {}
         return self if mapping.empty?
 
