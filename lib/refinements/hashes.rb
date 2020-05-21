@@ -34,6 +34,16 @@ module Refinements
         end
       end
 
+      def rekey mapping = {}
+        return self if mapping.empty?
+
+        transform_keys { |key| mapping[key] || key }
+      end
+
+      def rekey! mapping = {}
+        replace rekey(mapping)
+      end
+
       def reverse_merge other
         other.merge self
       end

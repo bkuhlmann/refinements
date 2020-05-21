@@ -33,6 +33,7 @@ file for manipulation and immediate writing back to the same file.
 ** `#symbolize_keys!` - Converts keys to symbols while modifying itself.
 ** `#deep_merge` - Merges deeply nested hashes together without modifying itself.
 ** `#deep_merge!` - Merges deeply nested hashes together while modifying itself.
+** `#rekey` - Transforms keys per mapping (size of mapping can vary).
 ** `#reverse_merge` - Merges calling hash into passed in hash without modifying calling hash.
 ** `#reverse_merge!` - Merges calling hash into passed in hash while modifying calling hash.
 ** `#use` - Passes each hash value as a block argument for further processing.
@@ -222,6 +223,9 @@ example # => {a: "A", b: {one: "One", two: "Two"}}
 example = {a: "A", b: {one: "One", two: "Two"}}
 example.deep_merge! b: {one: 1} # => {a: "A", b: {one: 1, two: "Two"}}
 example # => {a: "A", b: {one: 1, two: "Two"}}
+
+example = {a: 1, b: 2, c: 3}
+example.rekey a: :amber, b: :blue # => {amber: 1, blue: 2, c: 3}
 
 example = {a: 1, b: 2}
 example.reverse_merge a: 0, c: 3 # => {a: 1, b: 2, c: 3}

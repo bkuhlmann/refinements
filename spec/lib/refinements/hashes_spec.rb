@@ -205,6 +205,60 @@ RSpec.describe Refinements::Hashes do
   end
   # rubocop:enable RSpec/ExampleLength
 
+  describe "#rekey" do
+    let(:mapping) { {a: :apples, b: :blueberries} }
+
+    it "answers rekeyed hash of smaller size" do
+      expect({a: 1}.rekey(mapping)).to eq(apples: 1)
+    end
+
+    it "answers rekeyed hash of equal size" do
+      expect({a: 1, b: 2}.rekey(mapping)).to eq(apples: 1, blueberries: 2)
+    end
+
+    it "answers rekeyed hash of larger size" do
+      expect({a: 1, b: 2, c: 3}.rekey(mapping)).to eq(apples: 1, blueberries: 2, c: 3)
+    end
+
+    it "answers original hash with no mapping" do
+      expect({a: 1, b: 2}.rekey).to eq(a: 1, b: 2)
+    end
+
+    it "answers empty hash for empty hash and mapping" do
+      expect({}.rekey(mapping)).to eq({})
+    end
+
+    it "does not mutate hash" do
+      sample = {a: 1, b: 2}
+      sample.rekey mapping
+
+      expect(sample).to eq(a: 1, b: 2)
+    end
+  end
+
+  describe "#rekey!" do
+    let(:mapping) { {a: :apples, b: :blueberries} }
+
+    it "answers rekeyed hash" do
+      expect({a: 1, b: 2}.rekey!(mapping)).to eq(apples: 1, blueberries: 2)
+    end
+
+    it "answers original hash with no mapping" do
+      expect({a: 1, b: 2}.rekey!).to eq(a: 1, b: 2)
+    end
+
+    it "answers empty hash for empty hash and mapping" do
+      expect({}.rekey!(mapping)).to eq({})
+    end
+
+    it "mutates hash" do
+      sample = {a: 1, b: 2}
+      sample.rekey! mapping
+
+      expect(sample).to eq(apples: 1, blueberries: 2)
+    end
+  end
+
   describe "#reverse_merge" do
     subject :hashes do
       {
