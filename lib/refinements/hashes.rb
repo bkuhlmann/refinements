@@ -23,10 +23,11 @@ module Refinements
         dup.deep_merge! other
       end
 
-      # :reek:FeatureEnvy
       def deep_merge! other
+        clazz = self.class
+
         merge! other do |_key, this_value, other_value|
-          if this_value.is_a?(Hash) && other_value.is_a?(Hash)
+          if this_value.is_a?(clazz) && other_value.is_a?(clazz)
             this_value.deep_merge other_value
           else
             other_value
