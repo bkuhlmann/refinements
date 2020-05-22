@@ -27,8 +27,8 @@ toc::[]
 ** `#rewrite` - When given a file path and a block, it provides the contents of the recently read
 file for manipulation and immediate writing back to the same file.
 * *Hashes*:
-** `#except` - Answers new hash with given keys removed without modifying calling hash.
-** `#except!` - Answers new hash with given keys removed while modifying calling hash.
+** `#except` - Answers new hash with given keys removed without modifying itself.
+** `#except!` - Answers new hash with given keys removed while modifying itself.
 ** `#symbolize_keys` - Converts keys to symbols without modifying itself.
 ** `#symbolize_keys!` - Converts keys to symbols while modifying itself.
 ** `#deep_merge` - Merges deeply nested hashes together without modifying itself.
@@ -38,9 +38,10 @@ file for manipulation and immediate writing back to the same file.
 ** `#deep_symbolize_keys!` - Symbolizes keys of nested hash while modifying itself. Does not handle
    nested arrays, though.
 ** `#recurse` - Applies block to nested hash. Does not handle nested arrays, though.
-** `#rekey` - Transforms keys per mapping (size of mapping can vary).
-** `#reverse_merge` - Merges calling hash into passed in hash without modifying calling hash.
-** `#reverse_merge!` - Merges calling hash into passed in hash while modifying calling hash.
+** `#rekey` - Transforms keys per mapping (size of mapping can vary) without modifying itself.
+** `#rekey!` - Transforms keys per mapping (size of mapping can vary) while modifying itself.
+** `#reverse_merge` - Merges calling hash into passed in hash without modifying itself.
+** `#reverse_merge!` - Merges calling hash into passed in hash while modifying itself.
 ** `#use` - Passes each hash value as a block argument for further processing.
 * *Pathnames*:
 ** `#name` - Answers file name without extension.
@@ -53,7 +54,7 @@ file for manipulation and immediate writing back to the same file.
 ** `#make_ancestors` - Ensures all ancestor directories are created for a path.
 ** `#rewrite` - When given a block, it provides the contents of the recently read file for
 manipulation and immediate writing back to the same file.
-** `#touch` - Updates access and modification times to current time for path.
+** `#touch` - Updates access and modification times for path. Defaults to current time.
 * *Strings*:
 ** `#first` - Answers first character of a string or first set of characters if given a number.
 ** `#last` - Answers last character of a string or last set of characters if given a number.
@@ -244,6 +245,11 @@ example.recurse(&:invert) # => {{"b" => 1} => "a"}
 
 example = {a: 1, b: 2, c: 3}
 example.rekey a: :amber, b: :blue # => {amber: 1, blue: 2, c: 3}
+example # => {a: 1, b: 2, c: 3}
+
+example = {a: 1, b: 2, c: 3}
+example.rekey! a: :amber, b: :blue # => {amber: 1, blue: 2, c: 3}
+example # => {amber: 1, blue: 2, c: 3}
 
 example = {a: 1, b: 2}
 example.reverse_merge a: 0, c: 3 # => {a: 1, b: 2, c: 3}
@@ -282,7 +288,7 @@ Pathname("/one/two").exist? # => false
 Pathname("/test.txt").rewrite { |content| content.sub "[placeholder]", "example" }
 
 Pathname("example.txt").touch
-Pathname("example.txt").touch accessed_at: Time.now - 1, modified_at: Time.now - 1
+Pathname("example.txt").touch at: Time.now - 1
 ----
 
 ==== String
