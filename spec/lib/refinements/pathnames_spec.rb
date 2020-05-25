@@ -5,6 +5,20 @@ require "spec_helper"
 RSpec.describe Refinements::Pathnames, :temp_dir do
   using described_class
 
+  describe "#Pathname" do
+    it "answers pathname for nil" do
+      expect(Pathname(nil)).to eq(Pathname(""))
+    end
+
+    it "answers pathname for string" do
+      expect(Pathname("/tmp")).to eq(Pathname("/tmp"))
+    end
+
+    it "answers pathname for pathname" do
+      expect(temp_dir).to eq(temp_dir)
+    end
+  end
+
   describe "#name" do
     it "answers name of file without extension" do
       path = Pathname "example.txt"

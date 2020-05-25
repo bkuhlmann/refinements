@@ -1,3 +1,6 @@
 detectors:
   IrresponsibleModule:
     enabled: false
+  UncommunicativeMethodName:
+    exclude:
+      - "Refinements::Pathnames#Pathname"

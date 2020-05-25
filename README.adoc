@@ -44,6 +44,7 @@ file for manipulation and immediate writing back to the same file.
 ** `#reverse_merge!` - Merges calling hash into passed in hash while modifying itself.
 ** `#use` - Passes each hash value as a block argument for further processing.
 * *Pathnames*:
+** `Pathname` - Conversion function (refined from `Kernel`) which can cast `nil` into a pathname.
 ** `#name` - Answers file name without extension.
 ** `#copy` - Copies file from current location to new location.
 ** `#directories` - Answers all or filtered directories for current path.
@@ -267,6 +268,8 @@ example.use { |unit, street| "#{unit} #{street}" } # => "221B Baker Street"
 
 [source,ruby]
 ----
+Pathname(nil) # => Pathname("")
+
 Pathname("example.txt").name # => Pathname("example")
 
 Pathname("input.txt").copy Pathname("output.txt")

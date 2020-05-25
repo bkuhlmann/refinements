@@ -4,6 +4,14 @@ require "pathname"
 
 module Refinements
   module Pathnames
+    refine Kernel do
+      def Pathname object
+        return super(String(object)) unless object
+
+        super
+      end
+    end
+
     refine Pathname do
       def name
         basename extname
