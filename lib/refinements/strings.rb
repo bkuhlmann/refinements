@@ -4,7 +4,7 @@ module Refinements
   module Strings
     refine String.singleton_class do
       def delimiters
-        %r([a-z][A-Z]|\s*\-\s*|\s*\/\s*|\s*\:+\s*|\s*\_\s*|\s+)
+        %r([a-z][A-Z]|\s*-\s*|\s*/\s*|\s*:+\s*|\s*_\s*|\s+)
       end
     end
 
@@ -51,9 +51,9 @@ module Refinements
 
       def camelcase
         if match? self.class.delimiters
-          split(%r(\s*\-\s*|\s*\/\s*|\s*\:+\s*)).then { |parts| combine parts, :up, "::" }
-                                                .then { |text| text.split(/\s*\_\s*|\s+/) }
-                                                .then { |parts| combine parts, :up }
+          split(%r(\s*-\s*|\s*/\s*|\s*:+\s*)).then { |parts| combine parts, :up, "::" }
+                                             .then { |text| text.split(/\s*_\s*|\s+/) }
+                                             .then { |parts| combine parts, :up }
         else
           up
         end
@@ -61,9 +61,9 @@ module Refinements
 
       def snakecase
         if match? self.class.delimiters
-          split(%r(\s*\-\s*|\s*\/\s*|\s*\:+\s*)).then { |parts| combine parts, :down, "/" }
-                                                .then { |txt| txt.split(/(?=[A-Z])|\s*\_\s*|\s+/) }
-                                                .then { |parts| combine parts, :down, "_" }
+          split(%r(\s*-\s*|\s*/\s*|\s*:+\s*)).then { |parts| combine parts, :down, "/" }
+                                             .then { |txt| txt.split(/(?=[A-Z])|\s*_\s*|\s+/) }
+                                             .then { |parts| combine parts, :down, "_" }
         else
           downcase
         end
@@ -71,9 +71,9 @@ module Refinements
 
       def titleize
         if match? self.class.delimiters
-          split(/(?=[A-Z])|\s*\_\s*|\s*\-\s*|\s+/).then { |parts| combine parts, :up, " " }
-                                                  .then { |text| text.split %r(\s*\/\s*|\s*\:+\s*) }
-                                                  .then { |parts| combine parts, :up, "/" }
+          split(/(?=[A-Z])|\s*_\s*|\s*-\s*|\s+/).then { |parts| combine parts, :up, " " }
+                                                .then { |text| text.split %r(\s*/\s*|\s*:+\s*) }
+                                                .then { |parts| combine parts, :up, "/" }
         else
           capitalize
         end
