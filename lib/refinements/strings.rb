@@ -50,33 +50,27 @@ module Refinements
       end
 
       def camelcase
-        if match? self.class.delimiters
-          split(%r(\s*-\s*|\s*/\s*|\s*:+\s*)).then { |parts| combine parts, :up, "::" }
-                                             .then { |text| text.split(/\s*_\s*|\s+/) }
-                                             .then { |parts| combine parts, :up }
-        else
-          up
-        end
+        return up unless match? self.class.delimiters
+
+        split(%r(\s*-\s*|\s*/\s*|\s*:+\s*)).then { |parts| combine parts, :up, "::" }
+                                           .then { |text| text.split(/\s*_\s*|\s+/) }
+                                           .then { |parts| combine parts, :up }
       end
 
       def snakecase
-        if match? self.class.delimiters
-          split(%r(\s*-\s*|\s*/\s*|\s*:+\s*)).then { |parts| combine parts, :down, "/" }
-                                             .then { |txt| txt.split(/(?=[A-Z])|\s*_\s*|\s+/) }
-                                             .then { |parts| combine parts, :down, "_" }
-        else
-          downcase
-        end
+        return downcase unless match? self.class.delimiters
+
+        split(%r(\s*-\s*|\s*/\s*|\s*:+\s*)).then { |parts| combine parts, :down, "/" }
+                                           .then { |text| text.split(/(?=[A-Z])|\s*_\s*|\s+/) }
+                                           .then { |parts| combine parts, :down, "_" }
       end
 
       def titleize
-        if match? self.class.delimiters
-          split(/(?=[A-Z])|\s*_\s*|\s*-\s*|\s+/).then { |parts| combine parts, :up, " " }
-                                                .then { |text| text.split %r(\s*/\s*|\s*:+\s*) }
-                                                .then { |parts| combine parts, :up, "/" }
-        else
-          capitalize
-        end
+        return capitalize unless match? self.class.delimiters
+
+        split(/(?=[A-Z])|\s*_\s*|\s*-\s*|\s+/).then { |parts| combine parts, :up, " " }
+                                              .then { |text| text.split %r(\s*/\s*|\s*:+\s*) }
+                                              .then { |parts| combine parts, :up, "/" }
       end
 
       def to_bool
