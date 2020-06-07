@@ -17,20 +17,18 @@ module Refinements
         return self[0] if max.zero?
         return "" if max.negative?
 
-        self[0..(max - 1)]
+        self[..(max - 1)]
       end
 
-      # :reek:TooManyStatements
       def last number = 0
         return self if empty?
 
         min = Integer number
-        max = size - 1
 
-        return self[max] if min.zero?
+        return self[size - 1] if min.zero?
         return "" if min.negative?
 
-        self[(min + 1)..max]
+        self[(min + 1)..]
       end
 
       def blank?
