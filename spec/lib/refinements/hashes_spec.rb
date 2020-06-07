@@ -57,7 +57,6 @@ RSpec.describe Refinements::Hashes do
     end
   end
 
-  # rubocop:disable RSpec/ExampleLength
   describe "#deep_merge" do
     subject :hashes do
       {
@@ -71,67 +70,56 @@ RSpec.describe Refinements::Hashes do
       }
     end
 
-    it "merges existing values" do
-      proof = {
-        label: "Test",
-        nested: {
-          level_1: {
-            value: "test"
-          },
-          level_2: %w[x y z]
+    context "with identical keys" do
+      let :proof do
+        {
+          label: "Test",
+          nested: {
+            level_1: {
+              value: "test"
+            },
+            level_2: %w[x y z]
+          }
         }
-      }
+      end
 
-      result = hashes.deep_merge label: "Test",
-                                 nested: {
-                                   level_1: {
-                                     value: "test"
-                                   },
-                                   level_2: %w[x y z]
-                                 }
-
-      expect(result).to eq(proof)
+      it "replaces all values" do
+        result = hashes.deep_merge proof
+        expect(result).to eq(proof)
+      end
     end
 
-    it "merges new values" do
-      proof = {
-        label: "Example",
-        basic: {
-          a: 1,
-          b: [1, 2, 3]
-        },
-        nested: {
-          level_1: {
-            value: "example"
+    context "with new keys" do
+      let :proof do
+        {
+          label: "Example",
+          basic: {
+            a: 1,
+            b: [1, 2, 3]
           },
-          level_2: %w[a b c]
+          nested: {
+            level_1: {
+              value: "example"
+            },
+            level_2: %w[a b c]
+          }
         }
-      }
+      end
 
-      result = hashes.deep_merge basic: {a: 1, b: [1, 2, 3]}
-
-      expect(result).to eq(proof)
+      it "merges structure with existing structure" do
+        result = hashes.deep_merge basic: {a: 1, b: [1, 2, 3]}
+        expect(result).to eq(proof)
+      end
     end
 
     it "does not modify itself" do
-      proof = {
-        label: "Example",
-        nested: {
-          level_1: {
-            value: "example"
-          },
-          level_2: %w[a b c]
-        }
-      }
-
+      proof = hashes.dup
       hashes.deep_merge label: "Test"
 
       expect(hashes).to eq(proof)
     end
   end
-  # rubocop:enable RSpec/ExampleLength
 
-  # rubocop:disable RSpec/ExampleLength
   describe "#deep_merge!" do
     subject :hashes do
       {
@@ -145,65 +133,55 @@ RSpec.describe Refinements::Hashes do
       }
     end
 
-    it "merges existing values" do
-      proof = {
-        label: "Test",
-        nested: {
-          level_1: {
-            value: "test"
-          },
-          level_2: %w[x y z]
+    context "with identical keys" do
+      let :proof do
+        {
+          label: "Test",
+          nested: {
+            level_1: {
+              value: "test"
+            },
+            level_2: %w[x y z]
+          }
         }
-      }
+      end
 
-      result = hashes.deep_merge! label: "Test",
-                                  nested: {
-                                    level_1: {
-                                      value: "test"
-                                    },
-                                    level_2: %w[x y z]
-                                  }
-
-      expect(result).to eq(proof)
+      it "replaces all values" do
+        result = hashes.deep_merge! proof
+        expect(result).to eq(proof)
+      end
     end
 
-    it "merges new values" do
-      proof = {
-        label: "Example",
-        basic: {
-          a: 1,
-          b: [1, 2, 3]
-        },
-        nested: {
-          level_1: {
-            value: "example"
+    context "with new keys" do
+      let :proof do
+        {
+          label: "Example",
+          basic: {
+            a: 1,
+            b: [1, 2, 3]
           },
-          level_2: %w[a b c]
+          nested: {
+            level_1: {
+              value: "example"
+            },
+            level_2: %w[a b c]
+          }
         }
-      }
+      end
 
-      result = hashes.deep_merge! basic: {a: 1, b: [1, 2, 3]}
-
-      expect(result).to eq(proof)
+      it "merges structure with existing structure" do
+        result = hashes.deep_merge! basic: {a: 1, b: [1, 2, 3]}
+        expect(result).to eq(proof)
+      end
     end
 
     it "modifies itself" do
-      proof = {
-        label: "Test",
-        nested: {
-          level_1: {
-            value: "example"
-          },
-          level_2: %w[a b c]
-        }
-      }
-
+      proof = hashes.dup.merge label: "Test"
       hashes.deep_merge! label: "Test"
 
       expect(hashes).to eq(proof)
     end
   end
-  # rubocop:enable RSpec/ExampleLength
 
   describe "#recurse" do
     let :sample do
