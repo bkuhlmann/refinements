@@ -70,7 +70,7 @@ manipulation and immediate writing back to the same file.
 
 == Requirements
 
-. https://www.ruby-lang.org[Ruby 2.7.x].
+. https://www.ruby-lang.org[Ruby].
 . A solid understanding of link:https://www.alchemists.io/articles/ruby_refinements[Ruby refinements
   and lexical scope].
 
