@@ -2,6 +2,12 @@
 
 module Refinements
   module Hashes
+    refine Hash.singleton_class do
+      def with_default value
+        new { |new_hash, missing_key| new_hash[missing_key] = value }
+      end
+    end
+
     refine Hash do
       def except *keys
         reject { |key, _value| keys.include? key }

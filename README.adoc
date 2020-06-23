@@ -27,6 +27,7 @@ toc::[]
 ** `#rewrite` - When given a file path and a block, it provides the contents of the recently read
 file for manipulation and immediate writing back to the same file.
 * *Hashes*:
+** `.with_default` - Answers new hash where every top-level missing key has the same default value.
 ** `#except` - Answers new hash with given keys removed without modifying itself.
 ** `#except!` - Answers new hash with given keys removed while modifying itself.
 ** `#symbolize_keys` - Converts keys to symbols without modifying itself.
@@ -200,6 +201,11 @@ File.rewrite("/test.txt") { |content| content.gsub "[placeholder]", "example" }
 
 [source,ruby]
 ----
+example = Hash.with_default ""
+example[:a] # => ""
+example = Hash.with_default []
+example[:b] # => []
+
 example = {a: 1, b: 2, c: 3}
 example.except :a, :b # => {c: 3}
 example # => {a: 1, b: 2, c: 3}

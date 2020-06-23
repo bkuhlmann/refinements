@@ -5,6 +5,13 @@ require "spec_helper"
 RSpec.describe Refinements::Hashes do
   using described_class
 
+  describe ".with_default" do
+    it "answers default value for missing key" do
+      default = Hash.with_default []
+      expect(default[:a]).to eq([])
+    end
+  end
+
   describe "#except" do
     subject(:hashes) { {a: 1, b: 2, c: 3} }
 
