@@ -5,6 +5,18 @@ require "spec_helper"
 RSpec.describe Refinements::Hashes do
   using described_class
 
+  describe ".infinite" do
+    subject(:infinite) { Hash.infinite }
+
+    it "answers hash for missing top-level key" do
+      expect(infinite[:a]).to eq({})
+    end
+
+    it "answers hash for deeply nested missing key" do
+      expect(infinite[:a][:b][:c]).to eq({})
+    end
+  end
+
   describe ".with_default" do
     it "answers default value for missing key" do
       default = Hash.with_default []

@@ -3,6 +3,10 @@
 module Refinements
   module Hashes
     refine Hash.singleton_class do
+      def infinite
+        new { |new_hash, missing_key| new_hash[missing_key] = new(&new_hash.default_proc) }
+      end
+
       def with_default value
         new { |new_hash, missing_key| new_hash[missing_key] = value }
       end
