@@ -1,15 +1,25 @@
 = Changes
 
+== 7.6.0 (2020-07-04)
+
+* Fixed project requirements
+* Added Hash construction with default value for missing key
+* Added Hash infinite construction
+* Updated GitHub templates
+* Updated to Gemsmith 14.2.0
+* Updated to Git Lint 1.0.0
+* Refactored Rakefile requirements
+
 == 7.5.0 (2020-06-07)
 
-- Fixed README wording and examples
-- Fixed Rubocop RSpec/ExampleLength issues with hash deep merge specs
-- Fixed Rubocop issues
-- Added File rewrite deprecation warning
-- Added Kernel pathname refinment for nil objects
-- Updated README documentation for lexical scope
-- Refactored first and last strings to use endless ranges
-- Refactored string refinements to use guard clauses
+* Fixed README wording and examples
+* Fixed Rubocop RSpec/ExampleLength issues with hash deep merge specs
+* Fixed Rubocop issues
+* Added File rewrite deprecation warning
+* Added Kernel pathname refinment for nil objects
+* Updated README documentation for lexical scope
+* Refactored first and last strings to use endless ranges
+* Refactored string refinements to use guard clauses
 
 == 7.4.0 (2020-05-21)
 
