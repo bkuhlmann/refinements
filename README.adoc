@@ -52,6 +52,8 @@ file for manipulation and immediate writing back to the same file.
 ** `#directories` - Answers all or filtered directories for current path.
 ** `#extensions` - Answers file extensions as an array.
 ** `#files` - Answers all or filtered files for current path.
+** `#gsub` - Same behavior as `String#gsub` but answers a path with patterns replaced with desired
+   substitutes.
 ** `#relative_parent_from` - Answers relative path from parent directory. This is a complement to
    `#relative_path_from`.
 ** `#make_ancestors` - Ensures all ancestor directories are created for a path.
@@ -292,6 +294,9 @@ Pathname("example.txt.erb").extensions # => [".txt", ".erb"]
 
 Pathname("/example").files # => [Pathname("a.txt"), Pathname("a.png")]
 Pathname("/example").files "*.png" # => [Pathname("a.png")]
+
+Pathname("/a/path/some/path").gsub("path", "test") # => Pathname("/a/test/some/test")
+Pathname("/%placeholder%/some/%placeholder%").gsub("%placeholder%", "test") # => Pathname("/test/some/test")
 
 Pathname("/one/two/three").relative_parent_from("/one") # => Pathname "two"
 

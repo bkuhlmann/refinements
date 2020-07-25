@@ -35,6 +35,10 @@ module Refinements
         glob(pattern).select(&:file?).sort
       end
 
+      def gsub pattern, replacement
+        self.class.new to_s.gsub(pattern, replacement)
+      end
+
       def relative_parent_from root
         relative_path_from(root).parent
       end

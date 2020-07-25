@@ -150,6 +150,18 @@ RSpec.describe Refinements::Pathnames, :temp_dir do
     end
   end
 
+  describe "#gsub" do
+    it "answers path with pattern replaced once" do
+      expect(Pathname("/%pattern%/path").gsub("%pattern%", "test")).to eq(Pathname("/test/path"))
+    end
+
+    it "answers path with pattern replaced multiple times" do
+      expect(Pathname("/a/%pattern%/b/%pattern%/c/%pattern%").gsub("%pattern%", "test")).to eq(
+        Pathname("/a/test/b/test/c/test")
+      )
+    end
+  end
+
   describe "#relative_parent_from" do
     it "answers relative path with absolute path" do
       expect(Pathname("/one/two/three").relative_parent_from("/one")).to eq(Pathname("two"))
