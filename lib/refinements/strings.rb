@@ -2,9 +2,12 @@
 
 module Refinements
   module Strings
+    DELIMITERS = %r([a-z][A-Z]|\s*-\s*|\s*/\s*|\s*:+\s*|\s*_\s*|\s+).freeze
+
     refine String.singleton_class do
       def delimiters
-        %r([a-z][A-Z]|\s*-\s*|\s*/\s*|\s*:+\s*|\s*_\s*|\s+)
+        warn "[DEPRECATION]: .delimiters is deprecated, use DELIMITERS instead."
+        DELIMITERS
       end
     end
 
@@ -48,7 +51,7 @@ module Refinements
       end
 
       def camelcase
-        return up unless match? self.class.delimiters
+        return up unless match? DELIMITERS
 
         split(%r(\s*-\s*|\s*/\s*|\s*:+\s*)).then { |parts| combine parts, :up, "::" }
                                            .then { |text| text.split(/\s*_\s*|\s+/) }
@@ -56,7 +59,7 @@ module Refinements
       end
 
       def snakecase
-        return downcase unless match? self.class.delimiters
+        return downcase unless match? DELIMITERS
 
         split(%r(\s*-\s*|\s*/\s*|\s*:+\s*)).then { |parts| combine parts, :down, "/" }
                                            .then { |text| text.split(/(?=[A-Z])|\s*_\s*|\s+/) }
@@ -64,7 +67,7 @@ module Refinements
       end
 
       def titleize
-        return capitalize unless match? self.class.delimiters
+        return capitalize unless match? DELIMITERS
 
         split(/(?=[A-Z])|\s*_\s*|\s*-\s*|\s+/).then { |parts| combine parts, :up, " " }
                                               .then { |text| text.split %r(\s*/\s*|\s*:+\s*) }
