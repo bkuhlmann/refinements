@@ -23,16 +23,16 @@ module Refinements
         self
       end
 
-      def directories pattern = "*"
-        glob(pattern).select(&:directory?).sort
+      def directories pattern = "*", flag: File::FNM_SYSCASE
+        glob(pattern, flag).select(&:directory?).sort
       end
 
       def extensions
         basename.to_s.split(/(?=\.)+/).tap(&:shift)
       end
 
-      def files pattern = "*"
-        glob(pattern).select(&:file?).sort
+      def files pattern = "*", flag: File::FNM_SYSCASE
+        glob(pattern, flag).select(&:file?).sort
       end
 
       def gsub pattern, replacement

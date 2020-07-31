@@ -99,6 +99,18 @@ RSpec.describe Refinements::Pathnames, :temp_dir do
       expect(temp_dir.directories).to eq([a, b, c])
     end
 
+    it "answers flagged directories" do
+      a = temp_dir.join(".test").tap(&:mkdir)
+
+      expect(temp_dir.directories(flag: File::FNM_DOTMATCH)).to eq(
+        [
+          temp_dir.join(".."),
+          temp_dir.join("."),
+          a
+        ]
+      )
+    end
+
     it "answers empty array without directories" do
       expect(temp_dir.directories).to eq([])
     end
@@ -143,6 +155,11 @@ RSpec.describe Refinements::Pathnames, :temp_dir do
       c = temp_dir.join("c.txt").tap(&:touch)
 
       expect(temp_dir.files).to eq([a, b, c])
+    end
+
+    it "answers flagged files" do
+      a = temp_dir.join(".test").tap(&:touch)
+      expect(temp_dir.files(flag: File::FNM_DOTMATCH)).to eq([a])
     end
 
     it "answers empty array without files" do

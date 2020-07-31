@@ -291,11 +291,13 @@ Pathname("input.txt").copy Pathname("output.txt")
 
 Pathname("/example").directories # => [Pathname("a"), Pathname("b")]
 Pathname("/example").directories "a*" # => [Pathname("a")]
+Pathname("/example").directories flag: File::FNM_DOTMATCH # => [Pathname(".."), Pathname(".")]
 
 Pathname("example.txt.erb").extensions # => [".txt", ".erb"]
 
 Pathname("/example").files # => [Pathname("a.txt"), Pathname("a.png")]
 Pathname("/example").files "*.png" # => [Pathname("a.png")]
+Pathname("/example").files flag: File::FNM_DOTMATCH # => [Pathname(".ruby-version")]
 
 Pathname("/a/path/some/path").gsub("path", "test") # => Pathname("/a/test/some/test")
 Pathname("/%placeholder%/some/%placeholder%").gsub("%placeholder%", "test") # => Pathname("/test/some/test")
