@@ -71,6 +71,8 @@ manipulation and immediate writing back to the same file.
 ** `#snakecase` - Answers a snakecased string.
 ** `#titleize` - Answers titleized string.
 ** `#to_bool` - Answers string as a boolean.
+* *String IOs*:
+** `#reread` - Answers full string by rewinding to beginning of string and reading all content.
 
 == Requirements
 
@@ -337,6 +339,21 @@ Pathname("example.txt").touch at: Time.now - 1
 "1".to_bool # => true
 "".to_bool # => false
 "example".to_bool # => false
+----
+
+==== String IO
+
+[source,ruby]
+----
+io = StringIO.new
+io.write "This is a test."
+io.reread # => "This is a test."
+
+io.reread(4) => "This"
+
+buffer = "".dup
+io.reread(buffer: buffer)
+buffer # => "This is a test."
 ----
 
 == Tests
