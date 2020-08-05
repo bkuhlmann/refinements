@@ -1,5 +1,13 @@
 = Changes
 
+== 7.7.0 (2020-08-05)
+
+* Fixed Rubocop Lint/NonDeterministicRequireOrder issues
+* Added Pathname directory and file flags
+* Added Pathname gsub
+* Added String IO rewind
+* Updated String class delimiters method to be deprecated
+
 == 7.6.0 (2020-07-04)
 
 * Fixed project requirements
