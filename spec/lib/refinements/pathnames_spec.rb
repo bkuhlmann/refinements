@@ -198,6 +198,11 @@ RSpec.describe Refinements::Pathnames, :temp_dir do
   end
 
   describe "#relative_parent_from" do
+    it "prints deprecation warning" do
+      expectation = proc { Pathname("/one/two/three").relative_parent_from("/one") }
+      expect(&expectation).to output(/Pathname#relative_parent_from is deprecated/).to_stderr
+    end
+
     it "answers relative path with absolute path" do
       expect(Pathname("/one/two/three").relative_parent_from("/one")).to eq(Pathname("two"))
     end

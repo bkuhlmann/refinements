@@ -43,8 +43,10 @@ module Refinements
         relative_path_from(root_dir).parent
       end
 
-      def relative_parent_from root
-        relative_path_from(root).parent
+      def relative_parent_from root_dir
+        warn "[DEPRECATION]: Pathname#relative_parent_from is deprecated, " \
+             "use Pathname#relative_parent instead."
+        relative_parent root_dir
       end
 
       def make_ancestors
