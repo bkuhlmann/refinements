@@ -54,7 +54,7 @@ file for manipulation and immediate writing back to the same file.
 ** `#files` - Answers all or filtered files for current path.
 ** `#gsub` - Same behavior as `String#gsub` but answers a path with patterns replaced with desired
    substitutes.
-** `#relative_parent_from` - Answers relative path from parent directory. This is a complement to
+** `#relative_parent` - Answers relative path from parent directory. This is a complement to
    `#relative_path_from`.
 ** `#make_ancestors` - Ensures all ancestor directories are created for a path.
 ** `#rewrite` - When given a block, it provides the contents of the recently read file for

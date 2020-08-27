@@ -39,6 +39,10 @@ module Refinements
         self.class.new to_s.gsub(pattern, replacement)
       end
 
+      def relative_parent root_dir
+        relative_path_from(root_dir).parent
+      end
+
       def relative_parent_from root
         relative_path_from(root).parent
       end
