@@ -7,49 +7,49 @@ RSpec.describe Refinements::Arrays do
 
   describe "#compress" do
     it "answers original array when nothing to do" do
-      arrays = %w[one two]
-      expect(arrays.compress).to contain_exactly("one", "two")
+      array = %w[one two]
+      expect(array.compress).to contain_exactly("one", "two")
     end
 
     it "answers array with nils removed" do
-      arrays = ["one", nil, "two"]
-      expect(arrays.compress).to contain_exactly("one", "two")
+      array = ["one", nil, "two"]
+      expect(array.compress).to contain_exactly("one", "two")
     end
 
     it "answers array with blank strings removed" do
-      arrays = ["one", "", "two"]
-      expect(arrays.compress).to contain_exactly("one", "two")
+      array = ["one", "", "two"]
+      expect(array.compress).to contain_exactly("one", "two")
     end
 
     it "does not modify original values" do
-      arrays = ["one", nil, "", "two"]
-      arrays.compress
+      array = ["one", nil, "", "two"]
+      array.compress
 
-      expect(arrays).to contain_exactly("one", nil, "", "two")
+      expect(array).to contain_exactly("one", nil, "", "two")
     end
   end
 
   describe "#compress!" do
     it "answers original array when nothing to do" do
-      arrays = %w[one two]
-      expect(arrays.compress!).to contain_exactly("one", "two")
+      array = %w[one two]
+      expect(array.compress!).to contain_exactly("one", "two")
     end
 
     it "answers array with nils removed" do
-      arrays = ["one", nil, "two"]
-      expect(arrays.compress!).to contain_exactly("one", "two")
+      array = ["one", nil, "two"]
+      expect(array.compress!).to contain_exactly("one", "two")
     end
 
     it "answers array with empty values removed" do
-      arrays = ["one", "", "two"]
-      expect(arrays.compress!).to contain_exactly("one", "two")
+      array = ["one", "", "two"]
+      expect(array.compress!).to contain_exactly("one", "two")
     end
 
     it "modifies original values" do
-      arrays = ["one", nil, "", "two"]
-      arrays.compress!
+      array = ["one", nil, "", "two"]
+      array.compress!
 
-      expect(arrays).to contain_exactly("one", "two")
+      expect(array).to contain_exactly("one", "two")
     end
   end
 
