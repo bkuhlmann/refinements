@@ -18,6 +18,8 @@ toc::[]
 * *Arrays*:
 ** `#compress` - Removes `nil` and empty values without modifying itself.
 ** `#compress!` - Removes `nil` and empty values while modifying itself.
+** `#include` - Adds given array or elements without modifying itself.
+** `#exclude` - Removes given array or elements without modifying itself.
 ** `#ring` - Answers a circular array which can enumerate before, current, after elements.
 * *BigDecimals*:
 ** `#inspect` - Allows one to inspect a big decimal with numeric representation.
@@ -172,6 +174,12 @@ example # => ["An", nil, "", "Example"]
 example = ["An", nil, "", "Example"]
 example.compress! # => ["An", "Example"]
 example # => ["An", "Example"]
+
+[1, 2, 3].include [4, 5] # => [1, 2, 3, 4, 5]
+[1, 2, 3].include 4, 5 # => [1, 2, 3, 4, 5]
+
+[1, 2, 3, 4, 5].exclude [4, 5] # => [1, 2, 3]
+[1, 2, 3, 4, 5].include 4, 5 # => [1, 2, 3, 4, 5]
 
 example = [1, 2, 3]
 example.ring # => #<Enumerator: ...>

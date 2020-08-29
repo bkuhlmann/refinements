@@ -11,6 +11,14 @@ module Refinements
         replace compress
       end
 
+      def include *elements
+        self + elements.flatten
+      end
+
+      def exclude *elements
+        self - elements.flatten
+      end
+
       def ring &block
         [last, *self, first].each_cons 3, &block
       end
