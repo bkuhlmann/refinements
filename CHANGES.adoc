@@ -1,5 +1,14 @@
 = Changes
 
+== 7.8.0 (2020-08-29)
+
+* Added Array include and exclude support
+* Added Guard and Rubocop binstubs
+* Added Pathname relative parent
+* Added deprecation warning for Pathname relative path from method
+* Updated to Rubocop 0.89.0
+* Refactored arrays spec to use consistent instance varaibles
+
 == 7.7.0 (2020-08-05)
 
 * Fixed Rubocop Lint/NonDeterministicRequireOrder issues
