@@ -50,6 +50,71 @@ RSpec.describe Refinements::Hashes do
     end
   end
 
+  shared_examples_for "flattened keys" do |method|
+    it "fails with unknown cast" do
+      expectation = proc { Hash.new.flatten_keys cast: :invalid }
+      expect(&expectation).to raise_error(StandardError, "Unknown cast: invalid.")
+    end
+
+    it "answers same structure when keys are not nested" do
+      expect({a: 1, b: 2}.public_send(method)).to eq(a: 1, b: 2)
+    end
+
+    it "answers flattened keys when keys are nested" do
+      expect({a: 1, b: {c: 2}, d: 3}.public_send(method)).to eq(a: 1, b_c: 2, d: 3)
+    end
+
+    it "answers flattened keys when keys are deeply nested" do
+      expect({a: 1, b: {c: 2}, d: {e: {f: 3}}}.public_send(method)).to eq(
+        a: 1,
+        b_c: 2,
+        d_e_f: 3
+      )
+    end
+
+    it "answers prefixed keys when prefix is given" do
+      expect({a: 1, b: {c: 2}}.public_send(method, prefix: :test)).to eq(test_a: 1, test_b_c: 2)
+    end
+
+    it "answers flattened keys with custom delimiter" do
+      expect({a: {b: 1}}.public_send(method, delimiter: :I)).to eq(aIb: 1)
+    end
+
+    it "answers flattened, string keys when cast is a string" do
+      expect({a: {b: 1}}.public_send(method, cast: :to_s)).to eq("a_b" => 1)
+    end
+
+    it "answers flattened, symbol keys when cast is a symbol" do
+      expect({"a" => {"b" => 1}}.public_send(method, cast: :to_sym)).to eq(a_b: 1)
+    end
+
+    it "answers empty hash when hash is empty" do
+      expect({}.public_send(method)).to eq({})
+    end
+  end
+
+  describe "#flatten_keys" do
+    it_behaves_like "flattened keys", :flatten_keys
+
+    it "does not modify self" do
+      a_hash = {a: {b: 1}}
+      a_hash.flatten_keys
+
+      expect(a_hash).to eql(a: {b: 1})
+    end
+  end
+
+  describe "#flatten_keys!" do
+    it_behaves_like "flattened keys", :flatten_keys!
+
+    it "modifies self" do
+      a_hash = {a: {b: 1}}
+      a_hash.flatten_keys!
+
+      expect(a_hash).to eql(a_b: 1)
+    end
+  end
+
   describe "#symbolize_keys" do
     subject(:hashes) { {"a" => 1, "b" => 2, c: 3} }
 

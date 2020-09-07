@@ -21,6 +21,25 @@ module Refinements
         replace except(*keys)
       end
 
+      # :reek:TooManyStatements
+      def flatten_keys prefix: nil, delimiter: "_", cast: :to_sym
+        fail StandardError, "Unknown cast: #{cast}." unless %i[to_sym to_s].include? cast
+
+        reduce({}) do |flat, (key, value)|
+          flat_key = prefix ? "#{prefix}#{delimiter}#{key}" : key
+
+          next flat.merge flat_key.public_send(cast) => value unless value.is_a? self.class
+
+          flat.merge(
+            recurse { value.flatten_keys prefix: flat_key, delimiter: delimiter, cast: cast }
+          )
+        end
+      end
+
+      def flatten_keys! prefix: nil, delimiter: "_", cast: :to_sym
+        replace flatten_keys(prefix: prefix, delimiter: delimiter, cast: cast)
+      end
+
       def symbolize_keys
         reduce({}) { |hash, (key, value)| hash.merge key.to_sym => value }
       end

@@ -33,6 +33,10 @@ file for manipulation and immediate writing back to the same file.
 ** `.with_default` - Answers new hash where every top-level missing key has the same default value.
 ** `#except` - Answers new hash with given keys removed without modifying itself.
 ** `#except!` - Answers new hash with given keys removed while modifying itself.
+** `#flatten_keys` - Flattens nested keys as top-level keys without modifying itself. Does not
+   handle nested arrays, though.
+** `#flatten_keys!` - Flattens nested keys as top-level keys while modifying itself. Does not handle
+   nested arrays, though.
 ** `#symbolize_keys` - Converts keys to symbols without modifying itself.
 ** `#symbolize_keys!` - Converts keys to symbols while modifying itself.
 ** `#deep_merge` - Merges deeply nested hashes together without modifying itself.
@@ -230,6 +234,18 @@ example # => {a: 1, b: 2, c: 3}
 example = {a: 1, b: 2, c: 3}
 example.except! :a, :b # => {c: 3}
 example # => {c: 3}
+
+{a: {b: 1}}.flatten_keys prefix: :test # => {test_a_b: 1}
+{"a" => {"b" => 1}}.flatten_keys delimiter: :_ # => {a_b: 1}
+{a: {b: 1}}.flatten_keys delimiter: "_" # => {"a_b" => 1}
+
+example = {a: {b: 1}}
+example.flatten_keys # => {a_b: 1}
+example # => {a: {b: 1}}
+
+example = {a: {b: 1}}
+example.flatten_keys! # => {a_b: 1}
+example # => {a_b: 1}
 
 example = {"a" => 1, "b" => 2}
 example.symbolize_keys # => {a: 1, b: 2}
