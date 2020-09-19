@@ -8,11 +8,11 @@ RSpec.describe Refinements::Hashes do
   describe ".infinite" do
     subject(:infinite) { Hash.infinite }
 
-    it "answers hash for missing top-level key" do
+    it "answers empty hash for missing top-level key" do
       expect(infinite[:a]).to eq({})
     end
 
-    it "answers hash for deeply nested missing key" do
+    it "answers empty hash for missing nested key" do
       expect(infinite[:a][:b][:c]).to eq({})
     end
   end
@@ -25,28 +25,28 @@ RSpec.describe Refinements::Hashes do
   end
 
   describe "#except" do
-    subject(:hashes) { {a: 1, b: 2, c: 3} }
+    subject(:a_hash) { {a: 1, b: 2, c: 3} }
 
-    it "answers subset of original hash" do
-      expect(hashes.except(:a, :b)).to eq(c: 3)
+    it "answers subset of itself" do
+      expect(a_hash.except(:a, :b)).to eq(c: 3)
     end
 
-    it "does not modify original hash" do
-      hashes.except :a, :b
-      expect(hashes).to eq(a: 1, b: 2, c: 3)
+    it "doesn't mutate itself" do
+      a_hash.except :a, :b
+      expect(a_hash).to eq(a: 1, b: 2, c: 3)
     end
   end
 
   describe "#except!" do
-    subject(:hashes) { {a: 1, b: 2, c: 3} }
+    subject(:a_hash) { {a: 1, b: 2, c: 3} }
 
-    it "answers subset of original hash" do
-      expect(hashes.except!(:a, :b)).to eq(c: 3)
+    it "answers subset of itself" do
+      expect(a_hash.except!(:a, :b)).to eq(c: 3)
     end
 
-    it "does not modify original hash" do
-      hashes.except! :a, :b
-      expect(hashes).to eq(c: 3)
+    it "mutates itself" do
+      a_hash.except! :a, :b
+      expect(a_hash).to eq(c: 3)
     end
   end
 
@@ -96,7 +96,7 @@ RSpec.describe Refinements::Hashes do
   describe "#flatten_keys" do
     it_behaves_like "flattened keys", :flatten_keys
 
-    it "does not modify self" do
+    it "doesn't mutate itself" do
       a_hash = {a: {b: 1}}
       a_hash.flatten_keys
 
@@ -107,7 +107,7 @@ RSpec.describe Refinements::Hashes do
   describe "#flatten_keys!" do
     it_behaves_like "flattened keys", :flatten_keys!
 
-    it "modifies self" do
+    it "mutates itself" do
       a_hash = {a: {b: 1}}
       a_hash.flatten_keys!
 
@@ -116,33 +116,33 @@ RSpec.describe Refinements::Hashes do
   end
 
   describe "#symbolize_keys" do
-    subject(:hashes) { {"a" => 1, "b" => 2, c: 3} }
+    subject(:a_hash) { {"a" => 1, "b" => 2, c: 3} }
 
     it "answers keys as symbols" do
-      expect(hashes.symbolize_keys.keys).to contain_exactly(:a, :b, :c)
+      expect(a_hash.symbolize_keys.keys).to contain_exactly(:a, :b, :c)
     end
 
-    it "does not modify original hash" do
-      hashes.symbolize_keys
-      expect(hashes).to eq("a" => 1, "b" => 2, c: 3)
+    it "doesn't mutate itself" do
+      a_hash.symbolize_keys
+      expect(a_hash).to eq("a" => 1, "b" => 2, c: 3)
     end
   end
 
   describe "#symbolize_keys!" do
-    subject(:hashes) { {"a" => 1, "b" => 2, c: 3} }
+    subject(:a_hash) { {"a" => 1, "b" => 2, c: 3} }
 
     it "answers keys as symbols" do
-      expect(hashes.symbolize_keys!.keys).to contain_exactly(:a, :b, :c)
+      expect(a_hash.symbolize_keys!.keys).to contain_exactly(:a, :b, :c)
     end
 
-    it "modifies original hash" do
-      hashes.symbolize_keys!
-      expect(hashes).to eq(a: 1, b: 2, c: 3)
+    it "mutates itself" do
+      a_hash.symbolize_keys!
+      expect(a_hash).to eq(a: 1, b: 2, c: 3)
     end
   end
 
   describe "#deep_merge" do
-    subject :hashes do
+    subject :a_hash do
       {
         label: "Example",
         nested: {
@@ -168,7 +168,7 @@ RSpec.describe Refinements::Hashes do
       end
 
       it "replaces all values" do
-        result = hashes.deep_merge proof
+        result = a_hash.deep_merge proof
         expect(result).to eq(proof)
       end
     end
@@ -191,21 +191,21 @@ RSpec.describe Refinements::Hashes do
       end
 
       it "merges structure with existing structure" do
-        result = hashes.deep_merge basic: {a: 1, b: [1, 2, 3]}
+        result = a_hash.deep_merge basic: {a: 1, b: [1, 2, 3]}
         expect(result).to eq(proof)
       end
     end
 
-    it "does not modify itself" do
-      proof = hashes.dup
-      hashes.deep_merge label: "Test"
+    it "doesn't mutate itself" do
+      proof = a_hash.dup
+      a_hash.deep_merge label: "Test"
 
-      expect(hashes).to eq(proof)
+      expect(a_hash).to eq(proof)
     end
   end
 
   describe "#deep_merge!" do
-    subject :hashes do
+    subject :a_hash do
       {
         label: "Example",
         nested: {
@@ -231,7 +231,7 @@ RSpec.describe Refinements::Hashes do
       end
 
       it "replaces all values" do
-        result = hashes.deep_merge! proof
+        result = a_hash.deep_merge! proof
         expect(result).to eq(proof)
       end
     end
@@ -254,16 +254,16 @@ RSpec.describe Refinements::Hashes do
       end
 
       it "merges structure with existing structure" do
-        result = hashes.deep_merge! basic: {a: 1, b: [1, 2, 3]}
+        result = a_hash.deep_merge! basic: {a: 1, b: [1, 2, 3]}
         expect(result).to eq(proof)
       end
     end
 
-    it "modifies itself" do
-      proof = hashes.dup.merge label: "Test"
-      hashes.deep_merge! label: "Test"
+    it "mutates itself" do
+      proof = a_hash.dup.merge label: "Test"
+      a_hash.deep_merge! label: "Test"
 
-      expect(hashes).to eq(proof)
+      expect(a_hash).to eq(proof)
     end
   end
 
@@ -286,14 +286,14 @@ RSpec.describe Refinements::Hashes do
       )
     end
 
-    it "does not mutate itself" do
+    it "doesn't mutate itself" do
       example = {"a" => 1}
       example.recurse(&:symbolize_keys)
 
       expect(example).to eq("a" => 1)
     end
 
-    it "answers self when not given a block" do
+    it "answers itself when not given a block" do
       example = {a: 1}
       expect(example.recurse).to equal(example)
     end
@@ -314,7 +314,7 @@ RSpec.describe Refinements::Hashes do
       expect({a: 1, b: 2, c: 3}.rekey(mapping)).to eq(apples: 1, blueberries: 2, c: 3)
     end
 
-    it "answers original hash with no mapping" do
+    it "answers itself with no mapping" do
       expect({a: 1, b: 2}.rekey).to eq(a: 1, b: 2)
     end
 
@@ -322,7 +322,7 @@ RSpec.describe Refinements::Hashes do
       expect({}.rekey(mapping)).to eq({})
     end
 
-    it "does not mutate hash" do
+    it "doesn't mutate hash" do
       sample = {a: 1, b: 2}
       sample.rekey mapping
 
@@ -337,7 +337,7 @@ RSpec.describe Refinements::Hashes do
       expect({a: 1, b: 2}.rekey!(mapping)).to eq(apples: 1, blueberries: 2)
     end
 
-    it "answers original hash with no mapping" do
+    it "answers itself with no mapping" do
       expect({a: 1, b: 2}.rekey!).to eq(a: 1, b: 2)
     end
 
@@ -345,7 +345,7 @@ RSpec.describe Refinements::Hashes do
       expect({}.rekey!(mapping)).to eq({})
     end
 
-    it "mutates hash" do
+    it "mutates itself" do
       sample = {a: 1, b: 2}
       sample.rekey! mapping
 
@@ -354,7 +354,7 @@ RSpec.describe Refinements::Hashes do
   end
 
   describe "#reverse_merge" do
-    subject :hashes do
+    subject :a_hash do
       {
         label: "Kaleidoscope",
         categories: {
@@ -376,43 +376,43 @@ RSpec.describe Refinements::Hashes do
     end
 
     it "outputs deprecation warning" do
-      result = proc { hashes.reverse_merge label: "test" }
+      result = proc { a_hash.reverse_merge label: "test" }
       expect(&result).to output(/DEPRECATION/).to_stderr
     end
 
     it "answers itself when keys match" do
-      result = hashes.reverse_merge label: "empty", categories: "empty", tags: "empty"
-      expect(result).to eq(hashes)
+      result = a_hash.reverse_merge label: "empty", categories: "empty", tags: "empty"
+      expect(result).to eq(a_hash)
     end
 
-    it "answers merged keys not part of self" do
-      proof = hashes.dup.merge test: "example"
-      result = hashes.reverse_merge test: "example"
+    it "answers merged keys not part of itself" do
+      proof = a_hash.dup.merge test: "example"
+      result = a_hash.reverse_merge test: "example"
 
       expect(result).to eq(proof)
     end
 
-    it "does not modify itself" do
-      proof = hashes.dup
-      hashes.reverse_merge test: "Example"
+    it "doesn't mutate itself" do
+      proof = a_hash.dup
+      a_hash.reverse_merge test: "Example"
 
-      expect(hashes).to eq(proof)
+      expect(a_hash).to eq(proof)
     end
   end
 
   describe "#reverse_merge!" do
-    subject(:hashes) { {a: 1, b: 2} }
+    subject(:a_hash) { {a: 1, b: 2} }
 
     it "outputs deprecation warning" do
-      result = proc { hashes.reverse_merge! c: 3 }
+      result = proc { a_hash.reverse_merge! c: 3 }
       expect(&result).to output(/DEPRECATION/).to_stderr
     end
 
-    it "modifies itself" do
+    it "mutates itself" do
       proof = {a: 1, b: 2, c: 3}
-      hashes.reverse_merge! c: 3
+      a_hash.reverse_merge! c: 3
 
-      expect(hashes).to eq(proof)
+      expect(a_hash).to eq(proof)
     end
   end
 
@@ -439,11 +439,11 @@ RSpec.describe Refinements::Hashes do
       )
     end
 
-    it "does not mutate hash" do
-      example = {"a" => 1}
-      example.deep_symbolize_keys
+    it "doesn't mutate hash" do
+      a_hash = {"a" => 1}
+      a_hash.deep_symbolize_keys
 
-      expect(example).to eq("a" => 1)
+      expect(a_hash).to eq("a" => 1)
     end
   end
 
@@ -470,24 +470,24 @@ RSpec.describe Refinements::Hashes do
       )
     end
 
-    it "mutates hash" do
-      example = {"a" => 1}
-      example.deep_symbolize_keys!
+    it "mutates itself" do
+      a_hash = {"a" => 1}
+      a_hash.deep_symbolize_keys!
 
-      expect(example).to eq(a: 1)
+      expect(a_hash).to eq(a: 1)
     end
   end
 
   describe "#use" do
-    subject(:hashes) { {width: 10, height: 5, depth: 22} }
+    subject(:a_hash) { {width: 10, height: 5, depth: 22} }
 
     it "answers result of selected values" do
-      area = hashes.use { |width, height| width * height }
+      area = a_hash.use { |width, height| width * height }
       expect(area).to eq(50)
     end
 
     it "answers empty array when no block is given" do
-      expect(hashes.use).to eq([])
+      expect(a_hash.use).to eq([])
     end
   end
 end
