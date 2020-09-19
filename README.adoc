@@ -15,70 +15,16 @@ toc::[]
 
 == Features
 
-* *Arrays*:
-** `#compress` - Removes `nil` and empty values without modifying itself.
-** `#compress!` - Removes `nil` and empty values while modifying itself.
-** `#include` - Adds given array or elements without modifying itself.
-** `#exclude` - Removes given array or elements without modifying itself.
-** `#ring` - Answers a circular array which can enumerate before, current, after elements.
-* *BigDecimals*:
-** `#inspect` - Allows one to inspect a big decimal with numeric representation.
-* *DateTimes*:
-** `.utc` - Answers new DateTime object for current UTC date/time.
-* *Files*:
-** `#rewrite` - When given a file path and a block, it provides the contents of the recently read
-file for manipulation and immediate writing back to the same file.
-* *Hashes*:
-** `.infinite` - Answers new hash where missing keys, even deeply nested, answer an empty hash.
-** `.with_default` - Answers new hash where every top-level missing key has the same default value.
-** `#except` - Answers new hash with given keys removed without modifying itself.
-** `#except!` - Answers new hash with given keys removed while modifying itself.
-** `#flatten_keys` - Flattens nested keys as top-level keys without modifying itself. Does not
-   handle nested arrays, though.
-** `#flatten_keys!` - Flattens nested keys as top-level keys while modifying itself. Does not handle
-   nested arrays, though.
-** `#symbolize_keys` - Converts keys to symbols without modifying itself.
-** `#symbolize_keys!` - Converts keys to symbols while modifying itself.
-** `#deep_merge` - Merges deeply nested hashes together without modifying itself.
-** `#deep_merge!` - Merges deeply nested hashes together while modifying itself.
-** `#deep_symbolize_keys` - Symbolizes keys of nested hash without modifying itself. Does not handle
-   nested arrays, though.
-** `#deep_symbolize_keys!` - Symbolizes keys of nested hash while modifying itself. Does not handle
-   nested arrays, though.
-** `#recurse` - Applies block to nested hash. Does not handle nested arrays, though.
-** `#rekey` - Transforms keys per mapping (size of mapping can vary) without modifying itself.
-** `#rekey!` - Transforms keys per mapping (size of mapping can vary) while modifying itself.
-** `#reverse_merge` - Merges calling hash into passed in hash without modifying itself.
-** `#reverse_merge!` - Merges calling hash into passed in hash while modifying itself.
-** `#use` - Passes each hash value as a block argument for further processing.
-* *Pathnames*:
-** `Pathname` - Conversion function (refined from `Kernel`) which can cast `nil` into a pathname.
-** `#name` - Answers file name without extension.
-** `#copy` - Copies file from current location to new location.
-** `#directories` - Answers all or filtered directories for current path.
-** `#extensions` - Answers file extensions as an array.
-** `#files` - Answers all or filtered files for current path.
-** `#gsub` - Same behavior as `String#gsub` but answers a path with patterns replaced with desired
-   substitutes.
-** `#relative_parent` - Answers relative path from parent directory. This is a complement to
-   `#relative_path_from`.
-** `#make_ancestors` - Ensures all ancestor directories are created for a path.
-** `#rewrite` - When given a block, it provides the contents of the recently read file for
-manipulation and immediate writing back to the same file.
-** `#touch` - Updates access and modification times for path. Defaults to current time.
-* *Strings*:
-** `#first` - Answers first character of a string or first set of characters if given a number.
-** `#last` - Answers last character of a string or last set of characters if given a number.
-** `#blank?` - Answers `true`/`false` based on whether string is blank or not
-(i.e. `<space>`, `\n`, `\t`, `\r`).
-** `#up` - Answers string with only first letter upcased.
-** `#down` - Answers string with only first letter downcased.
-** `#camelcase` - Answers a camelcased string.
-** `#snakecase` - Answers a snakecased string.
-** `#titleize` - Answers titleized string.
-** `#to_bool` - Answers string as a boolean.
-* *String IOs*:
-** `#reread` - Answers full string by rewinding to beginning of string and reading all content.
+Enhances the following objects:
+
+* Array
+* BigDecimal
+* DateTime
+* File
+* Hash
+* Pathname
+* String
+* StringIO
 
 == Requirements
 
@@ -144,6 +90,7 @@ require "refinements/files"
 require "refinements/hashes"
 require "refinements/pathnames"
 require "refinements/strings"
+require "refinements/string_ios"
 ----
 
 === Using
@@ -160,6 +107,7 @@ class Example
   using Refinements::Hashes
   using Refinements::Pathnames
   using Refinements::Strings
+  using Refinements::StringIOs
 end
 ----
 
@@ -169,31 +117,68 @@ The following sections demonstrate how each refinement enriches your objects wit
 
 ==== Array
 
+===== #compress
+
+Removes `nil` and empty values without modifying itself.
+
 [source,ruby]
 ----
 example = ["An", nil, "", "Example"]
-example.compress # => ["An", "Example"]
-example # => ["An", nil, "", "Example"]
+example.compress  # => ["An", "Example"]
+example           # => ["An", nil, "", "Example"]
+----
 
+===== #compress!
+
+Removes `nil` and empty values while modifying itself.
+
+[source,ruby]
+----
 example = ["An", nil, "", "Example"]
-example.compress! # => ["An", "Example"]
-example # => ["An", "Example"]
+example.compress!  # => ["An", "Example"]
+example            # => ["An", "Example"]
+----
 
-[1, 2, 3].include [4, 5] # => [1, 2, 3, 4, 5]
-[1, 2, 3].include 4, 5 # => [1, 2, 3, 4, 5]
+===== #include
 
-[1, 2, 3, 4, 5].exclude [4, 5] # => [1, 2, 3]
-[1, 2, 3, 4, 5].include 4, 5 # => [1, 2, 3, 4, 5]
+Adds given array or elements without modifying itself.
 
+[source,ruby]
+----
+[1, 2, 3].include [4, 5]  # => [1, 2, 3, 4, 5]
+[1, 2, 3].include 4, 5    # => [1, 2, 3, 4, 5]
+----
+
+===== #exclude
+
+Removes given array or elements without modifying itself.
+
+[source,ruby]
+----
+[1, 2, 3, 4, 5].exclude [4, 5]  # => [1, 2, 3]
+[1, 2, 3, 4, 5].exclude 4, 5    # => [1, 2, 3]
+----
+
+===== #ring
+
+Answers a circular array which can enumerate before, current, after elements.
+
+[source,ruby]
+----
 example = [1, 2, 3]
 example.ring # => #<Enumerator: ...>
 example.ring { |(before, current, after)| puts "#{before} #{current} #{after}" }
+
 # [3 1 2]
 # [1 2 3]
 # [2 3 1]
 ----
 
 ==== Big Decimal
+
+===== #inspect
+
+Allows one to inspect a big decimal with numeric representation.
 
 [source,ruby]
 ----
@@ -202,12 +187,21 @@ BigDecimal.new("5.0E-10").inspect # => "#<BigDecimal:3fd3d458fe84 0.0000000005>"
 
 ==== DateTime
 
+===== .utc
+
+Answers new DateTime object for current UTC date/time.
+
 [source,ruby]
 ----
 DateTime.utc # => #<DateTime: 2019-12-31T18:17:00+00:00 ((2458849j,65820s,181867000n),+0s,2299161j)>
 ----
 
 ==== File
+
+===== .rewrite
+
+When given a file path and a block, it provides the contents of the recently read file for
+manipulation and immediate writing back to the same file.
 
 [source,ruby]
 ----
@@ -216,166 +210,428 @@ File.rewrite("/test.txt") { |content| content.gsub "[placeholder]", "example" }
 
 ==== Hash
 
+===== .infinite
+
+Answers new hash where missing keys, even deeply nested, answer an empty hash.
+
 [source,ruby]
 ----
 example = Hash.infinite
-example[:a] # => {}
-example[:a][:b][:c] # => {}
+example[:a]          # => {}
+example[:a][:b][:c]  # => {}
+----
 
+===== .with_default
+
+Answers new hash where every top-level missing key has the same default value.
+
+[source,ruby]
+----
 example = Hash.with_default ""
 example[:a] # => ""
+
 example = Hash.with_default []
 example[:b] # => []
+----
 
+===== #except
+
+Answers new hash with given keys removed without modifying itself.
+
+[source,ruby]
+----
 example = {a: 1, b: 2, c: 3}
-example.except :a, :b # => {c: 3}
-example # => {a: 1, b: 2, c: 3}
+example.except :a, :b  # => {c: 3}
+example                # => {a: 1, b: 2, c: 3}
+----
 
+===== #except!
+
+Answers new hash with given keys removed while modifying itself.
+
+[source,ruby]
+----
 example = {a: 1, b: 2, c: 3}
-example.except! :a, :b # => {c: 3}
-example # => {c: 3}
+example.except! :a, :b  # => {c: 3}
+example                 # => {c: 3}
+----
 
-{a: {b: 1}}.flatten_keys prefix: :test # => {test_a_b: 1}
-{"a" => {"b" => 1}}.flatten_keys delimiter: :_ # => {a_b: 1}
-{a: {b: 1}}.flatten_keys delimiter: "_" # => {"a_b" => 1}
+===== #flatten_keys
+
+Flattens nested keys as top-level keys without modifying itself. Does not handle nested arrays,
+though.
+
+[source,ruby]
+----
+{a: {b: 1}}.flatten_keys prefix: :test  # => {test_a_b: 1}
+{a: {b: 1}}.flatten_keys delimiter: :|  # => {:"a|b" => 1}
+
+{a: {b: 1}}.flatten_keys cast: :to_s            # => {"a_b" => 1}
+{"a" => {"b" => 1}}.flatten_keys cast: :to_sym  # => {a_b: 1}
 
 example = {a: {b: 1}}
-example.flatten_keys # => {a_b: 1}
-example # => {a: {b: 1}}
+example.flatten_keys  # => {a_b: 1}
+example               # => {a: {b: 1}}
+----
 
+===== #flatten_keys!
+
+Flattens nested keys as top-level keys while modifying itself. Does not handle nested arrays,
+though.
+
+[source,ruby]
+----
 example = {a: {b: 1}}
-example.flatten_keys! # => {a_b: 1}
-example # => {a_b: 1}
+example.flatten_keys!  # => {a_b: 1}
+example                # => {a_b: 1}
+----
 
+===== #symbolize_keys
+
+Converts keys to symbols without modifying itself.
+
+[source,ruby]
+----
 example = {"a" => 1, "b" => 2}
-example.symbolize_keys # => {a: 1, b: 2}
-example # => {"a" => 1, "b" => 2}
+example.symbolize_keys  # => {a: 1, b: 2}
+example                 # => {"a" => 1, "b" => 2}
+----
 
+===== #symbolize_keys!
+
+Converts keys to symbols while modifying itself.
+
+[source,ruby]
+----
 example = {"a" => 1, "b" => 2}
-example.symbolize_keys! # => {a: 1, b: 2}
-example # => {a: 1, b: 2}
+example.symbolize_keys!  # => {a: 1, b: 2}
+example                  # => {a: 1, b: 2}
+----
 
-example = {a: 1, b: 2, c: 3}
-example.slice :a, :c # => {a: 1, c: 3}
-example # => {a: 1, b: 2, c: 3}
+===== #deep_merge
 
-example = {a: 1, b: 2, c: 3}
-example.slice! :a, :c # => {a: 1, c: 3}
-example # => {a: 1, c: 3}
+Merges deeply nested hashes together without modifying itself.
 
+[source,ruby]
+----
 example = {a: "A", b: {one: "One", two: "Two"}}
-example.deep_merge b: {one: 1} # => {a: "A", b: {one: 1, two: "Two"}}
-example # => {a: "A", b: {one: "One", two: "Two"}}
+example.deep_merge b: {one: 1}  # => {a: "A", b: {one: 1, two: "Two"}}
+example                         # => {a: "A", b: {one: "One", two: "Two"}}
+----
 
+===== #deep_merge!
+
+Merges deeply nested hashes together while modifying itself.
+
+[source,ruby]
+----
 example = {a: "A", b: {one: "One", two: "Two"}}
-example.deep_merge! b: {one: 1} # => {a: "A", b: {one: 1, two: "Two"}}
-example # => {a: "A", b: {one: 1, two: "Two"}}
+example.deep_merge! b: {one: 1}  # => {a: "A", b: {one: 1, two: "Two"}}
+example                          # => {a: "A", b: {one: 1, two: "Two"}}
+----
 
+===== #deep_symbolize_keys
+
+Symbolizes keys of nested hash without modifying itself. Does not handle nested arrays, though.
+
+[source,ruby]
+----
 example = {"a" => {"b" => 2}}
-example.deep_symbolize_keys # => {a: {b: 1}}
-example # => {"a" => {"b" => 2}}
+example.deep_symbolize_keys  # => {a: {b: 1}}
+example                      # => {"a" => {"b" => 2}}
+----
 
+===== #deep_symbolize_keys!
+
+Symbolizes keys of nested hash while modifying itself. Does not handle nested arrays, though.
+
+[source,ruby]
+----
 example = {"a" => {"b" => 2}}
-example.deep_symbolize_keys! # => {a: {b: 1}}
-example # => {a: {b: 1}}
+example.deep_symbolize_keys!  # => {a: {b: 1}}
+example                       # => {a: {b: 1}}
+----
 
+===== #recurse
+
+Applies block to nested hash. Does not handle nested arrays, though.
+
+[source,ruby]
+----
 example = {"a" => {"b" => 1}}
-example.recurse(&:symbolize_keys) # => {a: {b: 1}}
-example.recurse(&:invert) # => {{"b" => 1} => "a"}
+example.recurse(&:symbolize_keys)  # => {a: {b: 1}}
+example.recurse(&:invert)          # => {{"b" => 1} => "a"}
+----
 
+===== #rekey
+
+Transforms keys per mapping (size of mapping can vary) without modifying itself.
+
+[source,ruby]
+----
 example = {a: 1, b: 2, c: 3}
-example.rekey a: :amber, b: :blue # => {amber: 1, blue: 2, c: 3}
-example # => {a: 1, b: 2, c: 3}
+example.rekey a: :amber, b: :blue  # => {amber: 1, blue: 2, c: 3}
+example                            # => {a: 1, b: 2, c: 3}
+----
 
+===== #rekey!
+
+Transforms keys per mapping (size of mapping can vary) while modifying itself.
+
+[source,ruby]
+----
 example = {a: 1, b: 2, c: 3}
-example.rekey! a: :amber, b: :blue # => {amber: 1, blue: 2, c: 3}
-example # => {amber: 1, blue: 2, c: 3}
+example.rekey! a: :amber, b: :blue  # => {amber: 1, blue: 2, c: 3}
+example                             # => {amber: 1, blue: 2, c: 3}
+----
 
+===== #reverse_merge
+
+Merges calling hash into passed in hash without modifying itself.
+
+[source,ruby]
+----
 example = {a: 1, b: 2}
-example.reverse_merge a: 0, c: 3 # => {a: 1, b: 2, c: 3}
-example # => {a: 1, b: 2}
+example.reverse_merge a: 0, c: 3  # => {a: 1, b: 2, c: 3}
+example                           # => {a: 1, b: 2}
+----
 
+===== #reverse_merge!
+
+Merges calling hash into passed in hash while modifying itself.
+
+[source,ruby]
+----
 example = {a: 1, b: 2}
-example.reverse_merge! a: 0, c: 3 # => {a: 1, b: 2, c: 3}
-example # => {a: 1, b: 2, c: 3}
+example.reverse_merge! a: 0, c: 3  # => {a: 1, b: 2, c: 3}
+example                            # => {a: 1, b: 2, c: 3}
+----
 
+===== #use
+
+Passes each hash value as a block argument for further processing.
+
+[source,ruby]
+----
 example = {unit: "221B", street: "Baker Street", city: "London", country: "UK"}
 example.use { |unit, street| "#{unit} #{street}" } # => "221B Baker Street"
 ----
 
 ==== Pathname
 
+===== Pathname
+
+Conversion function (refined from `Kernel`) which can cast `nil` into a pathname.
+
 [source,ruby]
 ----
 Pathname(nil) # => Pathname("")
+----
 
+===== #name
+
+Answers file name without extension.
+
+[source,ruby]
+----
 Pathname("example.txt").name # => Pathname("example")
+----
 
+===== #copy
+
+Copies file from current location to new location.
+
+[source,ruby]
+----
 Pathname("input.txt").copy Pathname("output.txt")
+----
 
-Pathname("/example").directories # => [Pathname("a"), Pathname("b")]
-Pathname("/example").directories "a*" # => [Pathname("a")]
-Pathname("/example").directories flag: File::FNM_DOTMATCH # => [Pathname(".."), Pathname(".")]
+===== #directories
 
+Answers all or filtered directories for current path.
+
+[source,ruby]
+----
+Pathname("/example").directories                           # => [Pathname("a"), Pathname("b")]
+Pathname("/example").directories "a*"                      # => [Pathname("a")]
+Pathname("/example").directories flag: File::FNM_DOTMATCH  # => [Pathname(".."), Pathname(".")]
+----
+
+===== #extensions
+
+Answers file extensions as an array.
+
+[source,ruby]
+----
 Pathname("example.txt.erb").extensions # => [".txt", ".erb"]
+----
 
-Pathname("/example").files # => [Pathname("a.txt"), Pathname("a.png")]
-Pathname("/example").files "*.png" # => [Pathname("a.png")]
-Pathname("/example").files flag: File::FNM_DOTMATCH # => [Pathname(".ruby-version")]
+===== #files
 
-Pathname("/a/path/some/path").gsub("path", "test") # => Pathname("/a/test/some/test")
-Pathname("/%placeholder%/some/%placeholder%").gsub("%placeholder%", "test") # => Pathname("/test/some/test")
+Answers all or filtered files for current path.
 
-Pathname("/one/two/three").relative_parent_from("/one") # => Pathname "two"
+[source,ruby]
+----
+Pathname("/example").files                           # => [Pathname("a.txt"), Pathname("a.png")]
+Pathname("/example").files "*.png"                   # => [Pathname("a.png")]
+Pathname("/example").files flag: File::FNM_DOTMATCH  # => [Pathname(".ruby-version")]
+----
 
+===== #gsub
+
+Same behavior as `String#gsub` but answers a path with patterns replaced with desired substitutes.
+
+[source,ruby]
+----
+Pathname("/a/path/some/path").gsub("path", "test")
+# => Pathname("/a/test/some/test")
+
+Pathname("/%placeholder%/some/%placeholder%").gsub("%placeholder%", "test")
+# => Pathname("/test/some/test")
+----
+
+===== #relative_parent
+
+Answers relative path from parent directory. This is a complement to `#relative_path_from`.
+
+[source,ruby]
+----
+Pathname("/one/two/three").relative_parent("/one") # => Pathname "two"
+----
+
+===== #make_ancestors
+
+Ensures all ancestor directories are created for a path.
+
+[source,ruby]
+----
 Pathname("/one/two").make_ancestors
-Pathname("/one").exist? # => true
-Pathname("/one/two").exist? # => false
+Pathname("/one").exist?      # => true
+Pathname("/one/two").exist?  # => false
+----
 
+===== #rewrite
+
+When given a block, it provides the contents of the recently read file for manipulation and
+immediate writing back to the same file.
+
+[source,ruby]
+----
 Pathname("/test.txt").rewrite { |content| content.sub "[placeholder]", "example" }
+----
 
+===== #touch
+
+Updates access and modification times for path. Defaults to current time.
+
+[source,ruby]
+----
 Pathname("example.txt").touch
 Pathname("example.txt").touch at: Time.now - 1
 ----
 
 ==== String
 
+===== #first
+
+Answers first character of a string or first set of characters if given a number.
+
 [source,ruby]
 ----
-"example".first # => "e"
-"example".first 4 # => "exam"
+"example".first    # => "e"
+"example".first 4  # => "exam"
+----
 
-"instant".last # => "t"
-"instant".last 3 # => "ant"
+===== #last
 
+Answers last character of a string or last set of characters if given a number.
+
+[source,ruby]
+----
+"instant".last    # => "t"
+"instant".last 3  # => "ant"
+----
+
+===== #blank?
+
+Answers `true`/`false` based on whether string is blank, `<space>`, `\n`, `\t`, and/or `\r`.
+
+[source,ruby]
+----
 " \n\t\r".blank? # => true
+----
 
+===== #up
+
+Answers string with only first letter upcased.
+
+[source,ruby]
+----
 "example".up # => "Example"
+----
 
+===== #down
+
+Answers string with only first letter downcased.
+
+[source,ruby]
+----
 "EXAMPLE".down # => "eXAMPLE"
+----
 
+===== #camelcase
+
+Answers a camelcased string.
+
+[source,ruby]
+----
 "this_is_an_example".camelcase # => "ThisIsAnExample"
+----
 
+===== #snakecase
+
+Answers a snakecased string.
+
+[source,ruby]
+----
 "ThisIsAnExample".snakecase # => "this_is_an_example"
+----
 
+===== #titleize
+
+Answers titleized string.
+
+[source,ruby]
+----
 "ThisIsAnExample".titleize # => "This Is An Example"
+----
 
-"true".to_bool # => true
-"yes".to_bool # => true
-"1".to_bool # => true
-"".to_bool # => false
-"example".to_bool # => false
+===== #to_bool
+
+Answers string as a boolean.
+
+[source,ruby]
+----
+"true".to_bool     # => true
+"yes".to_bool      # => true
+"1".to_bool        # => true
+"".to_bool         # => false
+"example".to_bool  # => false
 ----
 
 ==== String IO
+
+===== #reread
+
+Answers full string by rewinding to beginning of string and reading all content.
 
 [source,ruby]
 ----
 io = StringIO.new
 io.write "This is a test."
-io.reread # => "This is a test."
 
-io.reread(4) => "This"
+io.reread    # => "This is a test."
+io.reread 4  # => "This"
 
 buffer = "".dup
 io.reread(buffer: buffer)

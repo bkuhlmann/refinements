@@ -1,5 +1,13 @@
 = Changes
 
+== 7.9.0 (2020-09-19)
+
+* Added Hash flatten keys method
+* Updated to SimpleCov 0.19.0
+* Refactored Hash refinement bang methods to be consistent
+* Refactored Hash spec to use consistent terminology
+* Refactored Hash spec to use shared examples
+
 == 7.8.0 (2020-08-29)
 
 * Added Array include and exclude support
