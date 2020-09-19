@@ -49,13 +49,9 @@ module Refinements
       end
 
       def deep_merge other
-        dup.deep_merge! other
-      end
-
-      def deep_merge! other
         clazz = self.class
 
-        merge! other do |_key, this_value, other_value|
+        merge other do |_key, this_value, other_value|
           if this_value.is_a?(clazz) && other_value.is_a?(clazz)
             this_value.deep_merge other_value
           else
@@ -64,12 +60,16 @@ module Refinements
         end
       end
 
+      def deep_merge! other
+        replace deep_merge(other)
+      end
+
       def deep_symbolize_keys
         recurse(&:symbolize_keys)
       end
 
       def deep_symbolize_keys!
-        recurse(&:symbolize_keys!)
+        replace deep_symbolize_keys
       end
 
       def recurse &block
@@ -94,12 +94,12 @@ module Refinements
 
       def reverse_merge other
         warn "[DEPRECATION]: #reverse_merge is deprecated, use #merge instead."
-        other.merge self
+        merge(other) { |_key, old_value, _new_value| old_value }
       end
 
       def reverse_merge! other
         warn "[DEPRECATION]: #reverse_merge! is deprecated, use #merge! instead."
-        merge!(other) { |_key, old_value, _new_value| old_value }
+        replace reverse_merge(other)
       end
 
       def use &block
