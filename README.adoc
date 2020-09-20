@@ -9,7 +9,7 @@ image::https://badge.fury.io/rb/refinements.svg[Gem Version]
 [link=https://circleci.com/gh/bkuhlmann/refinements]
 image::https://circleci.com/gh/bkuhlmann/refinements.svg?style=svg[Circle CI Status]
 
-A collection of refinements (enhancements) to core Ruby objects.
+A collection of refinements (enhancements) to primitive Ruby objects.
 
 toc::[]
 
@@ -95,7 +95,8 @@ require "refinements/string_ios"
 
 === Using
 
-Much like including/extending a module, you’ll need modify your object(s) to use the refinement(s):
+Much like including/extending a module, you’ll need to modify your object(s) to use the
+refinement(s):
 
 [source,ruby]
 ----
@@ -119,7 +120,7 @@ The following sections demonstrate how each refinement enriches your objects wit
 
 ===== #compress
 
-Removes `nil` and empty values without modifying itself.
+Removes `nil` and empty values without mutating itself.
 
 [source,ruby]
 ----
@@ -130,7 +131,7 @@ example           # => ["An", nil, "", "Example"]
 
 ===== #compress!
 
-Removes `nil` and empty values while modifying itself.
+Removes `nil` and empty values while mutating itself.
 
 [source,ruby]
 ----
@@ -141,7 +142,7 @@ example            # => ["An", "Example"]
 
 ===== #include
 
-Adds given array or elements without modifying itself.
+Adds given array or elements without mutating itself.
 
 [source,ruby]
 ----
@@ -151,7 +152,7 @@ Adds given array or elements without modifying itself.
 
 ===== #exclude
 
-Removes given array or elements without modifying itself.
+Removes given array or elements without mutating itself.
 
 [source,ruby]
 ----
@@ -236,7 +237,7 @@ example[:b] # => []
 
 ===== #except
 
-Answers new hash with given keys removed without modifying itself.
+Answers new hash with given keys removed without mutating itself.
 
 [source,ruby]
 ----
@@ -247,7 +248,7 @@ example                # => {a: 1, b: 2, c: 3}
 
 ===== #except!
 
-Answers new hash with given keys removed while modifying itself.
+Answers new hash with given keys removed while mutating itself.
 
 [source,ruby]
 ----
@@ -258,7 +259,7 @@ example                 # => {c: 3}
 
 ===== #flatten_keys
 
-Flattens nested keys as top-level keys without modifying itself. Does not handle nested arrays,
+Flattens nested keys as top-level keys without mutating itself. Does not handle nested arrays,
 though.
 
 [source,ruby]
@@ -276,7 +277,7 @@ example               # => {a: {b: 1}}
 
 ===== #flatten_keys!
 
-Flattens nested keys as top-level keys while modifying itself. Does not handle nested arrays,
+Flattens nested keys as top-level keys while mutating itself. Does not handle nested arrays,
 though.
 
 [source,ruby]
@@ -288,7 +289,7 @@ example                # => {a_b: 1}
 
 ===== #symbolize_keys
 
-Converts keys to symbols without modifying itself.
+Converts keys to symbols without mutating itself.
 
 [source,ruby]
 ----
@@ -299,7 +300,7 @@ example                 # => {"a" => 1, "b" => 2}
 
 ===== #symbolize_keys!
 
-Converts keys to symbols while modifying itself.
+Converts keys to symbols while mutating itself.
 
 [source,ruby]
 ----
@@ -310,7 +311,7 @@ example                  # => {a: 1, b: 2}
 
 ===== #deep_merge
 
-Merges deeply nested hashes together without modifying itself.
+Merges deeply nested hashes together without mutating itself.
 
 [source,ruby]
 ----
@@ -321,7 +322,7 @@ example                         # => {a: "A", b: {one: "One", two: "Two"}}
 
 ===== #deep_merge!
 
-Merges deeply nested hashes together while modifying itself.
+Merges deeply nested hashes together while mutating itself.
 
 [source,ruby]
 ----
@@ -332,7 +333,7 @@ example                          # => {a: "A", b: {one: 1, two: "Two"}}
 
 ===== #deep_symbolize_keys
 
-Symbolizes keys of nested hash without modifying itself. Does not handle nested arrays, though.
+Symbolizes keys of nested hash without mutating itself. Does not handle nested arrays, though.
 
 [source,ruby]
 ----
@@ -343,7 +344,7 @@ example                      # => {"a" => {"b" => 2}}
 
 ===== #deep_symbolize_keys!
 
-Symbolizes keys of nested hash while modifying itself. Does not handle nested arrays, though.
+Symbolizes keys of nested hash while mutating itself. Does not handle nested arrays, though.
 
 [source,ruby]
 ----
@@ -354,7 +355,8 @@ example                       # => {a: {b: 1}}
 
 ===== #recurse
 
-Applies block to nested hash. Does not handle nested arrays, though.
+Recursively iterates over the hash and any hash value by applying the given block to it. Does not
+handle nested arrays, though.
 
 [source,ruby]
 ----
@@ -365,7 +367,7 @@ example.recurse(&:invert)          # => {{"b" => 1} => "a"}
 
 ===== #rekey
 
-Transforms keys per mapping (size of mapping can vary) without modifying itself.
+Transforms keys per mapping (size of mapping can vary) without mutating itself.
 
 [source,ruby]
 ----
@@ -376,7 +378,7 @@ example                            # => {a: 1, b: 2, c: 3}
 
 ===== #rekey!
 
-Transforms keys per mapping (size of mapping can vary) while modifying itself.
+Transforms keys per mapping (size of mapping can vary) while mutating itself.
 
 [source,ruby]
 ----
@@ -387,7 +389,7 @@ example                             # => {amber: 1, blue: 2, c: 3}
 
 ===== #reverse_merge
 
-Merges calling hash into passed in hash without modifying itself.
+Merges calling hash into passed in hash without mutating itself.
 
 [source,ruby]
 ----
@@ -398,7 +400,7 @@ example                           # => {a: 1, b: 2}
 
 ===== #reverse_merge!
 
-Merges calling hash into passed in hash while modifying itself.
+Merges calling hash into passed in hash while mutating itself.
 
 [source,ruby]
 ----
@@ -421,7 +423,10 @@ example.use { |unit, street| "#{unit} #{street}" } # => "221B Baker Street"
 
 ===== Pathname
 
-Conversion function (refined from `Kernel`) which can cast `nil` into a pathname.
+Enhances the conversion function -- refined from `Kernel` -- which casts `nil` into a pathname in
+order to avoid: `TypeError (no implicit conversion of nil into String)`. The pathname is still
+invalid but at least you have an instance of `Pathname`, which behaves like a _Null Object_, that
+can still be used to construct a valid path.
 
 [source,ruby]
 ----
