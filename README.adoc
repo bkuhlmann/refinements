@@ -584,6 +584,19 @@ Answers string with only first letter downcased.
 "EXAMPLE".down # => "eXAMPLE"
 ----
 
+===== #indent
+
+Answers string indented by two spaces by default.
+
+[source,ruby]
+----
+"example".indent                  # => "  example"
+"example".indent 0                # => "example"
+"example".indent -1               # => "example"
+"example".indent 2                # => "    example"
+"example".indent 3, padding: " "  # => "   example"
+----
+
 ===== #camelcase
 
 Answers a camelcased string.

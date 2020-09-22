@@ -50,6 +50,12 @@ module Refinements
         first.downcase + self[1, size]
       end
 
+      def indent multiplier = 1, padding: "  "
+        return self if multiplier.negative?
+
+        padding * multiplier + self
+      end
+
       def camelcase
         return up unless match? DELIMITERS
 

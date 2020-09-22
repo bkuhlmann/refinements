@@ -109,6 +109,32 @@ RSpec.describe Refinements::Strings do
     end
   end
 
+  describe "#indent" do
+    it "answers two space indentation by default" do
+      expect("test".indent).to eq("  test")
+    end
+
+    it "answers self with zero multiplier" do
+      expect("test".indent(0)).to eq("test")
+    end
+
+    it "answers self with negative multiplier" do
+      expect("test".indent(-1)).to eq("test")
+    end
+
+    it "answers indentation with custom multiplier" do
+      expect("test".indent(3)).to eq("      test")
+    end
+
+    it "answers indentation with custom padding" do
+      expect("test".indent(padding: " ")).to eq(" test")
+    end
+
+    it "answers indentation with custom multiplier and padding" do
+      expect("test".indent(2, padding: " ")).to eq("  test")
+    end
+  end
+
   describe "#camelcase" do
     it "answers empty string as empty string" do
       expect("".camelcase).to eq("")
