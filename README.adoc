@@ -353,6 +353,28 @@ example.deep_merge! b: {one: 1}  # => {a: "A", b: {one: 1, two: "Two"}}
 example                          # => {a: "A", b: {one: 1, two: "Two"}}
 ----
 
+===== #deep_stringify_keys
+
+Stringifies keys of nested hash without mutating itself. Does not handle nested arrays, though.
+
+[source,ruby]
+----
+example = {a: {b: 2}}
+example.deep_stringify_keys  # => {"a" => {"b" => 1}}
+example                      # => {a: {b: 2}}
+----
+
+===== #deep_stringify_keys!
+
+Stringifies keys of nested hash while mutating itself. Does not handle nested arrays, though.
+
+[source,ruby]
+----
+example = {a: {b: 2}}
+example.deep_stringify_keys!  # => {"a" => {"b" => 1}}
+example                       # => {"a" => {"b" => 1}}
+----
+
 ===== #deep_symbolize_keys
 
 Symbolizes keys of nested hash without mutating itself. Does not handle nested arrays, though.

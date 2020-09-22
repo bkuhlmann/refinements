@@ -397,6 +397,52 @@ RSpec.describe Refinements::Hashes do
     end
   end
 
+  shared_examples_for "deep stringified keys" do |method|
+    subject :a_hash do
+      {
+        a: [
+          {b: 1}
+        ],
+        c: {
+          d: 2
+        }
+      }
+    end
+
+    it "answers stringified keys" do
+      expect(a_hash.public_send(method)).to eq(
+        "a" => [
+          {b: 1}
+        ],
+        "c" => {
+          "d" => 2
+        }
+      )
+    end
+  end
+
+  describe "#deep_stringify_keys" do
+    it_behaves_like "deep stringified keys", :deep_stringify_keys
+
+    it "doesn't mutate hash" do
+      a_hash = {a: 1}
+      a_hash.deep_stringify_keys
+
+      expect(a_hash).to eq(a: 1)
+    end
+  end
+
+  describe "#deep_stringify_keys!" do
+    it_behaves_like "deep stringified keys", :deep_stringify_keys!
+
+    it "mutates itself" do
+      a_hash = {a: 1}
+      a_hash.deep_stringify_keys!
+
+      expect(a_hash).to eq("a" => 1)
+    end
+  end
+
   shared_examples_for "deep symbolized keys" do |method|
     subject :a_hash do
       {

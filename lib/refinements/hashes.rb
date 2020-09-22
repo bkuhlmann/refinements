@@ -72,6 +72,14 @@ module Refinements
         replace deep_merge(other)
       end
 
+      def deep_stringify_keys
+        recurse(&:stringify_keys)
+      end
+
+      def deep_stringify_keys!
+        replace deep_stringify_keys
+      end
+
       def deep_symbolize_keys
         recurse(&:symbolize_keys)
       end
