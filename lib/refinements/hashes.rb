@@ -40,6 +40,14 @@ module Refinements
         replace flatten_keys(prefix: prefix, delimiter: delimiter, cast: cast)
       end
 
+      def stringify_keys
+        reduce({}) { |hash, (key, value)| hash.merge key.to_s => value }
+      end
+
+      def stringify_keys!
+        replace stringify_keys
+      end
+
       def symbolize_keys
         reduce({}) { |hash, (key, value)| hash.merge key.to_sym => value }
       end

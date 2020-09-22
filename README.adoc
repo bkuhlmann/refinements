@@ -287,6 +287,28 @@ example.flatten_keys!  # => {a_b: 1}
 example                # => {a_b: 1}
 ----
 
+===== #stringify_keys
+
+Converts keys to strings without mutating itself.
+
+[source,ruby]
+----
+example = {a: 1, b: 2}
+example.stringify_keys  # => {"a" => 1, "b" => 2}
+example                 # => {a: 1, b: 2}
+----
+
+===== #stringify_keys!
+
+Converts keys to strings while mutating itself.
+
+[source,ruby]
+----
+example = {a: 1, b: 2}
+example.stringify_keys!  # => {"a" => 1, "b" => 2}
+example                  # => {"a" => 1, "b" => 2}
+----
+
 ===== #symbolize_keys
 
 Converts keys to symbols without mutating itself.

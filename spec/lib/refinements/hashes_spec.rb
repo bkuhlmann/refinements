@@ -119,6 +119,36 @@ RSpec.describe Refinements::Hashes do
     end
   end
 
+  shared_examples_for "stringified keys" do |method|
+    subject(:a_hash) { {a: 1, b: 2, "c" => 3} }
+
+    it "answers keys as strings" do
+      expect(a_hash.public_send(method).keys).to contain_exactly("a", "b", "c")
+    end
+  end
+
+  describe "#stringify_keys" do
+    it_behaves_like "stringified keys", :stringify_keys
+
+    it "doesn't mutate itself" do
+      a_hash = {a: 1}
+      a_hash.stringify_keys
+
+      expect(a_hash).to eq(a: 1)
+    end
+  end
+
+  describe "#stringify_keys!" do
+    it_behaves_like "stringified keys", :stringify_keys!
+
+    it "mutates itself" do
+      a_hash = {a: 1}
+      a_hash.stringify_keys!
+
+      expect(a_hash).to eq("a" => 1)
+    end
+  end
+
   shared_examples_for "symbolized keys" do |method|
     subject(:a_hash) { {"a" => 1, "b" => 2, c: 3} }
 
