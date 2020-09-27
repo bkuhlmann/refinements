@@ -1,5 +1,12 @@
 = Changes
 
+== 7.10.0 (2020-09-27)
+
+* Added Hash deep stringify keys
+* Added Hash stringified keys
+* Added String indent
+* Updated README documentation
+
 == 7.9.0 (2020-09-19)
 
 * Added Hash flatten keys method
