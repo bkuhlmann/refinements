@@ -6,4 +6,5 @@ inherit_from:
 
 RSpec/FilePath:
   CustomTransform:
+    IOs: ios
     StringIOs: string_ios
