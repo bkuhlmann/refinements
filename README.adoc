@@ -35,8 +35,6 @@ Enhances the following objects:
 
 == Setup
 
-=== Production
-
 To install, run:
 
 [source,bash]
@@ -49,24 +47,6 @@ Add the following to your Gemfile file:
 [source,ruby]
 ----
 gem "refinements"
-----
-
-=== Development
-
-To contribute, run:
-
-[source,bash]
-----
-git clone https://github.com/bkuhlmann/refinements.git
-cd refinements
-bin/setup
-----
-
-You can also use the IRB console for direct access to all objects:
-
-[source,bash]
-----
-bin/console
 ----
 
 == Usage
@@ -764,6 +744,24 @@ io.reread 4  # => "This"
 buffer = "".dup
 io.reread(buffer: buffer)
 buffer # => "This is a test."
+----
+
+== Development
+
+To contribute, run:
+
+[source,bash]
+----
+git clone https://github.com/bkuhlmann/refinements.git
+cd refinements
+bin/setup
+----
+
+You can also use the IRB console for direct access to all objects:
+
+[source,bash]
+----
+bin/console
 ----
 
 == Tests
