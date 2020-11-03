@@ -54,6 +54,12 @@ module Refinements
         self
       end
 
+      # rubocop:disable Style/RedundantSelf
+      def mkdir
+        self.exist? ? self : super and self
+      end
+      # rubocop:enable Style/RedundantSelf
+
       def rewrite
         read.then { |content| write yield(content) if block_given? }
         self

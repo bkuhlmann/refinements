@@ -605,6 +605,17 @@ Pathname("/one").exist?      # => true
 Pathname("/one/two").exist?  # => false
 ----
 
+===== #mkdir
+
+Modifies default behavior by always answering itself (even when directory exists) and not throwing
+errors when directory exists.
+
+[source,ruby]
+----
+Pathname("/one").mkdir        # => Pathname("/one")
+Pathname("/one").mkdir.mkdir  # => Pathname("/one")
+----
+
 ===== #rewrite
 
 When given a block, it provides the contents of the recently read file for manipulation and
