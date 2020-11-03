@@ -85,6 +85,26 @@ RSpec.describe Refinements::Arrays do
     end
   end
 
+  describe "#intersperse" do
+    let(:array) { [1, 2, 3] }
+
+    it "answers original array with no arguments" do
+      expect(array.intersperse).to eq([1, 2, 3])
+    end
+
+    it "answers array with single element interspersed" do
+      expect(array.intersperse(:a)).to eq([1, :a, 2, :a, 3])
+    end
+
+    it "answers array with multiple elements interspersed" do
+      expect(array.intersperse(:a, :b)).to eq([1, :a, :b, 2, :a, :b, 3])
+    end
+
+    it "answers array with other array interspersed" do
+      expect(array.intersperse(%i[a b])).to eq([1, :a, :b, 2, :a, :b, 3])
+    end
+  end
+
   describe "#exclude" do
     let(:array) { [1, 2, 3, 4, 5] }
 
