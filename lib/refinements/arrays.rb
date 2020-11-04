@@ -23,6 +23,10 @@ module Refinements
         self - elements.flatten
       end
 
+      def mean
+        size.zero? ? 0 : sum(0) / size
+      end
+
       def ring &block
         [last, *self, first].each_cons 3, &block
       end

@@ -137,6 +137,20 @@ RSpec.describe Refinements::Arrays do
     end
   end
 
+  describe "#mean" do
+    it "answers zero for empty array" do
+      expect([].mean).to eq(0)
+    end
+
+    it "answers value for single element array" do
+      expect([5].mean).to eq(5)
+    end
+
+    it "answers mean for multi-element array" do
+      expect([1, 2, 3].mean).to eq(2)
+    end
+  end
+
   describe "#ring" do
     it "answers slices without block" do
       expect([1, 2, 3].ring).to contain_exactly(

@@ -154,6 +154,18 @@ Removes given array or elements without mutating itself.
 [1, 2, 3, 4, 5].exclude 4, 5    # => [1, 2, 3]
 ----
 
+===== #mean
+
+Answers mean/average all elements within an array.
+
+[source,ruby]
+----
+[].mean                 # => 0
+[5].mean                # => 5
+[1, 2, 3].mean          # => 2
+[1.25, 1.5, 1.75].mean  # => 1.5
+----
+
 ===== #ring
 
 Answers a circular array which can enumerate before, current, after elements.
