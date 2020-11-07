@@ -19,18 +19,6 @@ RSpec.describe Refinements::Pathnames, :temp_dir do
     end
   end
 
-  describe "#name" do
-    it "answers name of file without extension" do
-      path = Pathname "example.txt"
-      expect(path.name).to eq(Pathname("example"))
-    end
-
-    it "answers empty string when empty string" do
-      path = Pathname ""
-      expect(path.name).to eq(Pathname(""))
-    end
-  end
-
   describe "#change_dir" do
     context "without block" do
       around do |example|
@@ -221,47 +209,6 @@ RSpec.describe Refinements::Pathnames, :temp_dir do
     end
   end
 
-  describe "#relative_parent" do
-    it "answers relative path with absolute path" do
-      expect(Pathname("/one/two/three").relative_parent("/one")).to eq(Pathname("two"))
-    end
-
-    it "answers relative path with relative path" do
-      expect(Pathname("one/two/three").relative_parent("one")).to eq(Pathname("two"))
-    end
-
-    it "answers relative path with no defined parent" do
-      expect(Pathname("one").relative_parent("one")).to eq(Pathname(".."))
-    end
-
-    it "answers relative path with empty path" do
-      expect(Pathname("").relative_parent("")).to eq(Pathname(".."))
-    end
-  end
-
-  describe "#relative_parent_from" do
-    it "prints deprecation warning" do
-      expectation = proc { Pathname("/one/two/three").relative_parent_from("/one") }
-      expect(&expectation).to output(/Pathname#relative_parent_from is deprecated/).to_stderr
-    end
-
-    it "answers relative path with absolute path" do
-      expect(Pathname("/one/two/three").relative_parent_from("/one")).to eq(Pathname("two"))
-    end
-
-    it "answers relative path with relative path" do
-      expect(Pathname("one/two/three").relative_parent_from("one")).to eq(Pathname("two"))
-    end
-
-    it "answers relative path with no defined parent" do
-      expect(Pathname("one").relative_parent_from("one")).to eq(Pathname(".."))
-    end
-
-    it "answers relative path with empty path" do
-      expect(Pathname("").relative_parent_from("")).to eq(Pathname(".."))
-    end
-  end
-
   describe "#make_ancestors" do
     context "when directory" do
       let(:path) { ancestors.join "three" }
@@ -317,24 +264,6 @@ RSpec.describe Refinements::Pathnames, :temp_dir do
     end
   end
 
-  describe "#mkdir" do
-    let(:path) { temp_dir.join "demo" }
-
-    it "makes new directory" do
-      path.mkdir
-      expect(path.exist?).to eq(true)
-    end
-
-    it "answers itself when existing" do
-      path.mkdir
-      expect(path.mkdir).to eq(path)
-    end
-
-    it "answers itself when not existing" do
-      expect(path.mkdir).to eq(path)
-    end
-  end
-
   describe "#make_path" do
     let(:path) { temp_dir.join "one", "two", "three" }
 
@@ -355,6 +284,77 @@ RSpec.describe Refinements::Pathnames, :temp_dir do
     it "answers itself when created multiple times" do
       path.make_path.make_path
       expect(path.make_path.make_path).to eq(path)
+    end
+  end
+
+  describe "#mkdir" do
+    let(:path) { temp_dir.join "demo" }
+
+    it "makes new directory" do
+      path.mkdir
+      expect(path.exist?).to eq(true)
+    end
+
+    it "answers itself when existing" do
+      path.mkdir
+      expect(path.mkdir).to eq(path)
+    end
+
+    it "answers itself when not existing" do
+      expect(path.mkdir).to eq(path)
+    end
+  end
+
+  describe "#name" do
+    it "answers name of file without extension" do
+      path = Pathname "example.txt"
+      expect(path.name).to eq(Pathname("example"))
+    end
+
+    it "answers empty string when empty string" do
+      path = Pathname ""
+      expect(path.name).to eq(Pathname(""))
+    end
+  end
+
+  describe "#relative_parent" do
+    it "answers relative path with absolute path" do
+      expect(Pathname("/one/two/three").relative_parent("/one")).to eq(Pathname("two"))
+    end
+
+    it "answers relative path with relative path" do
+      expect(Pathname("one/two/three").relative_parent("one")).to eq(Pathname("two"))
+    end
+
+    it "answers relative path with no defined parent" do
+      expect(Pathname("one").relative_parent("one")).to eq(Pathname(".."))
+    end
+
+    it "answers relative path with empty path" do
+      expect(Pathname("").relative_parent("")).to eq(Pathname(".."))
+    end
+  end
+
+  describe "#relative_parent_from" do
+    it "prints deprecation warning" do
+      expectation = proc { Pathname("/one/two/three").relative_parent_from("/one") }
+      expect(&expectation).to output(/Pathname#relative_parent_from is deprecated/).to_stderr
+    end
+
+    it "answers relative path with absolute path" do
+      expect(Pathname("/one/two/three").relative_parent_from("/one")).to eq(Pathname("two"))
+    end
+
+    it "answers relative path with relative path" do
+      expect(Pathname("one/two/three").relative_parent_from("one")).to eq(Pathname("two"))
+    end
+
+    it "answers relative path with no defined parent" do
+      expect(Pathname("one").relative_parent_from("one")).to eq(Pathname(".."))
+    end
+
+    it "answers relative path with empty path" do
+      expect(Pathname("").relative_parent_from("")).to eq(Pathname(".."))
     end
   end
 

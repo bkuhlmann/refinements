@@ -13,49 +13,6 @@ module Refinements
     end
 
     refine Hash do
-      def except *keys
-        reject { |key, _value| keys.include? key }
-      end
-
-      def except! *keys
-        replace except(*keys)
-      end
-
-      # :reek:TooManyStatements
-      def flatten_keys prefix: nil, delimiter: "_", cast: :to_sym
-        fail StandardError, "Unknown cast: #{cast}." unless %i[to_sym to_s].include? cast
-
-        reduce({}) do |flat, (key, value)|
-          flat_key = prefix ? "#{prefix}#{delimiter}#{key}" : key
-
-          next flat.merge flat_key.public_send(cast) => value unless value.is_a? self.class
-
-          flat.merge(
-            recurse { value.flatten_keys prefix: flat_key, delimiter: delimiter, cast: cast }
-          )
-        end
-      end
-
-      def flatten_keys! prefix: nil, delimiter: "_", cast: :to_sym
-        replace flatten_keys(prefix: prefix, delimiter: delimiter, cast: cast)
-      end
-
-      def stringify_keys
-        reduce({}) { |hash, (key, value)| hash.merge key.to_s => value }
-      end
-
-      def stringify_keys!
-        replace stringify_keys
-      end
-
-      def symbolize_keys
-        reduce({}) { |hash, (key, value)| hash.merge key.to_sym => value }
-      end
-
-      def symbolize_keys!
-        replace symbolize_keys
-      end
-
       def deep_merge other
         clazz = self.class
 
@@ -88,6 +45,33 @@ module Refinements
         replace deep_symbolize_keys
       end
 
+      def except *keys
+        reject { |key, _value| keys.include? key }
+      end
+
+      def except! *keys
+        replace except(*keys)
+      end
+
+      # :reek:TooManyStatements
+      def flatten_keys prefix: nil, delimiter: "_", cast: :to_sym
+        fail StandardError, "Unknown cast: #{cast}." unless %i[to_sym to_s].include? cast
+
+        reduce({}) do |flat, (key, value)|
+          flat_key = prefix ? "#{prefix}#{delimiter}#{key}" : key
+
+          next flat.merge flat_key.public_send(cast) => value unless value.is_a? self.class
+
+          flat.merge(
+            recurse { value.flatten_keys prefix: flat_key, delimiter: delimiter, cast: cast }
+          )
+        end
+      end
+
+      def flatten_keys! prefix: nil, delimiter: "_", cast: :to_sym
+        replace flatten_keys(prefix: prefix, delimiter: delimiter, cast: cast)
+      end
+
       def recurse &block
         return self unless block_given?
 
@@ -116,6 +100,22 @@ module Refinements
       def reverse_merge! other
         warn "[DEPRECATION]: #reverse_merge! is deprecated, use #merge! instead."
         replace reverse_merge(other)
+      end
+
+      def stringify_keys
+        reduce({}) { |hash, (key, value)| hash.merge key.to_s => value }
+      end
+
+      def stringify_keys!
+        replace stringify_keys
+      end
+
+      def symbolize_keys
+        reduce({}) { |hash, (key, value)| hash.merge key.to_sym => value }
+      end
+
+      def symbolize_keys!
+        replace symbolize_keys
       end
 
       def use &block

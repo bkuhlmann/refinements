@@ -13,10 +13,6 @@ module Refinements
     end
 
     refine Pathname do
-      def name
-        basename extname
-      end
-
       def change_dir &block
         Dir.chdir(self, &block)
         self
@@ -44,16 +40,6 @@ module Refinements
         self.class.new to_s.gsub(pattern, replacement)
       end
 
-      def relative_parent root_dir
-        relative_path_from(root_dir).parent
-      end
-
-      def relative_parent_from root_dir
-        warn "[DEPRECATION]: Pathname#relative_parent_from is deprecated, " \
-             "use Pathname#relative_parent instead."
-        relative_parent root_dir
-      end
-
       def make_ancestors
         dirname.mkpath
         self
@@ -70,6 +56,20 @@ module Refinements
 
       def mkdir
         exist? ? self : super and self
+      end
+
+      def name
+        basename extname
+      end
+
+      def relative_parent root_dir
+        relative_path_from(root_dir).parent
+      end
+
+      def relative_parent_from root_dir
+        warn "[DEPRECATION]: Pathname#relative_parent_from is deprecated, " \
+             "use Pathname#relative_parent instead."
+        relative_parent root_dir
       end
 
       def remove_dir

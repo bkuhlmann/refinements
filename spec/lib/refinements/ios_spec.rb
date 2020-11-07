@@ -31,26 +31,6 @@ RSpec.describe Refinements::IOs, :temp_dir do
     end
   end
 
-  describe "#squelch" do
-    it "answers self when not given a block" do
-      expect(io.squelch).to eq(io)
-    end
-
-    it "ignores reads when given a block" do
-      io.write "test"
-      io.squelch { io.rewind }
-
-      expect([io.read, io.reread]).to eq(["", "test"])
-    end
-
-    it "ignores writes when given a block" do
-      io.squelch { io.write "test" }
-        .close
-
-      expect(main_path.read).to eq("")
-    end
-  end
-
   describe "#redirect" do
     let(:other) { IO.new IO.sysopen(other_path.to_s, "w+") }
     let(:other_path) { temp_dir.join("other.io").touch }
@@ -88,6 +68,26 @@ RSpec.describe Refinements::IOs, :temp_dir do
       io.reread buffer: buffer
 
       expect(buffer).to eq("This is a test.")
+    end
+  end
+
+  describe "#squelch" do
+    it "answers self when not given a block" do
+      expect(io.squelch).to eq(io)
+    end
+
+    it "ignores reads when given a block" do
+      io.write "test"
+      io.squelch { io.rewind }
+
+      expect([io.read, io.reread]).to eq(["", "test"])
+    end
+
+    it "ignores writes when given a block" do
+      io.squelch { io.write "test" }
+        .close
+
+      expect(main_path.read).to eq("")
     end
   end
 end

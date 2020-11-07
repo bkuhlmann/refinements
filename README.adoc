@@ -125,6 +125,16 @@ example.compress!  # => ["An", "Example"]
 example            # => ["An", "Example"]
 ----
 
+===== #exclude
+
+Removes given array or elements without mutating itself.
+
+[source,ruby]
+----
+[1, 2, 3, 4, 5].exclude [4, 5]  # => [1, 2, 3]
+[1, 2, 3, 4, 5].exclude 4, 5    # => [1, 2, 3]
+----
+
 ===== #include
 
 Adds given array or elements without mutating itself.
@@ -144,16 +154,6 @@ Inserts additional elements or array between all members of given array.
 [1, 2, 3].intersperse :a         # => [1, :a, 2, :a, 3]
 [1, 2, 3].intersperse :a, :b     # => [1, :a, :b, 2, :a, :b, 3]
 [1, 2, 3].intersperse %i[a b c]  # => [1, :a, :b, :c, 2, :a, :b, :c, 3]
-----
-
-===== #exclude
-
-Removes given array or elements without mutating itself.
-
-[source,ruby]
-----
-[1, 2, 3, 4, 5].exclude [4, 5]  # => [1, 2, 3]
-[1, 2, 3, 4, 5].exclude 4, 5    # => [1, 2, 3]
 ----
 
 ===== #mean
@@ -243,102 +243,6 @@ example = Hash.with_default []
 example[:b] # => []
 ----
 
-===== #except
-
-Answers new hash with given keys removed without mutating itself.
-
-[source,ruby]
-----
-example = {a: 1, b: 2, c: 3}
-example.except :a, :b  # => {c: 3}
-example                # => {a: 1, b: 2, c: 3}
-----
-
-===== #except!
-
-Answers new hash with given keys removed while mutating itself.
-
-[source,ruby]
-----
-example = {a: 1, b: 2, c: 3}
-example.except! :a, :b  # => {c: 3}
-example                 # => {c: 3}
-----
-
-===== #flatten_keys
-
-Flattens nested keys as top-level keys without mutating itself. Does not handle nested arrays,
-though.
-
-[source,ruby]
-----
-{a: {b: 1}}.flatten_keys prefix: :test  # => {test_a_b: 1}
-{a: {b: 1}}.flatten_keys delimiter: :|  # => {:"a|b" => 1}
-
-{a: {b: 1}}.flatten_keys cast: :to_s            # => {"a_b" => 1}
-{"a" => {"b" => 1}}.flatten_keys cast: :to_sym  # => {a_b: 1}
-
-example = {a: {b: 1}}
-example.flatten_keys  # => {a_b: 1}
-example               # => {a: {b: 1}}
-----
-
-===== #flatten_keys!
-
-Flattens nested keys as top-level keys while mutating itself. Does not handle nested arrays,
-though.
-
-[source,ruby]
-----
-example = {a: {b: 1}}
-example.flatten_keys!  # => {a_b: 1}
-example                # => {a_b: 1}
-----
-
-===== #stringify_keys
-
-Converts keys to strings without mutating itself.
-
-[source,ruby]
-----
-example = {a: 1, b: 2}
-example.stringify_keys  # => {"a" => 1, "b" => 2}
-example                 # => {a: 1, b: 2}
-----
-
-===== #stringify_keys!
-
-Converts keys to strings while mutating itself.
-
-[source,ruby]
-----
-example = {a: 1, b: 2}
-example.stringify_keys!  # => {"a" => 1, "b" => 2}
-example                  # => {"a" => 1, "b" => 2}
-----
-
-===== #symbolize_keys
-
-Converts keys to symbols without mutating itself.
-
-[source,ruby]
-----
-example = {"a" => 1, "b" => 2}
-example.symbolize_keys  # => {a: 1, b: 2}
-example                 # => {"a" => 1, "b" => 2}
-----
-
-===== #symbolize_keys!
-
-Converts keys to symbols while mutating itself.
-
-[source,ruby]
-----
-example = {"a" => 1, "b" => 2}
-example.symbolize_keys!  # => {a: 1, b: 2}
-example                  # => {a: 1, b: 2}
-----
-
 ===== #deep_merge
 
 Merges deeply nested hashes together without mutating itself.
@@ -405,6 +309,58 @@ example.deep_symbolize_keys!  # => {a: {b: 1}}
 example                       # => {a: {b: 1}}
 ----
 
+===== #except
+
+Answers new hash with given keys removed without mutating itself.
+
+[source,ruby]
+----
+example = {a: 1, b: 2, c: 3}
+example.except :a, :b  # => {c: 3}
+example                # => {a: 1, b: 2, c: 3}
+----
+
+===== #except!
+
+Answers new hash with given keys removed while mutating itself.
+
+[source,ruby]
+----
+example = {a: 1, b: 2, c: 3}
+example.except! :a, :b  # => {c: 3}
+example                 # => {c: 3}
+----
+
+===== #flatten_keys
+
+Flattens nested keys as top-level keys without mutating itself. Does not handle nested arrays,
+though.
+
+[source,ruby]
+----
+{a: {b: 1}}.flatten_keys prefix: :test  # => {test_a_b: 1}
+{a: {b: 1}}.flatten_keys delimiter: :|  # => {:"a|b" => 1}
+
+{a: {b: 1}}.flatten_keys cast: :to_s            # => {"a_b" => 1}
+{"a" => {"b" => 1}}.flatten_keys cast: :to_sym  # => {a_b: 1}
+
+example = {a: {b: 1}}
+example.flatten_keys  # => {a_b: 1}
+example               # => {a: {b: 1}}
+----
+
+===== #flatten_keys!
+
+Flattens nested keys as top-level keys while mutating itself. Does not handle nested arrays,
+though.
+
+[source,ruby]
+----
+example = {a: {b: 1}}
+example.flatten_keys!  # => {a_b: 1}
+example                # => {a_b: 1}
+----
+
 ===== #recurse
 
 Recursively iterates over the hash and any hash value by applying the given block to it. Does not
@@ -461,6 +417,50 @@ example.reverse_merge! a: 0, c: 3  # => {a: 1, b: 2, c: 3}
 example                            # => {a: 1, b: 2, c: 3}
 ----
 
+===== #stringify_keys
+
+Converts keys to strings without mutating itself.
+
+[source,ruby]
+----
+example = {a: 1, b: 2}
+example.stringify_keys  # => {"a" => 1, "b" => 2}
+example                 # => {a: 1, b: 2}
+----
+
+===== #stringify_keys!
+
+Converts keys to strings while mutating itself.
+
+[source,ruby]
+----
+example = {a: 1, b: 2}
+example.stringify_keys!  # => {"a" => 1, "b" => 2}
+example                  # => {"a" => 1, "b" => 2}
+----
+
+===== #symbolize_keys
+
+Converts keys to symbols without mutating itself.
+
+[source,ruby]
+----
+example = {"a" => 1, "b" => 2}
+example.symbolize_keys  # => {a: 1, b: 2}
+example                 # => {"a" => 1, "b" => 2}
+----
+
+===== #symbolize_keys!
+
+Converts keys to symbols while mutating itself.
+
+[source,ruby]
+----
+example = {"a" => 1, "b" => 2}
+example.symbolize_keys!  # => {a: 1, b: 2}
+example                  # => {a: 1, b: 2}
+----
+
 ===== #use
 
 Passes each hash value as a block argument for further processing.
@@ -486,18 +486,6 @@ io.closed? # => false
 
 io = IO.void { |void| void.write "nevermore" }
 io.closed? # => true
-----
-
-===== #squelch
-
-Temporarily ignores any reads/writes for current stream for all code executed within the block. When
-not given a block, it answers itself.
-
-[source,ruby]
-----
-io = IO.new IO.sysopen(Pathname("test.txt").to_s, "w+")
-io.squelch { io.write "Test" }
-io.reread # => ""
 ----
 
 ===== #redirect
@@ -534,6 +522,18 @@ io.reread(buffer: buffer)
 buffer # => "This is a test."
 ----
 
+===== #squelch
+
+Temporarily ignores any reads/writes for current stream for all code executed within the block. When
+not given a block, it answers itself.
+
+[source,ruby]
+----
+io = IO.new IO.sysopen(Pathname("test.txt").to_s, "w+")
+io.squelch { io.write "Test" }
+io.reread # => ""
+----
+
 ==== Pathname
 
 ===== Pathname
@@ -546,15 +546,6 @@ can still be used to construct a valid path.
 [source,ruby]
 ----
 Pathname(nil) # => Pathname("")
-----
-
-===== #name
-
-Answers file name without extension.
-
-[source,ruby]
-----
-Pathname("example.txt").name # => Pathname("example")
 ----
 
 ===== #change_dir
@@ -626,15 +617,6 @@ Pathname("/%placeholder%/some/%placeholder%").gsub("%placeholder%", "test")
 # => Pathname("/test/some/test")
 ----
 
-===== #relative_parent
-
-Answers relative path from parent directory. This is a complement to `#relative_path_from`.
-
-[source,ruby]
-----
-Pathname("/one/two/three").relative_parent("/one") # => Pathname "two"
-----
-
 ===== #make_ancestors
 
 Ensures all ancestor directories are created for a path.
@@ -666,6 +648,24 @@ not throwing errors when directory does exist in order to ensure the pathname ca
 ----
 Pathname("/one/two/three").make_path            # => Pathname("/one/two/three")
 Pathname("/one/two/three").make_path.make_path  # => Pathname("/one/two/three")
+----
+
+===== #name
+
+Answers file name without extension.
+
+[source,ruby]
+----
+Pathname("example.txt").name # => Pathname("example")
+----
+
+===== #relative_parent
+
+Answers relative path from parent directory. This is a complement to `#relative_path_from`.
+
+[source,ruby]
+----
+Pathname("/one/two/three").relative_parent("/one") # => Pathname "two"
 ----
 
 ===== #remove_dir
@@ -723,26 +723,6 @@ Pathname("example.txt").touch at: Time.now - 1
 
 ==== String
 
-===== #first
-
-Answers first character of a string or first set of characters if given a number.
-
-[source,ruby]
-----
-"example".first    # => "e"
-"example".first 4  # => "exam"
-----
-
-===== #last
-
-Answers last character of a string or last set of characters if given a number.
-
-[source,ruby]
-----
-"instant".last    # => "t"
-"instant".last 3  # => "ant"
-----
-
 ===== #blank?
 
 Answers `true`/`false` based on whether string is blank, `<space>`, `\n`, `\t`, and/or `\r`.
@@ -752,13 +732,13 @@ Answers `true`/`false` based on whether string is blank, `<space>`, `\n`, `\t`, 
 " \n\t\r".blank? # => true
 ----
 
-===== #up
+===== #camelcase
 
-Answers string with only first letter upcased.
+Answers a camelcased string.
 
 [source,ruby]
 ----
-"example".up # => "Example"
+"this_is_an_example".camelcase # => "ThisIsAnExample"
 ----
 
 ===== #down
@@ -768,6 +748,16 @@ Answers string with only first letter downcased.
 [source,ruby]
 ----
 "EXAMPLE".down # => "eXAMPLE"
+----
+
+===== #first
+
+Answers first character of a string or first set of characters if given a number.
+
+[source,ruby]
+----
+"example".first    # => "e"
+"example".first 4  # => "exam"
 ----
 
 ===== #indent
@@ -783,13 +773,14 @@ Answers string indented by two spaces by default.
 "example".indent 3, padding: " "  # => "   example"
 ----
 
-===== #camelcase
+===== #last
 
-Answers a camelcased string.
+Answers last character of a string or last set of characters if given a number.
 
 [source,ruby]
 ----
-"this_is_an_example".camelcase # => "ThisIsAnExample"
+"instant".last    # => "t"
+"instant".last 3  # => "ant"
 ----
 
 ===== #snakecase
@@ -821,6 +812,15 @@ Answers string as a boolean.
 "1".to_bool        # => true
 "".to_bool         # => false
 "example".to_bool  # => false
+----
+
+===== #up
+
+Answers string with only first letter upcased.
+
+[source,ruby]
+----
+"example".up # => "Example"
 ----
 
 ==== String IO

@@ -14,10 +14,6 @@ module Refinements
     end
 
     refine IO do
-      def squelch &block
-        self.class.void.then { |void| redirect(void, &block) }
-      end
-
       def redirect other
         return self unless block_given?
 
@@ -29,6 +25,10 @@ module Refinements
 
       def reread length = nil, buffer: nil
         tap(&:rewind).read length, buffer
+      end
+
+      def squelch &block
+        self.class.void.then { |void| redirect(void, &block) }
       end
     end
   end

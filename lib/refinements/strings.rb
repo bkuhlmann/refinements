@@ -12,6 +12,24 @@ module Refinements
     end
 
     refine String do
+      def blank?
+        match?(/\A\s*\z/)
+      end
+
+      def camelcase
+        return up unless match? DELIMITERS
+
+        split(%r(\s*-\s*|\s*/\s*|\s*:+\s*)).then { |parts| combine parts, :up, "::" }
+                                           .then { |text| text.split(/\s*_\s*|\s+/) }
+                                           .then { |parts| combine parts, :up }
+      end
+
+      def down
+        return self if empty?
+
+        first.downcase + self[1, size]
+      end
+
       def first number = 0
         return self if empty?
 
@@ -23,6 +41,12 @@ module Refinements
         self[..(max - 1)]
       end
 
+      def indent multiplier = 1, padding: "  "
+        return self if multiplier.negative?
+
+        padding * multiplier + self
+      end
+
       def last number = 0
         return self if empty?
 
@@ -32,36 +56,6 @@ module Refinements
         return "" if min.negative?
 
         self[(min + 1)..]
-      end
-
-      def blank?
-        match?(/\A\s*\z/)
-      end
-
-      def up
-        return self if empty?
-
-        first.upcase + self[1, size]
-      end
-
-      def down
-        return self if empty?
-
-        first.downcase + self[1, size]
-      end
-
-      def indent multiplier = 1, padding: "  "
-        return self if multiplier.negative?
-
-        padding * multiplier + self
-      end
-
-      def camelcase
-        return up unless match? DELIMITERS
-
-        split(%r(\s*-\s*|\s*/\s*|\s*:+\s*)).then { |parts| combine parts, :up, "::" }
-                                           .then { |text| text.split(/\s*_\s*|\s+/) }
-                                           .then { |parts| combine parts, :up }
       end
 
       def snakecase
@@ -82,6 +76,12 @@ module Refinements
 
       def to_bool
         %w[true yes on t y 1].include? downcase.strip
+      end
+
+      def up
+        return self if empty?
+
+        first.upcase + self[1, size]
       end
 
       private

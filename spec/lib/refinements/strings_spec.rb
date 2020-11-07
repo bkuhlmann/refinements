@@ -5,56 +5,6 @@ require "spec_helper"
 RSpec.describe Refinements::Strings do
   using described_class
 
-  describe "#first" do
-    subject(:strings) { "seedlings" }
-
-    it "answers first letter" do
-      expect(strings.first).to eq("s")
-    end
-
-    it "answers first letters with positive number" do
-      expect(strings.first(3)).to eq("see")
-    end
-
-    it "answers empty string with negative number" do
-      expect(strings.first(-1)).to eq("")
-    end
-
-    it "answers itself when empty" do
-      expect("".first).to eq("")
-    end
-
-    it "fails with type error when unable to cast number to integer" do
-      result = -> { strings.first :bogus }
-      expect(&result).to raise_error(TypeError, "can't convert Symbol into Integer")
-    end
-  end
-
-  describe "#last" do
-    subject(:strings) { "weather" }
-
-    it "answers last letter" do
-      expect(strings.last).to eq("r")
-    end
-
-    it "answers last letters with positive number" do
-      expect(strings.last(3)).to eq("her")
-    end
-
-    it "answers empty string with negative number" do
-      expect(strings.last(-1)).to eq("")
-    end
-
-    it "answers itself when empty" do
-      expect("".last).to eq("")
-    end
-
-    it "fails with type error when unable to cast number to integer" do
-      result = -> { strings.last :bogus }
-      expect(&result).to raise_error(TypeError, "can't convert Symbol into Integer")
-    end
-  end
-
   describe "#blank?" do
     it "answers true when empty" do
       expect("".blank?).to eq(true)
@@ -86,52 +36,6 @@ RSpec.describe Refinements::Strings do
 
     it "answers false when a word, space, tab, new line, and return" do
       expect("test \t\n\r".blank?).to eq(false)
-    end
-  end
-
-  describe "#up" do
-    it "answers empty string as empty string" do
-      expect("".up).to eq("")
-    end
-
-    it "upcases first letter only" do
-      expect("test".up).to eq("Test")
-    end
-  end
-
-  describe "#down" do
-    it "answers empty string as empty string" do
-      expect("".down).to eq("")
-    end
-
-    it "downcases first letter only" do
-      expect("TEST".down).to eq("tEST")
-    end
-  end
-
-  describe "#indent" do
-    it "answers two space indentation by default" do
-      expect("test".indent).to eq("  test")
-    end
-
-    it "answers self with zero multiplier" do
-      expect("test".indent(0)).to eq("test")
-    end
-
-    it "answers self with negative multiplier" do
-      expect("test".indent(-1)).to eq("test")
-    end
-
-    it "answers indentation with custom multiplier" do
-      expect("test".indent(3)).to eq("      test")
-    end
-
-    it "answers indentation with custom padding" do
-      expect("test".indent(padding: " ")).to eq(" test")
-    end
-
-    it "answers indentation with custom multiplier and padding" do
-      expect("test".indent(2, padding: " ")).to eq("  test")
     end
   end
 
@@ -232,6 +136,92 @@ RSpec.describe Refinements::Strings do
       expect("this is_a-mixed/test:case::example".camelcase).to eq(
         "ThisIsA::Mixed::Test::Case::Example"
       )
+    end
+  end
+
+  describe "#down" do
+    it "answers empty string as empty string" do
+      expect("".down).to eq("")
+    end
+
+    it "downcases first letter only" do
+      expect("TEST".down).to eq("tEST")
+    end
+  end
+
+  describe "#first" do
+    subject(:strings) { "seedlings" }
+
+    it "answers first letter" do
+      expect(strings.first).to eq("s")
+    end
+
+    it "answers first letters with positive number" do
+      expect(strings.first(3)).to eq("see")
+    end
+
+    it "answers empty string with negative number" do
+      expect(strings.first(-1)).to eq("")
+    end
+
+    it "answers itself when empty" do
+      expect("".first).to eq("")
+    end
+
+    it "fails with type error when unable to cast number to integer" do
+      result = -> { strings.first :bogus }
+      expect(&result).to raise_error(TypeError, "can't convert Symbol into Integer")
+    end
+  end
+
+  describe "#indent" do
+    it "answers two space indentation by default" do
+      expect("test".indent).to eq("  test")
+    end
+
+    it "answers self with zero multiplier" do
+      expect("test".indent(0)).to eq("test")
+    end
+
+    it "answers self with negative multiplier" do
+      expect("test".indent(-1)).to eq("test")
+    end
+
+    it "answers indentation with custom multiplier" do
+      expect("test".indent(3)).to eq("      test")
+    end
+
+    it "answers indentation with custom padding" do
+      expect("test".indent(padding: " ")).to eq(" test")
+    end
+
+    it "answers indentation with custom multiplier and padding" do
+      expect("test".indent(2, padding: " ")).to eq("  test")
+    end
+  end
+
+  describe "#last" do
+    subject(:strings) { "weather" }
+
+    it "answers last letter" do
+      expect(strings.last).to eq("r")
+    end
+
+    it "answers last letters with positive number" do
+      expect(strings.last(3)).to eq("her")
+    end
+
+    it "answers empty string with negative number" do
+      expect(strings.last(-1)).to eq("")
+    end
+
+    it "answers itself when empty" do
+      expect("".last).to eq("")
+    end
+
+    it "fails with type error when unable to cast number to integer" do
+      result = -> { strings.last :bogus }
+      expect(&result).to raise_error(TypeError, "can't convert Symbol into Integer")
     end
   end
 
@@ -444,6 +434,16 @@ RSpec.describe Refinements::Strings do
 
     it "answers false with invalid value" do
       expect("bogus".to_bool).to eq(false)
+    end
+  end
+
+  describe "#up" do
+    it "answers empty string as empty string" do
+      expect("".up).to eq("")
+    end
+
+    it "upcases first letter only" do
+      expect("test".up).to eq("Test")
     end
   end
 end

@@ -11,16 +11,16 @@ module Refinements
         replace compress
       end
 
+      def exclude *elements
+        self - elements.flatten
+      end
+
       def include *elements
         self + elements.flatten
       end
 
       def intersperse *elements
         product([elements]).tap(&:pop).flatten.push last
-      end
-
-      def exclude *elements
-        self - elements.flatten
       end
 
       def mean

@@ -24,6 +24,176 @@ RSpec.describe Refinements::Hashes do
     end
   end
 
+  shared_examples_for "a deep merge" do |method|
+    subject :a_hash do
+      {
+        label: "Example",
+        nested: {
+          level_1: {
+            value: "example"
+          },
+          level_2: %w[a b c]
+        }
+      }
+    end
+
+    context "with identical keys" do
+      let :proof do
+        {
+          label: "Test",
+          nested: {
+            level_1: {
+              value: "test"
+            },
+            level_2: %w[x y z]
+          }
+        }
+      end
+
+      it "replaces all values" do
+        result = a_hash.public_send method, proof
+        expect(result).to eq(proof)
+      end
+    end
+
+    context "with new keys" do
+      let :proof do
+        {
+          label: "Example",
+          basic: {
+            a: 1,
+            b: [1, 2, 3]
+          },
+          nested: {
+            level_1: {
+              value: "example"
+            },
+            level_2: %w[a b c]
+          }
+        }
+      end
+
+      it "merges structure with existing structure" do
+        result = a_hash.public_send method, basic: {a: 1, b: [1, 2, 3]}
+        expect(result).to eq(proof)
+      end
+    end
+  end
+
+  describe "#deep_merge" do
+    it_behaves_like "a deep merge", :deep_merge
+
+    it "doesn't mutate itself" do
+      a_hash = {a: {b: 1}}
+      a_hash.deep_merge a: {b: 2}
+
+      expect(a_hash).to eq({a: {b: 1}})
+    end
+  end
+
+  describe "#deep_merge!" do
+    it_behaves_like "a deep merge", :deep_merge!
+
+    it "mutates itself" do
+      a_hash = {a: {b: 1}}
+      a_hash.deep_merge! a: {b: 2}
+
+      expect(a_hash).to eq(a: {b: 2})
+    end
+  end
+
+  shared_examples_for "deep stringified keys" do |method|
+    subject :a_hash do
+      {
+        a: [
+          {b: 1}
+        ],
+        c: {
+          d: 2
+        }
+      }
+    end
+
+    it "answers stringified keys" do
+      expect(a_hash.public_send(method)).to eq(
+        "a" => [
+          {b: 1}
+        ],
+        "c" => {
+          "d" => 2
+        }
+      )
+    end
+  end
+
+  describe "#deep_stringify_keys" do
+    it_behaves_like "deep stringified keys", :deep_stringify_keys
+
+    it "doesn't mutate hash" do
+      a_hash = {a: 1}
+      a_hash.deep_stringify_keys
+
+      expect(a_hash).to eq(a: 1)
+    end
+  end
+
+  describe "#deep_stringify_keys!" do
+    it_behaves_like "deep stringified keys", :deep_stringify_keys!
+
+    it "mutates itself" do
+      a_hash = {a: 1}
+      a_hash.deep_stringify_keys!
+
+      expect(a_hash).to eq("a" => 1)
+    end
+  end
+
+  shared_examples_for "deep symbolized keys" do |method|
+    subject :a_hash do
+      {
+        "a" => [
+          {"b" => 1}
+        ],
+        "c" => {
+          "d" => 2
+        }
+      }
+    end
+
+    it "answers symbolized keys" do
+      expect(a_hash.public_send(method)).to eq(
+        a: [
+          {"b" => 1}
+        ],
+        c: {
+          d: 2
+        }
+      )
+    end
+  end
+
+  describe "#deep_symbolize_keys" do
+    it_behaves_like "deep symbolized keys", :deep_symbolize_keys
+
+    it "doesn't mutate hash" do
+      a_hash = {"a" => 1}
+      a_hash.deep_symbolize_keys
+
+      expect(a_hash).to eq("a" => 1)
+    end
+  end
+
+  describe "#deep_symbolize_keys!" do
+    it_behaves_like "deep symbolized keys", :deep_symbolize_keys!
+
+    it "mutates itself" do
+      a_hash = {"a" => 1}
+      a_hash.deep_symbolize_keys!
+
+      expect(a_hash).to eq(a: 1)
+    end
+  end
+
   shared_examples_for "an except" do |method|
     subject(:a_hash) { {a: 1, b: 2, c: 3} }
 
@@ -116,144 +286,6 @@ RSpec.describe Refinements::Hashes do
       a_hash.flatten_keys!
 
       expect(a_hash).to eql(a_b: 1)
-    end
-  end
-
-  shared_examples_for "stringified keys" do |method|
-    subject(:a_hash) { {a: 1, b: 2, "c" => 3} }
-
-    it "answers keys as strings" do
-      expect(a_hash.public_send(method).keys).to contain_exactly("a", "b", "c")
-    end
-  end
-
-  describe "#stringify_keys" do
-    it_behaves_like "stringified keys", :stringify_keys
-
-    it "doesn't mutate itself" do
-      a_hash = {a: 1}
-      a_hash.stringify_keys
-
-      expect(a_hash).to eq(a: 1)
-    end
-  end
-
-  describe "#stringify_keys!" do
-    it_behaves_like "stringified keys", :stringify_keys!
-
-    it "mutates itself" do
-      a_hash = {a: 1}
-      a_hash.stringify_keys!
-
-      expect(a_hash).to eq("a" => 1)
-    end
-  end
-
-  shared_examples_for "symbolized keys" do |method|
-    subject(:a_hash) { {"a" => 1, "b" => 2, c: 3} }
-
-    it "answers keys as symbols" do
-      expect(a_hash.public_send(method).keys).to contain_exactly(:a, :b, :c)
-    end
-  end
-
-  describe "#symbolize_keys" do
-    it_behaves_like "symbolized keys", :symbolize_keys
-
-    it "doesn't mutate itself" do
-      a_hash = {"a" => 1}
-      a_hash.symbolize_keys
-
-      expect(a_hash).to eq("a" => 1)
-    end
-  end
-
-  describe "#symbolize_keys!" do
-    it_behaves_like "symbolized keys", :symbolize_keys!
-
-    it "mutates itself" do
-      a_hash = {"a" => 1}
-      a_hash.symbolize_keys!
-
-      expect(a_hash).to eq(a: 1)
-    end
-  end
-
-  shared_examples_for "a deep merge" do |method|
-    subject :a_hash do
-      {
-        label: "Example",
-        nested: {
-          level_1: {
-            value: "example"
-          },
-          level_2: %w[a b c]
-        }
-      }
-    end
-
-    context "with identical keys" do
-      let :proof do
-        {
-          label: "Test",
-          nested: {
-            level_1: {
-              value: "test"
-            },
-            level_2: %w[x y z]
-          }
-        }
-      end
-
-      it "replaces all values" do
-        result = a_hash.public_send method, proof
-        expect(result).to eq(proof)
-      end
-    end
-
-    context "with new keys" do
-      let :proof do
-        {
-          label: "Example",
-          basic: {
-            a: 1,
-            b: [1, 2, 3]
-          },
-          nested: {
-            level_1: {
-              value: "example"
-            },
-            level_2: %w[a b c]
-          }
-        }
-      end
-
-      it "merges structure with existing structure" do
-        result = a_hash.public_send method, basic: {a: 1, b: [1, 2, 3]}
-        expect(result).to eq(proof)
-      end
-    end
-  end
-
-  describe "#deep_merge" do
-    it_behaves_like "a deep merge", :deep_merge
-
-    it "doesn't mutate itself" do
-      a_hash = {a: {b: 1}}
-      a_hash.deep_merge a: {b: 2}
-
-      expect(a_hash).to eq({a: {b: 1}})
-    end
-  end
-
-  describe "#deep_merge!" do
-    it_behaves_like "a deep merge", :deep_merge!
-
-    it "mutates itself" do
-      a_hash = {a: {b: 1}}
-      a_hash.deep_merge! a: {b: 2}
-
-      expect(a_hash).to eq(a: {b: 2})
     end
   end
 
@@ -397,93 +429,61 @@ RSpec.describe Refinements::Hashes do
     end
   end
 
-  shared_examples_for "deep stringified keys" do |method|
-    subject :a_hash do
-      {
-        a: [
-          {b: 1}
-        ],
-        c: {
-          d: 2
-        }
-      }
-    end
+  shared_examples_for "stringified keys" do |method|
+    subject(:a_hash) { {a: 1, b: 2, "c" => 3} }
 
-    it "answers stringified keys" do
-      expect(a_hash.public_send(method)).to eq(
-        "a" => [
-          {b: 1}
-        ],
-        "c" => {
-          "d" => 2
-        }
-      )
+    it "answers keys as strings" do
+      expect(a_hash.public_send(method).keys).to contain_exactly("a", "b", "c")
     end
   end
 
-  describe "#deep_stringify_keys" do
-    it_behaves_like "deep stringified keys", :deep_stringify_keys
+  describe "#stringify_keys" do
+    it_behaves_like "stringified keys", :stringify_keys
 
-    it "doesn't mutate hash" do
+    it "doesn't mutate itself" do
       a_hash = {a: 1}
-      a_hash.deep_stringify_keys
+      a_hash.stringify_keys
 
       expect(a_hash).to eq(a: 1)
     end
   end
 
-  describe "#deep_stringify_keys!" do
-    it_behaves_like "deep stringified keys", :deep_stringify_keys!
+  describe "#stringify_keys!" do
+    it_behaves_like "stringified keys", :stringify_keys!
 
     it "mutates itself" do
       a_hash = {a: 1}
-      a_hash.deep_stringify_keys!
+      a_hash.stringify_keys!
 
       expect(a_hash).to eq("a" => 1)
     end
   end
 
-  shared_examples_for "deep symbolized keys" do |method|
-    subject :a_hash do
-      {
-        "a" => [
-          {"b" => 1}
-        ],
-        "c" => {
-          "d" => 2
-        }
-      }
-    end
+  shared_examples_for "symbolized keys" do |method|
+    subject(:a_hash) { {"a" => 1, "b" => 2, c: 3} }
 
-    it "answers symbolized keys" do
-      expect(a_hash.public_send(method)).to eq(
-        a: [
-          {"b" => 1}
-        ],
-        c: {
-          d: 2
-        }
-      )
+    it "answers keys as symbols" do
+      expect(a_hash.public_send(method).keys).to contain_exactly(:a, :b, :c)
     end
   end
 
-  describe "#deep_symbolize_keys" do
-    it_behaves_like "deep symbolized keys", :deep_symbolize_keys
+  describe "#symbolize_keys" do
+    it_behaves_like "symbolized keys", :symbolize_keys
 
-    it "doesn't mutate hash" do
+    it "doesn't mutate itself" do
       a_hash = {"a" => 1}
-      a_hash.deep_symbolize_keys
+      a_hash.symbolize_keys
 
       expect(a_hash).to eq("a" => 1)
     end
   end
 
-  describe "#deep_symbolize_keys!" do
-    it_behaves_like "deep symbolized keys", :deep_symbolize_keys!
+  describe "#symbolize_keys!" do
+    it_behaves_like "symbolized keys", :symbolize_keys!
 
     it "mutates itself" do
       a_hash = {"a" => 1}
-      a_hash.deep_symbolize_keys!
+      a_hash.symbolize_keys!
 
       expect(a_hash).to eq(a: 1)
     end

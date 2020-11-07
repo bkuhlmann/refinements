@@ -53,6 +53,38 @@ RSpec.describe Refinements::Arrays do
     end
   end
 
+  describe "#exclude" do
+    let(:array) { [1, 2, 3, 4, 5] }
+
+    it "answers array which exludes additional array" do
+      expect(array.exclude([3, 4, 5])).to eq([1, 2])
+    end
+
+    it "answers array which exludes additional elements" do
+      expect(array.exclude(4, 5)).to eq([1, 2, 3])
+    end
+
+    it "answers array which excludes additional array and elements" do
+      expect(array.exclude(1, 2, [4, 5])).to eq([3])
+    end
+
+    it "answers array which exludes out-of-order elements" do
+      expect(array.exclude(1, 3, 5)).to eq([2, 4])
+    end
+
+    it "answers array which excludes duplicate elements" do
+      expect(array.exclude(1, 1)).to eq([2, 3, 4, 5])
+    end
+
+    it "answers array when given no arguments" do
+      expect(array.exclude).to eq(array)
+    end
+
+    it "duplicates array" do
+      expect(array.exclude).not_to equal(array)
+    end
+  end
+
   describe "#include" do
     let(:array) { [1, 2, 3] }
 
@@ -102,38 +134,6 @@ RSpec.describe Refinements::Arrays do
 
     it "answers array with other array interspersed" do
       expect(array.intersperse(%i[a b])).to eq([1, :a, :b, 2, :a, :b, 3])
-    end
-  end
-
-  describe "#exclude" do
-    let(:array) { [1, 2, 3, 4, 5] }
-
-    it "answers array which exludes additional array" do
-      expect(array.exclude([3, 4, 5])).to eq([1, 2])
-    end
-
-    it "answers array which exludes additional elements" do
-      expect(array.exclude(4, 5)).to eq([1, 2, 3])
-    end
-
-    it "answers array which excludes additional array and elements" do
-      expect(array.exclude(1, 2, [4, 5])).to eq([3])
-    end
-
-    it "answers array which exludes out-of-order elements" do
-      expect(array.exclude(1, 3, 5)).to eq([2, 4])
-    end
-
-    it "answers array which excludes duplicate elements" do
-      expect(array.exclude(1, 1)).to eq([2, 3, 4, 5])
-    end
-
-    it "answers array when given no arguments" do
-      expect(array.exclude).to eq(array)
-    end
-
-    it "duplicates array" do
-      expect(array.exclude).not_to equal(array)
     end
   end
 
