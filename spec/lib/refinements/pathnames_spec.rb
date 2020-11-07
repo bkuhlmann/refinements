@@ -31,6 +31,48 @@ RSpec.describe Refinements::Pathnames, :temp_dir do
     end
   end
 
+  describe "#change_dir" do
+    context "without block" do
+      around do |example|
+        original_path = Pathname.pwd
+        example.run
+        Dir.chdir original_path
+      end
+
+      it "changes to directory of current path" do
+        temp_dir.change_dir
+        expect(Pathname.pwd).to eq(temp_dir)
+      end
+
+      it "answers itself" do
+        expect(temp_dir.change_dir).to eq(temp_dir)
+      end
+    end
+
+    context "with block" do
+      it "changes to directory of current path and yields" do
+        temp_dir.change_dir do
+          expect(Pathname.pwd).to eq(temp_dir)
+        end
+      end
+
+      it "answers itself" do
+        path = temp_dir.change_dir { Pathname.pwd }
+        expect(path).to eq(temp_dir)
+      end
+    end
+
+    it "fails when changing to non-existent directory" do
+      expectation = -> { temp_dir.join("test").change_dir }
+      expect(&expectation).to raise_error(Errno::ENOENT, /no.+directory.+test/i)
+    end
+
+    it "fails when changing to a file" do
+      expectation = -> { temp_dir.join("test.txt").touch.change_dir }
+      expect(&expectation).to raise_error(Errno::ENOTDIR, /not a directory.+test.txt/i)
+    end
+  end
+
   describe "#copy" do
     it "copies file to file" do
       input_path = temp_dir.join "input.txt"

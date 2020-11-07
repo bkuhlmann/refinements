@@ -557,6 +557,22 @@ Answers file name without extension.
 Pathname("example.txt").name # => Pathname("example")
 ----
 
+===== #change_dir
+
+Inherits and wraps `Dir.chdir` behavior by changing to directory of current path. See
+link:https://rubyapi.org/2.7/o/s?q=Dir.chdir[Dir.chdir] for details.
+
+[source,ruby]
+----
+Pathname.pwd                           # => "/"
+Pathname("/test").make_dir.change_dir  # => Pathname "/test"
+Pathname.pwd                           # => "/test"
+
+Pathname.pwd                                                        # => "/"
+Pathname("/test").make_dir.change_dir { # Implementation details }  # => Pathname "/test"
+Pathname.pwd                                                        # => "/"
+----
+
 ===== #copy
 
 Copies file from current location to new location.

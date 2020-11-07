@@ -17,6 +17,11 @@ module Refinements
         basename extname
       end
 
+      def change_dir &block
+        Dir.chdir(self, &block)
+        self
+      end
+
       def copy to
         destination = to.directory? ? to.join(basename) : to
         read.then { |content| destination.write content }
