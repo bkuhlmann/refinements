@@ -1,5 +1,16 @@
 = Changes
 
+== 7.13.0 (2020-11-07)
+
+- Added Alchemists style guide badge
+- Added Pathname change directory
+- Added Pathname make dir
+- Added Pathname make path
+- Added Pathname remove dir
+- Added Pathname remove tree
+- Refactored RSpec temp dir shared context to use Pathnames refinement
+- Refactored all methods to be alphabetically sorted
+
 == 7.12.0 (2020-11-04)
 
 * Added Array intersperse
