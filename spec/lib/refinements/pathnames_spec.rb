@@ -257,6 +257,24 @@ RSpec.describe Refinements::Pathnames, :temp_dir do
     end
   end
 
+  describe "#make_dir" do
+    let(:path) { temp_dir.join "demo" }
+
+    it "makes new directory" do
+      path.make_dir
+      expect(path.exist?).to eq(true)
+    end
+
+    it "answers itself when existing" do
+      path.make_dir
+      expect(path.make_dir).to eq(path)
+    end
+
+    it "answers itself when not existing" do
+      expect(path.make_dir).to eq(path)
+    end
+  end
+
   describe "#mkdir" do
     let(:path) { temp_dir.join "demo" }
 

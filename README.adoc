@@ -630,15 +630,15 @@ Pathname("/one").exist?      # => true
 Pathname("/one/two").exist?  # => false
 ----
 
-===== #mkdir
+===== #make_dir
 
-Modifies default behavior by always answering itself (even when directory exists) and not throwing
-errors when directory exists.
+Provides alternative `#mkdir` behavior by always answering itself (even when directory exists) and
+not throwing errors when directory does exist in order to ensure the pathname can be chained.
 
 [source,ruby]
 ----
-Pathname("/one").mkdir        # => Pathname("/one")
-Pathname("/one").mkdir.mkdir  # => Pathname("/one")
+Pathname("/one").make_dir           # => Pathname("/one")
+Pathname("/one").make_dir.make_dir  # => Pathname("/one")
 ----
 
 ===== #rewrite
