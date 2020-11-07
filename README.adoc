@@ -664,6 +664,27 @@ Pathname("/test").remove_dir                  # => Pathname("/test")
 Pathname("/test").remove_dir.remove_dir       # => Pathname("/test")
 ----
 
+===== #remove_tree
+
+Provides alternative `#rmtree` behavior by always answering itself (even when full path exists) and
+not throwing errors when directory does exist in order to ensure the pathname can be chained.
+
+[source,ruby]
+----
+parent_path = Pathname "/one"
+child_path = parent_path.join "two"
+
+child_path.make_path
+child_path.remove_tree  # => Pathname "/one/two"
+child_path.exist?       # => false
+paremt_path.exist?      # => true
+
+child_path.make_path
+parent_path.remove_tree  # => Pathname "/one"
+child_path.exist?        # => false
+parent_path.exist?       # => false
+----
+
 ===== #rewrite
 
 When given a block, it provides the contents of the recently read file for manipulation and

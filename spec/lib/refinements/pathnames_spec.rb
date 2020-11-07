@@ -338,6 +338,34 @@ RSpec.describe Refinements::Pathnames, :temp_dir do
     end
   end
 
+  describe "#remove_tree" do
+    let(:parent_path) { temp_dir.join "one" }
+    let(:child_path) { parent_path.join "two" }
+
+    it "removes itself and children" do
+      child_path.make_path
+      parent_path.remove_tree
+
+      expect(parent_path.exist?).to eq(false)
+    end
+
+    it "removes children only" do
+      child_path.make_path
+      child_path.remove_tree
+
+      expect(parent_path.exist?).to eq(true)
+    end
+
+    it "answers itself after being removed" do
+      child_path.make_path
+      expect(parent_path.remove_tree).to eq(parent_path)
+    end
+
+    it "answers itself when not existing" do
+      expect(parent_path.remove_tree).to eq(parent_path)
+    end
+  end
+
   describe "#rewrite" do
     let(:test_path) { temp_dir.join "test.txt" }
 

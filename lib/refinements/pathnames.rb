@@ -71,6 +71,11 @@ module Refinements
         exist? ? (rmdir and self) : self
       end
 
+      def remove_tree
+        rmtree if exist?
+        self
+      end
+
       def rewrite
         read.then { |content| write yield(content) if block_given? }
         self
