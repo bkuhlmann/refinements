@@ -58,6 +58,11 @@ module Refinements
         exist? ? self : mkdir and self
       end
 
+      def make_path
+        mkpath
+        self
+      end
+
       def mkdir
         exist? ? self : super and self
       end

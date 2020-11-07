@@ -293,6 +293,29 @@ RSpec.describe Refinements::Pathnames, :temp_dir do
     end
   end
 
+  describe "#make_path" do
+    let(:path) { temp_dir.join "one", "two", "three" }
+
+    it "creates parents when parents don't exist" do
+      path.make_path
+      expect(path.parent.exist?).to eq(true)
+    end
+
+    it "creates full path hierarchy when path doesn't exist" do
+      path.make_path
+      expect(path.exist?).to eq(true)
+    end
+
+    it "answers itself" do
+      expect(path.make_path).to eq(path)
+    end
+
+    it "answers itself when created multiple times" do
+      path.make_path.make_path
+      expect(path.make_path.make_path).to eq(path)
+    end
+  end
+
   describe "#rewrite" do
     let(:test_path) { temp_dir.join "test.txt" }
 

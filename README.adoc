@@ -641,6 +641,17 @@ Pathname("/one").make_dir           # => Pathname("/one")
 Pathname("/one").make_dir.make_dir  # => Pathname("/one")
 ----
 
+===== #make_path
+
+Provides alternative `#mkpath` behavior by always answering itself (even when full path exists) and
+not throwing errors when directory does exist in order to ensure the pathname can be chained.
+
+[source,ruby]
+----
+Pathname("/one/two/three").make_path            # => Pathname("/one/two/three")
+Pathname("/one/two/three").make_path.make_path  # => Pathname("/one/two/three")
+----
+
 ===== #rewrite
 
 When given a block, it provides the contents of the recently read file for manipulation and
