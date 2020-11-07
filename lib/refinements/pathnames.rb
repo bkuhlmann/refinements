@@ -67,6 +67,10 @@ module Refinements
         exist? ? self : super and self
       end
 
+      def remove_dir
+        exist? ? (rmdir and self) : self
+      end
+
       def rewrite
         read.then { |content| write yield(content) if block_given? }
         self

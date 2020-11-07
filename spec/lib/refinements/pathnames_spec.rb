@@ -316,6 +316,28 @@ RSpec.describe Refinements::Pathnames, :temp_dir do
     end
   end
 
+  describe "#remove_dir" do
+    let(:path) { temp_dir.join "test" }
+
+    it "removes exsiting directory" do
+      path.make_dir.remove_dir
+      expect(path.exist?).to eq(false)
+    end
+
+    it "answers itself after being removed" do
+      path.make_dir
+      expect(path.remove_dir).to eq(path)
+    end
+
+    it "answers itself when not existing" do
+      expect(path.remove_dir).to eq(path)
+    end
+
+    it "answers itself when chained" do
+      expect(path.remove_dir.remove_dir).to eq(path)
+    end
+  end
+
   describe "#rewrite" do
     let(:test_path) { temp_dir.join "test.txt" }
 

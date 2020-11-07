@@ -652,6 +652,18 @@ Pathname("/one/two/three").make_path            # => Pathname("/one/two/three")
 Pathname("/one/two/three").make_path.make_path  # => Pathname("/one/two/three")
 ----
 
+===== #remove_dir
+
+Provides alternative `#rmdir` behavior by always answering itself (even when full path exists) and
+not throwing errors when directory does exist in order to ensure the pathname can be chained.
+
+[source,ruby]
+----
+Pathname("/test").make_dir.remove_dir.exist?  # => false
+Pathname("/test").remove_dir                  # => Pathname("/test")
+Pathname("/test").remove_dir.remove_dir       # => Pathname("/test")
+----
+
 ===== #rewrite
 
 When given a block, it provides the contents of the recently read file for manipulation and
