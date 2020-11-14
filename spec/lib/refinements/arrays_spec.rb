@@ -56,6 +56,11 @@ RSpec.describe Refinements::Arrays do
   describe "#exclude" do
     let(:array) { [1, 2, 3, 4, 5] }
 
+    it "prints deprecation warning" do
+      expectation = proc { array.exclude 5 }
+      expect(&expectation).to output(/DEPRECATION/).to_stderr
+    end
+
     it "answers array which exludes additional array" do
       expect(array.exclude([3, 4, 5])).to eq([1, 2])
     end
@@ -119,6 +124,11 @@ RSpec.describe Refinements::Arrays do
 
   describe "#include" do
     let(:array) { [1, 2, 3] }
+
+    it "prints deprecation warning" do
+      expectation = proc { array.include 4 }
+      expect(&expectation).to output(/DEPRECATION/).to_stderr
+    end
 
     it "answers array which includes additional array" do
       expect(array.include([4, 5, 6])).to eq([1, 2, 3, 4, 5, 6])

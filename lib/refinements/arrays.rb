@@ -12,6 +12,7 @@ module Refinements
       end
 
       def exclude *elements
+        warn "[DEPRECATION]: #exclude is deprecated, use #excluding instead."
         excluding(*elements)
       end
 
@@ -20,6 +21,7 @@ module Refinements
       end
 
       def include *elements
+        warn "[DEPRECATION]: #include is deprecated, use #including instead."
         including(*elements)
       end
 
