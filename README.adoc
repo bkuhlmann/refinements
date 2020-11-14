@@ -125,24 +125,24 @@ example.compress!  # => ["An", "Example"]
 example            # => ["An", "Example"]
 ----
 
-===== #exclude
+===== #excluding
 
 Removes given array or elements without mutating itself.
 
 [source,ruby]
 ----
-[1, 2, 3, 4, 5].exclude [4, 5]  # => [1, 2, 3]
-[1, 2, 3, 4, 5].exclude 4, 5    # => [1, 2, 3]
+[1, 2, 3, 4, 5].excluding [4, 5]  # => [1, 2, 3]
+[1, 2, 3, 4, 5].excluding 4, 5    # => [1, 2, 3]
 ----
 
-===== #include
+===== #including
 
 Adds given array or elements without mutating itself.
 
 [source,ruby]
 ----
-[1, 2, 3].include [4, 5]  # => [1, 2, 3, 4, 5]
-[1, 2, 3].include 4, 5    # => [1, 2, 3, 4, 5]
+[1, 2, 3].including [4, 5]  # => [1, 2, 3, 4, 5]
+[1, 2, 3].including 4, 5    # => [1, 2, 3, 4, 5]
 ----
 
 ===== #intersperse

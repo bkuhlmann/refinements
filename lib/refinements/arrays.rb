@@ -12,10 +12,18 @@ module Refinements
       end
 
       def exclude *elements
+        excluding(*elements)
+      end
+
+      def excluding *elements
         self - elements.flatten
       end
 
       def include *elements
+        including(*elements)
+      end
+
+      def including *elements
         self + elements.flatten
       end
 
