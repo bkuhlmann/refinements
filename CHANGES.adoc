@@ -1,15 +1,24 @@
 = Changes
 
+== 7.14.0 (2020-11-14)
+
+* Fixed Pathname change dir to answer result of block
+* Added Array exclude and include deprecation warnings
+* Added Array excluding and including
+* Updated Rubocop gems
+* Updated to Bundler Audit 0.7.0
+* Updated to RSpec 3.10.0
+
 == 7.13.0 (2020-11-07)
 
-- Added Alchemists style guide badge
-- Added Pathname change directory
-- Added Pathname make dir
-- Added Pathname make path
-- Added Pathname remove dir
-- Added Pathname remove tree
-- Refactored RSpec temp dir shared context to use Pathnames refinement
-- Refactored all methods to be alphabetically sorted
+* Added Alchemists style guide badge
+* Added Pathname change directory
+* Added Pathname make dir
+* Added Pathname make path
+* Added Pathname remove dir
+* Added Pathname remove tree
+* Refactored RSpec temp dir shared context to use Pathnames refinement
+* Refactored all methods to be alphabetically sorted
 
 == 7.12.0 (2020-11-04)
 
