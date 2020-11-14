@@ -44,9 +44,9 @@ RSpec.describe Refinements::Pathnames, :temp_dir do
         end
       end
 
-      it "answers itself" do
-        path = temp_dir.change_dir { Pathname.pwd }
-        expect(path).to eq(temp_dir)
+      it "answers result of block" do
+        result = temp_dir.change_dir { "test" }
+        expect(result).to eq("test")
       end
     end
 
