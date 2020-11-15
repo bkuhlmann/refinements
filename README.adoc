@@ -28,6 +28,7 @@ Enhances the following objects:
 * Pathname
 * String
 * StringIO
+* Structs
 
 == Requirements
 
@@ -75,6 +76,7 @@ require "refinements/ios"
 require "refinements/pathnames"
 require "refinements/strings"
 require "refinements/string_ios"
+require "refinements/structs"
 ----
 
 === Using
@@ -94,6 +96,7 @@ class Example
   using Refinements::Pathnames
   using Refinements::Strings
   using Refinements::StringIOs
+  using Refinements::Structs
 end
 ----
 
@@ -840,6 +843,50 @@ io.reread 4  # => "This"
 buffer = "".dup
 io.reread(buffer: buffer)
 buffer # => "This is a test."
+----
+
+==== Struct
+
+===== #merge
+
+Merges multiple attributes without mutating itself.
+
+[source,ruby]
+----
+Example = Struct.new :a, :b, :c
+example = Example[1, 2, 3]
+example.merge a: 10                # => #<struct a=10, b=2, c=3>
+example.merge a: 10, c: 30         # => #<struct a=10, b=2, c=30>
+example.merge a: 10, b: 20, c: 30  # => #<struct a=10, b=20, c=30>
+example                            # => #<struct a=1, b=2, c=3>
+
+Example = Struct.new :a, :b, :c, keyword_init: true
+example = Example[a: 1, b: 2, c: 3]
+example.merge a: 10                # => #<struct a=10, b=2, c=3>
+example.merge a: 10, c: 30         # => #<struct a=10, b=2, c=30>
+example.merge a: 10, b: 20, c: 30  # => #<struct a=10, b=20, c=30>
+example                            # => #<struct a=1, b=2, c=3>
+----
+
+===== #merge!
+
+Merges multiple attributes while mutating itself.
+
+[source,ruby]
+----
+Example = Struct.new :a, :b, :c
+example = Example[1, 2, 3]
+example.merge! a: 10                # => #<struct a=10, b=2, c=3>
+example.merge! a: 10, c: 30         # => #<struct a=10, b=2, c=30>
+example.merge! a: 10, b: 20, c: 30  # => #<struct a=10, b=20, c=30>
+example                             # => #<struct a=10, b=20, c=30>
+
+Example = Struct.new :a, :b, :c, keyword_init: true
+example = Example[a: 1, b: 2, c: 3]
+example.merge! a: 10                # => #<struct a=10, b=2, c=3>
+example.merge! a: 10, c: 30         # => #<struct a=10, b=2, c=30>
+example.merge! a: 10, b: 20, c: 30  # => #<struct a=10, b=20, c=30>
+example                             # => #<struct a=10, b=20, c=30>
 ----
 
 == Development

@@ -4,6 +4,9 @@ inherit_from:
   - https://raw.githubusercontent.com/bkuhlmann/code_quality/master/configurations/rubocop/performance.yml
   - https://raw.githubusercontent.com/bkuhlmann/code_quality/master/configurations/rubocop/rspec.yml
 
+Lint/Void:
+  Exclude:
+    - "spec/lib/refinements/structs_spec.rb"
 RSpec/FilePath:
   CustomTransform:
     IOs: ios
