@@ -14,7 +14,7 @@ module Refinements
 
     refine Pathname do
       def change_dir &block
-        block_given? ? Dir.chdir(self, &block) : (Dir.chdir self and self)
+        block ? Dir.chdir(self, &block) : (Dir.chdir self and self)
       end
 
       def copy to

@@ -73,7 +73,7 @@ module Refinements
       end
 
       def recurse &block
-        return self unless block_given?
+        return self unless block
 
         transform = yield self
 
@@ -119,7 +119,7 @@ module Refinements
       end
 
       def use &block
-        return [] unless block_given?
+        return [] unless block
 
         block.parameters
              .map { |(_type, key)| self[key] }
