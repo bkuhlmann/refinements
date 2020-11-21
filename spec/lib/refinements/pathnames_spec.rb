@@ -479,4 +479,22 @@ RSpec.describe Refinements::Pathnames, :temp_dir do
       end
     end
   end
+
+  describe "#write" do
+    let(:path) { temp_dir.join "test.txt" }
+
+    it "uses offset" do
+      path.write "test", offset: 1
+      expect(path.read).to eq("\u0000test")
+    end
+
+    it "uses options" do
+      expectation = proc { path.write "test", mode: "r" }
+      expect(&expectation).to raise_error(Errno::ENOENT, /no such file/i)
+    end
+
+    it "answers self" do
+      expect(path.write("test")).to eq(path)
+    end
+  end
 end

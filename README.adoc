@@ -724,6 +724,18 @@ Pathname("example.txt").touch
 Pathname("example.txt").touch at: Time.now - 1
 ----
 
+===== #write
+
+Writes to file and answers itself so it can be chained. See `IO.write` for details on additional
+options.
+
+[source,ruby]
+----
+Pathname("example.txt").write "test"             # => Pathname("example.txt")
+Pathname("example.txt").write "test", offset: 1  # => Pathname("example.txt")
+Pathname("example.txt").write "test", mode: "a"  # => Pathname("example.txt")
+----
+
 ==== String
 
 ===== #blank?

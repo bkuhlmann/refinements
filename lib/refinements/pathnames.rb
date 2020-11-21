@@ -82,11 +82,15 @@ module Refinements
 
       def rewrite
         read.then { |content| write yield(content) if block_given? }
-        self
       end
 
       def touch at: Time.now
         exist? ? utime(at, at) : write("")
+        self
+      end
+
+      def write content, offset: nil, **options
+        super content, offset, options
         self
       end
     end
