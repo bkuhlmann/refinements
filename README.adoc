@@ -484,11 +484,8 @@ block, you'll need to close the stream manually.
 
 [source,ruby]
 ----
-io = IO.void
-io.closed? # => false
-
-io = IO.void { |void| void.write "nevermore" }
-io.closed? # => true
+io = IO.void                                    # => #<IO:fd 20>
+io = IO.void { |void| void.write "nevermore" }  # => #<IO:(closed)>
 ----
 
 ===== #redirect
@@ -501,11 +498,8 @@ answered instead.
 io = IO.new IO.sysopen(Pathname("test.txt").to_s, "w+")
 other = IO.new IO.sysopen(Pathname("other.txt").to_s, "w+")
 
-io.redirect other # => `io`
-
-io.redirect(other) { |stream| stream.write "test" }
-  .close    # => ""
-other.close # => "test"
+io.redirect other                                    # => #<IO:fd 20>
+io.redirect(other) { |stream| stream.write "test" }  # => #<IO:fd 21>
 ----
 
 ===== #reread
@@ -521,30 +515,31 @@ io.reread    # => "This is a test."
 io.reread 4  # => "This"
 
 buffer = "".dup
-io.reread(buffer: buffer)
-buffer # => "This is a test."
+io.reread(buffer: buffer)  # => "This is a test."
+buffer                     # => "This is a test."
 ----
 
 ===== #squelch
 
-Temporarily ignores any reads/writes for current stream for all code executed within the block. When
-not given a block, it answers itself.
+Temporarily ignores any reads/writes for code executed within a block. Answers itself without any
+arguments or when given a block.
 
 [source,ruby]
 ----
 io = IO.new IO.sysopen(Pathname("test.txt").to_s, "w+")
-io.squelch { io.write "Test" }
-io.reread # => ""
+io.squelch                      # => #<IO:fd 20>
+io.squelch { io.write "Test" }  # => #<IO:fd 20>
+io.reread                       # => ""
 ----
 
 ==== Pathname
 
 ===== Pathname
 
-Enhances the conversion function -- refined from `Kernel` -- which casts `nil` into a pathname in
-order to avoid: `TypeError (no implicit conversion of nil into String)`. The pathname is still
-invalid but at least you have an instance of `Pathname`, which behaves like a _Null Object_, that
-can still be used to construct a valid path.
+Enhances the `Kernel` conversion function which casts `nil` into a pathname in order to avoid:
+`TypeError (no implicit conversion of nil into String)`. The pathname remains invalid but at least
+you have an instance of `Pathname`, which behaves like a _Null Object_, that can be used to
+construct a valid path.
 
 [source,ruby]
 ----
@@ -562,23 +557,23 @@ Pathname.pwd                           # => "/"
 Pathname("/test").make_dir.change_dir  # => Pathname "/test"
 Pathname.pwd                           # => "/test"
 
-Pathname.pwd                                                        # => "/"
-Pathname("/test").make_dir.change_dir { # Implementation details }  # => Pathname "/test"
-Pathname.pwd                                                        # => "/"
+Pathname.pwd                                         # => "/"
+Pathname("/test").make_dir.change_dir { "example" }  # => "example"
+Pathname.pwd                                         # => "/"
 ----
 
 ===== #copy
 
-Copies file from current location to new location.
+Copies file from current location to new location while answering itself so it can be chained.
 
 [source,ruby]
 ----
-Pathname("input.txt").copy Pathname("output.txt")
+Pathname("input.txt").copy Pathname("output.txt")  # => Pathname("input.txt")
 ----
 
 ===== #directories
 
-Answers all or filtered directories for current path.
+Answers all directories or filtered directories for current path.
 
 [source,ruby]
 ----
@@ -598,7 +593,7 @@ Pathname("example.txt.erb").extensions # => [".txt", ".erb"]
 
 ===== #files
 
-Answers all or filtered files for current path.
+Answers all files or filtered files for current path.
 
 [source,ruby]
 ----
@@ -626,9 +621,9 @@ Ensures all ancestor directories are created for a path.
 
 [source,ruby]
 ----
-Pathname("/one/two").make_ancestors
-Pathname("/one").exist?      # => true
-Pathname("/one/two").exist?  # => false
+Pathname("/one/two").make_ancestors  # => Pathname("/one/two")
+Pathname("/one").exist?              # => true
+Pathname("/one/two").exist?          # => false
 ----
 
 ===== #make_dir
@@ -711,7 +706,8 @@ immediate writing back to the same file.
 
 [source,ruby]
 ----
-Pathname("/test.txt").rewrite { |content| content.sub "[placeholder]", "example" }
+Pathname("/test.txt").rewrite                                           # => Pathname("/test.txt")
+Pathname("/test.txt").rewrite { |body| body.sub "[token]", "example" }  # => Pathname("/test.txt")
 ----
 
 ===== #touch
@@ -720,8 +716,8 @@ Updates access and modification times for path. Defaults to current time.
 
 [source,ruby]
 ----
-Pathname("example.txt").touch
-Pathname("example.txt").touch at: Time.now - 1
+Pathname("example.txt").touch                   # => Pathname("example.txt")
+Pathname("example.txt").touch at: Time.now - 1  # => Pathname("example.txt")
 ----
 
 ===== #write
@@ -853,8 +849,8 @@ io.reread    # => "This is a test."
 io.reread 4  # => "This"
 
 buffer = "".dup
-io.reread(buffer: buffer)
-buffer # => "This is a test."
+io.reread(buffer: buffer)  # => "This is a test."
+buffer                     # => "This is a test."
 ----
 
 ==== Struct
