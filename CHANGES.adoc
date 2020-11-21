@@ -1,13 +1,17 @@
 = Changes
 
+== 7.15.1 (2020-11-21)
+
+* Fixed keyword parameters used as last parameter warning
+
 == 7.15.0 (2020-11-21)
 
-- Fixed Rubocop Performance/BlockGivenWithExplicitBlock issues
-- Fixed Rubocop Performance/MethodObjectAsBlock issues
-- Added Pathname write
-- Added Struct merge
-- Updated to Gemsmith 14.8.0
-- Updated to Git Lint 1.3.0
+* Fixed Rubocop Performance/BlockGivenWithExplicitBlock issues
+* Fixed Rubocop Performance/MethodObjectAsBlock issues
+* Added Pathname write
+* Added Struct merge
+* Updated to Gemsmith 14.8.0
+* Updated to Git Lint 1.3.0
 
 == 7.14.0 (2020-11-14)
 

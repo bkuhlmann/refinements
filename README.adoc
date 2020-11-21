@@ -240,10 +240,10 @@ Answers new hash where every top-level missing key has the same default value.
 [source,ruby]
 ----
 example = Hash.with_default ""
-example[:a] # => ""
+example[:a]  # => ""
 
 example = Hash.with_default []
-example[:b] # => []
+example[:b]  # => []
 ----
 
 ===== #deep_merge
@@ -471,7 +471,7 @@ Passes each hash value as a block argument for further processing.
 [source,ruby]
 ----
 example = {unit: "221B", street: "Baker Street", city: "London", country: "UK"}
-example.use { |unit, street| "#{unit} #{street}" } # => "221B Baker Street"
+example.use { |unit, street| "#{unit} #{street}" }  # => "221B Baker Street"
 ----
 
 ==== IO
@@ -588,7 +588,7 @@ Answers file extensions as an array.
 
 [source,ruby]
 ----
-Pathname("example.txt.erb").extensions # => [".txt", ".erb"]
+Pathname("example.txt.erb").extensions  # => [".txt", ".erb"]
 ----
 
 ===== #files
