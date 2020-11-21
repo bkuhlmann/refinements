@@ -90,7 +90,7 @@ module Refinements
       end
 
       def write content, offset: nil, **options
-        super content, offset, options
+        super content, offset, **options
         self
       end
     end
