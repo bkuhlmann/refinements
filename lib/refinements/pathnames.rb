@@ -20,6 +20,10 @@ module Refinements
       def make_temp_dir prefix: "temp-", suffix: nil, root: nil
         Dir.mktmpdir([prefix, suffix], root) { |path| block_given? ? yield(new path) : new(path) }
       end
+
+      def require_tree root, pattern = "**/*.rb"
+        new(root).files(pattern).each { |path| require path.to_s }
+      end
     end
 
     refine Pathname do

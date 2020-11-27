@@ -578,6 +578,34 @@ Pathname.make_temp_dir { "I am a block result" }             # => "I am a block 
 Pathname.make_temp_dir { |path| path.join "sub_dir" }        # => Pathname:/var/folders/T/temp-20200101-16940-r8/sub_dir
 ----
 
+===== .require_tree
+
+Requires all files in given root path and corresponding nested tree structure. All files are sorted
+before being required to ensure consistent behavior. Example:
+
+[source,rby]
+----
+# Before
+Dir[File.join(__dir__, "support/shared_contexts/**/*.rb")].sort.each { |path| require path }
+
+# After
+Pathname.require_tree __dir__, "support/shared_contexts/**/*.rb"
+----
+
+The following are further examples of potential usage:
+
+[source,ruby]
+----
+# Requires all files in root directory and below.
+Pathname.require_tree __dir__
+
+# Requires all files in `/test/**/*.rb` and below.
+Pathname.require_tree "/test"
+
+# Requires all files in RSpec shared examples directory structure.
+Pathname.require_tree Bundler.root.join("spec"), "support/shared_examples/**/*.rb"
+----
+
 ===== #change_dir
 
 Wraps `Dir.chdir` behavior by changing to directory of current path. See

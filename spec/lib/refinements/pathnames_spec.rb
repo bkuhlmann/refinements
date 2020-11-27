@@ -79,6 +79,24 @@ RSpec.describe Refinements::Pathnames, :temp_dir do
     end
   end
 
+  describe ".require_tree" do
+    let(:requirement_a) { temp_dir.join("a.rb").write "# Test A" }
+    let(:requirement_b) { temp_dir.join("nested").make_dir.join("b.rb").write "# Test B" }
+    let(:tree) { $LOADED_FEATURES.select { |path| path.match? %r(/(a|b).rb\Z) } }
+
+    before { [requirement_a, requirement_b].each { |path| $LOADED_FEATURES.delete path.to_s } }
+
+    it "requires all by default" do
+      Pathname.require_tree temp_dir
+      expect(tree).to contain_exactly(requirement_a.to_s, requirement_b.to_s)
+    end
+
+    it "requires files with custom pattern" do
+      Pathname.require_tree temp_dir, "./*.rb"
+      expect(tree).to contain_exactly(requirement_a.to_s)
+    end
+  end
+
   describe "#change_dir" do
     context "without block" do
       around do |example|
