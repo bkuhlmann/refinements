@@ -12,6 +12,12 @@ module Refinements
       end
     end
 
+    refine Pathname.singleton_class do
+      def home
+        new ENV["HOME"]
+      end
+    end
+
     refine Pathname do
       def change_dir &block
         block ? Dir.chdir(self, &block) : (Dir.chdir self and self)

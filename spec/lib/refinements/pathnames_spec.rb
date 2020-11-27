@@ -19,6 +19,12 @@ RSpec.describe Refinements::Pathnames, :temp_dir do
     end
   end
 
+  describe ".home" do
+    it "answes user home directory" do
+      expect(Pathname.home).to eq(Pathname(ENV["HOME"]))
+    end
+  end
+
   describe "#change_dir" do
     context "without block" do
       around do |example|

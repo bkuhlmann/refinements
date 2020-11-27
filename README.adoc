@@ -546,6 +546,15 @@ construct a valid path.
 Pathname(nil) # => Pathname("")
 ----
 
+===== .home
+
+Answers user home directory.
+
+[source,ruby]
+----
+Pathname.home  # => Pathname "/Users/bkuhlmann"
+----
+
 ===== #change_dir
 
 Inherits and wraps `Dir.chdir` behavior by changing to directory of current path. See
