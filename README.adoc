@@ -555,10 +555,33 @@ Answers user home directory.
 Pathname.home  # => Pathname "/Users/bkuhlmann"
 ----
 
+===== .make_temp_dir
+
+Wraps `Dir.mktmpdir` with the following behavior (see
+link:https://rubyapi.org/o/Dir.mktmpdir#method-c-mktmpdir[Dir.mktmpdir] for details):
+
+* *Without Block* - Answers a newly created Pathname instance which is not automatically cleaned up.
+* *With Block*  Yields a Pathname instance, answers result of given block, and automatidally cleans
+  up temporary directory after block exits.
+
+The following examples use truncated temporary directories for illustration purposes only. In
+reality, these paths will be longer depending on which operating system you are using.
+
+[source,ruby]
+----
+Pathname.make_temp_dir                                       # => Pathname:/var/folders/T/temp-20200101-16940-r8
+Pathname.make_temp_dir prefix: "prefix-"                     # => Pathname:/var/folders/T/prefix-20200101-16940-r8
+Pathname.make_temp_dir suffix: "-suffix"                     # => Pathname:/var/folders/T/temp-20200101-16940-r8-suffix
+Pathname.make_temp_dir prefix: "prefix-", suffix: "-suffix"  # => Pathname:/var/folders/T/prefix-20200101-16940-r8-suffix
+Pathname.make_temp_dir root: "/example"                      # => Pathname:/example/temp-20200101-16940-r8
+Pathname.make_temp_dir { "I am a block result" }             # => "I am a block result"
+Pathname.make_temp_dir { |path| path.join "sub_dir" }        # => Pathname:/var/folders/T/temp-20200101-16940-r8/sub_dir
+----
+
 ===== #change_dir
 
-Inherits and wraps `Dir.chdir` behavior by changing to directory of current path. See
-link:https://rubyapi.org/2.7/o/s?q=Dir.chdir[Dir.chdir] for details.
+Wraps `Dir.chdir` behavior by changing to directory of current path. See
+link:https://rubyapi.org/o/Dir.chdir#method-c-chdir[Dir.chdir] for details.
 
 [source,ruby]
 ----

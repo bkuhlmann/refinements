@@ -25,6 +25,60 @@ RSpec.describe Refinements::Pathnames, :temp_dir do
     end
   end
 
+  describe ".make_temp_dir" do
+    it "answers temporary directory as Pathname without block" do
+      example_dir = Pathname.make_temp_dir
+      expect(example_dir).to be_a(Pathname)
+    ensure
+      example_dir.remove_dir
+    end
+
+    it "answers default temporary directory without block" do
+      example_dir = Pathname.make_temp_dir
+      expect(example_dir.to_s).to match(/temp-.*\Z/)
+    ensure
+      example_dir.remove_dir
+    end
+
+    it "answers prefixed temporary directory without block" do
+      example_dir = Pathname.make_temp_dir prefix: "prefix-"
+      expect(example_dir.to_s).to match(/prefix-.*\Z/)
+    ensure
+      example_dir.remove_dir
+    end
+
+    it "answers suffixed temporary directory without block" do
+      example_dir = Pathname.make_temp_dir suffix: "-suffix"
+      expect(example_dir.to_s).to match(/-suffix\Z/)
+    ensure
+      example_dir.remove_dir
+    end
+
+    it "answers prefixed and suffixed temporary directory without block" do
+      example_dir = Pathname.make_temp_dir prefix: "prefix-", suffix: "-suffix"
+      expect(example_dir.to_s).to match(/prefix-.*-suffix\Z/)
+    ensure
+      example_dir.remove_dir
+    end
+
+    it "answers custom temporary directory root without block" do
+      example_dir = Pathname.make_temp_dir root: temp_dir
+      expect(example_dir.to_s).to match(%r(#{temp_dir}/temp-.*))
+    ensure
+      example_dir.remove_dir
+    end
+
+    it "yields pathname with block" do
+      example_dir = Pathname.make_temp_dir { |path| path }
+      expect(example_dir).to be_a(Pathname)
+    end
+
+    it "answers block result with block" do
+      sub_dir = Pathname.make_temp_dir { |path| path.join("sub_dir").to_s }
+      expect(sub_dir).to match(%r(temp-.*/sub_dir\Z))
+    end
+  end
+
   describe "#change_dir" do
     context "without block" do
       around do |example|

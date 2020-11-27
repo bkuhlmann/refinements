@@ -16,6 +16,10 @@ module Refinements
       def home
         new ENV["HOME"]
       end
+
+      def make_temp_dir prefix: "temp-", suffix: nil, root: nil
+        Dir.mktmpdir([prefix, suffix], root) { |path| block_given? ? yield(new path) : new(path) }
+      end
     end
 
     refine Pathname do
