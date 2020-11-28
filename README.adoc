@@ -583,7 +583,7 @@ Pathname.make_temp_dir { |path| path.join "sub_dir" }        # => Pathname:/var/
 Requires all files in given root path and corresponding nested tree structure. All files are sorted
 before being required to ensure consistent behavior. Example:
 
-[source,rby]
+[source,ruby]
 ----
 # Before
 Dir[File.join(__dir__, "support/shared_contexts/**/*.rb")].sort.each { |path| require path }
