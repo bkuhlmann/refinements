@@ -9,7 +9,9 @@ require "pry"
 require "pry-byebug"
 require "refinements"
 
-Dir[File.join(__dir__, "support", "shared_contexts", "**/*.rb")].sort.each { |path| require path }
+using Refinements::Pathnames
+
+Pathname.require_tree __dir__, "support/shared_contexts/**/*.rb"
 
 RSpec.configure do |config|
   config.color = true
