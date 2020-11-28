@@ -606,6 +606,15 @@ Pathname.require_tree "/test"
 Pathname.require_tree Bundler.root.join("spec"), "support/shared_examples/**/*.rb"
 ----
 
+===== .root
+
+Answers operating system root path.
+
+[source,ruby]
+----
+Pathname.root  # => Pathname "/"
+----
+
 ===== #change_dir
 
 Wraps `Dir.chdir` behavior by changing to directory of current path. See

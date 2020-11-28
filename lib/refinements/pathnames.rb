@@ -24,6 +24,10 @@ module Refinements
       def require_tree root, pattern = "**/*.rb"
         new(root).files(pattern).each { |path| require path.to_s }
       end
+
+      def root
+        new "/"
+      end
     end
 
     refine Pathname do

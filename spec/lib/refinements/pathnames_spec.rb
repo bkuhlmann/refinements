@@ -97,6 +97,12 @@ RSpec.describe Refinements::Pathnames, :temp_dir do
     end
   end
 
+  describe ".root" do
+    it "answers root path" do
+      expect(Pathname.root).to eq(Pathname("/"))
+    end
+  end
+
   describe "#change_dir" do
     context "without block" do
       around do |example|
