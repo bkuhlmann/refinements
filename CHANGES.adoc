@@ -1,5 +1,13 @@
 = Changes
 
+== 7.16.0 (2020-11-28)
+
+* Added Pathname home
+* Added Pathname make temporary directory
+* Added Pathname require tree
+* Added Pathname root
+* Refactored RSpec helper to use Pathname require tree refinement
+
 == 7.15.1 (2020-11-21)
 
 * Fixed keyword parameters used as last parameter warning
