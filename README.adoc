@@ -978,6 +978,53 @@ example.merge! a: 10, b: 20, c: 30  # => #<struct a=10, b=20, c=30>
 example                             # => #<struct a=10, b=20, c=30>
 ----
 
+===== #revalue
+
+Transforms values without mutating itself. An optional hash can be supplied to pinpoint and
+transform specific attributes. In the event that a block isn't supplied, the struct will answer
+itself since there is nothing to operate on. Behavior is the same regardless of whether the struct
+is constructed using positional or keyword arguments. A positional struct is used in the examples
+below but a keyword struct would work too.
+
+[source,ruby]
+----
+Example = Struct.new :a, :b, :c
+
+example = Example[1, 2, 3]
+example.revalue { |value| value * 2 }                             # => #<struct a=2, b=4, c=6>
+example.revalue(c: 2) { |previous, current| previous + current }  # => #<struct a=1, b=2, c=5>
+example.revalue c: 2                                              # => #<struct a=1, b=2, c=3>
+example.revalue                                                   # => #<struct a=1, b=2, c=3>
+example                                                           # => #<struct a=1, b=2, c=3>
+
+----
+
+===== #revalue!
+
+Transforms values while mutating itself. An optional hash can be supplied to pinpoint and transform
+specific attributes. In the event that a block isn't supplied, the struct will answer itself since
+there is nothing to operate on. Behavior is the same regardless of whether the struct is constructed
+using positional or keyword arguments. A positional struct is used in the examples below but a
+keyword struct would work too.
+
+[source,ruby]
+----
+Example = Struct.new :a, :b, :c
+
+example = Example[1, 2, 3]
+example.revalue! { |value| value * 2 }                             # => #<struct a=2, b=4, c=6>
+example                                                            # => #<struct a=2, b=4, c=6>
+
+example = Example[1, 2, 3]
+example.revalue!(c: 2) { |previous, current| previous + current }  # => #<struct a=1, b=2, c=5>
+example                                                            # => #<struct a=1, b=2, c=5>
+
+example = Example[1, 2, 3]
+example.revalue! c: 2                                              # => #<struct a=1, b=2, c=3>
+example.revalue!                                                   # => #<struct a=1, b=2, c=3>
+example                                                            # => #<struct a=1, b=2, c=3>
+----
+
 == Development
 
 To contribute, run:

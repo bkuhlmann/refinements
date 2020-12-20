@@ -11,6 +11,21 @@ module Refinements
         to_h.merge(attributes).each { |key, value| self[key] = value }
         self
       end
+
+      def revalue attributes = each_pair
+        return self unless block_given?
+
+        dup.tap do |copy|
+          attributes.each { |key, value| copy[key] = yield self[key], value }
+        end
+      end
+
+      def revalue! attributes = each_pair
+        return self unless block_given?
+
+        attributes.each { |key, value| self[key] = yield self[key], value }
+        self
+      end
     end
   end
 end

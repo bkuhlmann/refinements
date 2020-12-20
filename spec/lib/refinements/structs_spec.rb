@@ -80,4 +80,72 @@ RSpec.describe Refinements::Structs do
       expect(struct).to eq(blueprint[a: 7, b: 8, c: 9])
     end
   end
+
+  shared_examples_for "a revalue" do |method|
+    it "answers transformed values with block" do
+      expectation = struct.public_send(method) { |value| value * 2 }
+      expect(expectation).to eq(blueprint.new.merge(a: 2, b: 4, c: 6))
+    end
+
+    it "answers transformed values with hash and block" do
+      expectation = struct.public_send(method, b: 1) { |previous, current| previous + current }
+      expect(expectation).to eq(blueprint.new.merge(a: 1, b: 3, c: 3))
+    end
+
+    it "answers itself when block isn't given" do
+      expect(struct.public_send(method)).to eq(struct)
+    end
+  end
+
+  describe "#revalue" do
+    context "with positional construction" do
+      let(:blueprint) { Struct.new :a, :b, :c }
+      let(:struct) { blueprint[1, 2, 3] }
+
+      it_behaves_like "a revalue", :revalue
+
+      it "doesn't mutate itself" do
+        struct.revalue { |value| value * 2 }
+        expect(struct).to eq(blueprint[1, 2, 3])
+      end
+    end
+
+    context "with keyword construction" do
+      let(:blueprint) { Struct.new :a, :b, :c, keyword_init: true }
+      let(:struct) { blueprint[a: 1, b: 2, c: 3] }
+
+      it_behaves_like "a revalue", :revalue
+
+      it "doesn't mutate itself" do
+        struct.revalue { |value| value * 2 }
+        expect(struct).to eq(blueprint[a: 1, b: 2, c: 3])
+      end
+    end
+  end
+
+  describe "#revalue!" do
+    context "with positional construction" do
+      let(:blueprint) { Struct.new :a, :b, :c }
+      let(:struct) { blueprint[1, 2, 3] }
+
+      it_behaves_like "a revalue", :revalue!
+
+      it "mutates itself" do
+        struct.revalue! { |value| value * 2 }
+        expect(struct).to eq(blueprint[2, 4, 6])
+      end
+    end
+
+    context "with keyword construction" do
+      let(:blueprint) { Struct.new :a, :b, :c, keyword_init: true }
+      let(:struct) { blueprint[a: 1, b: 2, c: 3] }
+
+      it_behaves_like "a revalue", :revalue!
+
+      it "mutates itself" do
+        struct.revalue! { |value| value * 2 }
+        expect(struct).to eq(blueprint[a: 2, b: 4, c: 6])
+      end
+    end
+  end
 end
