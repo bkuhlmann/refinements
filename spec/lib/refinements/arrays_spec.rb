@@ -225,6 +225,35 @@ RSpec.describe Refinements::Arrays do
     end
   end
 
+  describe "#pad" do
+    it "answers same, single element, array with default maximum" do
+      expect([1].pad(0)).to eq([1])
+    end
+
+    it "answers same, multi-element, array with default maximum" do
+      expect([1, 2, 3].pad(0)).to eq([1, 2, 3])
+    end
+
+    it "answers same array with smaller maximum" do
+      expect([1, 2].pad(0, max: 1)).to eq([1, 2])
+    end
+
+    it "answers padded array with larger maximum" do
+      expect([1, 2].pad(0, max: 3)).to eq([1, 2, 0])
+    end
+
+    it "answers same array with negative maximum" do
+      expect([1, 2].pad(0, max: -1)).to eq([1, 2])
+    end
+
+    it "doesn't mutate itself" do
+      array = [1, 2]
+      array.pad 0, max: 5
+
+      expect(array).to eq([1, 2])
+    end
+  end
+
   describe "#ring" do
     it "answers slices without block" do
       expect([1, 2, 3].ring).to contain_exactly(

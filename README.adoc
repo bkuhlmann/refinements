@@ -171,6 +171,18 @@ Answers mean/average all elements within an array.
 [1.25, 1.5, 1.75].mean  # => 1.5
 ----
 
+===== #pad
+
+Answers new array padded with given value up to a maximum size. Useful in situations where an array
+needs to be a specific size with padded values.
+
+[source,ruby]
+----
+[1].pad 0             # => [1]
+[1].pad 0, max: 3     # => [1, 0, 0]
+[1, 2].pad 3, max: 3  # => [1, 2, 3]
+----
+
 ===== #ring
 
 Answers a circular array which can enumerate before, current, after elements.

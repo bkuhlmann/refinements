@@ -37,6 +37,10 @@ module Refinements
         size.zero? ? 0 : sum(0) / size
       end
 
+      def pad value, max: size
+        dup.fill value, size..(max - 1)
+      end
+
       def ring &block
         [last, *self, first].each_cons 3, &block
       end
