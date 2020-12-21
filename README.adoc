@@ -946,6 +946,22 @@ Struct.new(:a, keyword_init: true).keyworded?  # => true
 Struct.new(:a).keyworded?                      # => false
 ----
 
+===== .with_positions
+
+Answers a struct instance with given positional arguments regardless of
+whether the struct was constructed with positional or keyword arguments.
+
+[source,ruby]
+----
+Example = Struct.new :a, :b, :c
+Example.with_positions 1, 2, 3  # => #<struct a=1, b=2, c=3>
+Example.with_positions 1        # => #<struct a=1, b=nil, c=nil>
+
+Example = Struct.new :a, :b, :c, keyword_init: true
+Example.with_positions 1, 2, 3  # => #<struct a=1, b=2, c=3>
+Example.with_positions 1        # => #<struct a=1, b=nil, c=nil>
+----
+
 ===== #merge
 
 Merges multiple attributes without mutating itself.

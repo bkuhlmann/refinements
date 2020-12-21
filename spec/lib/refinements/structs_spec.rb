@@ -17,6 +17,32 @@ RSpec.describe Refinements::Structs do
     end
   end
 
+  describe ".with_positions" do
+    context "with positional construction" do
+      let(:blueprint) { Struct.new :a, :b, :c }
+
+      it "answers struct with all positions filled" do
+        expect(blueprint.with_positions(1, 2, 3)).to eq(blueprint[1, 2, 3])
+      end
+
+      it "answers struct with some positions filled" do
+        expect(blueprint.with_positions(1)).to eq(blueprint[1, nil, nil])
+      end
+    end
+
+    context "with keyword construction" do
+      let(:blueprint) { Struct.new :a, :b, :c, keyword_init: true }
+
+      it "answers struct with all positions filled" do
+        expect(blueprint.with_positions(1, 2, 3)).to eq(blueprint[a: 1, b: 2, c: 3])
+      end
+
+      it "answers struct with some positions filled" do
+        expect(blueprint.with_positions(1)).to eq(blueprint[a: 1, b: nil, c: nil])
+      end
+    end
+  end
+
   shared_examples_for "a merge" do |method|
     context "with positional construction" do
       let(:blueprint) { Struct.new :a, :b, :c }

@@ -6,6 +6,10 @@ module Refinements
       def keyworded?
         inspect.include? "keyword_init: true"
       end
+
+      def with_positions *values
+        keyworded? ? new(Hash[members.zip values]) : new(*values)
+      end
     end
 
     refine Struct do
