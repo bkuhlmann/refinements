@@ -7,6 +7,10 @@ module Refinements
         inspect.include? "keyword_init: true"
       end
 
+      def with_keywords arguments
+        keyworded? ? new(arguments) : new.merge!(arguments)
+      end
+
       def with_positions *values
         keyworded? ? new(Hash[members.zip values]) : new(*values)
       end

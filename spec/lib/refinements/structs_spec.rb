@@ -17,6 +17,36 @@ RSpec.describe Refinements::Structs do
     end
   end
 
+  describe ".with_keywords" do
+    context "with positional construction" do
+      let(:blueprint) { Struct.new :a, :b, :c }
+
+      it "answers struct with all positions filled" do
+        expect(blueprint.with_keywords(a: 1, b: 2, c: 3)).to eq(blueprint[1, 2, 3])
+      end
+
+      it "answers struct with first position filled" do
+        expect(blueprint.with_keywords(a: 1)).to eq(blueprint[1, nil, nil])
+      end
+
+      it "answers struct with last position filled" do
+        expect(blueprint.with_keywords(c: 1)).to eq(blueprint[nil, nil, 1])
+      end
+    end
+
+    context "with keyword construction" do
+      let(:blueprint) { Struct.new :a, :b, :c, keyword_init: true }
+
+      it "answers struct with all positions filled" do
+        expect(blueprint.with_keywords(a: 1, b: 2, c: 3)).to eq(blueprint[a: 1, b: 2, c: 3])
+      end
+
+      it "answers struct with some positions filled" do
+        expect(blueprint.with_keywords(a: 1)).to eq(blueprint[a: 1, b: nil, c: nil])
+      end
+    end
+  end
+
   describe ".with_positions" do
     context "with positional construction" do
       let(:blueprint) { Struct.new :a, :b, :c }
