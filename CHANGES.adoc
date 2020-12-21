@@ -1,5 +1,15 @@
 = Changes
 
+== 7.18.0 (2020-12-21)
+
+* Fixed Circle CI configuration for Bundler config path
+* Added Array pad
+* Added Circle CI explicit Bundle install configuration
+* Added Struct keyworded class method
+* Added Struct revalue
+* Added Struct with keywords construction
+* Added Struct with positions construction
+
 == 7.17.0 (2020-12-13)
 
 * Fixed spec helper to only require tools
