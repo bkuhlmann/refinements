@@ -2,6 +2,12 @@
 
 module Refinements
   module Structs
+    refine Struct.singleton_class do
+      def keyworded?
+        inspect.include? "keyword_init: true"
+      end
+    end
+
     refine Struct do
       def merge **attributes
         dup.merge! attributes

@@ -936,6 +936,16 @@ buffer                     # => "This is a test."
 
 ==== Struct
 
+===== .keyworded?
+
+Answers whether a struct was constructed with keyword or positional arguments.
+
+[source,ruby]
+----
+Struct.new(:a, keyword_init: true).keyworded?  # => true
+Struct.new(:a).keyworded?                      # => false
+----
+
 ===== #merge
 
 Merges multiple attributes without mutating itself.

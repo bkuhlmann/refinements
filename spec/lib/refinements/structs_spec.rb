@@ -5,6 +5,18 @@ require "spec_helper"
 RSpec.describe Refinements::Structs do
   using described_class
 
+  describe "#keyworded?" do
+    it "answers true when constructed with keyword arguments" do
+      blueprint = Struct.new :a, keyword_init: true
+      expect(blueprint.keyworded?).to eq(true)
+    end
+
+    it "answers false when constructed with positional arguments" do
+      blueprint = Struct.new :a
+      expect(blueprint.keyworded?).to eq(false)
+    end
+  end
+
   shared_examples_for "a merge" do |method|
     context "with positional construction" do
       let(:blueprint) { Struct.new :a, :b, :c }
