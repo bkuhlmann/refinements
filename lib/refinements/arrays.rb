@@ -11,11 +11,6 @@ module Refinements
         replace compress
       end
 
-      def exclude *elements
-        warn "[DEPRECATION]: #exclude is deprecated, use #excluding instead."
-        excluding(*elements)
-      end
-
       def excluding *elements
         self - elements.flatten
       end
