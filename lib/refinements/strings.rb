@@ -2,14 +2,7 @@
 
 module Refinements
   module Strings
-    DELIMITERS = %r([a-z][A-Z]|\s*-\s*|\s*/\s*|\s*:+\s*|\s*_\s*|\s+).freeze
-
-    refine String.singleton_class do
-      def delimiters
-        warn "[DEPRECATION]: .delimiters is deprecated, use DELIMITERS instead."
-        DELIMITERS
-      end
-    end
+    DELIMITERS = %r([a-z][A-Z]|\s*-\s*|\s*/\s*|\s*:+\s*|\s*_\s*|\s+)
 
     refine String do
       def blank?
