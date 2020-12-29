@@ -45,14 +45,6 @@ module Refinements
         replace deep_symbolize_keys
       end
 
-      def except *keys
-        reject { |key, _value| keys.include? key }
-      end
-
-      def except! *keys
-        replace except(*keys)
-      end
-
       # :reek:TooManyStatements
       def flatten_keys prefix: nil, delimiter: "_", cast: :to_sym
         fail StandardError, "Unknown cast: #{cast}." unless %i[to_sym to_s].include? cast

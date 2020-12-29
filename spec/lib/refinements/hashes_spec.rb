@@ -194,36 +194,6 @@ RSpec.describe Refinements::Hashes do
     end
   end
 
-  shared_examples_for "an except" do |method|
-    subject(:a_hash) { {a: 1, b: 2, c: 3} }
-
-    it "answers subset of itself" do
-      expect(a_hash.public_send(method, :a, :b)).to eq(c: 3)
-    end
-  end
-
-  describe "#except" do
-    it_behaves_like "an except", :except
-
-    it "doesn't mutate itself" do
-      a_hash = {a: 1, b: 2}
-      a_hash.except :a
-
-      expect(a_hash).to eq(a: 1, b: 2)
-    end
-  end
-
-  describe "#except!" do
-    it_behaves_like "an except", :except!
-
-    it "mutates itself" do
-      a_hash = {a: 1, b: 2}
-      a_hash.except! :a
-
-      expect(a_hash).to eq(b: 2)
-    end
-  end
-
   shared_examples_for "flattened keys" do |method|
     it "fails with unknown cast" do
       expectation = proc { Hash.new.flatten_keys cast: :invalid }
