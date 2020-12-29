@@ -98,7 +98,7 @@ module Refinements
         read.then { |content| write yield(content) if block_given? }
       end
 
-      def touch at: Time.now
+      def touch at = Time.now
         exist? ? utime(at, at) : write("")
         self
       end

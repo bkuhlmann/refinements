@@ -510,7 +510,7 @@ RSpec.describe Refinements::Pathnames, :temp_dir do
 
       it "updates accessed time with custom time" do
         original = test_path.atime
-        test_path.touch at: Time.now - 1
+        test_path.touch Time.now - 1
 
         expect(test_path.atime).to be < original
       end
@@ -524,7 +524,7 @@ RSpec.describe Refinements::Pathnames, :temp_dir do
 
       it "updates modified time with custom time" do
         original = test_path.mtime
-        test_path.touch at: Time.now - 1
+        test_path.touch Time.now - 1
 
         expect(test_path.mtime).to be < original
       end

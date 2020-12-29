@@ -731,8 +731,8 @@ Updates access and modification times for path. Defaults to current time.
 
 [source,ruby]
 ----
-Pathname("example.txt").touch                   # => Pathname("example.txt")
-Pathname("example.txt").touch at: Time.now - 1  # => Pathname("example.txt")
+Pathname("example.txt").touch               # => Pathname("example.txt")
+Pathname("example.txt").touch Time.now - 1  # => Pathname("example.txt")
 ----
 
 ===== #write
