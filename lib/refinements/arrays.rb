@@ -15,11 +15,6 @@ module Refinements
         self - elements.flatten
       end
 
-      def include *elements
-        warn "[DEPRECATION]: #include is deprecated, use #including instead."
-        including(*elements)
-      end
-
       def including *elements
         self + elements.flatten
       end

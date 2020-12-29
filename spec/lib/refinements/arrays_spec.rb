@@ -85,43 +85,6 @@ RSpec.describe Refinements::Arrays do
     end
   end
 
-  describe "#include" do
-    let(:array) { [1, 2, 3] }
-
-    it "prints deprecation warning" do
-      expectation = proc { array.include 4 }
-      expect(&expectation).to output(/DEPRECATION/).to_stderr
-    end
-
-    it "answers array which includes additional array" do
-      expect(array.include([4, 5, 6])).to eq([1, 2, 3, 4, 5, 6])
-    end
-
-    it "answers array which includes additional elements" do
-      expect(array.include(4, 5)).to eq([1, 2, 3, 4, 5])
-    end
-
-    it "answers array which includes additional array and elements" do
-      expect(array.include(4, 5, [6, 7])).to eq([1, 2, 3, 4, 5, 6, 7])
-    end
-
-    it "answers array which includes out-of-order elements" do
-      expect(array.include(0, 6)).to eq([1, 2, 3, 0, 6])
-    end
-
-    it "answers array which includes duplicate elements" do
-      expect(array.include(1)).to eq([1, 2, 3, 1])
-    end
-
-    it "answers array when given no arguments" do
-      expect(array.include).to eq(array)
-    end
-
-    it "duplicates array" do
-      expect(array.include).not_to equal(array)
-    end
-  end
-
   describe "#including" do
     let(:array) { [1, 2, 3] }
 
