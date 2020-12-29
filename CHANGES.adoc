@@ -1,5 +1,19 @@
 = Changes
 
+== 8.0.0 (2020-12-29)
+
+- Updated to Ruby 3.0.0
+- Removed Array exclude
+- Removed Array include
+- Removed Hash reverse merge methods
+- Removed Hash except
+- Removed Hash rekey methods
+- Removed Pathname mkdir
+- Updated Pathname touch to use positional time argument
+- Removed File refinement
+- Removed String delimiters refinement
+- Fixed Struct keywords and merges to use splatted keyword arguments
+
 == 7.18.0 (2020-12-21)
 
 * Fixed Circle CI configuration for Bundler config path
