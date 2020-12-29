@@ -12,7 +12,7 @@ module Refinements
       end
 
       def with_positions *values
-        keyworded? ? new(Hash[members.zip values]) : new(*values)
+        keyworded? ? new(**Hash[members.zip values]) : new(*values)
       end
     end
 
