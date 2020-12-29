@@ -22,7 +22,6 @@ Enhances the following objects:
 * Array
 * BigDecimal
 * DateTime
-* File
 * Hash
 * IO
 * Pathname
@@ -70,7 +69,6 @@ gem "refinements", require: false
 require "refinements/arrays"
 require "refinements/big_decimals"
 require "refinements/date_times"
-require "refinements/files"
 require "refinements/hashes"
 require "refinements/ios"
 require "refinements/pathnames"
@@ -90,7 +88,6 @@ class Example
   using Refinements::Arrays
   using Refinements::BigDecimals
   using Refinements::DateTimes
-  using Refinements::Files
   using Refinements::Hashes
   using Refinements::IOs
   using Refinements::Pathnames
@@ -218,18 +215,6 @@ Answers new DateTime object for current UTC date/time.
 [source,ruby]
 ----
 DateTime.utc # => #<DateTime: 2019-12-31T18:17:00+00:00 ((2458849j,65820s,181867000n),+0s,2299161j)>
-----
-
-==== File
-
-===== .rewrite
-
-When given a file path and a block, it provides the contents of the recently read file for
-manipulation and immediate writing back to the same file.
-
-[source,ruby]
-----
-File.rewrite("/test.txt") { |content| content.gsub "[placeholder]", "example" }
 ----
 
 ==== Hash
