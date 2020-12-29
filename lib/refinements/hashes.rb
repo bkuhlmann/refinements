@@ -92,16 +92,6 @@ module Refinements
         replace rekey(mapping)
       end
 
-      def reverse_merge other
-        warn "[DEPRECATION]: #reverse_merge is deprecated, use #merge instead."
-        merge(other) { |_key, old_value, _new_value| old_value }
-      end
-
-      def reverse_merge! other
-        warn "[DEPRECATION]: #reverse_merge! is deprecated, use #merge! instead."
-        replace reverse_merge(other)
-      end
-
       def stringify_keys
         reduce({}) { |hash, (key, value)| hash.merge key.to_s => value }
       end

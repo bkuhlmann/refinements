@@ -367,68 +367,6 @@ RSpec.describe Refinements::Hashes do
     end
   end
 
-  shared_examples_for "a reverse merge" do |method|
-    subject :a_hash do
-      {
-        label: "Kaleidoscope",
-        categories: {
-          colors: %w[red black white cyan],
-          styles: %w[solid dotted]
-        },
-        tags: {
-          emoji: {
-            faces: {
-              happy: %w[happy estatic],
-              confused: %w[pensive sweating],
-              sad: "frown"
-            }
-          },
-          positive: "red",
-          negative: "black"
-        }
-      }
-    end
-
-    it "outputs deprecation warning" do
-      result = proc { a_hash.public_send method, label: "test" }
-      expect(&result).to output(/DEPRECATION/).to_stderr
-    end
-
-    it "answers itself when keys match" do
-      result = a_hash.public_send method, label: "empty", categories: "empty", tags: "empty"
-      expect(result).to eq(a_hash)
-    end
-
-    it "answers merged keys not part of itself" do
-      proof = a_hash.dup.merge test: "example"
-      result = a_hash.public_send method, test: "example"
-
-      expect(result).to eq(proof)
-    end
-  end
-
-  describe "#reverse_merge" do
-    it_behaves_like "a reverse merge", :reverse_merge
-
-    it "doesn't mutate itself" do
-      a_hash = {a: 1}
-      a_hash.reverse_merge test: "Example"
-
-      expect(a_hash).to eq(a: 1)
-    end
-  end
-
-  describe "#reverse_merge!" do
-    it_behaves_like "a reverse merge", :reverse_merge!
-
-    it "mutates itself" do
-      a_hash = {a: 1, b: 2}
-      a_hash.reverse_merge! c: 3
-
-      expect(a_hash).to eq(a: 1, b: 2, c: 3)
-    end
-  end
-
   shared_examples_for "stringified keys" do |method|
     subject(:a_hash) { {a: 1, b: 2, "c" => 3} }
 

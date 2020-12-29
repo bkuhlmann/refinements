@@ -410,28 +410,6 @@ example.rekey! a: :amber, b: :blue  # => {amber: 1, blue: 2, c: 3}
 example                             # => {amber: 1, blue: 2, c: 3}
 ----
 
-===== #reverse_merge
-
-Merges calling hash into passed in hash without mutating itself.
-
-[source,ruby]
-----
-example = {a: 1, b: 2}
-example.reverse_merge a: 0, c: 3  # => {a: 1, b: 2, c: 3}
-example                           # => {a: 1, b: 2}
-----
-
-===== #reverse_merge!
-
-Merges calling hash into passed in hash while mutating itself.
-
-[source,ruby]
-----
-example = {a: 1, b: 2}
-example.reverse_merge! a: 0, c: 3  # => {a: 1, b: 2, c: 3}
-example                            # => {a: 1, b: 2, c: 3}
-----
-
 ===== #stringify_keys
 
 Converts keys to strings without mutating itself.
