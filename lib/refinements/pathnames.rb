@@ -71,10 +71,6 @@ module Refinements
         self
       end
 
-      def mkdir
-        exist? ? self : super and self
-      end
-
       def name
         basename extname
       end

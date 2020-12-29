@@ -371,24 +371,6 @@ RSpec.describe Refinements::Pathnames, :temp_dir do
     end
   end
 
-  describe "#mkdir" do
-    let(:path) { temp_dir.join "demo" }
-
-    it "makes new directory" do
-      path.mkdir
-      expect(path.exist?).to eq(true)
-    end
-
-    it "answers itself when existing" do
-      path.mkdir
-      expect(path.mkdir).to eq(path)
-    end
-
-    it "answers itself when not existing" do
-      expect(path.mkdir).to eq(path)
-    end
-  end
-
   describe "#name" do
     it "answers name of file without extension" do
       path = Pathname "example.txt"
