@@ -366,28 +366,6 @@ example.recurse(&:symbolize_keys)  # => {a: {b: 1}}
 example.recurse(&:invert)          # => {{"b" => 1} => "a"}
 ----
 
-===== #rekey
-
-Transforms keys per mapping (size of mapping can vary) without mutating itself.
-
-[source,ruby]
-----
-example = {a: 1, b: 2, c: 3}
-example.rekey a: :amber, b: :blue  # => {amber: 1, blue: 2, c: 3}
-example                            # => {a: 1, b: 2, c: 3}
-----
-
-===== #rekey!
-
-Transforms keys per mapping (size of mapping can vary) while mutating itself.
-
-[source,ruby]
-----
-example = {a: 1, b: 2, c: 3}
-example.rekey! a: :amber, b: :blue  # => {amber: 1, blue: 2, c: 3}
-example                             # => {amber: 1, blue: 2, c: 3}
-----
-
 ===== #stringify_keys
 
 Converts keys to strings without mutating itself.

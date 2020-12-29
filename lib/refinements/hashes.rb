@@ -74,16 +74,6 @@ module Refinements
         end
       end
 
-      def rekey mapping = {}
-        return self if mapping.empty?
-
-        transform_keys { |key| mapping[key] || key }
-      end
-
-      def rekey! mapping = {}
-        replace rekey(mapping)
-      end
-
       def stringify_keys
         reduce({}) { |hash, (key, value)| hash.merge key.to_s => value }
       end

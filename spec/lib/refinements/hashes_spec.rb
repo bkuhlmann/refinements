@@ -291,52 +291,6 @@ RSpec.describe Refinements::Hashes do
     end
   end
 
-  shared_examples_for "a rekeyed hash" do |method|
-    let(:mapping) { {a: :apples, b: :blueberries} }
-
-    it "answers rekeyed hash of smaller size" do
-      expect({a: 1}.public_send(method, mapping)).to eq(apples: 1)
-    end
-
-    it "answers rekeyed hash of equal size" do
-      expect({a: 1, b: 2}.public_send(method, mapping)).to eq(apples: 1, blueberries: 2)
-    end
-
-    it "answers rekeyed hash of larger size" do
-      expect({a: 1, b: 2, c: 3}.public_send(method, mapping)).to eq(apples: 1, blueberries: 2, c: 3)
-    end
-
-    it "answers itself with no mapping" do
-      expect({a: 1, b: 2}.public_send(method)).to eq(a: 1, b: 2)
-    end
-
-    it "answers empty hash for empty hash and mapping" do
-      expect({}.public_send(method, mapping)).to eq({})
-    end
-  end
-
-  describe "#rekey" do
-    it_behaves_like "a rekeyed hash", :rekey
-
-    it "doesn't mutate hash" do
-      sample = {a: 1, b: 2}
-      sample.rekey a: :apples, b: :blueberries
-
-      expect(sample).to eq(a: 1, b: 2)
-    end
-  end
-
-  describe "#rekey!" do
-    it_behaves_like "a rekeyed hash", :rekey!
-
-    it "mutates itself" do
-      sample = {a: 1, b: 2}
-      sample.rekey! a: :apples, b: :blueberries
-
-      expect(sample).to eq(apples: 1, blueberries: 2)
-    end
-  end
-
   shared_examples_for "stringified keys" do |method|
     subject(:a_hash) { {a: 1, b: 2, "c" => 3} }
 
