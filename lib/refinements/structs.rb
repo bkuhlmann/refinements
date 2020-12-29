@@ -7,8 +7,8 @@ module Refinements
         inspect.include? "keyword_init: true"
       end
 
-      def with_keywords arguments
-        keyworded? ? new(arguments) : new.merge!(arguments)
+      def with_keywords **arguments
+        keyworded? ? new(**arguments) : new.merge!(**arguments)
       end
 
       def with_positions *values
@@ -18,11 +18,11 @@ module Refinements
 
     refine Struct do
       def merge **attributes
-        dup.merge! attributes
+        dup.merge!(**attributes)
       end
 
       def merge! **attributes
-        to_h.merge(attributes).each { |key, value| self[key] = value }
+        to_h.merge(**attributes).each { |key, value| self[key] = value }
         self
       end
 
