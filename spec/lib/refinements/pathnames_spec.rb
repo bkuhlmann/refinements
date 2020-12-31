@@ -2,7 +2,9 @@
 
 require "spec_helper"
 
-RSpec.describe Refinements::Pathnames, :temp_dir do
+RSpec.describe Refinements::Pathnames do
+  include_context "with temporary directory"
+
   using described_class
 
   describe "#Pathname" do
