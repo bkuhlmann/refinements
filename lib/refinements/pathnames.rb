@@ -5,6 +5,7 @@ require "pathname"
 module Refinements
   module Pathnames
     refine Kernel do
+      # :reek:UncommunicativeMethodName
       def Pathname object
         return super(String(object)) unless object
 
