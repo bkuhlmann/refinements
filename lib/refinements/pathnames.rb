@@ -64,12 +64,6 @@ module Refinements
 
       def relative_parent(root_dir) = relative_path_from(root_dir).parent
 
-      def relative_parent_from root_dir
-        warn "[DEPRECATION]: Pathname#relative_parent_from is deprecated, " \
-             "use Pathname#relative_parent instead."
-        relative_parent root_dir
-      end
-
       def remove_dir = exist? ? (rmdir and self) : self
 
       def remove_tree
