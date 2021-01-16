@@ -7,9 +7,7 @@ module Refinements
         new { |new_hash, missing_key| new_hash[missing_key] = new(&new_hash.default_proc) }
       end
 
-      def with_default value
-        new { |new_hash, missing_key| new_hash[missing_key] = value }
-      end
+      def with_default(value) = new { |new_hash, missing_key| new_hash[missing_key] = value }
     end
 
     refine Hash do
@@ -25,25 +23,15 @@ module Refinements
         end
       end
 
-      def deep_merge! other
-        replace deep_merge(other)
-      end
+      def deep_merge!(other) = replace(deep_merge(other))
 
-      def deep_stringify_keys
-        recurse(&:stringify_keys)
-      end
+      def deep_stringify_keys = recurse(&:stringify_keys)
 
-      def deep_stringify_keys!
-        replace deep_stringify_keys
-      end
+      def deep_stringify_keys! = replace(deep_stringify_keys)
 
-      def deep_symbolize_keys
-        recurse(&:symbolize_keys)
-      end
+      def deep_symbolize_keys = recurse(&:symbolize_keys)
 
-      def deep_symbolize_keys!
-        replace deep_symbolize_keys
-      end
+      def deep_symbolize_keys! = replace(deep_symbolize_keys)
 
       # :reek:TooManyStatements
       def flatten_keys prefix: nil, delimiter: "_", cast: :to_sym
@@ -74,21 +62,13 @@ module Refinements
         end
       end
 
-      def stringify_keys
-        reduce({}) { |hash, (key, value)| hash.merge key.to_s => value }
-      end
+      def stringify_keys = reduce({}) { |hash, (key, value)| hash.merge key.to_s => value }
 
-      def stringify_keys!
-        replace stringify_keys
-      end
+      def stringify_keys! = replace(stringify_keys)
 
-      def symbolize_keys
-        reduce({}) { |hash, (key, value)| hash.merge key.to_sym => value }
-      end
+      def symbolize_keys = reduce({}) { |hash, (key, value)| hash.merge key.to_sym => value }
 
-      def symbolize_keys!
-        replace symbolize_keys
-      end
+      def symbolize_keys! = replace(symbolize_keys)
 
       def use &block
         return [] unless block

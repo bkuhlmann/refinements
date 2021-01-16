@@ -5,9 +5,7 @@ module Refinements
     DELIMITERS = %r([a-z][A-Z]|\s*-\s*|\s*/\s*|\s*:+\s*|\s*_\s*|\s+)
 
     refine String do
-      def blank?
-        match?(/\A\s*\z/)
-      end
+      def blank? = match?(/\A\s*\z/)
 
       def camelcase
         return up unless match? DELIMITERS
@@ -67,9 +65,7 @@ module Refinements
                                               .then { |parts| combine parts, :up, "/" }
       end
 
-      def to_bool
-        %w[true yes on t y 1].include? downcase.strip
-      end
+      def to_bool = %w[true yes on t y 1].include?(downcase.strip)
 
       def up
         return self if empty?

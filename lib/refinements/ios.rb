@@ -23,13 +23,9 @@ module Refinements
         reopen backup
       end
 
-      def reread length = nil, buffer: nil
-        tap(&:rewind).read length, buffer
-      end
+      def reread(length = nil, buffer: nil) = tap(&:rewind).read(length, buffer)
 
-      def squelch &block
-        self.class.void.then { |void| redirect(void, &block) }
-      end
+      def squelch(&block) = self.class.void.then { |void| redirect(void, &block) }
     end
   end
 end

@@ -3,37 +3,21 @@
 module Refinements
   module Arrays
     refine Array do
-      def compress
-        compact.reject(&:empty?)
-      end
+      def compress = compact.reject(&:empty?)
 
-      def compress!
-        replace compress
-      end
+      def compress! = replace(compress)
 
-      def excluding *elements
-        self - elements.flatten
-      end
+      def excluding(*elements) = self - elements.flatten
 
-      def including *elements
-        self + elements.flatten
-      end
+      def including(*elements) = self + elements.flatten
 
-      def intersperse *elements
-        product([elements]).tap(&:pop).flatten.push last
-      end
+      def intersperse(*elements) = product([elements]).tap(&:pop).flatten.push(last)
 
-      def mean
-        size.zero? ? 0 : sum(0) / size
-      end
+      def mean = size.zero? ? 0 : sum(0) / size
 
-      def pad value, max: size
-        dup.fill value, size..(max - 1)
-      end
+      def pad(value, max: size) = dup.fill(value, size..(max - 1))
 
-      def ring &block
-        [last, *self, first].each_cons 3, &block
-      end
+      def ring(&block) = [last, *self, first].each_cons(3, &block)
     end
   end
 end
