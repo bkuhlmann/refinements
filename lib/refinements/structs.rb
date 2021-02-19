@@ -7,7 +7,7 @@ module Refinements
 
       def with_keywords(**arguments) = keyworded? ? new(**arguments) : new.merge!(**arguments)
 
-      def with_positions(*values) = keyworded? ? new(**Hash[members.zip values]) : new(*values)
+      def with_positions(*values) = keyworded? ? new(**members.zip(values).to_h) : new(*values)
     end
 
     refine Struct do
