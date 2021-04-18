@@ -1,5 +1,15 @@
 = Changes
 
+== 8.1.1 (2021-04-18)
+
+* Fixed Rubocop Style/HashConversion - Brooke Kuhlmann
+* Added Ruby garbage collection compaction - Brooke Kuhlmann
+* Updated Code Quality URLs - Brooke Kuhlmann
+* Updated to Circle CI 2.1.0 - Brooke Kuhlmann
+* Updated to Docker Alpine Ruby image - Brooke Kuhlmann
+* Updated to Rubocop 1.10.0 - Brooke Kuhlmann
+* Updated to Ruby 3.0.1 - Brooke Kuhlmann
+
 == 8.1.0 (2021-01-16)
 
 * Added Reek UncommunicativeMethodName for Pathname - Brooke Kuhlmann
