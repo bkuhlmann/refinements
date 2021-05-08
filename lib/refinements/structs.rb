@@ -21,9 +21,7 @@ module Refinements
       def revalue attributes = each_pair
         return self unless block_given?
 
-        dup.tap do |copy|
-          attributes.each { |key, value| copy[key] = yield self[key], value }
-        end
+        dup.tap { |copy| attributes.each { |key, value| copy[key] = yield self[key], value } }
       end
 
       def revalue! attributes = each_pair

@@ -115,14 +115,7 @@ RSpec.describe Refinements::Hashes do
     end
 
     it "answers stringified keys" do
-      expect(a_hash.public_send(method)).to eq(
-        "a" => [
-          {b: 1}
-        ],
-        "c" => {
-          "d" => 2
-        }
-      )
+      expect(a_hash.public_send(method)).to eq("a" => [{b: 1}], "c" => {"d" => 2})
     end
   end
 
@@ -161,14 +154,7 @@ RSpec.describe Refinements::Hashes do
     end
 
     it "answers symbolized keys" do
-      expect(a_hash.public_send(method)).to eq(
-        a: [
-          {"b" => 1}
-        ],
-        c: {
-          d: 2
-        }
-      )
+      expect(a_hash.public_send(method)).to eq(a: [{"b" => 1}], c: {d: 2})
     end
   end
 
@@ -209,11 +195,7 @@ RSpec.describe Refinements::Hashes do
     end
 
     it "answers flattened keys when keys are deeply nested" do
-      expect({a: 1, b: {c: 2}, d: {e: {f: 3}}}.public_send(method)).to eq(
-        a: 1,
-        b_c: 2,
-        d_e_f: 3
-      )
+      expect({a: 1, b: {c: 2}, d: {e: {f: 3}}}.public_send(method)).to eq(a: 1, b_c: 2, d_e_f: 3)
     end
 
     it "answers prefixed keys when prefix is given" do
@@ -270,12 +252,7 @@ RSpec.describe Refinements::Hashes do
     end
 
     it "recursively processes nested hash" do
-      expect(sample.recurse(&:symbolize_keys)).to eq(
-        a: [
-          {"b" => 1}
-        ],
-        c: 1
-      )
+      expect(sample.recurse(&:symbolize_keys)).to eq(a: [{"b" => 1}], c: 1)
     end
 
     it "doesn't mutate itself" do

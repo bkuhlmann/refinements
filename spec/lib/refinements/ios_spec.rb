@@ -46,8 +46,7 @@ RSpec.describe Refinements::IOs do
     end
 
     it "does nothing without block" do
-      io.redirect(other)
-        .close
+      io.redirect(other).close
       other.close
 
       expect([main_path.read, other_path.read]).to eq(["", ""])
