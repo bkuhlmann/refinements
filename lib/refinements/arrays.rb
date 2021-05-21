@@ -15,7 +15,11 @@ module Refinements
 
       def intersperse(*elements) = product([elements]).tap(&:pop).flatten.push(last)
 
+      def maximum(key) = map(&key).max
+
       def mean = size.zero? ? 0 : sum(0) / size
+
+      def minimum(key) = map(&key).min
 
       def pad(value, max: size) = dup.fill(value, size..(max - 1))
 

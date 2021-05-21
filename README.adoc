@@ -173,6 +173,19 @@ Inserts additional elements or array between all members of given array.
 [1, 2, 3].intersperse %i[a b c]  # => [1, :a, :b, :c, 2, :a, :b, :c, 3]
 ----
 
+===== #maximum
+
+Answers the maximum extracted value from a collection of objects.
+
+[source,ruby]
+----
+Point = Struct.new :x, :y, keyword_init: true
+points = [Point[x: 1, y: 2], Point[x: 0, y: 1], Point[x: 2, y: 3]]
+
+points.maximum(:x)  # => 2
+points.maximum(:y)  # => 3
+----
+
 ===== #mean
 
 Answers mean/average all elements within an array.
@@ -183,6 +196,19 @@ Answers mean/average all elements within an array.
 [5].mean                # => 5
 [1, 2, 3].mean          # => 2
 [1.25, 1.5, 1.75].mean  # => 1.5
+----
+
+===== #minimum
+
+Answers the minimum extracted value from a collection of objects.
+
+[source,ruby]
+----
+Point = Struct.new :x, :y, keyword_init: true
+points = [Point[x: 1, y: 2], Point[x: 0, y: 1], Point[x: 2, y: 3]]
+
+points.minimum(:x)  # => 0
+points.minimum(:y)  # => 1
 ----
 
 ===== #pad

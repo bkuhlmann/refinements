@@ -161,6 +161,15 @@ RSpec.describe Refinements::Arrays do
     end
   end
 
+  describe "#maximum" do
+    it "answers maximum extracted value" do
+      model = Struct.new :x, keyword_init: true
+      records = [model[x: 3], model[x: 1], model[x: 2]]
+
+      expect(records.maximum(:x)).to eq(3)
+    end
+  end
+
   describe "#mean" do
     it "answers zero for empty array" do
       expect([].mean).to eq(0)
@@ -172,6 +181,15 @@ RSpec.describe Refinements::Arrays do
 
     it "answers mean for multi-element array" do
       expect([1, 2, 3].mean).to eq(2)
+    end
+  end
+
+  describe "#minimum" do
+    it "answers minimum extracted value" do
+      model = Struct.new :x, keyword_init: true
+      records = [model[x: 3], model[x: 1], model[x: 2]]
+
+      expect(records.minimum(:x)).to eq(1)
     end
   end
 
