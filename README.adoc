@@ -135,6 +135,23 @@ Removes given array or elements without mutating itself.
 [1, 2, 3, 4, 5].excluding 4, 5    # => [1, 2, 3]
 ----
 
+===== #filter_find
+
+Answers the first truthy and filtered result from a collection.
+
+[source,ruby]
+----
+handlers = [
+  ->(object) { object if object == :b },
+  proc { false },
+  ->(object) { object if object == :a }
+]
+
+handlers.filter_find                                # => Enumerator::Lazy
+handlers.filter_find { |handler| handler.call :a }  # => :a
+handlers.filter_find { |handler| handler.call :x }  # => nil
+----
+
 ===== #including
 
 Adds given array or elements without mutating itself.

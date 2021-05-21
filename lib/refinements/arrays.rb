@@ -9,6 +9,8 @@ module Refinements
 
       def excluding(*elements) = self - elements.flatten
 
+      def filter_find(&block) = block ? lazy.map(&block).find(&:itself) : lazy
+
       def including(*elements) = self + elements.flatten
 
       def intersperse(*elements) = product([elements]).tap(&:pop).flatten.push(last)
