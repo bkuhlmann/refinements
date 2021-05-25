@@ -1,5 +1,12 @@
 = Changes
 
+== 8.2.0 (2021-05-24)
+
+* Fixed Rubocop Layout/RedundantLineBreak issues - Brooke Kuhlmann
+* Added Array filter find - Brooke Kuhlmann
+* Added Array minimum and maximum - Brooke Kuhlmann
+* Updated to Rubocop 1.14.0 - Brooke Kuhlmann
+
 == 8.1.1 (2021-04-18)
 
 * Fixed Rubocop Style/HashConversion - Brooke Kuhlmann
