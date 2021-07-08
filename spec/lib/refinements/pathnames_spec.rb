@@ -8,16 +8,16 @@ RSpec.describe Refinements::Pathnames do
   using described_class
 
   describe "#Pathname" do
-    it "answers pathname for nil" do
+    it "answers blank pathname for nil" do
       expect(Pathname(nil)).to eq(Pathname(""))
     end
 
     it "answers pathname for string" do
-      expect(Pathname("/tmp")).to eq(Pathname("/tmp"))
+      expect(Pathname("/tmp")).to eq(Pathname.new("/tmp"))
     end
 
     it "answers pathname for pathname" do
-      expect(temp_dir).to eq(temp_dir)
+      expect(Pathname(temp_dir)).to eq(temp_dir)
     end
   end
 
