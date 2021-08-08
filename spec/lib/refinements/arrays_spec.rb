@@ -171,16 +171,28 @@ RSpec.describe Refinements::Arrays do
   end
 
   describe "#mean" do
-    it "answers zero for empty array" do
-      expect([].mean).to eq(0)
+    it "answers zero with empty array" do
+      expect([].mean).to eq(0.0)
+    end
+
+    it "answers zero with zero element only" do
+      expect([0].mean).to eq(0.0)
     end
 
     it "answers value for single element array" do
-      expect([5].mean).to eq(5)
+      expect([5].mean).to eq(5.0)
     end
 
-    it "answers mean for multi-element array" do
-      expect([1, 2, 3].mean).to eq(2)
+    it "answers decimal precision with integer tuple" do
+      expect([1, 2].mean).to eq(1.5)
+    end
+
+    it "answers decimal precision with decimals" do
+      expect([1.25, 1.5, 2.5].mean).to eq(1.75)
+    end
+
+    it "answers decimal precision with integers" do
+      expect([1, 2, 3].mean).to eq(2.0)
     end
   end
 

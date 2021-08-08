@@ -17,7 +17,7 @@ module Refinements
 
       def maximum(key) = map(&key).max
 
-      def mean = size.zero? ? 0 : sum(0) / size
+      def mean = size.zero? ? 0 : sum(0.0) / size
 
       def minimum(key) = map(&key).min
 
