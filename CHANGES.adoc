@@ -1,5 +1,12 @@
 = Changes
 
+== 8.2.1 (2021-08-08)
+
+* Fixed Array mean calculation to always answer a float - Brooke Kuhlmann
+* Fixed Rubocop RSpec/IdenticalEqualityAssertion issues - Brooke Kuhlmann
+* Updated to Ruby 3.0.2 - Brooke Kuhlmann
+* Removed Bundler Audit - Brooke Kuhlmann
+
 == 8.2.0 (2021-05-24)
 
 * Fixed Rubocop Layout/RedundantLineBreak issues - Brooke Kuhlmann

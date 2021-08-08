@@ -5,7 +5,7 @@ module Refinements
   module Identity
     NAME = "refinements"
     LABEL = "Refinements"
-    VERSION = "8.2.0"
+    VERSION = "8.2.1"
     VERSION_LABEL = "#{LABEL} #{VERSION}"
   end
 end
