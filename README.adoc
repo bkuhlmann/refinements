@@ -11,7 +11,9 @@ image::https://img.shields.io/badge/code_style-alchemists-brightgreen.svg[Alchem
 [link=https://circleci.com/gh/bkuhlmann/refinements]
 image::https://circleci.com/gh/bkuhlmann/refinements.svg?style=svg[Circle CI Status]
 
-A collection of refinements (enhancements) to primitive Ruby objects.
+Refinements is a collection of enhancements to primitive Ruby objects without needing to resort
+painful and hard to debug monkey patches. These refinements give you additional syntactic sugar to
+build clean and concise implementations all while using less code.
 
 toc::[]
 
@@ -535,7 +537,7 @@ Wraps `Dir.mktmpdir` with the following behavior (see
 link:https://rubyapi.org/o/Dir.mktmpdir#method-c-mktmpdir[Dir.mktmpdir] for details):
 
 * *Without Block* - Answers a newly created Pathname instance which is not automatically cleaned up.
-* *With Block*  Yields a Pathname instance, answers result of given block, and automatidally cleans
+* *With Block*  Yields a Pathname instance, answers result of given block, and automatically cleans
   up temporary directory after block exits.
 
 The following examples use truncated temporary directories for illustration purposes only. In
