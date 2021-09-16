@@ -35,7 +35,7 @@ module Refinements
       def indent multiplier = 1, padding: "  "
         return self if multiplier.negative?
 
-        padding * multiplier + self
+        (padding * multiplier) + self
       end
 
       def last number = 0
