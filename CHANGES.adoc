@@ -1,5 +1,16 @@
 = Changes
 
+== 8.3.0 (2021-09-26)
+
+* Fixed Hash stringify and symbolize keys to use transform keys - Brooke Kuhlmann
+* Fixed Reek IrresponsibleModule issues - Brooke Kuhlmann
+* Fixed Reek UncommunicativeMethodName Pathname issue - Brooke Kuhlmann
+* Fixed Rubocop Lint/AmbiguousOperatorPrecedence issue - Brooke Kuhlmann
+* Fixed blank strings to be more efficient - Brooke Kuhlmann
+* Added Debug gem - Brooke Kuhlmann
+* Added Hash compress methods - Brooke Kuhlmann
+* Removed Pry dependencies - Brooke Kuhlmann
+
 == 8.2.2 (2021-09-05)
 
 * Fixed Rubocop Style/MutableConstant issue - Brooke Kuhlmann
