@@ -68,13 +68,13 @@ module Refinements
         end
       end
 
-      def stringify_keys = reduce({}) { |hash, (key, value)| hash.merge key.to_s => value }
+      def stringify_keys = transform_keys(&:to_s)
 
-      def stringify_keys! = replace(stringify_keys)
+      def stringify_keys! = transform_keys!(&:to_s)
 
-      def symbolize_keys = reduce({}) { |hash, (key, value)| hash.merge key.to_sym => value }
+      def symbolize_keys = transform_keys(&:to_sym)
 
-      def symbolize_keys! = replace(symbolize_keys)
+      def symbolize_keys! = transform_keys!(&:to_sym)
 
       def use &block
         return [] unless block
