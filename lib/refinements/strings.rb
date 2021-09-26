@@ -5,7 +5,7 @@ module Refinements
     DELIMITERS = %r([a-z][A-Z]|\s*-\s*|\s*/\s*|\s*:+\s*|\s*_\s*|\s+)
 
     refine String do
-      def blank? = match?(/\A\s*\z/)
+      def blank? = empty? || match?(/\A[[:space:]]*\z/)
 
       def camelcase
         return up unless match? DELIMITERS
