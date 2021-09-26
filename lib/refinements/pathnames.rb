@@ -6,7 +6,6 @@ module Refinements
   # Provides additional enhancements to the Pathname primitive.
   module Pathnames
     refine Kernel do
-      # :reek:UncommunicativeMethodName
       def Pathname object
         return super(String(object)) unless object
 

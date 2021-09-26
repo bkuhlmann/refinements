@@ -7,4 +7,4 @@ detectors:
       - "Hash#compress!"
   UncommunicativeMethodName:
     exclude:
-      - "Refinements::Pathnames#Pathname"
+      - "Kernel#Pathname"
