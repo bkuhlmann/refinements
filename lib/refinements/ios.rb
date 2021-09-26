@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module Refinements
+  # Provides additional enhancements to the IO primitive.
   module IOs
     refine IO.singleton_class do
       def void

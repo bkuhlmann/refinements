@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module Refinements
+  # Provides additional enhancements to the Hash primitive.
   module Hashes
     refine Hash.singleton_class do
       def infinite

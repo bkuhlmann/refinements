@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module Refinements
+  # Provides additional enhancements to the String primitive.
   module Strings
     DELIMITERS = %r([a-z][A-Z]|\s*-\s*|\s*/\s*|\s*:+\s*|\s*_\s*|\s+)
 

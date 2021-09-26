@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module Refinements
+  # Provides additional enhancements to the Array primitive.
   module Arrays
     refine Array do
       def compress = compact.reject(&:empty?)

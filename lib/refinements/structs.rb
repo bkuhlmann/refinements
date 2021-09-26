@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module Refinements
+  # Provides additional enhancements to the Struct primitive.
   module Structs
     refine Struct.singleton_class do
       def keyworded? = inspect.include?("keyword_init: true")

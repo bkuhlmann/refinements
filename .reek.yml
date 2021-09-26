@@ -2,8 +2,6 @@ detectors:
   FeatureEnvy:
     exclude:
       - "Hash#compress!"
-  IrresponsibleModule:
-    enabled: false
   ManualDispatch:
     exclude:
       - "Hash#compress!"
