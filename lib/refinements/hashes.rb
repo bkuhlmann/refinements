@@ -11,6 +11,12 @@ module Refinements
     end
 
     refine Hash do
+      def compress = dup.compress!
+
+      def compress!
+        compact!.delete_if { |_key, value| value.respond_to?(:empty?) && value.empty? }
+      end
+
       def deep_merge other
         clazz = self.class
 

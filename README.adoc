@@ -288,6 +288,30 @@ example = Hash.with_default []
 example[:b]  # => []
 ----
 
+===== #compress
+
+Removes empty objects without mutating itself.
+
+[source,ruby]
+----
+object = Object.new
+example = {a: 1, b: "blueberry", c: nil, d: "", e: [], f: {}, g: object}
+example.compress  # => {a: 1, b: "blueberry", g: object}
+example           # => {a: 1, b: "blueberry", c: nil, d: "", e: [], f: {}, g: object}
+----
+
+===== #compress!
+
+Removes empty objects while mutating itself.
+
+[source,ruby]
+----
+object = Object.new
+example = {a: 1, b: "blueberry", c: nil, d: "", e: [], f: {}, g: object}
+example.compress!  # => {a: 1, b: "blueberry", g: object}
+example            # => {a: 1, b: "blueberry", g: object}
+----
+
 ===== #deep_merge
 
 Merges deeply nested hashes together without mutating itself.

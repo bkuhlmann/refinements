@@ -24,6 +24,36 @@ RSpec.describe Refinements::Hashes do
     end
   end
 
+  describe "#compress" do
+    subject(:a_hash) { {a: 1, b: "blueberry", c: nil, d: "", e: [], f: {}, g: an_object} }
+
+    let(:an_object) { Object.new }
+
+    it "answers hash with nils and empty objects removed" do
+      expect(a_hash.compress).to eq(a: 1, b: "blueberry", g: an_object)
+    end
+
+    it "doesn't mutate itself" do
+      a_hash.compress
+      expect(a_hash).to eq(a: 1, b: "blueberry", c: nil, d: "", e: [], f: {}, g: an_object)
+    end
+  end
+
+  describe "#compress!" do
+    subject(:a_hash) { {a: 1, b: "blueberry", c: nil, d: "", e: [], f: {}, g: an_object} }
+
+    let(:an_object) { Object.new }
+
+    it "answers hash with nils and empty objects removed" do
+      expect(a_hash.compress!).to eq(a: 1, b: "blueberry", g: an_object)
+    end
+
+    it "mutates itself" do
+      a_hash.compress!
+      expect(a_hash).to eq(a: 1, b: "blueberry", g: an_object)
+    end
+  end
+
   shared_examples_for "a deep merge" do |method|
     subject :a_hash do
       {
