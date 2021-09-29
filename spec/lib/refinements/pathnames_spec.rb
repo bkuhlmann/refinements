@@ -84,7 +84,7 @@ RSpec.describe Refinements::Pathnames do
   describe ".require_tree" do
     let(:requirement_a) { temp_dir.join("a.rb").write "# Test A" }
     let(:requirement_b) { temp_dir.join("nested").make_dir.join("b.rb").write "# Test B" }
-    let(:tree) { $LOADED_FEATURES.select { |path| path.match? %r(/(a|b).rb\Z) } }
+    let(:tree) { $LOADED_FEATURES.grep(%r(/(a|b).rb\Z)) }
 
     before { [requirement_a, requirement_b].each { |path| $LOADED_FEATURES.delete path.to_s } }
 
