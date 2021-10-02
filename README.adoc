@@ -640,6 +640,19 @@ Copies file from current location to new location while answering itself so it c
 Pathname("input.txt").copy Pathname("output.txt")  # => Pathname("input.txt")
 ----
 
+===== #delete
+
+Deletes file or directory and answers itself so it can be chained.
+
+[source,ruby]
+----
+# When path exists.
+Pathname("/example.txt").touch.delete  # => Pathname("/example")
+
+# When path doesn't exist.
+Pathname("/example.txt").delete        # => Errno::ENOENT
+----
+
 ===== #directories
 
 Answers all directories or filtered directories for current path.

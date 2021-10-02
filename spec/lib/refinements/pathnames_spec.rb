@@ -190,6 +190,29 @@ RSpec.describe Refinements::Pathnames do
     end
   end
 
+  describe "#delete" do
+    let(:path) { temp_dir.join "test.txt" }
+
+    it "deletes existing file" do
+      path.touch.delete
+      expect(path.exist?).to eq(false)
+    end
+
+    it "deletes existing directory" do
+      temp_dir.delete
+      expect(temp_dir.exist?).to eq(false)
+    end
+
+    it "answers deleted path" do
+      expect(path.touch.delete).to eq(path)
+    end
+
+    it "errors when attempting to delete path that doesn't exist" do
+      expectation = proc { path.delete }
+      expect(&expectation).to raise_error(Errno::ENOENT, /no such file or directory/i)
+    end
+  end
+
   describe "#directories" do
     it "answers only directories when mixed with directories and files" do
       a = temp_dir.join("a").tap(&:mkdir)

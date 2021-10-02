@@ -38,6 +38,8 @@ module Refinements
         self
       end
 
+      def delete = super && self
+
       def directories pattern = "*", flag: File::FNM_SYSCASE
         glob(pattern, flag).select(&:directory?).sort
       end
