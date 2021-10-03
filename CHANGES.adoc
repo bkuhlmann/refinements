@@ -1,6 +1,6 @@
 = Changes
 
-== 8.4.0 (2021-10-03)
+== 8.4.1 (2021-10-03)
 
 * Fixed Array and Hash issues with empty compression - Brooke Kuhlmann
 * Fixed Array compress to handle empty objects - Brooke Kuhlmann
