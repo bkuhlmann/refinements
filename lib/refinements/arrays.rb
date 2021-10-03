@@ -7,7 +7,8 @@ module Refinements
       def compress = dup.compress!
 
       def compress!
-        compact!.delete_if { |element| element.respond_to?(:empty?) && element.empty? }
+        compact!
+        delete_if { |element| element.respond_to?(:empty?) && element.empty? }
       end
 
       def excluding(*elements) = self - elements.flatten

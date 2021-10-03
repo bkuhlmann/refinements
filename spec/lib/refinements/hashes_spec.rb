@@ -33,6 +33,10 @@ RSpec.describe Refinements::Hashes do
       expect(a_hash.compress).to eq(a: 1, b: "blueberry", g: an_object)
     end
 
+    it "answers itself when empty" do
+      expect({}.compress).to eq({})
+    end
+
     it "doesn't mutate itself" do
       a_hash.compress
       expect(a_hash).to eq(a: 1, b: "blueberry", c: nil, d: "", e: [], f: {}, g: an_object)
@@ -46,6 +50,10 @@ RSpec.describe Refinements::Hashes do
 
     it "answers hash with nils and empty objects removed" do
       expect(a_hash.compress!).to eq(a: 1, b: "blueberry", g: an_object)
+    end
+
+    it "answers itself when empty" do
+      expect({}.compress!).to eq({})
     end
 
     it "mutates itself" do
