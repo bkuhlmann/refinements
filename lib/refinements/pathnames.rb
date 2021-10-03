@@ -24,7 +24,7 @@ module Refinements
         new(root).files(pattern).each { |path| require path.to_s }
       end
 
-      def root = new("/")
+      def root = new(File::SEPARATOR)
     end
 
     refine Pathname do
