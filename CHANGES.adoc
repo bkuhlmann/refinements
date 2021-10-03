@@ -2,10 +2,12 @@
 
 == 8.4.0 (2021-10-03)
 
+* Fixed Array and Hash issues with empty compression - Brooke Kuhlmann
 * Fixed Array compress to handle empty objects - Brooke Kuhlmann
 * Fixed Pathname root to use file separator - Brooke Kuhlmann
 * Fixed Rubocop Style/SelectByRegexp issue - Brooke Kuhlmann
 * Added Pathname delete - Brooke Kuhlmann
+* Added version release notes - Brooke Kuhlmann
 * Removed RSpec spec helper GC automatic compaction - Brooke Kuhlmann
 
 == 8.3.0 (2021-09-26)
