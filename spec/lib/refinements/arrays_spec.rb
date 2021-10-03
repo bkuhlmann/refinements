@@ -6,50 +6,32 @@ RSpec.describe Refinements::Arrays do
   using described_class
 
   describe "#compress" do
-    it "answers original array when nothing to do" do
-      array = %w[one two]
-      expect(array.compress).to contain_exactly("one", "two")
+    subject(:array) { [1, "blueberry", nil, "", [], {}, an_object] }
+
+    let(:an_object) { Object.new }
+
+    it "answers array with nils and empty objects removed" do
+      expect(array.compress).to eq([1, "blueberry", an_object])
     end
 
-    it "answers array with nils removed" do
-      array = ["one", nil, "two"]
-      expect(array.compress).to contain_exactly("one", "two")
-    end
-
-    it "answers array with blank strings removed" do
-      array = ["one", "", "two"]
-      expect(array.compress).to contain_exactly("one", "two")
-    end
-
-    it "does not modify original values" do
-      array = ["one", nil, "", "two"]
+    it "doesn't mutate itself" do
       array.compress
-
-      expect(array).to contain_exactly("one", nil, "", "two")
+      expect(array).to eq([1, "blueberry", nil, "", [], {}, an_object])
     end
   end
 
   describe "#compress!" do
-    it "answers original array when nothing to do" do
-      array = %w[one two]
-      expect(array.compress!).to contain_exactly("one", "two")
+    subject(:array) { [1, "blueberry", nil, "", [], {}, an_object] }
+
+    let(:an_object) { Object.new }
+
+    it "answers array with nils and empty objects removed" do
+      expect(array.compress!).to eq([1, "blueberry", an_object])
     end
 
-    it "answers array with nils removed" do
-      array = ["one", nil, "two"]
-      expect(array.compress!).to contain_exactly("one", "two")
-    end
-
-    it "answers array with empty values removed" do
-      array = ["one", "", "two"]
-      expect(array.compress!).to contain_exactly("one", "two")
-    end
-
-    it "modifies original values" do
-      array = ["one", nil, "", "two"]
+    it "mutates itself" do
       array.compress!
-
-      expect(array).to contain_exactly("one", "two")
+      expect(array).to eq([1, "blueberry", an_object])
     end
   end
 

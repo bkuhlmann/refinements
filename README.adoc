@@ -107,13 +107,14 @@ The following sections demonstrate how each refinement enriches your objects wit
 
 ===== #compress
 
-Removes `nil` and empty values without mutating itself.
+Removes `nil` and empty objects without mutating itself.
 
 [source,ruby]
 ----
-example = ["An", nil, "", "Example"]
-example.compress  # => ["An", "Example"]
-example           # => ["An", nil, "", "Example"]
+object = Object.new
+example = [1, "blueberry", nil, "", [], {}, object]
+example.compress  # => [1, "blueberry", object]
+example           # => [1, "blueberry", nil, "", [], {}, object]
 ----
 
 ===== #compress!
@@ -122,9 +123,10 @@ Removes `nil` and empty values while mutating itself.
 
 [source,ruby]
 ----
-example = ["An", nil, "", "Example"]
-example.compress!  # => ["An", "Example"]
-example            # => ["An", "Example"]
+object = Object.new
+example = [1, "blueberry", nil, "", [], {}, object]
+example.compress  # => [1, "blueberry", object]
+example           # => [1, "blueberry", object]
 ----
 
 ===== #excluding
@@ -290,7 +292,7 @@ example[:b]  # => []
 
 ===== #compress
 
-Removes empty objects without mutating itself.
+Removes `nil` and empty objects without mutating itself.
 
 [source,ruby]
 ----
@@ -302,7 +304,7 @@ example           # => {a: 1, b: "blueberry", c: nil, d: "", e: [], f: {}, g: ob
 
 ===== #compress!
 
-Removes empty objects while mutating itself.
+Removes `nil` and empty objects while mutating itself.
 
 [source,ruby]
 ----

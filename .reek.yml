@@ -1,9 +1,11 @@
 detectors:
   FeatureEnvy:
     exclude:
+      - "Array#compress!"
       - "Hash#compress!"
   ManualDispatch:
     exclude:
+      - "Array#compress!"
       - "Hash#compress!"
   UncommunicativeMethodName:
     exclude:

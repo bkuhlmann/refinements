@@ -4,9 +4,11 @@ module Refinements
   # Provides additional enhancements to the Array primitive.
   module Arrays
     refine Array do
-      def compress = compact.reject(&:empty?)
+      def compress = dup.compress!
 
-      def compress! = replace(compress)
+      def compress!
+        compact!.delete_if { |element| element.respond_to?(:empty?) && element.empty? }
+      end
 
       def excluding(*elements) = self - elements.flatten
 
