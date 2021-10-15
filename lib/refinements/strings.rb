@@ -50,6 +50,8 @@ module Refinements
         self[(min + 1)..]
       end
 
+      def pluralize(suffix, replace: /$/, count: 0) = count.abs == 1 ? self : sub(replace, suffix)
+
       def snakecase
         return downcase unless match? DELIMITERS
 

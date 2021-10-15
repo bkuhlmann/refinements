@@ -225,6 +225,40 @@ RSpec.describe Refinements::Strings do
     end
   end
 
+  describe "#pluralize" do
+    it "answers plural by default" do
+      expect("apple".pluralize("s")).to eq("apples")
+    end
+
+    it "answers plural with zero count" do
+      expect("apple".pluralize("s", count: 0)).to eq("apples")
+    end
+
+    it "answers plural with count greater than one" do
+      expect("apple".pluralize("s", count: 2)).to eq("apples")
+    end
+
+    it "answers plural with count less than one" do
+      expect("apple".pluralize("s", count: -2)).to eq("apples")
+    end
+
+    it "answers singular with positive count of one" do
+      expect("apple".pluralize("s", count: 1)).to eq("apple")
+    end
+
+    it "ansers singular with negative count of one" do
+      expect("apple".pluralize("s", count: -1)).to eq("apple")
+    end
+
+    it "answers plural with suffix replacement" do
+      expect("cactus".pluralize("i", replace: "us")).to eq("cacti")
+    end
+
+    it "answers plural with body replacement" do
+      expect("cul-de-sac".pluralize("ls", replace: "l")).to eq("culs-de-sac")
+    end
+  end
+
   describe "#snakecase" do
     it "answers empty string as empty string" do
       expect("".snakecase).to eq("")

@@ -878,6 +878,26 @@ Answers last character of a string or last set of characters if given a number.
 "instant".last 3  # => "ant"
 ----
 
+===== #pluralize
+
+Answers plural form of self when given a suffix to add. The plural form of the word can be
+dynamically calculated when given a count and a replacement pattern (i.e. string or regular
+expression) can be supplied for further specificity. Usage is based on
+link:https://en.wikipedia.org/wiki/English_plurals[plurals in English] which may or may not work
+well in other languages.
+
+[source,ruby]
+----
+"apple".pluralize "s"                      # => apples
+"apple".pluralize "s", count: 0            # => apples
+"apple".pluralize "s", count: 1            # => apple
+"apple".pluralize "s", count: -1           # => apple
+"apple".pluralize "s", count: 2            # => apples
+"apple".pluralize "s", count: -2           # => apples
+"cactus".pluralize "i", replace: "us"      # => cacti
+"cul-de-sac".pluralize "ls", replace: "l"  # => culs-de-sac
+----
+
 ===== #snakecase
 
 Answers a snakecased string.
