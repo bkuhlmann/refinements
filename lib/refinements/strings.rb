@@ -52,6 +52,8 @@ module Refinements
 
       def pluralize(suffix, replace: /$/, count: 0) = count.abs == 1 ? self : sub(replace, suffix)
 
+      def singularize(suffix, replace: "", count: 1) = count.abs == 1 ? sub(suffix, replace) : self
+
       def snakecase
         return downcase unless match? DELIMITERS
 

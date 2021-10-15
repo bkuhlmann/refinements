@@ -898,6 +898,26 @@ well in other languages.
 "cul-de-sac".pluralize "ls", replace: "l"  # => culs-de-sac
 ----
 
+===== #singularize
+
+Answers singular form of self when given a suffix to remove (can be a string or a regular
+expression). The singular form of the word can be dynamically calculated when given a count and a
+replacement string can be supplied for further specificity. Usage is based on
+link:https://en.wikipedia.org/wiki/English_plurals[plurals in English] which may or may not work
+well in other languages.
+
+[source,ruby]
+----
+"apples".singularize "s"                      # => apple
+"apples".singularize "s", count: 0            # => apples
+"apples".singularize "s", count: 1            # => apple
+"apples".singularize "s", count: -1           # => apple
+"apples".singularize "s", count: 2            # => apples
+"apples".singularize "s", count: -2           # => apples
+"cacti".singularize "i", replace: "us"        # => cactus
+"culs-de-sac".singularize "ls", replace: "l"  # => cul-de-sac
+----
+
 ===== #snakecase
 
 Answers a snakecased string.

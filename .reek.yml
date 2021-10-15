@@ -2,6 +2,7 @@ detectors:
   ControlParameter:
     exclude:
       - "String#pluralize"
+      - "String#singularize"
   FeatureEnvy:
     exclude:
       - "Array#compress!"
