@@ -11,9 +11,12 @@ image::https://img.shields.io/badge/code_style-alchemists-brightgreen.svg[Alchem
 [link=https://circleci.com/gh/bkuhlmann/refinements]
 image::https://circleci.com/gh/bkuhlmann/refinements.svg?style=svg[Circle CI Status]
 
-Refinements is a collection of enhancements to primitive Ruby objects without needing to resort
-painful and hard to debug monkey patches. These refinements give you additional syntactic sugar to
-build clean and concise implementations all while using less code.
+Refinements are a collection of enhancements to primitive Ruby objects without needing to resort to
+painful and hard to debug
+link:https://www.alchemists.io/articles/ruby_antipatterns/#_monkey_patching[monkey patches]. These
+refinements give you additional syntactic sugar to develop clean and concise implementations while
+using less code. By refining our code we can acquire the functionality we wish the core primitives
+had!
 
 toc::[]
 
@@ -70,6 +73,7 @@ gem "refinements", require: false
 ----
 require "refinements/arrays"
 require "refinements/big_decimals"
+require "refinements/classes"
 require "refinements/date_times"
 require "refinements/hashes"
 require "refinements/ios"
@@ -77,6 +81,7 @@ require "refinements/pathnames"
 require "refinements/strings"
 require "refinements/string_ios"
 require "refinements/structs"
+require "refinements/symbols"
 ----
 
 === Using
@@ -89,6 +94,7 @@ refinement(s):
 class Example
   using Refinements::Arrays
   using Refinements::BigDecimals
+  using Refinements::Classes
   using Refinements::DateTimes
   using Refinements::Hashes
   using Refinements::IOs
@@ -96,6 +102,7 @@ class Example
   using Refinements::Strings
   using Refinements::StringIOs
   using Refinements::Structs
+  using Refinements::Symbols
 end
 ----
 
