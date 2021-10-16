@@ -42,6 +42,10 @@ module Refinements
 
       def deep_symbolize_keys! = replace(deep_symbolize_keys)
 
+      def fetch_value key, *default_value, &block
+        fetch(key, *default_value, &block) || default_value.first
+      end
+
       # :reek:TooManyStatements
       def flatten_keys prefix: nil, delimiter: "_", cast: :to_sym
         fail StandardError, "Unknown cast: #{cast}." unless %i[to_sym to_s].include? cast

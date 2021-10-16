@@ -218,6 +218,38 @@ RSpec.describe Refinements::Hashes do
     end
   end
 
+  describe "#fetch_value" do
+    it "answers original value when present" do
+      value = {a: "test"}.fetch_value :a, "default"
+      expect(value).to eq("test")
+    end
+
+    it "answers original value when default isn't provided" do
+      value = {a: "test"}.fetch_value :a
+      expect(value).to eq("test")
+    end
+
+    it "answers argument default when value is missing" do
+      value = {a: nil}.fetch_value :a, "default"
+      expect(value).to eq("default")
+    end
+
+    it "answers block default when key is missing" do
+      value = {}.fetch_value(:a) { "default" }
+      expect(value).to eq("default")
+    end
+
+    it "fails when key is missing" do
+      expectation = proc { {}.fetch_value :a }
+      expect(&expectation).to raise_error(KeyError, /:a/)
+    end
+
+    it "fails with missing arguments" do
+      expectation = proc { {}.fetch_value }
+      expect(&expectation).to raise_error(ArgumentError, /wrong number of arguments/)
+    end
+  end
+
   shared_examples_for "flattened keys" do |method|
     it "fails with unknown cast" do
       expectation = proc { Hash.new.flatten_keys cast: :invalid }

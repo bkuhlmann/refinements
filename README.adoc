@@ -396,6 +396,22 @@ example.deep_symbolize_keys!  # => {a: {b: 1}}
 example                       # => {a: {b: 1}}
 ----
 
+===== #fetch_value
+
+Fetches value for exiting or missing key. Behavior is identical to `#fetch` except when the value of
+the key is `nil` you'll get the default value instead. This eliminates the need for using an _or_
+expression `example.fetch(:desired_key) || "default_value"`.
+
+[source,ruby]
+----
+{a: "test"}.fetch_value :a, "default"  # => "test"
+{a: "test"}.fetch_value :a             # => "test"
+{a: nil}.fetch_value :a, "default"      # => "default"
+{}.fetch_value(:a) { "default" }        # => "default"
+{}.fetch_value :a                       # => KeyError
+{a: "test"}.fetch_value                 # => ArgumentError
+----
+
 ===== #flatten_keys
 
 Flattens nested keys as top-level keys without mutating itself. Does not handle nested arrays,
