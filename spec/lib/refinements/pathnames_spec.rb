@@ -581,7 +581,7 @@ RSpec.describe Refinements::Pathnames do
     end
   end
 
-  describe "touch" do
+  describe "#touch" do
     context "with existing directory" do
       let(:path) { temp_dir.join("test").make_dir }
 
