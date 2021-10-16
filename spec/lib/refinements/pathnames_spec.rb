@@ -538,53 +538,68 @@ RSpec.describe Refinements::Pathnames do
   end
 
   describe "touch" do
-    let(:test_path) { temp_dir.join "test.txt" }
-
-    context "with existing file" do
-      before { test_path.write "This is a test." }
-
+    shared_examples_for "a touchable" do
       it "updates accessed time with current time" do
-        original = test_path.atime
-        test_path.touch
+        original = path.atime
+        path.touch
 
-        expect(test_path.atime).to be > original
+        expect(path.atime).to be > original
       end
 
       it "updates accessed time with custom time" do
-        original = test_path.atime
-        test_path.touch Time.now - 1
+        original = path.atime
+        path.touch Time.now - 1
 
-        expect(test_path.atime).to be < original
+        expect(path.atime).to be < original
       end
 
       it "updates modified time with current time" do
-        original = test_path.mtime
-        test_path.touch
+        original = path.mtime
+        path.touch
 
-        expect(test_path.mtime).to be > original
+        expect(path.mtime).to be > original
       end
 
       it "updates modified time with custom time" do
-        original = test_path.mtime
-        test_path.touch Time.now - 1
+        original = path.mtime
+        path.touch Time.now - 1
 
-        expect(test_path.mtime).to be < original
+        expect(path.mtime).to be < original
       end
 
       it "answers self" do
-        expect(test_path.touch).to eq(test_path)
+        expect(path.touch).to eq(path)
       end
     end
 
-    context "without existing file" do
+    context "with existing directory" do
+      let(:path) { temp_dir.join("test").make_dir }
+
+      it_behaves_like "a touchable"
+    end
+
+    context "with existing file" do
+      let(:path) { temp_dir.join("test.txt").write "This is a test." }
+
+      it_behaves_like "a touchable"
+    end
+
+    context "without existing path" do
+      let(:path) { temp_dir.join "test.txt" }
+
       it "creates empty file" do
-        test_path.touch
-        expect(test_path.read).to eq("")
+        path.touch
+        expect(path.read).to eq("")
       end
 
       it "answers self" do
-        expect(test_path.touch).to eq(test_path)
+        expect(path.touch).to eq(path)
       end
+    end
+
+    it "fails when given a nested directory structure that doesn't exist" do
+      expectation = proc { temp_dir.join("a/b/c/d.txt").touch }
+      expect(&expectation).to raise_error(Errno::ENOENT, /no such file or directory/i)
     end
   end
 

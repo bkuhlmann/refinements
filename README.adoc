@@ -842,10 +842,13 @@ Pathname("/test.txt").rewrite { |body| body.sub "[token]", "example" }  # => Pat
 
 ===== #touch
 
-Updates access and modification times for path. Defaults to current time.
+Updates access and modification times for an existing path by defaulting to current time. When path
+doesn't exist, it will be created as a file.
 
 [source,ruby]
 ----
+Pathname("example").touch                   # => Pathname("example")
+Pathname("example").touch Time.now - 1      # => Pathname("example")
 Pathname("example.txt").touch               # => Pathname("example.txt")
 Pathname("example.txt").touch Time.now - 1  # => Pathname("example.txt")
 ----
