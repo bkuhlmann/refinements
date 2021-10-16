@@ -1126,6 +1126,24 @@ example.revalue!                                                   # => #<struct
 example                                                            # => #<struct a=1, b=2, c=3>
 ----
 
+==== Symbol
+
+===== #call
+
+Enhances symbol-to-proc by allowing you to send additional arguments and/or a block. This only works
+with public methods in order to not break encapsulation.
+
+[source,ruby]
+----
+%w[clue crow cow].map(&:tr.call("c", "b"))                              # => ["blue", "brow", "bow"]
+[%w[a b c], %w[c a b]].map(&:index.call { |element| element == "b" })   # => [1, 2]
+%w[1.outside 2.inside].map(&:sub.call(/\./) { |bullet| bullet + " " })  # => ["1. outside", "2. inside"]
+[1, 2, 3].map(&:to_s.call)                                              # => ["1", "2", "3"]
+----
+
+⚠️ Use of `#call` without any arguments or block should be avoided in order to not incur extra
+processing costs since the original symbol-to-proc call can used instead.
+
 == Development
 
 To contribute, run:
