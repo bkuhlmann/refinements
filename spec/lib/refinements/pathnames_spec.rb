@@ -7,6 +7,40 @@ RSpec.describe Refinements::Pathnames do
 
   using described_class
 
+  shared_examples_for "a touchable path" do
+    it "updates accessed time with current time" do
+      original = path.atime
+      path.touch
+
+      expect(path.atime).to be > original
+    end
+
+    it "updates accessed time with custom time" do
+      original = path.atime
+      path.touch Time.now - 1
+
+      expect(path.atime).to be < original
+    end
+
+    it "updates modified time with current time" do
+      original = path.mtime
+      path.touch
+
+      expect(path.mtime).to be > original
+    end
+
+    it "updates modified time with custom time" do
+      original = path.mtime
+      path.touch Time.now - 1
+
+      expect(path.mtime).to be < original
+    end
+
+    it "answers self" do
+      expect(path.touch).to eq(path)
+    end
+  end
+
   describe "#Pathname" do
     it "answers blank pathname for nil" do
       expect(Pathname(nil)).to eq(Pathname(""))
@@ -191,10 +225,11 @@ RSpec.describe Refinements::Pathnames do
   end
 
   describe "#deep_touch" do
-    it "creates nested file path" do
-      path = temp_dir.join("a/b/c/d.txt")
-      path.deep_touch
+    let(:path) { temp_dir.join("a/b/c/d.txt").deep_touch }
 
+    it_behaves_like "a touchable path"
+
+    it "creates nested file path" do
       expect(path.exist?).to eq(true)
     end
   end
@@ -547,50 +582,16 @@ RSpec.describe Refinements::Pathnames do
   end
 
   describe "touch" do
-    shared_examples_for "a touchable" do
-      it "updates accessed time with current time" do
-        original = path.atime
-        path.touch
-
-        expect(path.atime).to be > original
-      end
-
-      it "updates accessed time with custom time" do
-        original = path.atime
-        path.touch Time.now - 1
-
-        expect(path.atime).to be < original
-      end
-
-      it "updates modified time with current time" do
-        original = path.mtime
-        path.touch
-
-        expect(path.mtime).to be > original
-      end
-
-      it "updates modified time with custom time" do
-        original = path.mtime
-        path.touch Time.now - 1
-
-        expect(path.mtime).to be < original
-      end
-
-      it "answers self" do
-        expect(path.touch).to eq(path)
-      end
-    end
-
     context "with existing directory" do
       let(:path) { temp_dir.join("test").make_dir }
 
-      it_behaves_like "a touchable"
+      it_behaves_like "a touchable path"
     end
 
     context "with existing file" do
       let(:path) { temp_dir.join("test.txt").write "This is a test." }
 
-      it_behaves_like "a touchable"
+      it_behaves_like "a touchable path"
     end
 
     context "without existing path" do
