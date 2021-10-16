@@ -38,6 +38,8 @@ module Refinements
         self
       end
 
+      def deep_touch(...) = make_ancestors.touch(...)
+
       def delete = super && self
 
       def directories pattern = "*", flag: File::FNM_SYSCASE

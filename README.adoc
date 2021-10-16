@@ -674,6 +674,17 @@ Copies file from current location to new location while answering itself so it c
 Pathname("input.txt").copy Pathname("output.txt")  # => Pathname("input.txt")
 ----
 
+===== #deep_touch
+
+Has all of the same functionality as the `#touch` method while being able to create ancestor
+directories no matter how deeply nested the file might be.
+
+[source,ruby]
+----
+Pathname("a/b/c/d.txt").touch               # => Pathname("a/b/c/d.txt")
+Pathname("a/b/c/d.txt").touch Time.now - 1  # => Pathname("a/b/c/d.txt")
+----
+
 ===== #delete
 
 Deletes file or directory and answers itself so it can be chained.

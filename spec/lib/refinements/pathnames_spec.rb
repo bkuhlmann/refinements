@@ -190,6 +190,15 @@ RSpec.describe Refinements::Pathnames do
     end
   end
 
+  describe "#deep_touch" do
+    it "creates nested file path" do
+      path = temp_dir.join("a/b/c/d.txt")
+      path.deep_touch
+
+      expect(path.exist?).to eq(true)
+    end
+  end
+
   describe "#delete" do
     let(:path) { temp_dir.join "test.txt" }
 
