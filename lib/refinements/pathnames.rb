@@ -44,6 +44,8 @@ module Refinements
         glob(pattern, flag).select(&:directory?).sort
       end
 
+      def empty = file? ? (truncate(0) and self) : remove_tree.make_dir
+
       def extensions = basename.to_s.split(/(?=\.)+/).tap(&:shift)
 
       def files(pattern = "*", flag: File::FNM_SYSCASE) = glob(pattern, flag).select(&:file?).sort

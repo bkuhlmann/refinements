@@ -253,6 +253,48 @@ RSpec.describe Refinements::Pathnames do
     end
   end
 
+  describe "#empty" do
+    it "creates file when file doesn't exist" do
+      path = temp_dir.join("test.txt").empty
+      expect(path.exist?).to eq(true)
+    end
+
+    it "empties file with content" do
+      path = temp_dir.join("test.txt").write "test"
+      path.empty
+
+      expect(path.read).to eq("")
+    end
+
+    it "answers self (file)" do
+      path = temp_dir.join("test.txt").touch
+      expect(path.empty).to eq(path)
+    end
+
+    it "creates directory when directory doesn't exist" do
+      path = temp_dir.join("test").empty
+      expect(path.exist?).to eq(true)
+    end
+
+    it "empties empty directory" do
+      temp_dir.empty
+      expect(temp_dir.children).to eq([])
+    end
+
+    it "empties directory with files and directories" do
+      temp_dir.join("test/nested").make_path.join("a.txt").touch
+      temp_dir.join("test/b.txt").touch
+      temp_dir.join("c.txt").touch
+      temp_dir.empty
+
+      expect(temp_dir.children).to eq([])
+    end
+
+    it "answers self (directory)" do
+      expect(temp_dir.empty).to eq(temp_dir)
+    end
+  end
+
   describe "#extensions" do
     it "answers single extension" do
       expect(Pathname("test.txt").extensions).to contain_exactly(".txt")

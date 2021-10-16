@@ -666,6 +666,20 @@ Pathname("/example").directories "a*"                      # => [Pathname("a")]
 Pathname("/example").directories flag: File::FNM_DOTMATCH  # => [Pathname(".."), Pathname(".")]
 ----
 
+===== #empty
+
+Empties a directory of children (i.e. folders, nested folders, or files) or clears an existing file
+of contents. If a directory or file doesn't exist, it will be created.
+
+[source,ruby]
+----
+directory = Pathname("test").make_path
+file = directory.join("test.txt").write("example")
+
+file.empty.read           # => ""
+directory.empty.children  # => []
+----
+
 ===== #extensions
 
 Answers file extensions as an array.
