@@ -253,6 +253,22 @@ Allows one to inspect a big decimal with numeric representation.
 BigDecimal.new("5.0E-10").inspect # => "#<BigDecimal:3fd3d458fe84 0.0000000005>"
 ----
 
+==== Class
+
+===== #descendants
+
+Answers descendants of a class.
+
+[source,ruby]
+----
+a = Class.new
+b = Class.new a
+c = Class.new a
+
+a.descendants          # => [b, c]
+Class.new.descendants  # => []
+----
+
 ==== DateTime
 
 ===== .utc
