@@ -1,5 +1,17 @@
 = Changes
 
+== 8.5.0 (2021-10-16)
+
+* Added Class refinements - Brooke Kuhlmann
+* Added Hash fetch value - Brooke Kuhlmann
+* Added Pathname deep touch - Brooke Kuhlmann
+* Added Pathname empty - Brooke Kuhlmann
+* Added Pathname touch specs for directories - Brooke Kuhlmann
+* Added String pluralize - Brooke Kuhlmann
+* Added String singularize - Brooke Kuhlmann
+* Added Symbol refinements - Brooke Kuhlmann
+* Refactored Pathname touchable path specs - Brooke Kuhlmann
+
 == 8.4.1 (2021-10-03)
 
 * Fixed Array and Hash issues with empty compression - Brooke Kuhlmann
