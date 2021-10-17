@@ -3,6 +3,9 @@ detectors:
     exclude:
       - "String#pluralize"
       - "String#singularize"
+  DuplicateMethodCall:
+    exclude:
+      - "Pathname#change_dir"
   FeatureEnvy:
     exclude:
       - "Array#compress!"

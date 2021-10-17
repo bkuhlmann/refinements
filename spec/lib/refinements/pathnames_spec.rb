@@ -158,8 +158,12 @@ RSpec.describe Refinements::Pathnames do
     end
 
     context "with block" do
-      it "changes to directory of current path and yields" do
+      it "changes to directory of current path and yields no argument" do
         temp_dir.change_dir { expect(Pathname.pwd).to eq(temp_dir) }
+      end
+
+      it "changes to directory of current path and yields argument" do
+        temp_dir.change_dir { |path| expect(path).to eq(temp_dir) }
       end
 
       it "answers result of block" do

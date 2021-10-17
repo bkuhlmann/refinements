@@ -28,8 +28,12 @@ module Refinements
     end
 
     refine Pathname do
-      def change_dir &block
-        block ? Dir.chdir(self, &block) : (Dir.chdir self and self)
+      def change_dir
+        if block_given?
+          Dir.chdir(self) { |path| yield Pathname(path) }
+        else
+          Dir.chdir self and self
+        end
       end
 
       def copy to

@@ -663,13 +663,13 @@ link:https://rubyapi.org/o/Dir.chdir#method-c-chdir[Dir.chdir] for details.
 
 [source,ruby]
 ----
-Pathname.pwd                           # => "/"
-Pathname("/test").make_dir.change_dir  # => Pathname "/test"
-Pathname.pwd                           # => "/test"
-
-Pathname.pwd                                         # => "/"
-Pathname("/test").make_dir.change_dir { "example" }  # => "example"
-Pathname.pwd                                         # => "/"
+current = Pathname.pwd                  # => "$HOME/demo" (Present Working Directory)
+custom = current.join("test").make_dir  # => Pathname "$HOME/demo/test"
+custom.change_dir                       # => "$HOME/demo/test" (Present Working Directory)
+current.change_dir                      # => "$HOME/demo" (Present Working Directory)
+custom.change_dir { "example" }         # => "example"
+custom.change_dir { |path| path }       # => Pathname "$HOME/demo/test"
+Pathname.pwd                            # => "$HOME/demo" (Present Working Directory)
 ----
 
 ===== #copy
