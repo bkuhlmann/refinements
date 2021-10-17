@@ -22,15 +22,12 @@ module Refinements
         first.downcase + self[1, size]
       end
 
-      def first number = 0
+      def first maximum = 0
         return self if empty?
+        return self[0] if maximum.zero?
+        return "" if maximum.negative?
 
-        max = Integer number
-
-        return self[0] if max.zero?
-        return "" if max.negative?
-
-        self[..(max - 1)]
+        self[..(maximum - 1)]
       end
 
       def indent multiplier = 1, padding: "  "
@@ -39,15 +36,12 @@ module Refinements
         (padding * multiplier) + self
       end
 
-      def last number = 0
+      def last minimum = 0
         return self if empty?
+        return self[size - 1] if minimum.zero?
+        return "" if minimum.negative?
 
-        min = Integer number
-
-        return self[size - 1] if min.zero?
-        return "" if min.negative?
-
-        self[(min + 1)..]
+        self[(minimum + 1)..]
       end
 
       def pluralize(suffix, replace: /$/, count: 0) = count.abs == 1 ? self : sub(replace, suffix)

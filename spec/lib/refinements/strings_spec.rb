@@ -167,11 +167,6 @@ RSpec.describe Refinements::Strings do
     it "answers itself when empty" do
       expect("".first).to eq("")
     end
-
-    it "fails with type error when unable to cast number to integer" do
-      result = -> { strings.first :bogus }
-      expect(&result).to raise_error(TypeError, "can't convert Symbol into Integer")
-    end
   end
 
   describe "#indent" do
@@ -217,11 +212,6 @@ RSpec.describe Refinements::Strings do
 
     it "answers itself when empty" do
       expect("".last).to eq("")
-    end
-
-    it "fails with type error when unable to cast number to integer" do
-      result = -> { strings.last :bogus }
-      expect(&result).to raise_error(TypeError, "can't convert Symbol into Integer")
     end
   end
 
