@@ -120,8 +120,9 @@ Removes `nil` and empty objects without mutating itself.
 ----
 object = Object.new
 example = [1, "blueberry", nil, "", [], {}, object]
-example.compress  # => [1, "blueberry", object]
-example           # => [1, "blueberry", nil, "", [], {}, object]
+
+example.compress  # [1, "blueberry", object]
+example           # [1, "blueberry", nil, "", [], {}, object]
 ----
 
 ===== #compress!
@@ -132,8 +133,9 @@ Removes `nil` and empty values while mutating itself.
 ----
 object = Object.new
 example = [1, "blueberry", nil, "", [], {}, object]
-example.compress  # => [1, "blueberry", object]
-example           # => [1, "blueberry", object]
+
+example.compress  # [1, "blueberry", object]
+example           # [1, "blueberry", object]
 ----
 
 ===== #excluding
@@ -142,8 +144,8 @@ Removes given array or elements without mutating itself.
 
 [source,ruby]
 ----
-[1, 2, 3, 4, 5].excluding [4, 5]  # => [1, 2, 3]
-[1, 2, 3, 4, 5].excluding 4, 5    # => [1, 2, 3]
+[1, 2, 3, 4, 5].excluding [4, 5]  # [1, 2, 3]
+[1, 2, 3, 4, 5].excluding 4, 5    # [1, 2, 3]
 ----
 
 ===== #filter_find
@@ -158,9 +160,9 @@ handlers = [
   ->(object) { object if object == :a }
 ]
 
-handlers.filter_find                                # => Enumerator::Lazy
-handlers.filter_find { |handler| handler.call :a }  # => :a
-handlers.filter_find { |handler| handler.call :x }  # => nil
+handlers.filter_find                                # Enumerator::Lazy
+handlers.filter_find { |handler| handler.call :a }  # :a
+handlers.filter_find { |handler| handler.call :x }  # nil
 ----
 
 ===== #including
@@ -169,8 +171,8 @@ Adds given array or elements without mutating itself.
 
 [source,ruby]
 ----
-[1, 2, 3].including [4, 5]  # => [1, 2, 3, 4, 5]
-[1, 2, 3].including 4, 5    # => [1, 2, 3, 4, 5]
+[1, 2, 3].including [4, 5]  # [1, 2, 3, 4, 5]
+[1, 2, 3].including 4, 5    # [1, 2, 3, 4, 5]
 ----
 
 ===== #intersperse
@@ -179,9 +181,9 @@ Inserts additional elements or array between all members of given array.
 
 [source,ruby]
 ----
-[1, 2, 3].intersperse :a         # => [1, :a, 2, :a, 3]
-[1, 2, 3].intersperse :a, :b     # => [1, :a, :b, 2, :a, :b, 3]
-[1, 2, 3].intersperse %i[a b c]  # => [1, :a, :b, :c, 2, :a, :b, :c, 3]
+[1, 2, 3].intersperse :a         # [1, :a, 2, :a, 3]
+[1, 2, 3].intersperse :a, :b     # [1, :a, :b, 2, :a, :b, 3]
+[1, 2, 3].intersperse %i[a b c]  # [1, :a, :b, :c, 2, :a, :b, :c, 3]
 ----
 
 ===== #maximum
@@ -193,8 +195,8 @@ Answers the maximum extracted value from a collection of objects.
 Point = Struct.new :x, :y, keyword_init: true
 points = [Point[x: 1, y: 2], Point[x: 0, y: 1], Point[x: 2, y: 3]]
 
-points.maximum(:x)  # => 2
-points.maximum(:y)  # => 3
+points.maximum(:x)  # 2
+points.maximum(:y)  # 3
 ----
 
 ===== #mean
@@ -203,10 +205,10 @@ Answers mean/average all elements within an array.
 
 [source,ruby]
 ----
-[].mean                 # => 0
-[5].mean                # => 5
-[1, 2, 3].mean          # => 2
-[1.25, 1.5, 1.75].mean  # => 1.5
+[].mean                 # 0
+[5].mean                # 5
+[1, 2, 3].mean          # 2
+[1.25, 1.5, 1.75].mean  # 1.5
 ----
 
 ===== #minimum
@@ -218,8 +220,8 @@ Answers the minimum extracted value from a collection of objects.
 Point = Struct.new :x, :y, keyword_init: true
 points = [Point[x: 1, y: 2], Point[x: 0, y: 1], Point[x: 2, y: 3]]
 
-points.minimum(:x)  # => 0
-points.minimum(:y)  # => 1
+points.minimum(:x)  # 0
+points.minimum(:y)  # 1
 ----
 
 ===== #pad
@@ -229,9 +231,9 @@ needs to be a specific size with padded values.
 
 [source,ruby]
 ----
-[1].pad 0             # => [1]
-[1].pad 0, max: 3     # => [1, 0, 0]
-[1, 2].pad 3, max: 3  # => [1, 2, 3]
+[1].pad 0             # [1]
+[1].pad 0, max: 3     # [1, 0, 0]
+[1, 2].pad 3, max: 3  # [1, 2, 3]
 ----
 
 ===== #ring
@@ -241,7 +243,7 @@ Answers a circular array which can enumerate before, current, after elements.
 [source,ruby]
 ----
 example = [1, 2, 3]
-example.ring # => #<Enumerator: ...>
+example.ring  # "#<Enumerator: ...>"
 example.ring { |(before, current, after)| puts "#{before} #{current} #{after}" }
 
 # [3 1 2]
@@ -257,7 +259,7 @@ Allows one to inspect a big decimal with numeric representation.
 
 [source,ruby]
 ----
-BigDecimal.new("5.0E-10").inspect # => "#<BigDecimal:3fd3d458fe84 0.0000000005>"
+BigDecimal.new("5.0E-10").inspect  # "#<BigDecimal:3fd3d458fe84 0.0000000005>"
 ----
 
 ==== Class
@@ -272,8 +274,8 @@ a = Class.new
 b = Class.new a
 c = Class.new a
 
-a.descendants          # => [b, c]
-Class.new.descendants  # => []
+a.descendants          # [b, c]
+Class.new.descendants  # []
 ----
 
 ==== DateTime
@@ -284,7 +286,7 @@ Answers new DateTime object for current UTC date/time.
 
 [source,ruby]
 ----
-DateTime.utc # => #<DateTime: 2019-12-31T18:17:00+00:00 ((2458849j,65820s,181867000n),+0s,2299161j)>
+DateTime.utc # "#<DateTime: 2019-12-31T18:17:00+00:00 ((2458849j,65820s,181867000n),+0s,2299161j)>"
 ----
 
 ==== Hash
@@ -296,8 +298,8 @@ Answers new hash where missing keys, even deeply nested, answer an empty hash.
 [source,ruby]
 ----
 example = Hash.infinite
-example[:a]          # => {}
-example[:a][:b][:c]  # => {}
+example[:a]          # {}
+example[:a][:b][:c]  # {}
 ----
 
 ===== .with_default
@@ -307,10 +309,10 @@ Answers new hash where every top-level missing key has the same default value.
 [source,ruby]
 ----
 example = Hash.with_default ""
-example[:a]  # => ""
+example[:a]  # ""
 
 example = Hash.with_default []
-example[:b]  # => []
+example[:b]  # []
 ----
 
 ===== #compress
@@ -321,8 +323,9 @@ Removes `nil` and empty objects without mutating itself.
 ----
 object = Object.new
 example = {a: 1, b: "blueberry", c: nil, d: "", e: [], f: {}, g: object}
-example.compress  # => {a: 1, b: "blueberry", g: object}
-example           # => {a: 1, b: "blueberry", c: nil, d: "", e: [], f: {}, g: object}
+
+example.compress  # {a: 1, b: "blueberry", g: object}
+example           # {a: 1, b: "blueberry", c: nil, d: "", e: [], f: {}, g: object}
 ----
 
 ===== #compress!
@@ -333,8 +336,9 @@ Removes `nil` and empty objects while mutating itself.
 ----
 object = Object.new
 example = {a: 1, b: "blueberry", c: nil, d: "", e: [], f: {}, g: object}
-example.compress!  # => {a: 1, b: "blueberry", g: object}
-example            # => {a: 1, b: "blueberry", g: object}
+
+example.compress!  # {a: 1, b: "blueberry", g: object}
+example            # {a: 1, b: "blueberry", g: object}
 ----
 
 ===== #deep_merge
@@ -344,8 +348,9 @@ Merges deeply nested hashes together without mutating itself.
 [source,ruby]
 ----
 example = {a: "A", b: {one: "One", two: "Two"}}
-example.deep_merge b: {one: 1}  # => {a: "A", b: {one: 1, two: "Two"}}
-example                         # => {a: "A", b: {one: "One", two: "Two"}}
+
+example.deep_merge b: {one: 1}  # {a: "A", b: {one: 1, two: "Two"}}
+example                         # {a: "A", b: {one: "One", two: "Two"}}
 ----
 
 ===== #deep_merge!
@@ -355,8 +360,9 @@ Merges deeply nested hashes together while mutating itself.
 [source,ruby]
 ----
 example = {a: "A", b: {one: "One", two: "Two"}}
-example.deep_merge! b: {one: 1}  # => {a: "A", b: {one: 1, two: "Two"}}
-example                          # => {a: "A", b: {one: 1, two: "Two"}}
+
+example.deep_merge! b: {one: 1}  # {a: "A", b: {one: 1, two: "Two"}}
+example                          # {a: "A", b: {one: 1, two: "Two"}}
 ----
 
 ===== #deep_stringify_keys
@@ -366,8 +372,8 @@ Stringifies keys of nested hash without mutating itself. Does not handle nested 
 [source,ruby]
 ----
 example = {a: {b: 2}}
-example.deep_stringify_keys  # => {"a" => {"b" => 1}}
-example                      # => {a: {b: 2}}
+example.deep_stringify_keys  # {"a" => {"b" => 1}}
+example                      # {a: {b: 2}}
 ----
 
 ===== #deep_stringify_keys!
@@ -377,8 +383,8 @@ Stringifies keys of nested hash while mutating itself. Does not handle nested ar
 [source,ruby]
 ----
 example = {a: {b: 2}}
-example.deep_stringify_keys!  # => {"a" => {"b" => 1}}
-example                       # => {"a" => {"b" => 1}}
+example.deep_stringify_keys!  # {"a" => {"b" => 1}}
+example                       # {"a" => {"b" => 1}}
 ----
 
 ===== #deep_symbolize_keys
@@ -388,8 +394,8 @@ Symbolizes keys of nested hash without mutating itself. Does not handle nested a
 [source,ruby]
 ----
 example = {"a" => {"b" => 2}}
-example.deep_symbolize_keys  # => {a: {b: 1}}
-example                      # => {"a" => {"b" => 2}}
+example.deep_symbolize_keys  # {a: {b: 1}}
+example                      # {"a" => {"b" => 2}}
 ----
 
 ===== #deep_symbolize_keys!
@@ -399,8 +405,8 @@ Symbolizes keys of nested hash while mutating itself. Does not handle nested arr
 [source,ruby]
 ----
 example = {"a" => {"b" => 2}}
-example.deep_symbolize_keys!  # => {a: {b: 1}}
-example                       # => {a: {b: 1}}
+example.deep_symbolize_keys!  # {a: {b: 1}}
+example                       # {a: {b: 1}}
 ----
 
 ===== #fetch_value
@@ -411,12 +417,12 @@ expression `example.fetch(:desired_key) || "default_value"`.
 
 [source,ruby]
 ----
-{a: "test"}.fetch_value :a, "default"  # => "test"
-{a: "test"}.fetch_value :a             # => "test"
-{a: nil}.fetch_value :a, "default"      # => "default"
-{}.fetch_value(:a) { "default" }        # => "default"
-{}.fetch_value :a                       # => KeyError
-{a: "test"}.fetch_value                 # => ArgumentError
+{a: "test"}.fetch_value :a, "default"  # "test"
+{a: "test"}.fetch_value :a             # "test"
+{a: nil}.fetch_value :a, "default"     # "default"
+{}.fetch_value(:a) { "default" }       # "default"
+{}.fetch_value :a                      # KeyError
+{a: "test"}.fetch_value                # ArgumentError
 ----
 
 ===== #flatten_keys
@@ -426,15 +432,15 @@ though.
 
 [source,ruby]
 ----
-{a: {b: 1}}.flatten_keys prefix: :test  # => {test_a_b: 1}
-{a: {b: 1}}.flatten_keys delimiter: :|  # => {:"a|b" => 1}
+{a: {b: 1}}.flatten_keys prefix: :test          # {test_a_b: 1}
+{a: {b: 1}}.flatten_keys delimiter: :|          # {:"a|b" => 1}
 
-{a: {b: 1}}.flatten_keys cast: :to_s            # => {"a_b" => 1}
-{"a" => {"b" => 1}}.flatten_keys cast: :to_sym  # => {a_b: 1}
+{a: {b: 1}}.flatten_keys cast: :to_s            # {"a_b" => 1}
+{"a" => {"b" => 1}}.flatten_keys cast: :to_sym  # {a_b: 1}
 
 example = {a: {b: 1}}
-example.flatten_keys  # => {a_b: 1}
-example               # => {a: {b: 1}}
+example.flatten_keys                            # {a_b: 1}
+example                                         # {a: {b: 1}}
 ----
 
 ===== #flatten_keys!
@@ -445,8 +451,8 @@ though.
 [source,ruby]
 ----
 example = {a: {b: 1}}
-example.flatten_keys!  # => {a_b: 1}
-example                # => {a_b: 1}
+example.flatten_keys!  # {a_b: 1}
+example                # {a_b: 1}
 ----
 
 ===== #recurse
@@ -457,8 +463,8 @@ handle nested arrays, though.
 [source,ruby]
 ----
 example = {"a" => {"b" => 1}}
-example.recurse(&:symbolize_keys)  # => {a: {b: 1}}
-example.recurse(&:invert)          # => {{"b" => 1} => "a"}
+example.recurse(&:symbolize_keys)  # {a: {b: 1}}
+example.recurse(&:invert)          # {{"b" => 1} => "a"}
 ----
 
 ===== #stringify_keys
@@ -468,8 +474,8 @@ Converts keys to strings without mutating itself.
 [source,ruby]
 ----
 example = {a: 1, b: 2}
-example.stringify_keys  # => {"a" => 1, "b" => 2}
-example                 # => {a: 1, b: 2}
+example.stringify_keys  # {"a" => 1, "b" => 2}
+example                 # {a: 1, b: 2}
 ----
 
 ===== #stringify_keys!
@@ -479,8 +485,8 @@ Converts keys to strings while mutating itself.
 [source,ruby]
 ----
 example = {a: 1, b: 2}
-example.stringify_keys!  # => {"a" => 1, "b" => 2}
-example                  # => {"a" => 1, "b" => 2}
+example.stringify_keys!  # {"a" => 1, "b" => 2}
+example                  # {"a" => 1, "b" => 2}
 ----
 
 ===== #symbolize_keys
@@ -490,8 +496,8 @@ Converts keys to symbols without mutating itself.
 [source,ruby]
 ----
 example = {"a" => 1, "b" => 2}
-example.symbolize_keys  # => {a: 1, b: 2}
-example                 # => {"a" => 1, "b" => 2}
+example.symbolize_keys  # {a: 1, b: 2}
+example                 # {"a" => 1, "b" => 2}
 ----
 
 ===== #symbolize_keys!
@@ -501,8 +507,8 @@ Converts keys to symbols while mutating itself.
 [source,ruby]
 ----
 example = {"a" => 1, "b" => 2}
-example.symbolize_keys!  # => {a: 1, b: 2}
-example                  # => {a: 1, b: 2}
+example.symbolize_keys!  # {a: 1, b: 2}
+example                  # {a: 1, b: 2}
 ----
 
 ===== #use
@@ -512,7 +518,8 @@ Passes each hash value as a block argument for further processing.
 [source,ruby]
 ----
 example = {unit: "221B", street: "Baker Street", city: "London", country: "UK"}
-example.use { |unit, street| "#{unit} #{street}" }  # => "221B Baker Street"
+
+example.use { |unit, street| "#{unit} #{street}" }  # "221B Baker Street"
 ----
 
 ==== IO
@@ -525,8 +532,8 @@ block, you'll need to close the stream manually.
 
 [source,ruby]
 ----
-io = IO.void                                    # => #<IO:fd 20>
-io = IO.void { |void| void.write "nevermore" }  # => #<IO:(closed)>
+io = IO.void                                    # "#<IO:fd 20>"
+io = IO.void { |void| void.write "nevermore" }  # "#<IO:(closed)>"
 ----
 
 ===== #redirect
@@ -539,8 +546,8 @@ answered instead.
 io = IO.new IO.sysopen(Pathname("test.txt").to_s, "w+")
 other = IO.new IO.sysopen(Pathname("other.txt").to_s, "w+")
 
-io.redirect other                                    # => #<IO:fd 20>
-io.redirect(other) { |stream| stream.write "test" }  # => #<IO:fd 21>
+io.redirect other                                    # "#<IO:fd 20>"
+io.redirect(other) { |stream| stream.write "test" }  # "#<IO:fd 21>"
 ----
 
 ===== #reread
@@ -552,12 +559,12 @@ Answers full stream by rewinding to beginning of stream and reading all content.
 io = IO.new IO.sysopen(Pathname("test.txt").to_s, "w+")
 io.write "This is a test."
 
-io.reread    # => "This is a test."
-io.reread 4  # => "This"
+io.reread                  # "This is a test."
+io.reread 4                # "This"
 
 buffer = "".dup
-io.reread(buffer: buffer)  # => "This is a test."
-buffer                     # => "This is a test."
+io.reread(buffer: buffer)  # "This is a test."
+buffer                     # "This is a test."
 ----
 
 ===== #squelch
@@ -568,9 +575,10 @@ arguments or when given a block.
 [source,ruby]
 ----
 io = IO.new IO.sysopen(Pathname("test.txt").to_s, "w+")
-io.squelch                      # => #<IO:fd 20>
-io.squelch { io.write "Test" }  # => #<IO:fd 20>
-io.reread                       # => ""
+
+io.squelch                      # "#<IO:fd 20>"
+io.squelch { io.write "Test" }  # "#<IO:fd 20>"
+io.reread                       # ""
 ----
 
 ==== Pathname
@@ -584,7 +592,7 @@ construct a valid path.
 
 [source,ruby]
 ----
-Pathname(nil) # => Pathname("")
+Pathname(nil)  # Pathname("")
 ----
 
 ===== .home
@@ -593,7 +601,7 @@ Answers user home directory.
 
 [source,ruby]
 ----
-Pathname.home  # => Pathname "/Users/bkuhlmann"
+Pathname.home  # Pathname "/Users/demo"
 ----
 
 ===== .make_temp_dir
@@ -610,13 +618,13 @@ reality, these paths will be longer depending on which operating system you are 
 
 [source,ruby]
 ----
-Pathname.make_temp_dir                                       # => Pathname:/var/folders/T/temp-20200101-16940-r8
-Pathname.make_temp_dir prefix: "prefix-"                     # => Pathname:/var/folders/T/prefix-20200101-16940-r8
-Pathname.make_temp_dir suffix: "-suffix"                     # => Pathname:/var/folders/T/temp-20200101-16940-r8-suffix
-Pathname.make_temp_dir prefix: "prefix-", suffix: "-suffix"  # => Pathname:/var/folders/T/prefix-20200101-16940-r8-suffix
-Pathname.make_temp_dir root: "/example"                      # => Pathname:/example/temp-20200101-16940-r8
-Pathname.make_temp_dir { "I am a block result" }             # => "I am a block result"
-Pathname.make_temp_dir { |path| path.join "sub_dir" }        # => Pathname:/var/folders/T/temp-20200101-16940-r8/sub_dir
+Pathname.make_temp_dir                                       # Pathname:/var/folders/T/temp-20200101-16940-r8
+Pathname.make_temp_dir prefix: "prefix-"                     # Pathname:/var/folders/T/prefix-20200101-16940-r8
+Pathname.make_temp_dir suffix: "-suffix"                     # Pathname:/var/folders/T/temp-20200101-16940-r8-suffix
+Pathname.make_temp_dir prefix: "prefix-", suffix: "-suffix"  # Pathname:/var/folders/T/prefix-20200101-16940-r8-suffix
+Pathname.make_temp_dir root: "/example"                      # Pathname:/example/temp-20200101-16940-r8
+Pathname.make_temp_dir { "I am a block result" }             # "I am a block result"
+Pathname.make_temp_dir { |path| path.join "sub_dir" }        # Pathname:/var/folders/T/temp-20200101-16940-r8/sub_dir
 ----
 
 ===== .require_tree
@@ -653,7 +661,7 @@ Answers operating system root path.
 
 [source,ruby]
 ----
-Pathname.root  # => Pathname "/"
+Pathname.root  # Pathname "/"
 ----
 
 ===== #change_dir
@@ -663,13 +671,13 @@ link:https://rubyapi.org/o/Dir.chdir#method-c-chdir[Dir.chdir] for details.
 
 [source,ruby]
 ----
-current = Pathname.pwd                  # => "$HOME/demo" (Present Working Directory)
-custom = current.join("test").make_dir  # => Pathname "$HOME/demo/test"
-custom.change_dir                       # => "$HOME/demo/test" (Present Working Directory)
-current.change_dir                      # => "$HOME/demo" (Present Working Directory)
-custom.change_dir { "example" }         # => "example"
-custom.change_dir { |path| path }       # => Pathname "$HOME/demo/test"
-Pathname.pwd                            # => "$HOME/demo" (Present Working Directory)
+current = Pathname.pwd                  # "$HOME/demo" (Present Working Directory)
+custom = current.join("test").make_dir  # Pathname "$HOME/demo/test"
+custom.change_dir                       # "$HOME/demo/test" (Present Working Directory)
+current.change_dir                      # "$HOME/demo" (Present Working Directory)
+custom.change_dir { "example" }         # "example"
+custom.change_dir { |path| path }       # Pathname "$HOME/demo/test"
+Pathname.pwd                            # "$HOME/demo" (Present Working Directory)
 ----
 
 ===== #copy
@@ -678,7 +686,7 @@ Copies file from current location to new location while answering itself so it c
 
 [source,ruby]
 ----
-Pathname("input.txt").copy Pathname("output.txt")  # => Pathname("input.txt")
+Pathname("input.txt").copy Pathname("output.txt")  # Pathname("input.txt")
 ----
 
 ===== #deep_touch
@@ -688,8 +696,8 @@ directories no matter how deeply nested the file might be.
 
 [source,ruby]
 ----
-Pathname("a/b/c/d.txt").touch               # => Pathname("a/b/c/d.txt")
-Pathname("a/b/c/d.txt").touch Time.now - 1  # => Pathname("a/b/c/d.txt")
+Pathname("a/b/c/d.txt").touch               # Pathname("a/b/c/d.txt")
+Pathname("a/b/c/d.txt").touch Time.now - 1  # Pathname("a/b/c/d.txt")
 ----
 
 ===== #delete
@@ -699,10 +707,10 @@ Deletes file or directory and answers itself so it can be chained.
 [source,ruby]
 ----
 # When path exists.
-Pathname("/example.txt").touch.delete  # => Pathname("/example")
+Pathname("/example.txt").touch.delete  # Pathname("/example")
 
 # When path doesn't exist.
-Pathname("/example.txt").delete        # => Errno::ENOENT
+Pathname("/example.txt").delete        # Errno::ENOENT
 ----
 
 ===== #directories
@@ -711,9 +719,9 @@ Answers all directories or filtered directories for current path.
 
 [source,ruby]
 ----
-Pathname("/example").directories                           # => [Pathname("a"), Pathname("b")]
-Pathname("/example").directories "a*"                      # => [Pathname("a")]
-Pathname("/example").directories flag: File::FNM_DOTMATCH  # => [Pathname(".."), Pathname(".")]
+Pathname("/example").directories                           # [Pathname("a"), Pathname("b")]
+Pathname("/example").directories "a*"                      # [Pathname("a")]
+Pathname("/example").directories flag: File::FNM_DOTMATCH  # [Pathname(".."), Pathname(".")]
 ----
 
 ===== #empty
@@ -726,8 +734,8 @@ of contents. If a directory or file doesn't exist, it will be created.
 directory = Pathname("test").make_path
 file = directory.join("test.txt").write("example")
 
-file.empty.read           # => ""
-directory.empty.children  # => []
+file.empty.read           # ""
+directory.empty.children  # []
 ----
 
 ===== #extensions
@@ -736,7 +744,7 @@ Answers file extensions as an array.
 
 [source,ruby]
 ----
-Pathname("example.txt.erb").extensions  # => [".txt", ".erb"]
+Pathname("example.txt.erb").extensions  # [".txt", ".erb"]
 ----
 
 ===== #files
@@ -745,9 +753,9 @@ Answers all files or filtered files for current path.
 
 [source,ruby]
 ----
-Pathname("/example").files                           # => [Pathname("a.txt"), Pathname("a.png")]
-Pathname("/example").files "*.png"                   # => [Pathname("a.png")]
-Pathname("/example").files flag: File::FNM_DOTMATCH  # => [Pathname(".ruby-version")]
+Pathname("/example").files                           # [Pathname("a.txt"), Pathname("a.png")]
+Pathname("/example").files "*.png"                   # [Pathname("a.png")]
+Pathname("/example").files flag: File::FNM_DOTMATCH  # [Pathname(".ruby-version")]
 ----
 
 ===== #gsub
@@ -757,10 +765,10 @@ Same behavior as `String#gsub` but answers a path with patterns replaced with de
 [source,ruby]
 ----
 Pathname("/a/path/some/path").gsub("path", "test")
-# => Pathname("/a/test/some/test")
+# Pathname("/a/test/some/test")
 
 Pathname("/%placeholder%/some/%placeholder%").gsub("%placeholder%", "test")
-# => Pathname("/test/some/test")
+# Pathname("/test/some/test")
 ----
 
 ===== #make_ancestors
@@ -769,9 +777,9 @@ Ensures all ancestor directories are created for a path.
 
 [source,ruby]
 ----
-Pathname("/one/two").make_ancestors  # => Pathname("/one/two")
-Pathname("/one").exist?              # => true
-Pathname("/one/two").exist?          # => false
+Pathname("/one/two").make_ancestors  # Pathname("/one/two")
+Pathname("/one").exist?              # true
+Pathname("/one/two").exist?          # false
 ----
 
 ===== #make_dir
@@ -781,8 +789,8 @@ not throwing errors when directory does exist in order to ensure the pathname ca
 
 [source,ruby]
 ----
-Pathname("/one").make_dir           # => Pathname("/one")
-Pathname("/one").make_dir.make_dir  # => Pathname("/one")
+Pathname("/one").make_dir           # Pathname("/one")
+Pathname("/one").make_dir.make_dir  # Pathname("/one")
 ----
 
 ===== #make_path
@@ -792,8 +800,8 @@ not throwing errors when directory does exist in order to ensure the pathname ca
 
 [source,ruby]
 ----
-Pathname("/one/two/three").make_path            # => Pathname("/one/two/three")
-Pathname("/one/two/three").make_path.make_path  # => Pathname("/one/two/three")
+Pathname("/one/two/three").make_path            # Pathname("/one/two/three")
+Pathname("/one/two/three").make_path.make_path  # Pathname("/one/two/three")
 ----
 
 ===== #name
@@ -802,7 +810,7 @@ Answers file name without extension.
 
 [source,ruby]
 ----
-Pathname("example.txt").name # => Pathname("example")
+Pathname("example.txt").name # Pathname("example")
 ----
 
 ===== #relative_parent
@@ -811,7 +819,7 @@ Answers relative path from parent directory. This is a complement to `#relative_
 
 [source,ruby]
 ----
-Pathname("/one/two/three").relative_parent("/one") # => Pathname "two"
+Pathname("/one/two/three").relative_parent("/one")  # Pathname "two"
 ----
 
 ===== #remove_dir
@@ -821,9 +829,9 @@ not throwing errors when directory does exist in order to ensure the pathname ca
 
 [source,ruby]
 ----
-Pathname("/test").make_dir.remove_dir.exist?  # => false
-Pathname("/test").remove_dir                  # => Pathname("/test")
-Pathname("/test").remove_dir.remove_dir       # => Pathname("/test")
+Pathname("/test").make_dir.remove_dir.exist?  # false
+Pathname("/test").remove_dir                  # Pathname("/test")
+Pathname("/test").remove_dir.remove_dir       # Pathname("/test")
 ----
 
 ===== #remove_tree
@@ -837,14 +845,14 @@ parent_path = Pathname "/one"
 child_path = parent_path.join "two"
 
 child_path.make_path
-child_path.remove_tree  # => Pathname "/one/two"
-child_path.exist?       # => false
-paremt_path.exist?      # => true
+child_path.remove_tree   # Pathname "/one/two"
+child_path.exist?        # false
+paremt_path.exist?       # true
 
 child_path.make_path
-parent_path.remove_tree  # => Pathname "/one"
-child_path.exist?        # => false
-parent_path.exist?       # => false
+parent_path.remove_tree  # Pathname "/one"
+child_path.exist?        # false
+parent_path.exist?       # false
 ----
 
 ===== #rewrite
@@ -854,8 +862,8 @@ immediate writing back to the same file.
 
 [source,ruby]
 ----
-Pathname("/test.txt").rewrite                                           # => Pathname("/test.txt")
-Pathname("/test.txt").rewrite { |body| body.sub "[token]", "example" }  # => Pathname("/test.txt")
+Pathname("/test.txt").rewrite                                           # Pathname("/test.txt")
+Pathname("/test.txt").rewrite { |body| body.sub "[token]", "example" }  # Pathname("/test.txt")
 ----
 
 ===== #touch
@@ -865,10 +873,10 @@ doesn't exist, it will be created as a file.
 
 [source,ruby]
 ----
-Pathname("example").touch                   # => Pathname("example")
-Pathname("example").touch Time.now - 1      # => Pathname("example")
-Pathname("example.txt").touch               # => Pathname("example.txt")
-Pathname("example.txt").touch Time.now - 1  # => Pathname("example.txt")
+Pathname("example").touch                   # Pathname("example")
+Pathname("example").touch Time.now - 1      # Pathname("example")
+Pathname("example.txt").touch               # Pathname("example.txt")
+Pathname("example.txt").touch Time.now - 1  # Pathname("example.txt")
 ----
 
 ===== #write
@@ -878,9 +886,9 @@ options.
 
 [source,ruby]
 ----
-Pathname("example.txt").write "test"             # => Pathname("example.txt")
-Pathname("example.txt").write "test", offset: 1  # => Pathname("example.txt")
-Pathname("example.txt").write "test", mode: "a"  # => Pathname("example.txt")
+Pathname("example.txt").write "test"             # Pathname("example.txt")
+Pathname("example.txt").write "test", offset: 1  # Pathname("example.txt")
+Pathname("example.txt").write "test", mode: "a"  # Pathname("example.txt")
 ----
 
 ==== String
@@ -891,7 +899,7 @@ Answers `true`/`false` based on whether string is blank, `<space>`, `\n`, `\t`, 
 
 [source,ruby]
 ----
-" \n\t\r".blank? # => true
+" \n\t\r".blank?  # true
 ----
 
 ===== #camelcase
@@ -900,7 +908,7 @@ Answers a camelcased string.
 
 [source,ruby]
 ----
-"this_is_an_example".camelcase # => "ThisIsAnExample"
+"this_is_an_example".camelcase  # "ThisIsAnExample"
 ----
 
 ===== #down
@@ -909,7 +917,7 @@ Answers string with only first letter downcased.
 
 [source,ruby]
 ----
-"EXAMPLE".down # => "eXAMPLE"
+"EXAMPLE".down  # "eXAMPLE"
 ----
 
 ===== #first
@@ -918,8 +926,8 @@ Answers first character of a string or first set of characters if given a number
 
 [source,ruby]
 ----
-"example".first    # => "e"
-"example".first 4  # => "exam"
+"example".first    # "e"
+"example".first 4  # "exam"
 ----
 
 ===== #indent
@@ -928,11 +936,11 @@ Answers string indented by two spaces by default.
 
 [source,ruby]
 ----
-"example".indent                  # => "  example"
-"example".indent 0                # => "example"
-"example".indent -1               # => "example"
-"example".indent 2                # => "    example"
-"example".indent 3, padding: " "  # => "   example"
+"example".indent                  # "  example"
+"example".indent 0                # "example"
+"example".indent -1               # "example"
+"example".indent 2                # "    example"
+"example".indent 3, padding: " "  # "   example"
 ----
 
 ===== #last
@@ -941,8 +949,8 @@ Answers last character of a string or last set of characters if given a number.
 
 [source,ruby]
 ----
-"instant".last    # => "t"
-"instant".last 3  # => "ant"
+"instant".last    # "t"
+"instant".last 3  # "ant"
 ----
 
 ===== #pluralize
@@ -955,14 +963,14 @@ well in other languages.
 
 [source,ruby]
 ----
-"apple".pluralize "s"                      # => apples
-"apple".pluralize "s", count: 0            # => apples
-"apple".pluralize "s", count: 1            # => apple
-"apple".pluralize "s", count: -1           # => apple
-"apple".pluralize "s", count: 2            # => apples
-"apple".pluralize "s", count: -2           # => apples
-"cactus".pluralize "i", replace: "us"      # => cacti
-"cul-de-sac".pluralize "ls", replace: "l"  # => culs-de-sac
+"apple".pluralize "s"                      # apples
+"apple".pluralize "s", count: 0            # apples
+"apple".pluralize "s", count: 1            # apple
+"apple".pluralize "s", count: -1           # apple
+"apple".pluralize "s", count: 2            # apples
+"apple".pluralize "s", count: -2           # apples
+"cactus".pluralize "i", replace: "us"      # cacti
+"cul-de-sac".pluralize "ls", replace: "l"  # culs-de-sac
 ----
 
 ===== #singularize
@@ -975,14 +983,14 @@ well in other languages.
 
 [source,ruby]
 ----
-"apples".singularize "s"                      # => apple
-"apples".singularize "s", count: 0            # => apples
-"apples".singularize "s", count: 1            # => apple
-"apples".singularize "s", count: -1           # => apple
-"apples".singularize "s", count: 2            # => apples
-"apples".singularize "s", count: -2           # => apples
-"cacti".singularize "i", replace: "us"        # => cactus
-"culs-de-sac".singularize "ls", replace: "l"  # => cul-de-sac
+"apples".singularize "s"                      # apple
+"apples".singularize "s", count: 0            # apples
+"apples".singularize "s", count: 1            # apple
+"apples".singularize "s", count: -1           # apple
+"apples".singularize "s", count: 2            # apples
+"apples".singularize "s", count: -2           # apples
+"cacti".singularize "i", replace: "us"        # cactus
+"culs-de-sac".singularize "ls", replace: "l"  # cul-de-sac
 ----
 
 ===== #snakecase
@@ -991,7 +999,7 @@ Answers a snakecased string.
 
 [source,ruby]
 ----
-"ThisIsAnExample".snakecase # => "this_is_an_example"
+"ThisIsAnExample".snakecase  # "this_is_an_example"
 ----
 
 ===== #titleize
@@ -1000,7 +1008,7 @@ Answers titleized string.
 
 [source,ruby]
 ----
-"ThisIsAnExample".titleize # => "This Is An Example"
+"ThisIsAnExample".titleize  # "This Is An Example"
 ----
 
 ===== #to_bool
@@ -1009,11 +1017,11 @@ Answers string as a boolean.
 
 [source,ruby]
 ----
-"true".to_bool     # => true
-"yes".to_bool      # => true
-"1".to_bool        # => true
-"".to_bool         # => false
-"example".to_bool  # => false
+"true".to_bool     # true
+"yes".to_bool      # true
+"1".to_bool        # true
+"".to_bool         # false
+"example".to_bool  # false
 ----
 
 ===== #up
@@ -1022,7 +1030,7 @@ Answers string with only first letter upcased.
 
 [source,ruby]
 ----
-"example".up # => "Example"
+"example".up  # "Example"
 ----
 
 ==== String IO
@@ -1036,12 +1044,12 @@ Answers full string by rewinding to beginning of string and reading all content.
 io = StringIO.new
 io.write "This is a test."
 
-io.reread    # => "This is a test."
-io.reread 4  # => "This"
+io.reread    # "This is a test."
+io.reread 4  # "This"
 
 buffer = "".dup
-io.reread(buffer: buffer)  # => "This is a test."
-buffer                     # => "This is a test."
+io.reread(buffer: buffer)  # "This is a test."
+buffer                     # "This is a test."
 ----
 
 ==== Struct
@@ -1052,8 +1060,8 @@ Answers whether a struct was constructed with keyword or positional arguments.
 
 [source,ruby]
 ----
-Struct.new(:a, keyword_init: true).keyworded?  # => true
-Struct.new(:a).keyworded?                      # => false
+Struct.new(:a, keyword_init: true).keyworded?  # true
+Struct.new(:a).keyworded?                      # false
 ----
 
 ===== .with_keywords
@@ -1064,14 +1072,14 @@ whether the struct was constructed with positional or keyword arguments.
 [source,ruby]
 ----
 Example = Struct.new :a, :b, :c
-Example.with_keywords a: 1, b: 2, c: 3  # => #<struct a=1, b=2, c=3>
-Example.with_keywords a: 1              # => #<struct a=1, b=nil, c=nil>
-Example.with_keywords c: 1              # => #<struct a=nil, b=nil, c=1>
+Example.with_keywords a: 1, b: 2, c: 3  # "#<struct a=1, b=2, c=3>"
+Example.with_keywords a: 1              # "#<struct a=1, b=nil, c=nil>"
+Example.with_keywords c: 1              # "#<struct a=nil, b=nil, c=1>"
 
 Example = Struct.new :a, :b, :c, keyword_init: true
-Example.with_keywords a: 1, b: 2, c: 3  # => #<struct a=1, b=2, c=3>
-Example.with_keywords a: 1              # => #<struct a=1, b=nil, c=nil>
-Example.with_keywords c: 1              # => #<struct a=nil, b=nil, c=1>
+Example.with_keywords a: 1, b: 2, c: 3  # "#<struct a=1, b=2, c=3>"
+Example.with_keywords a: 1              # "#<struct a=1, b=nil, c=nil>"
+Example.with_keywords c: 1              # "#<struct a=nil, b=nil, c=1>"
 ----
 
 ===== .with_positions
@@ -1082,12 +1090,12 @@ whether the struct was constructed with positional or keyword arguments.
 [source,ruby]
 ----
 Example = Struct.new :a, :b, :c
-Example.with_positions 1, 2, 3  # => #<struct a=1, b=2, c=3>
-Example.with_positions 1        # => #<struct a=1, b=nil, c=nil>
+Example.with_positions 1, 2, 3  # "#<struct a=1, b=2, c=3>"
+Example.with_positions 1        # "#<struct a=1, b=nil, c=nil>"
 
 Example = Struct.new :a, :b, :c, keyword_init: true
-Example.with_positions 1, 2, 3  # => #<struct a=1, b=2, c=3>
-Example.with_positions 1        # => #<struct a=1, b=nil, c=nil>
+Example.with_positions 1, 2, 3  # "#<struct a=1, b=2, c=3>"
+Example.with_positions 1        # "#<struct a=1, b=nil, c=nil>"
 ----
 
 ===== #merge
@@ -1098,17 +1106,17 @@ Merges multiple attributes without mutating itself.
 ----
 Example = Struct.new :a, :b, :c
 example = Example[1, 2, 3]
-example.merge a: 10                # => #<struct a=10, b=2, c=3>
-example.merge a: 10, c: 30         # => #<struct a=10, b=2, c=30>
-example.merge a: 10, b: 20, c: 30  # => #<struct a=10, b=20, c=30>
-example                            # => #<struct a=1, b=2, c=3>
+example.merge a: 10                # "#<struct a=10, b=2, c=3>"
+example.merge a: 10, c: 30         # "#<struct a=10, b=2, c=30>"
+example.merge a: 10, b: 20, c: 30  # "#<struct a=10, b=20, c=30>"
+example                            # "#<struct a=1, b=2, c=3>"
 
 Example = Struct.new :a, :b, :c, keyword_init: true
 example = Example[a: 1, b: 2, c: 3]
-example.merge a: 10                # => #<struct a=10, b=2, c=3>
-example.merge a: 10, c: 30         # => #<struct a=10, b=2, c=30>
-example.merge a: 10, b: 20, c: 30  # => #<struct a=10, b=20, c=30>
-example                            # => #<struct a=1, b=2, c=3>
+example.merge a: 10                # "#<struct a=10, b=2, c=3>"
+example.merge a: 10, c: 30         # "#<struct a=10, b=2, c=30>"
+example.merge a: 10, b: 20, c: 30  # "#<struct a=10, b=20, c=30>"
+example                            # "#<struct a=1, b=2, c=3>"
 ----
 
 ===== #merge!
@@ -1119,17 +1127,17 @@ Merges multiple attributes while mutating itself.
 ----
 Example = Struct.new :a, :b, :c
 example = Example[1, 2, 3]
-example.merge! a: 10                # => #<struct a=10, b=2, c=3>
-example.merge! a: 10, c: 30         # => #<struct a=10, b=2, c=30>
-example.merge! a: 10, b: 20, c: 30  # => #<struct a=10, b=20, c=30>
-example                             # => #<struct a=10, b=20, c=30>
+example.merge! a: 10                # "#<struct a=10, b=2, c=3>"
+example.merge! a: 10, c: 30         # "#<struct a=10, b=2, c=30>"
+example.merge! a: 10, b: 20, c: 30  # "#<struct a=10, b=20, c=30>"
+example                             # "#<struct a=10, b=20, c=30>"
 
 Example = Struct.new :a, :b, :c, keyword_init: true
 example = Example[a: 1, b: 2, c: 3]
-example.merge! a: 10                # => #<struct a=10, b=2, c=3>
-example.merge! a: 10, c: 30         # => #<struct a=10, b=2, c=30>
-example.merge! a: 10, b: 20, c: 30  # => #<struct a=10, b=20, c=30>
-example                             # => #<struct a=10, b=20, c=30>
+example.merge! a: 10                # "#<struct a=10, b=2, c=3>"
+example.merge! a: 10, c: 30         # "#<struct a=10, b=2, c=30>"
+example.merge! a: 10, b: 20, c: 30  # "#<struct a=10, b=20, c=30>"
+example                             # "#<struct a=10, b=20, c=30>"
 ----
 
 ===== #revalue
@@ -1145,11 +1153,11 @@ below but a keyword struct would work too.
 Example = Struct.new :a, :b, :c
 
 example = Example[1, 2, 3]
-example.revalue { |value| value * 2 }                             # => #<struct a=2, b=4, c=6>
-example.revalue(c: 2) { |previous, current| previous + current }  # => #<struct a=1, b=2, c=5>
-example.revalue c: 2                                              # => #<struct a=1, b=2, c=3>
-example.revalue                                                   # => #<struct a=1, b=2, c=3>
-example                                                           # => #<struct a=1, b=2, c=3>
+example.revalue { |value| value * 2 }                             # "#<struct a=2, b=4, c=6>"
+example.revalue(c: 2) { |previous, current| previous + current }  # "#<struct a=1, b=2, c=5>"
+example.revalue c: 2                                              # "#<struct a=1, b=2, c=3>"
+example.revalue                                                   # "#<struct a=1, b=2, c=3>"
+example                                                           # "#<struct a=1, b=2, c=3>"
 
 ----
 
@@ -1166,17 +1174,17 @@ keyword struct would work too.
 Example = Struct.new :a, :b, :c
 
 example = Example[1, 2, 3]
-example.revalue! { |value| value * 2 }                             # => #<struct a=2, b=4, c=6>
-example                                                            # => #<struct a=2, b=4, c=6>
+example.revalue! { |value| value * 2 }                             # "#<struct a=2, b=4, c=6>"
+example                                                            # "#<struct a=2, b=4, c=6>"
 
 example = Example[1, 2, 3]
-example.revalue!(c: 2) { |previous, current| previous + current }  # => #<struct a=1, b=2, c=5>
-example                                                            # => #<struct a=1, b=2, c=5>
+example.revalue!(c: 2) { |previous, current| previous + current }  # "#<struct a=1, b=2, c=5>"
+example                                                            # "#<struct a=1, b=2, c=5>"
 
 example = Example[1, 2, 3]
-example.revalue! c: 2                                              # => #<struct a=1, b=2, c=3>
-example.revalue!                                                   # => #<struct a=1, b=2, c=3>
-example                                                            # => #<struct a=1, b=2, c=3>
+example.revalue! c: 2                                              # "#<struct a=1, b=2, c=3>"
+example.revalue!                                                   # "#<struct a=1, b=2, c=3>"
+example                                                            # "#<struct a=1, b=2, c=3>"
 ----
 
 ==== Symbol
@@ -1188,10 +1196,10 @@ with public methods in order to not break encapsulation.
 
 [source,ruby]
 ----
-%w[clue crow cow].map(&:tr.call("c", "b"))                              # => ["blue", "brow", "bow"]
-[%w[a b c], %w[c a b]].map(&:index.call { |element| element == "b" })   # => [1, 2]
-%w[1.outside 2.inside].map(&:sub.call(/\./) { |bullet| bullet + " " })  # => ["1. outside", "2. inside"]
-[1, 2, 3].map(&:to_s.call)                                              # => ["1", "2", "3"]
+%w[clue crow cow].map(&:tr.call("c", "b"))                              # ["blue", "brow", "bow"]
+[%w[a b c], %w[c a b]].map(&:index.call { |element| element == "b" })   # [1, 2]
+%w[1.outside 2.inside].map(&:sub.call(/\./) { |bullet| bullet + " " })  # ["1. outside", "2. inside"]
+[1, 2, 3].map(&:to_s.call)                                              # ["1", "2", "3"]
 ----
 
 ⚠️ Use of `#call` without any arguments or block should be avoided in order to not incur extra
