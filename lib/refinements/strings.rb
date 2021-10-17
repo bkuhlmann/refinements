@@ -16,11 +16,7 @@ module Refinements
                                            .then { |parts| combine parts, :up }
       end
 
-      def down
-        return self if empty?
-
-        first.downcase + self[1, size]
-      end
+      def down = empty? ? self : first.downcase + self[1, size]
 
       def first maximum = 0
         return self if empty?
@@ -31,9 +27,7 @@ module Refinements
       end
 
       def indent multiplier = 1, padding: "  "
-        return self if multiplier.negative?
-
-        (padding * multiplier) + self
+        multiplier.negative? ? self : (padding * multiplier) + self
       end
 
       def last minimum = 0
@@ -66,11 +60,7 @@ module Refinements
 
       def to_bool = %w[true yes on t y 1].include?(downcase.strip)
 
-      def up
-        return self if empty?
-
-        first.upcase + self[1, size]
-      end
+      def up = empty? ? self : first.upcase + self[1, size]
 
       private
 
