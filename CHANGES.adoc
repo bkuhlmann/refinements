@@ -1,5 +1,15 @@
 = Changes
 
+== 8.5.1 (2021-10-20)
+
+* Fixed Pathname change directory to yield pathname - Brooke Kuhlmann
+* Fixed Pathname touch method spec description - Brooke Kuhlmann
+* Added README usage for class and symbol refinements - Brooke Kuhlmann
+* Removed String first and last method defensive type checks - Brooke Kuhlmann
+* Removed hash rockets from README examples - Brooke Kuhlmann
+* Removed notes from pull request template - Brooke Kuhlmann
+* Refactored string methods to use endless methods - Brooke Kuhlmann
+
 == 8.5.0 (2021-10-16)
 
 * Added Class refinements - Brooke Kuhlmann
