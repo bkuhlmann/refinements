@@ -13,7 +13,7 @@ image::https://circleci.com/gh/bkuhlmann/refinements.svg?style=svg[Circle CI Sta
 
 Refinements are a collection of enhancements to primitive Ruby objects without needing to resort to
 painful and hard to debug
-link:https://www.alchemists.io/articles/ruby_antipatterns/#_monkey_patching[monkey patches]. These
+link:https://www.alchemists.io/articles/ruby_antipatterns/#_monkey_patches[monkey patches]. These
 refinements give you additional syntactic sugar to develop clean and concise implementations while
 using less code. By refining our code we can acquire the functionality we wish the core primitives
 had!
