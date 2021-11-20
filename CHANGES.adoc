@@ -1,5 +1,11 @@
 = Changes
 
+== 8.5.2 (2021-11-20)
+
+* Fixed README link to monkey patch antipattern - Brooke Kuhlmann
+* Added README community link - Brooke Kuhlmann
+* Added gemspec MFA opt in requirement - Brooke Kuhlmann
+
 == 8.5.1 (2021-10-20)
 
 * Fixed Pathname change directory to yield pathname - Brooke Kuhlmann
