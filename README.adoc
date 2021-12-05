@@ -1100,42 +1100,50 @@ Example.with_positions 1        # "#<struct a=1, b=nil, c=nil>"
 
 ===== #merge
 
-Merges multiple attributes without mutating itself.
+Merges multiple attributes without mutating itself and supports any object that responds to `#to_h`.
 
 [source,ruby]
 ----
-Example = Struct.new :a, :b, :c
-example = Example[1, 2, 3]
+other = Struct.new("Other", :a, :b, :c).new 7, 8, 9
+
+example = Struct.new(:a, :b, :c).new 1, 2, 3
 example.merge a: 10                # "#<struct a=10, b=2, c=3>"
 example.merge a: 10, c: 30         # "#<struct a=10, b=2, c=30>"
 example.merge a: 10, b: 20, c: 30  # "#<struct a=10, b=20, c=30>"
+example.merge {a: 10, b: 20}       # "#<struct a=10, b=20, c=3>"
+example.merge other                # "#<struct a=7, b=8, c=9>"
 example                            # "#<struct a=1, b=2, c=3>"
 
-Example = Struct.new :a, :b, :c, keyword_init: true
-example = Example[a: 1, b: 2, c: 3]
+example = Struct.new(:a, :b, :c, keyword_init: true).new a: 1, b: 2, c: 3
 example.merge a: 10                # "#<struct a=10, b=2, c=3>"
 example.merge a: 10, c: 30         # "#<struct a=10, b=2, c=30>"
+example.merge {a: 10, b: 20}       # "#<struct a=10, b=20, c=3>"
+example.merge other                # "#<struct a=7, b=8, c=9>"
 example.merge a: 10, b: 20, c: 30  # "#<struct a=10, b=20, c=30>"
 example                            # "#<struct a=1, b=2, c=3>"
 ----
 
 ===== #merge!
 
-Merges multiple attributes while mutating itself.
+Merges multiple attributes while mutating itself and supports any object that responds to `#to_h`.
 
 [source,ruby]
 ----
-Example = Struct.new :a, :b, :c
-example = Example[1, 2, 3]
+other = Struct.new("Other", :a, :b, :c).new 7, 8, 9
+
+example = Struct.new(:a, :b, :c).new 1, 2, 3
 example.merge! a: 10                # "#<struct a=10, b=2, c=3>"
 example.merge! a: 10, c: 30         # "#<struct a=10, b=2, c=30>"
+example.merge! {a: 10, b: 20}       # "#<struct a=10, b=20, c=3>"
+example.merge! other                # "#<struct a=7, b=8, c=9>"
 example.merge! a: 10, b: 20, c: 30  # "#<struct a=10, b=20, c=30>"
 example                             # "#<struct a=10, b=20, c=30>"
 
-Example = Struct.new :a, :b, :c, keyword_init: true
-example = Example[a: 1, b: 2, c: 3]
+example = Struct.new(:a, :b, :c, keyword_init: true).new a: 1, b: 2, c: 3
 example.merge! a: 10                # "#<struct a=10, b=2, c=3>"
 example.merge! a: 10, c: 30         # "#<struct a=10, b=2, c=30>"
+example.merge! {a: 10, b: 20}       # "#<struct a=10, b=20, c=3>"
+example.merge! other                # "#<struct a=7, b=8, c=9>"
 example.merge! a: 10, b: 20, c: 30  # "#<struct a=10, b=20, c=30>"
 example                             # "#<struct a=10, b=20, c=30>"
 ----
@@ -1150,15 +1158,12 @@ below but a keyword struct would work too.
 
 [source,ruby]
 ----
-Example = Struct.new :a, :b, :c
-
-example = Example[1, 2, 3]
+example = Struct.new("Example", :a, :b, :c).new 1, 2, 3
 example.revalue { |value| value * 2 }                             # "#<struct a=2, b=4, c=6>"
 example.revalue(c: 2) { |previous, current| previous + current }  # "#<struct a=1, b=2, c=5>"
 example.revalue c: 2                                              # "#<struct a=1, b=2, c=3>"
 example.revalue                                                   # "#<struct a=1, b=2, c=3>"
 example                                                           # "#<struct a=1, b=2, c=3>"
-
 ----
 
 ===== #revalue!

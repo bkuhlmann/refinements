@@ -105,6 +105,33 @@ RSpec.describe Refinements::Structs do
         expect(struct.public_send(method)).to eq(struct.class[a: 1, b: 2, c: 3])
       end
     end
+
+    context "with hash" do
+      let(:struct) { Struct.new(:a, :b, :c).new 1, 2, 3 }
+      let(:hash) { {a: 8, c: 9} }
+
+      it "answers struct with attributes rebuilt" do
+        expect(struct.public_send(method, hash)).to eq(struct.class[8, 2, 9])
+      end
+    end
+
+    context "with struct missing attributes" do
+      let(:struct_a) { Struct.new(:a, :b, :c).new 1, 2, 3 }
+      let(:struct_b) { Struct.new(:a, :b, :c, keyword_init: true).new a: 8, c: 9 }
+
+      it "answers struct with some attributes rebuilt and others nil'ed out" do
+        expect(struct_a.public_send(method, struct_b)).to eq(struct_a.class[8, nil, 9])
+      end
+    end
+
+    context "with any object that responds as a hash" do
+      let(:struct) { Struct.new(:a, :b, :c).new 1, 2, 3 }
+      let(:object) { Object.new.tap { |instance| def instance.to_h = {c: 9} } }
+
+      it "answers struct attributes rebuilt" do
+        expect(struct.public_send(method, object)).to eq(struct.class[1, 2, 9])
+      end
+    end
   end
 
   describe "#merge" do
