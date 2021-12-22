@@ -2,7 +2,6 @@
 
 require "refinements/identity"
 require "refinements/arrays"
-require "refinements/classes"
 require "refinements/big_decimals"
 require "refinements/date_times"
 require "refinements/hashes"

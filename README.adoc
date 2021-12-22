@@ -73,7 +73,6 @@ gem "refinements", require: false
 ----
 require "refinements/arrays"
 require "refinements/big_decimals"
-require "refinements/classes"
 require "refinements/date_times"
 require "refinements/hashes"
 require "refinements/ios"
@@ -94,7 +93,6 @@ refinement(s):
 class Example
   using Refinements::Arrays
   using Refinements::BigDecimals
-  using Refinements::Classes
   using Refinements::DateTimes
   using Refinements::Hashes
   using Refinements::IOs
@@ -260,22 +258,6 @@ Allows one to inspect a big decimal with numeric representation.
 [source,ruby]
 ----
 BigDecimal.new("5.0E-10").inspect  # "#<BigDecimal:3fd3d458fe84 0.0000000005>"
-----
-
-==== Class
-
-===== #descendants
-
-Answers descendants of a class.
-
-[source,ruby]
-----
-a = Class.new
-b = Class.new a
-c = Class.new a
-
-a.descendants          # [b, c]
-Class.new.descendants  # []
 ----
 
 ==== DateTime
