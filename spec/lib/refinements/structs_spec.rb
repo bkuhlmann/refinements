@@ -73,7 +73,7 @@ RSpec.describe Refinements::Structs do
     end
   end
 
-  shared_examples_for "a merge" do |method|
+  shared_examples "a merge" do |method|
     context "with positional construction" do
       let(:struct) { Struct.new(:a, :b, :c).new 1, 2, 3 }
 
@@ -170,7 +170,7 @@ RSpec.describe Refinements::Structs do
     end
   end
 
-  shared_examples_for "a revalue" do |method|
+  shared_examples "a revalue" do |method|
     it "answers transformed values with block" do
       expectation = struct.public_send(method) { |value| value * 2 }
       expect(expectation).to eq(struct.class.new.merge(a: 2, b: 4, c: 6))

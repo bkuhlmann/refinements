@@ -62,7 +62,7 @@ RSpec.describe Refinements::Hashes do
     end
   end
 
-  shared_examples_for "a deep merge" do |method|
+  shared_examples "a deep merge" do |method|
     subject :a_hash do
       {
         label: "Example",
@@ -140,7 +140,7 @@ RSpec.describe Refinements::Hashes do
     end
   end
 
-  shared_examples_for "deep stringified keys" do |method|
+  shared_examples "deep stringified keys" do |method|
     subject :a_hash do
       {
         a: [
@@ -179,7 +179,7 @@ RSpec.describe Refinements::Hashes do
     end
   end
 
-  shared_examples_for "deep symbolized keys" do |method|
+  shared_examples "deep symbolized keys" do |method|
     subject :a_hash do
       {
         "a" => [
@@ -250,7 +250,7 @@ RSpec.describe Refinements::Hashes do
     end
   end
 
-  shared_examples_for "flattened keys" do |method|
+  shared_examples "flattened keys" do |method|
     it "fails with unknown cast" do
       expectation = proc { Hash.new.flatten_keys cast: :invalid }
       expect(&expectation).to raise_error(StandardError, "Unknown cast: invalid.")
@@ -338,7 +338,7 @@ RSpec.describe Refinements::Hashes do
     end
   end
 
-  shared_examples_for "stringified keys" do |method|
+  shared_examples "stringified keys" do |method|
     subject(:a_hash) { {a: 1, b: 2, "c" => 3} }
 
     it "answers keys as strings" do
@@ -368,7 +368,7 @@ RSpec.describe Refinements::Hashes do
     end
   end
 
-  shared_examples_for "symbolized keys" do |method|
+  shared_examples "symbolized keys" do |method|
     subject(:a_hash) { {"a" => 1, "b" => 2, c: 3} }
 
     it "answers keys as symbols" do

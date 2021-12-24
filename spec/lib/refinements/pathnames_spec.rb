@@ -7,7 +7,7 @@ RSpec.describe Refinements::Pathnames do
 
   using described_class
 
-  shared_examples_for "a touchable path" do
+  shared_examples "a touchable path" do
     it "updates accessed time with current time" do
       original = path.atime
       path.touch
