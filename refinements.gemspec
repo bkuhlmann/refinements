@@ -23,7 +23,7 @@ Gem::Specification.new do |spec|
   spec.signing_key = Gem.default_key_path
   spec.cert_chain = [Gem.default_cert_path]
 
-  spec.required_ruby_version = "~> 3.0"
+  spec.required_ruby_version = "~> 3.1"
 
   spec.files = Dir["lib/**/*"]
   spec.extra_rdoc_files = Dir["README*", "LICENSE*"]

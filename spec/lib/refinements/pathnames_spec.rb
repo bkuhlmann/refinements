@@ -287,13 +287,7 @@ RSpec.describe Refinements::Pathnames do
     it "answers flagged directories" do
       a = temp_dir.join(".test").tap(&:mkdir)
 
-      expect(temp_dir.directories(flag: File::FNM_DOTMATCH)).to eq(
-        [
-          temp_dir.join(".."),
-          temp_dir.join("."),
-          a
-        ]
-      )
+      expect(temp_dir.directories(flag: File::FNM_DOTMATCH)).to eq([temp_dir.join("."), a])
     end
 
     it "answers empty array without directories" do
