@@ -56,13 +56,13 @@ module Refinements
           next flat.merge flat_key.public_send(cast) => value unless value.is_a? self.class
 
           flat.merge(
-            recurse { value.flatten_keys prefix: flat_key, delimiter: delimiter, cast: cast }
+            recurse { value.flatten_keys prefix: flat_key, delimiter:, cast: }
           )
         end
       end
 
       def flatten_keys! prefix: nil, delimiter: "_", cast: :to_sym
-        replace flatten_keys(prefix: prefix, delimiter: delimiter, cast: cast)
+        replace flatten_keys(prefix:, delimiter:, cast:)
       end
 
       def recurse &block
