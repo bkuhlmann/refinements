@@ -26,7 +26,7 @@ module Refinements
 
       def reread(length = nil, buffer: nil) = tap(&:rewind).read(length, buffer)
 
-      def squelch(&block) = self.class.void.then { |void| redirect(void, &block) }
+      def squelch(&) = self.class.void.then { |void| redirect(void, &) }
     end
   end
 end

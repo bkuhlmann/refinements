@@ -27,7 +27,7 @@ module Refinements
 
       def pad(value, max: size) = dup.fill(value, size..(max - 1))
 
-      def ring(&block) = [last, *self, first].each_cons(3, &block)
+      def ring(&) = [last, *self, first].each_cons(3, &)
     end
   end
 end

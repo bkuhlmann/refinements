@@ -4,9 +4,11 @@ module Refinements
   # Provides additional enhancements to the Symbol primitive.
   module Symbols
     refine Symbol do
-      def call *arguments, &block
-        proc { |receiver| receiver.public_send self, *arguments, &block }
+      # rubocop:disable Style/MethodDefParentheses
+      def call(*arguments, &)
+        proc { |receiver| receiver.public_send self, *arguments, & }
       end
+      # rubocop:enable Style/MethodDefParentheses
     end
   end
 end
