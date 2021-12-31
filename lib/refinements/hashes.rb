@@ -42,11 +42,9 @@ module Refinements
 
       def deep_symbolize_keys! = replace(deep_symbolize_keys)
 
-      # rubocop:disable Style/MethodDefParentheses
       def fetch_value(key, *default_value, &)
         fetch(key, *default_value, &) || default_value.first
       end
-      # rubocop:enable Style/MethodDefParentheses
 
       # :reek:TooManyStatements
       def flatten_keys prefix: nil, delimiter: "_", cast: :to_sym
