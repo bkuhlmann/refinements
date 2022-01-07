@@ -6,9 +6,9 @@ module Refinements
     refine Struct.singleton_class do
       def keyworded? = inspect.include?("keyword_init: true")
 
-      def with_keywords(**arguments) = keyworded? ? new(**arguments) : new.merge!(**arguments)
+      def with_keywords(**arguments) = keyword_init? ? new(**arguments) : new.merge!(**arguments)
 
-      def with_positions(*values) = keyworded? ? new(**members.zip(values).to_h) : new(*values)
+      def with_positions(*values) = keyword_init? ? new(**members.zip(values).to_h) : new(*values)
     end
 
     refine Struct do
