@@ -1038,6 +1038,8 @@ buffer                     # "This is a test."
 
 ===== .keyworded?
 
+⚠️ Will be removed in the next major version. Use `.keyword_init?` instead.
+
 Answers whether a struct was constructed with keyword or positional arguments.
 
 [source,ruby]
