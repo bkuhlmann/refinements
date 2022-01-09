@@ -11,12 +11,11 @@ image::https://img.shields.io/badge/code_style-alchemists-brightgreen.svg[Alchem
 [link=https://circleci.com/gh/bkuhlmann/refinements]
 image::https://circleci.com/gh/bkuhlmann/refinements.svg?style=svg[Circle CI Status]
 
-Refinements are a collection of enhancements to primitive Ruby objects without needing to resort to
-painful and hard to debug
-link:https://www.alchemists.io/articles/ruby_antipatterns/#_monkey_patches[monkey patches]. These
-refinements give you additional syntactic sugar to develop clean and concise implementations while
-using less code. By refining our code we can acquire the functionality we wish the core primitives
-had!
+Refinements are a collection primitive Ruby objects enhancements without needing to resort to hard
+to debug link:https://www.alchemists.io/articles/ruby_antipatterns/#_monkey_patches[monkey patches].
+These refinements give you additional syntactic sugar to develop clean and concise implementations
+while using less code. By refining our code we can acquire the functionality we wish the core
+primitives had!
 
 toc::[]
 
@@ -148,7 +147,7 @@ Removes given array or elements without mutating itself.
 
 ===== #filter_find
 
-Answers the first truthy and filtered result from a collection.
+Answers the first element which evaluates to true from a filtered collection.
 
 [source,ruby]
 ----
@@ -349,7 +348,7 @@ example                          # {a: "A", b: {one: 1, two: "Two"}}
 
 ===== #deep_stringify_keys
 
-Stringifies keys of nested hash without mutating itself. Does not handle nested arrays, though.
+Answers string keys of a nested hash without mutating itself. Does not handle nested arrays, though.
 
 [source,ruby]
 ----
@@ -360,7 +359,7 @@ example                      # {a: {b: 2}}
 
 ===== #deep_stringify_keys!
 
-Stringifies keys of nested hash while mutating itself. Does not handle nested arrays, though.
+Answers string keys of nested hash while mutating itself. Does not handle nested arrays, though.
 
 [source,ruby]
 ----
@@ -829,7 +828,7 @@ child_path = parent_path.join "two"
 child_path.make_path
 child_path.remove_tree   # Pathname "/one/two"
 child_path.exist?        # false
-paremt_path.exist?       # true
+parent_path.exist?       # true
 
 child_path.make_path
 parent_path.remove_tree  # Pathname "/one"
@@ -886,7 +885,7 @@ Answers `true`/`false` based on whether string is blank, `<space>`, `\n`, `\t`, 
 
 ===== #camelcase
 
-Answers a camelcased string.
+Answers a camel cased string.
 
 [source,ruby]
 ----
@@ -895,7 +894,7 @@ Answers a camelcased string.
 
 ===== #down
 
-Answers string with only first letter downcased.
+Answers string with only first letter down cased.
 
 [source,ruby]
 ----
@@ -977,7 +976,7 @@ well in other languages.
 
 ===== #snakecase
 
-Answers a snakecased string.
+Answers a snake cased string.
 
 [source,ruby]
 ----
@@ -986,7 +985,7 @@ Answers a snakecased string.
 
 ===== #titleize
 
-Answers titleized string.
+Answers a title string with proper capitalization of each word.
 
 [source,ruby]
 ----
@@ -1008,7 +1007,7 @@ Answers string as a boolean.
 
 ===== #up
 
-Answers string with only first letter upcased.
+Answers string with only first letter capitalized.
 
 [source,ruby]
 ----
