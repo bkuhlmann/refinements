@@ -826,14 +826,14 @@ parent_path = Pathname "/one"
 child_path = parent_path.join "two"
 
 child_path.make_path
-child_path.remove_tree   # Pathname "/one/two"
-child_path.exist?        # false
-parent_path.exist?       # true
-
-child_path.make_path
 parent_path.remove_tree  # Pathname "/one"
 child_path.exist?        # false
 parent_path.exist?       # false
+
+child_path.make_path
+child_path.remove_tree   # Pathname "/one/two"
+child_path.exist?        # false
+parent_path.exist?       # true
 ----
 
 ===== #rewrite
