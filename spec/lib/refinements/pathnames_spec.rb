@@ -62,6 +62,13 @@ RSpec.describe Refinements::Pathnames do
   end
 
   describe ".make_temp_dir" do
+    it "creates temporary directory without block" do
+      example_dir = Pathname.make_temp_dir
+      expect(example_dir.exist?).to eq(true)
+    ensure
+      example_dir.remove_dir
+    end
+
     it "answers temporary directory as Pathname without block" do
       example_dir = Pathname.make_temp_dir
       expect(example_dir).to be_a(Pathname)
@@ -102,6 +109,10 @@ RSpec.describe Refinements::Pathnames do
       expect(example_dir.to_s).to match(%r(#{temp_dir}/temp-.*))
     ensure
       example_dir.remove_dir
+    end
+
+    it "creates directory with block" do
+      Pathname.make_temp_dir { |path| expect(path.exist?).to eq(true) }
     end
 
     it "yields pathname with block" do

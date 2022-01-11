@@ -6,6 +6,7 @@ detectors:
   DuplicateMethodCall:
     exclude:
       - "Pathname#change_dir"
+      - "singleton_class#make_temp_dir"
   FeatureEnvy:
     exclude:
       - "Array#compress!"

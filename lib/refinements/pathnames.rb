@@ -17,7 +17,11 @@ module Refinements
       def home = new(ENV["HOME"])
 
       def make_temp_dir prefix: "temp-", suffix: nil, root: nil
-        Dir.mktmpdir([prefix, suffix], root) { |path| block_given? ? yield(new path) : new(path) }
+        if block_given?
+          Dir.mktmpdir([prefix, suffix], root) { |path| yield new(path) }
+        else
+          new Dir.mktmpdir([prefix, suffix], root)
+        end
       end
 
       def require_tree root, pattern = "**/*.rb"
