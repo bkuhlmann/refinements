@@ -1,5 +1,13 @@
 = Versions
 
+== 9.0.2 (2022-01-11)
+
+* Fixed Pathname making of temporary dirctory without block - Brooke Kuhlmann
+* Fixed README typos - Brooke Kuhlmann
+* Added Struct keyworded deprecation warning - Brooke Kuhlmann
+* Updated README Pathname remove tree documentation order - Brooke Kuhlmann
+* Refactored Struct with keywords and with position methods - Brooke Kuhlmann
+
 == 9.0.1 (2022-01-01)
 
 * Fixed Rubocop Style/MethodDefParentheses issues - Brooke Kuhlmann
