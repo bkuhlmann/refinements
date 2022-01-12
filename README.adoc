@@ -183,6 +183,19 @@ Inserts additional elements or array between all members of given array.
 [1, 2, 3].intersperse %i[a b c]  # [1, :a, :b, :c, 2, :a, :b, :c, 3]
 ----
 
+===== #many?
+
+Answers true if an array has more than one element. Can take a block which evaluates as truthy or
+falsey.
+
+[source,ruby]
+----
+[1, 2].many?             # true
+[1, 2, 3].many?(&:odd?)  # true
+[1].many?                # false
+[].many?                 # false
+----
+
 ===== #maximum
 
 Answers the maximum extracted value from a collection of objects.
@@ -434,6 +447,19 @@ though.
 example = {a: {b: 1}}
 example.flatten_keys!  # {a_b: 1}
 example                # {a_b: 1}
+----
+
+===== #many?
+
+Answers true if a hash has more than one element. Can take a block which evaluates as truthy or
+falsey.
+
+[source,ruby]
+----
+{a: 1, b: 2}.many?                                     # true
+{a: 1, b: 2, c: 2}.many? { |_key, value| value == 2 }  # true
+{a: 1}.many?                                           # false
+{}.many?                                               # false
 ----
 
 ===== #recurse

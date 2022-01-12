@@ -151,6 +151,24 @@ RSpec.describe Refinements::Arrays do
     end
   end
 
+  describe "#many?" do
+    it "answers true with more than one element without a block" do
+      expect([1, 2].many?).to eq(true)
+    end
+
+    it "answers true with more than one element with a block" do
+      expect([1, 2, 3].many?(&:odd?)).to eq(true)
+    end
+
+    it "answers false with one element only" do
+      expect([1].many?).to eq(false)
+    end
+
+    it "answers false when empty" do
+      expect([].many?).to eq(false)
+    end
+  end
+
   describe "#maximum" do
     it "answers maximum extracted value" do
       model = Struct.new :x, keyword_init: true

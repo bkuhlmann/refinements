@@ -1,9 +1,13 @@
 # frozen_string_literal: true
 
+require "refinements/shared/enumerables/many"
+
 module Refinements
   # Provides additional enhancements to the Array primitive.
   module Arrays
     refine Array do
+      import_methods Shared::Enumerables::Many
+
       def compress = dup.compress!
 
       def compress!
