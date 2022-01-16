@@ -1223,6 +1223,42 @@ example.revalue!                                                   # "#<struct a
 example                                                            # "#<struct a=1, b=2, c=3>"
 ----
 
+===== #transmute
+
+Transmutes given enumerable by using the foreign key map and merging those key values into the
+current struct while not mutating itself. Works regardless of whether the struct is constructed with
+positional or keyword arguments.
+
+[source,ruby]
+----
+a = Struct.new("A", :a, :b, :c).new 1, 2, 3
+b = Struct.new("B", :x, :y, :z).new 7, 8, 9
+c = {r: 10, s: 20, t: 30}
+
+a.transmute b, a: :x, b: :y, c: :z  # #<struct Struct::A a=7, b=8, c=9>
+a.transmute b, b: :y                # #<struct Struct::A a=1, b=8, c=3>
+a.transmute c, c: :t                # #<struct Struct::A a=1, b=2, c=30>
+a                                   # #<struct Struct::A a=1, b=2, c=3>
+----
+
+===== #transmute!
+
+Transmutes given enumerable by using the foreign key map and merging those key values into the
+current struct while mutating itself. Works regardless of whether the struct is constructed with
+positional or keyword arguments.
+
+[source,ruby]
+----
+a = Struct.new("A", :a, :b, :c).new 1, 2, 3
+b = Struct.new("B", :x, :y, :z).new 7, 8, 9
+c = {r: 10, s: 20, t: 30}
+
+a.transmute! b, a: :x, b: :y, c: :z  # #<struct Struct::A a=7, b=8, c=9>
+a.transmute! b, b: :y                # #<struct Struct::A a=1, b=8, c=3>
+a.transmute! c, c: :t                # #<struct Struct::A a=1, b=2, c=30>
+a                                    # #<struct Struct::A a=7, b=8, c=30>
+----
+
 ==== Symbol
 
 ===== #call

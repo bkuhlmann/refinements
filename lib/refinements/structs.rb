@@ -34,6 +34,13 @@ module Refinements
         attributes.each { |key, value| self[key] = yield self[key], value }
         self
       end
+
+      def transmute(...) = dup.transmute!(...)
+
+      def transmute! object, **key_map
+        mapping = key_map.invert
+        merge! object.to_h.slice(*mapping.keys).transform_keys!(mapping)
+      end
     end
   end
 end

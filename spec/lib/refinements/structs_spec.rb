@@ -238,4 +238,89 @@ RSpec.describe Refinements::Structs do
       end
     end
   end
+
+  shared_examples "a transmute" do |method|
+    let(:a_hash) { {r: 10, s: 20, t: 30} }
+
+    it "transforms and merges entire struct" do
+      result = source.public_send(method, other, a: :x, b: :y, c: :z)
+      expect(result).to eq(source.class.new.merge!(a: 7, b: 8, c: 9))
+    end
+
+    it "transforms and merges partial struct" do
+      result = source.public_send(method, other, a: :x, c: :z)
+      expect(result).to eq(source.class.new.merge!(a: 7, b: 2, c: 9))
+    end
+
+    it "transforms and merges entire hash" do
+      result = source.public_send(method, a_hash, a: :r, b: :s, c: :t)
+      expect(result).to eq(source.class.new.merge!(a: 10, b: 20, c: 30))
+    end
+
+    it "transforms and merges partial hash" do
+      result = source.public_send(method, a_hash, b: :s)
+      expect(result).to eq(source.class.new.merge!(a: 1, b: 20, c: 3))
+    end
+
+    it "transforms and merges partial struct" do
+      result = source.public_send(method, other, a: :x, c: :z)
+      expect(result).to eq(source.class.new.merge!(a: 7, b: 2, c: 9))
+    end
+
+    it "answers original struct when no attributes are given" do
+      expect(source.public_send(method, other)).to eq(source.class.new.merge!(a: 1, b: 2, c: 3))
+    end
+  end
+
+  describe "#transmute" do
+    context "with positional construction" do
+      let(:source) { Struct.new(:a, :b, :c).new 1, 2, 3 }
+      let(:other) { Struct.new(:x, :y, :z).new 7, 8, 9 }
+
+      it_behaves_like "a transmute", :transmute
+
+      it "doesn't mutate itself" do
+        source.transmute other, x: :a
+        expect(source).to eq(source.class[1, 2, 3])
+      end
+    end
+
+    context "with keyword construction" do
+      let(:source) { Struct.new(:a, :b, :c, keyword_init: true).new a: 1, b: 2, c: 3 }
+      let(:other) { Struct.new(:x, :y, :z, keyword_init: true).new x: 7, y: 8, z: 9 }
+
+      it_behaves_like "a transmute", :transmute
+
+      it "doesn't mutate itself" do
+        source.transmute other, a: :x
+        expect(source).to eq(source.class[a: 1, b: 2, c: 3])
+      end
+    end
+  end
+
+  describe "#transmute!" do
+    context "with positional construction" do
+      let(:source) { Struct.new(:a, :b, :c).new 1, 2, 3 }
+      let(:other) { Struct.new(:x, :y, :z).new 7, 8, 9 }
+
+      it_behaves_like "a transmute", :transmute!
+
+      it "mutates itself" do
+        source.transmute! other, a: :x
+        expect(source).to eq(source.class[7, 2, 3])
+      end
+    end
+
+    context "with keyword construction" do
+      let(:source) { Struct.new(:a, :b, :c, keyword_init: true).new a: 1, b: 2, c: 3 }
+      let(:other) { Struct.new(:x, :y, :z, keyword_init: true).new x: 7, y: 8, z: 9 }
+
+      it_behaves_like "a transmute", :transmute!
+
+      it "mutates itself" do
+        source.transmute! other, a: :x
+        expect(source).to eq(source.class[a: 7, b: 2, c: 3])
+      end
+    end
+  end
 end
