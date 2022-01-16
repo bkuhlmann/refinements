@@ -1,5 +1,14 @@
 = Versions
 
+== 9.1.0 (2022-01-17)
+
+* Fixed string combine method to message public methods only - Brooke Kuhlmann
+* Added Pathname delete prefix and suffix - Brooke Kuhlmann
+* Added Struct transmute - Brooke Kuhlmann
+* Added many method to Array and Hash - Brooke Kuhlmann
+* Added shared many enumerable - Brooke Kuhlmann
+* Refactored Struct merge methods - Brooke Kuhlmann
+
 == 9.0.2 (2022-01-11)
 
 * Fixed Pathname making of temporary dirctory without block - Brooke Kuhlmann
