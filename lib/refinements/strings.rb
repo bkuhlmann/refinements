@@ -64,11 +64,10 @@ module Refinements
 
       private
 
-      # :reek:DuplicateMethodCall
       # :reek:UtilityFunction
       def combine parts, method, delimiter = ""
         parts.reduce "" do |result, part|
-          next part.__send__ method if result.empty?
+          next part.public_send method if result.empty?
 
           "#{result}#{delimiter}#{part.__send__ method}"
         end
