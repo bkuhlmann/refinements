@@ -720,6 +720,28 @@ Pathname("/example.txt").touch.delete  # Pathname("/example")
 Pathname("/example.txt").delete        # Errno::ENOENT
 ----
 
+===== #delete_prefix
+
+Deletes a path prefix and answers new pathname.
+
+[source,ruby]
+----
+Pathname("a/path/example-test.rb").delete_prefix("example-")  # Pathname("a/path/test.rb")
+Pathname("example-test.rb").delete_prefix("example-")         # Pathname("test.rb")
+Pathname("example-test.rb").delete_prefix("miss")             # Pathname("example-test.rb")
+----
+
+===== #delete_suffix
+
+Deletes a path suffix and answers new pathname.
+
+[source,ruby]
+----
+Pathname("a/path/test-example.rb").delete_suffix("-example")  # Pathname("a/path/test.rb")
+Pathname("test-example.rb").delete_suffix("-example")         # Pathname("test.rb")
+Pathname("test-example.rb").delete_suffix("miss")             # Pathname("test-example.rb")
+----
+
 ===== #directories
 
 Answers all directories or filtered directories for current path.

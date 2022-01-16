@@ -272,6 +272,34 @@ RSpec.describe Refinements::Pathnames do
     end
   end
 
+  describe "#delete_prefix" do
+    it "removes file prefix" do
+      expect(Pathname("x-test.rb").delete_prefix("x-")).to eq(Pathname("test.rb"))
+    end
+
+    it "removes path prefix" do
+      expect(Pathname("a/path/x-test.rb").delete_prefix("x-")).to eq(Pathname("a/path/test.rb"))
+    end
+
+    it "answers original path when pattern doesn't match" do
+      expect(Pathname("test.rb").delete_prefix("mismatch")).to eq(Pathname("test.rb"))
+    end
+  end
+
+  describe "#delete_suffix" do
+    it "removes file suffix" do
+      expect(Pathname("test-x.rb").delete_suffix("-x")).to eq(Pathname("test.rb"))
+    end
+
+    it "removes path suffix" do
+      expect(Pathname("a/path/test-x.rb").delete_suffix("-x")).to eq(Pathname("a/path/test.rb"))
+    end
+
+    it "answers original path when pattern doesn't match" do
+      expect(Pathname("test.rb").delete_suffix("mismatch")).to eq(Pathname("test.rb"))
+    end
+  end
+
   describe "#directories" do
     it "answers only directories when mixed with directories and files" do
       a = temp_dir.join("a").tap(&:mkdir)

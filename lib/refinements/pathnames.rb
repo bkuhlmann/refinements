@@ -50,6 +50,10 @@ module Refinements
 
       def delete = super && self
 
+      def delete_prefix(pattern) = parent.join %(#{name.sub(/\A#{pattern}/, "")}#{extname})
+
+      def delete_suffix(pattern) = parent.join %(#{name.sub(/#{pattern}\z/, "")}#{extname})
+
       def directories pattern = "*", flag: File::FNM_SYSCASE
         glob(pattern, flag).select(&:directory?).sort
       end
@@ -74,7 +78,7 @@ module Refinements
         self
       end
 
-      def name = basename(extname)
+      def name = basename extname
 
       def relative_parent(root_dir) = relative_path_from(root_dir).parent
 
