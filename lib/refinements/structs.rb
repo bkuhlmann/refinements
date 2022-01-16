@@ -15,10 +15,10 @@ module Refinements
     end
 
     refine Struct do
-      def merge(object = nil) = dup.merge!(object)
+      def merge(...) = dup.merge!(...)
 
       def merge! object = nil
-        to_h.merge(**object.to_h).each { |key, value| self[key] = value }
+        to_h.merge!(**object.to_h).each { |key, value| self[key] = value }
         self
       end
 
