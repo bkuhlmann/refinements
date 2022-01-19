@@ -6,7 +6,7 @@ module Refinements
     refine Struct.singleton_class do
       def keyworded?
         warn "[DEPRECATION]: .keyworded? is deprecated, use .keyword_init? instead."
-        inspect.include?("keyword_init: true")
+        inspect.include? "keyword_init: true"
       end
 
       def with_keywords(**arguments) = keyword_init? ? new(**arguments) : new.merge!(**arguments)

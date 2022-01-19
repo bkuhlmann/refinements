@@ -243,27 +243,27 @@ RSpec.describe Refinements::Structs do
     let(:a_hash) { {r: 10, s: 20, t: 30} }
 
     it "transforms and merges entire struct" do
-      result = source.public_send(method, other, a: :x, b: :y, c: :z)
+      result = source.public_send method, other, a: :x, b: :y, c: :z
       expect(result).to eq(source.class.new.merge!(a: 7, b: 8, c: 9))
     end
 
     it "transforms and merges partial struct" do
-      result = source.public_send(method, other, a: :x, c: :z)
+      result = source.public_send method, other, a: :x, c: :z
       expect(result).to eq(source.class.new.merge!(a: 7, b: 2, c: 9))
     end
 
     it "transforms and merges entire hash" do
-      result = source.public_send(method, a_hash, a: :r, b: :s, c: :t)
+      result = source.public_send method, a_hash, a: :r, b: :s, c: :t
       expect(result).to eq(source.class.new.merge!(a: 10, b: 20, c: 30))
     end
 
     it "transforms and merges partial hash" do
-      result = source.public_send(method, a_hash, b: :s)
+      result = source.public_send method, a_hash, b: :s
       expect(result).to eq(source.class.new.merge!(a: 1, b: 20, c: 3))
     end
 
     it "transforms and merges partial struct" do
-      result = source.public_send(method, other, a: :x, c: :z)
+      result = source.public_send method, other, a: :x, c: :z
       expect(result).to eq(source.class.new.merge!(a: 7, b: 2, c: 9))
     end
 
