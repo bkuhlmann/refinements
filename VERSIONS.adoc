@@ -1,5 +1,14 @@
 = Versions
 
+== 9.2.0 (2022-01-23)
+
+* Fixed Rubocop Style/MethodCallWithArgsParentheses issues - Brooke Kuhlmann
+* Added Ruby version to Gemfile - Brooke Kuhlmann
+* Added identity to gem specification - Brooke Kuhlmann
+* Updated to Reek 6.1.0 - Brooke Kuhlmann
+* Updated to Rubocop 1.25.0 - Brooke Kuhlmann
+* Refactored Git ignore - Brooke Kuhlmann
+
 == 9.1.0 (2022-01-17)
 
 * Fixed string combine method to message public methods only - Brooke Kuhlmann

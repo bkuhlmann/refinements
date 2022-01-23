@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |spec|
   spec.name = "refinements"
-  spec.version = "9.1.0"
+  spec.version = "9.2.0"
   spec.platform = Gem::Platform::RUBY
   spec.authors = ["Brooke Kuhlmann"]
   spec.email = ["brooke@alchemists.io"]
