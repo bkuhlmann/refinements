@@ -1,10 +1,8 @@
 # frozen_string_literal: true
 
-require_relative "lib/refinements/identity"
-
 Gem::Specification.new do |spec|
-  spec.name = Refinements::Identity::NAME
-  spec.version = Refinements::Identity::VERSION
+  spec.name = "refinements"
+  spec.version = "9.1.0"
   spec.platform = Gem::Platform::RUBY
   spec.authors = ["Brooke Kuhlmann"]
   spec.email = ["brooke@alchemists.io"]
@@ -16,6 +14,7 @@ Gem::Specification.new do |spec|
     "bug_tracker_uri" => "https://github.com/bkuhlmann/refinements/issues",
     "changelog_uri" => "https://www.alchemists.io/projects/refinements/versions",
     "documentation_uri" => "https://www.alchemists.io/projects/refinements",
+    "label" => "Refinements",
     "rubygems_mfa_required" => "true",
     "source_code_uri" => "https://github.com/bkuhlmann/refinements"
   }
@@ -25,7 +24,7 @@ Gem::Specification.new do |spec|
 
   spec.required_ruby_version = "~> 3.1"
 
-  spec.files = Dir["lib/**/*"]
+  spec.files = Dir["*.gemspec", "lib/**/*"]
   spec.extra_rdoc_files = Dir["README*", "LICENSE*"]
   spec.require_paths = ["lib"]
 end
