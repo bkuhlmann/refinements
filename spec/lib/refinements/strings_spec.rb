@@ -7,35 +7,35 @@ RSpec.describe Refinements::Strings do
 
   describe "#blank?" do
     it "answers true when empty" do
-      expect("".blank?).to eq(true)
+      expect("".blank?).to be(true)
     end
 
     it "answers true when space" do
-      expect(" ".blank?).to eq(true)
+      expect(" ".blank?).to be(true)
     end
 
     it "answers true when tab" do
-      expect("\t".blank?).to eq(true)
+      expect("\t".blank?).to be(true)
     end
 
     it "answers true when new line" do
-      expect("\n".blank?).to eq(true)
+      expect("\n".blank?).to be(true)
     end
 
     it "answers true when return" do
-      expect("\r".blank?).to eq(true)
+      expect("\r".blank?).to be(true)
     end
 
     it "answers true when space, tab, new line, and return" do
-      expect(" \t\n\r".blank?).to eq(true)
+      expect(" \t\n\r".blank?).to be(true)
     end
 
     it "answers false when a word" do
-      expect("test".blank?).to eq(false)
+      expect("test".blank?).to be(false)
     end
 
     it "answers false when a word, space, tab, new line, and return" do
-      expect("test \t\n\r".blank?).to eq(false)
+      expect("test \t\n\r".blank?).to be(false)
     end
   end
 
@@ -474,24 +474,24 @@ RSpec.describe Refinements::Strings do
   describe "#to_bool" do
     %w[true yes on t y 1].each do |value|
       it %(answers true with "#{value}") do
-        expect(value.to_bool).to eq(true)
+        expect(value.to_bool).to be(true)
       end
     end
 
     it "answers true when surrounded by empty spaces" do
-      expect(" yes  ".to_bool).to eq(true)
+      expect(" yes  ".to_bool).to be(true)
     end
 
     it "answers true with mixed case" do
-      expect("TrUe".to_bool).to eq(true)
+      expect("TrUe".to_bool).to be(true)
     end
 
     it "answers false with empty string" do
-      expect("".to_bool).to eq(false)
+      expect("".to_bool).to be(false)
     end
 
     it "answers false with invalid value" do
-      expect("bogus".to_bool).to eq(false)
+      expect("bogus".to_bool).to be(false)
     end
   end
 

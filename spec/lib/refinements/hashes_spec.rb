@@ -313,20 +313,20 @@ RSpec.describe Refinements::Hashes do
 
   describe "#many?" do
     it "answers true with more than one element without block" do
-      expect({a: 1, b: 2}.many?).to eq(true)
+      expect({a: 1, b: 2}.many?).to be(true)
     end
 
     it "answers true with more than one element with block" do
       result = {a: 1, b: 2, c: 2}.many? { |_key, value| value == 2 }
-      expect(result).to eq(true)
+      expect(result).to be(true)
     end
 
     it "answers false with one element only" do
-      expect({a: 1}.many?).to eq(false)
+      expect({a: 1}.many?).to be(false)
     end
 
     it "answers false when empty" do
-      expect({}.many?).to eq(false)
+      expect({}.many?).to be(false)
     end
   end
 

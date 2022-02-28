@@ -13,12 +13,12 @@ RSpec.describe Refinements::Structs do
 
     it "answers true when constructed with keyword arguments" do
       struct = Struct.new :a, keyword_init: true
-      expect(struct.keyworded?).to eq(true)
+      expect(struct.keyworded?).to be(true)
     end
 
     it "answers false when constructed with positional arguments" do
       struct = Struct.new :a
-      expect(struct.keyworded?).to eq(false)
+      expect(struct.keyworded?).to be(false)
     end
   end
 

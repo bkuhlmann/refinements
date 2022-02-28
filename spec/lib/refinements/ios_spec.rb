@@ -24,12 +24,12 @@ RSpec.describe Refinements::IOs do
     end
 
     it "doesn't auto-close when not given a block" do
-      expect(io.closed?).to eq(false)
+      expect(io.closed?).to be(false)
     end
 
     it "auto-closes when given a block" do
       io = IO.void { |void| void.write "nevermore" }
-      expect(io.closed?).to eq(true)
+      expect(io.closed?).to be(true)
     end
   end
 

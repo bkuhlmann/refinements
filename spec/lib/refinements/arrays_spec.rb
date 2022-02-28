@@ -95,7 +95,7 @@ RSpec.describe Refinements::Arrays do
 
     it "answers nil when filtered object can't be found" do
       result = handlers.filter_find { |handler| handler.call :x }
-      expect(result).to eq(nil)
+      expect(result).to be_nil
     end
   end
 
@@ -153,19 +153,19 @@ RSpec.describe Refinements::Arrays do
 
   describe "#many?" do
     it "answers true with more than one element without a block" do
-      expect([1, 2].many?).to eq(true)
+      expect([1, 2].many?).to be(true)
     end
 
     it "answers true with more than one element with a block" do
-      expect([1, 2, 3].many?(&:odd?)).to eq(true)
+      expect([1, 2, 3].many?(&:odd?)).to be(true)
     end
 
     it "answers false with one element only" do
-      expect([1].many?).to eq(false)
+      expect([1].many?).to be(false)
     end
 
     it "answers false when empty" do
-      expect([].many?).to eq(false)
+      expect([].many?).to be(false)
     end
   end
 

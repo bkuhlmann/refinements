@@ -64,7 +64,7 @@ RSpec.describe Refinements::Pathnames do
   describe ".make_temp_dir" do
     it "creates temporary directory without block" do
       example_dir = Pathname.make_temp_dir
-      expect(example_dir.exist?).to eq(true)
+      expect(example_dir.exist?).to be(true)
     ensure
       example_dir.remove_dir
     end
@@ -112,7 +112,7 @@ RSpec.describe Refinements::Pathnames do
     end
 
     it "creates directory with block" do
-      Pathname.make_temp_dir { |path| expect(path.exist?).to eq(true) }
+      Pathname.make_temp_dir { |path| expect(path.exist?).to be(true) }
     end
 
     it "yields pathname with block" do
@@ -245,7 +245,7 @@ RSpec.describe Refinements::Pathnames do
     it_behaves_like "a touchable path"
 
     it "creates nested file path" do
-      expect(path.exist?).to eq(true)
+      expect(path.exist?).to be(true)
     end
   end
 
@@ -254,12 +254,12 @@ RSpec.describe Refinements::Pathnames do
 
     it "deletes existing file" do
       path.touch.delete
-      expect(path.exist?).to eq(false)
+      expect(path.exist?).to be(false)
     end
 
     it "deletes existing directory" do
       temp_dir.delete
-      expect(temp_dir.exist?).to eq(false)
+      expect(temp_dir.exist?).to be(false)
     end
 
     it "answers deleted path" do
@@ -337,7 +337,7 @@ RSpec.describe Refinements::Pathnames do
   describe "#empty" do
     it "creates file when file doesn't exist" do
       path = temp_dir.join("test.txt").empty
-      expect(path.exist?).to eq(true)
+      expect(path.exist?).to be(true)
     end
 
     it "empties file with content" do
@@ -354,7 +354,7 @@ RSpec.describe Refinements::Pathnames do
 
     it "creates directory when directory doesn't exist" do
       path = temp_dir.join("test").empty
-      expect(path.exist?).to eq(true)
+      expect(path.exist?).to be(true)
     end
 
     it "empties empty directory" do
@@ -446,12 +446,12 @@ RSpec.describe Refinements::Pathnames do
 
       it "creates ancestors" do
         path.make_ancestors
-        expect(ancestors.exist?).to eq(true)
+        expect(ancestors.exist?).to be(true)
       end
 
       it "does not create descendant path" do
         path.make_ancestors
-        expect(path.exist?).to eq(false)
+        expect(path.exist?).to be(false)
       end
     end
 
@@ -461,12 +461,12 @@ RSpec.describe Refinements::Pathnames do
 
       it "creates ancestors" do
         path.make_ancestors
-        expect(ancestors.exist?).to eq(true)
+        expect(ancestors.exist?).to be(true)
       end
 
       it "does not create descendant path" do
         path.make_ancestors
-        expect(path.exist?).to eq(false)
+        expect(path.exist?).to be(false)
       end
     end
 
@@ -481,7 +481,7 @@ RSpec.describe Refinements::Pathnames do
 
     it "makes new directory" do
       path.make_dir
-      expect(path.exist?).to eq(true)
+      expect(path.exist?).to be(true)
     end
 
     it "answers itself when existing" do
@@ -499,12 +499,12 @@ RSpec.describe Refinements::Pathnames do
 
     it "creates parents when parents don't exist" do
       path.make_path
-      expect(path.parent.exist?).to eq(true)
+      expect(path.parent.exist?).to be(true)
     end
 
     it "creates full path hierarchy when path doesn't exist" do
       path.make_path
-      expect(path.exist?).to eq(true)
+      expect(path.exist?).to be(true)
     end
 
     it "answers itself" do
@@ -552,7 +552,7 @@ RSpec.describe Refinements::Pathnames do
 
     it "removes exsiting directory" do
       path.make_dir.remove_dir
-      expect(path.exist?).to eq(false)
+      expect(path.exist?).to be(false)
     end
 
     it "answers itself after being removed" do
@@ -577,14 +577,14 @@ RSpec.describe Refinements::Pathnames do
       child_path.make_path
       parent_path.remove_tree
 
-      expect(parent_path.exist?).to eq(false)
+      expect(parent_path.exist?).to be(false)
     end
 
     it "removes children only" do
       child_path.make_path
       child_path.remove_tree
 
-      expect(parent_path.exist?).to eq(true)
+      expect(parent_path.exist?).to be(true)
     end
 
     it "answers itself after being removed" do
