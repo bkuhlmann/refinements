@@ -1,9 +1,6 @@
 inherit_gem:
   caliber: config/all.yml
 
-Lint/Void:
-  Exclude:
-    - "spec/lib/refinements/structs_spec.rb"
 RSpec/FilePath:
   CustomTransform:
     IOs: ios
