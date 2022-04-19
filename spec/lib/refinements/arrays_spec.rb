@@ -95,7 +95,7 @@ RSpec.describe Refinements::Arrays do
 
     it "answers nil when filtered object can't be found" do
       result = handlers.filter_find { |handler| handler.call :x }
-      expect(result).to be_nil
+      expect(result).to be(nil)
     end
   end
 
