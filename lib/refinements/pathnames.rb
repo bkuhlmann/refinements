@@ -14,7 +14,7 @@ module Refinements
     end
 
     refine Pathname.singleton_class do
-      def home = new(ENV["HOME"])
+      def home = new ENV.fetch("HOME", "")
 
       def make_temp_dir prefix: "temp-", suffix: nil, root: nil
         if block_given?
