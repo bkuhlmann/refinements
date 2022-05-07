@@ -1,5 +1,11 @@
 = Versions
 
+== 9.4.0 (2022-05-07)
+
+* Fixed RuboCop Style/EnvHome issue - Brooke Kuhlmann
+* Added gemspec funding URI - Brooke Kuhlmann
+* Updated to Caliber 0.8.0 - Brooke Kuhlmann
+
 == 9.3.3 (2022-04-23)
 
 * Added GitHub sponsorship configuration - Brooke Kuhlmann
