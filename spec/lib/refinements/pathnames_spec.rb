@@ -57,7 +57,7 @@ RSpec.describe Refinements::Pathnames do
 
   describe ".home" do
     it "answes user home directory" do
-      expect(Pathname.home).to eq(Pathname(ENV.fetch("HOME")))
+      expect(Pathname.home).to eq(Pathname(Dir.home))
     end
   end
 
