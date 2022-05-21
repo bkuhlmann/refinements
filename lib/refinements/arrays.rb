@@ -32,6 +32,14 @@ module Refinements
       def pad(value, max: size) = dup.fill(value, size..(max - 1))
 
       def ring(&) = [last, *self, first].each_cons(3, &)
+
+      def to_sentence delimiter: ", ", conjunction: "and"
+        case length
+          when (3..) then "#{self[..-2].join delimiter}#{delimiter}#{conjunction} #{last}"
+          when 2 then join " #{conjunction} "
+          else join
+        end
+      end
     end
   end
 end

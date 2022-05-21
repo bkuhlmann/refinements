@@ -254,4 +254,41 @@ RSpec.describe Refinements::Arrays do
       expect(expectation).to contain_exactly([1, 2, 3], [2, 3, 1], [3, 1, 2])
     end
   end
+
+  describe "#to_sentence" do
+    it "answers empty string when empty" do
+      array = []
+      expect(array.to_sentence).to eq("")
+    end
+
+    it "answers single item string with one item" do
+      array = ["a"]
+      expect(array.to_sentence).to eq("a")
+    end
+
+    it "answers string pair with two items" do
+      array = ["a", :b]
+      expect(array.to_sentence).to eq("a and b")
+    end
+
+    it "answers string with three items" do
+      array = [1, "b", :c]
+      expect(array.to_sentence).to eq("1, b, and c")
+    end
+
+    it "answers string with multiple items using custom delimiter" do
+      array = %w[eins zwei drei]
+      expect(array.to_sentence(delimiter: " ")).to eq("eins zwei and drei")
+    end
+
+    it "answers string with multiple items using custom conjunction" do
+      array = [1, "a", :b, 2.0, /\A\w\z/]
+      expect(array.to_sentence(conjunction: "or")).to eq("1, a, b, 2.0, or (?-mix:\\A\\w\\z)")
+    end
+
+    it "answers string with multiple items using custom delimiter and conjunction" do
+      array = %w[eins zwei drei]
+      expect(array.to_sentence(delimiter: " ", conjunction: "und")).to eq("eins zwei und drei")
+    end
+  end
 end

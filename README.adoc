@@ -254,6 +254,21 @@ example.ring { |(before, current, after)| puts "#{before} #{current} #{after}" }
 # [2 3 1]
 ----
 
+===== #to_sentence
+
+Answers a sentence using `", "` as the default delimiter and `"and"` as the default conjunction.
+Useful when building documentation, answering human readable error messages, etc.
+
+[source,ruby]
+----
+[].to_sentence                                                     # ""
+["test"].to_sentence                                               # "test"
+["a", :b].to_sentence                                              # "a and b"
+[1, "a", :b, 2.0, /\w+/].map(&:inspect).to_sentence                # 1, "a", :b, 2.0, and /\w+/
+%w[one two three].to_sentence                                      # "one, two, and three"
+%w[eins zwei drei].to_sentence delimiter: " ", conjunction: "und"  # "eins zwei und drei"
+----
+
 ==== Big Decimal
 
 ===== #inspect
