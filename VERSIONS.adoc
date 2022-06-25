@@ -1,5 +1,13 @@
 = Versions
 
+== 9.5.0 (2022-06-25)
+
+* Fixed Hash compact no method error when compacting non-empty objects - Brooke Kuhlmann
+* Added Array specs for arrays which have non-nil objects - Brooke Kuhlmann
+* Added Array to sentence conversion - Brooke Kuhlmann
+* Removed Bundler Leak gem - Brooke Kuhlmann
+* Removed Rakefile Bundler gem tasks - Brooke Kuhlmann
+
 == 9.4.0 (2022-05-07)
 
 * Fixed RuboCop Style/EnvHome issue - Brooke Kuhlmann
