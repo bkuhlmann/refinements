@@ -14,6 +14,11 @@ RSpec.describe Refinements::Arrays do
       expect(array.compress).to eq([1, "blueberry", an_object])
     end
 
+    it "answers itself with nothing to remove" do
+      slice = array.slice(0, 2).compress
+      expect(slice).to contain_exactly(1, "blueberry")
+    end
+
     it "answers itself when empty" do
       expect([].compress).to eq([])
     end
@@ -31,6 +36,11 @@ RSpec.describe Refinements::Arrays do
 
     it "answers array with nils and empty objects removed" do
       expect(array.compress!).to eq([1, "blueberry", an_object])
+    end
+
+    it "answers itself with nothing to remove" do
+      slice = array.slice(0, 2).compress!
+      expect(slice).to contain_exactly(1, "blueberry")
     end
 
     it "answers itself when empty" do
