@@ -21,7 +21,8 @@ module Refinements
       def compress!
         return self if empty?
 
-        compact!.delete_if { |_key, value| value.respond_to?(:empty?) && value.empty? }
+        compact!
+        delete_if { |_key, value| value.respond_to?(:empty?) && value.empty? }
       end
 
       def deep_merge other

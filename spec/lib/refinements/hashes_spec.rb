@@ -29,8 +29,13 @@ RSpec.describe Refinements::Hashes do
 
     let(:an_object) { Object.new }
 
-    it "answers hash with nils and empty objects removed" do
+    it "answers hash without nils and empty objects" do
       expect(a_hash.compress).to eq(a: 1, b: "blueberry", g: an_object)
+    end
+
+    it "answers itself with nothing to remove" do
+      slice = a_hash.slice(:a).compress
+      expect(slice).to eq(a: 1)
     end
 
     it "answers itself when empty" do
@@ -48,8 +53,13 @@ RSpec.describe Refinements::Hashes do
 
     let(:an_object) { Object.new }
 
-    it "answers hash with nils and empty objects removed" do
+    it "answers hash without nils and empty objects" do
       expect(a_hash.compress!).to eq(a: 1, b: "blueberry", g: an_object)
+    end
+
+    it "answers itself with nothing to remove" do
+      slice = a_hash.slice(:a).compress!
+      expect(slice).to eq(a: 1)
     end
 
     it "answers itself when empty" do
