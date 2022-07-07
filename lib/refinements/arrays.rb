@@ -8,6 +8,8 @@ module Refinements
     refine Array do
       import_methods Shared::Enumerables::Many
 
+      def combinatorial?(other) = !other.empty? && size == union(other).size
+
       def compress = dup.compress!
 
       def compress!

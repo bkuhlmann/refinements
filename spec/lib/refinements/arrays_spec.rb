@@ -5,6 +5,42 @@ require "spec_helper"
 RSpec.describe Refinements::Arrays do
   using described_class
 
+  describe "combinatorial?" do
+    subject(:array) { %w[a b c] }
+
+    it "answers true when sorted" do
+      expect(array.combinatorial?(%w[a b c])).to be(true)
+    end
+
+    it "answers true when unsorted" do
+      expect(array.combinatorial?(%w[c a b])).to be(true)
+    end
+
+    it "answers true with one identical element" do
+      expect(array.combinatorial?(%w[c])).to be(true)
+    end
+
+    it "answers true with multiple identical elements" do
+      expect(array.combinatorial?(%w[c b])).to be(true)
+    end
+
+    it "answers false with one different element" do
+      expect(array.combinatorial?(%w[x])).to be(false)
+    end
+
+    it "answers false with identical and different elements" do
+      expect(array.combinatorial?(%w[z b c])).to be(false)
+    end
+
+    it "answers false with identical and extra elements" do
+      expect(array.combinatorial?(%w[a b c d])).to be(false)
+    end
+
+    it "answers false with an empty array" do
+      expect(array.combinatorial?([])).to be(false)
+    end
+  end
+
   describe "#compress" do
     subject(:array) { [1, "blueberry", nil, "", [], {}, an_object] }
 

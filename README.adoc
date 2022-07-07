@@ -102,6 +102,24 @@ The following sections demonstrate how each refinement enriches your objects wit
 
 ==== Array
 
+===== #combinatorial?
+
+Answers if an array is equal to another array when the elements are equal but in any order and/or subset.
+
+[source,ruby]
+----
+example = %w[a b c]
+
+example.combinatorial? %w[a b c]    # true
+example.combinatorial? %w[c a b]    # true
+example.combinatorial? %w[c]        # true
+example.combinatorial? %w[c b]      # true
+example.combinatorial? %w[x]        # false
+example.combinatorial? %w[z b c]    # false
+example.combinatorial? %w[a b c d]  # false
+example.combinatorial? []           # false
+----
+
 ===== #compress
 
 Removes `nil` and empty objects without mutating itself.
