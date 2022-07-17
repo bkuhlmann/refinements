@@ -22,6 +22,7 @@ Enhances the following objects:
 * Hash
 * IO
 * LogDevice
+* Logger
 * Pathname
 * String
 * StringIO
@@ -75,6 +76,7 @@ require "refinements/string_ios"
 require "refinements/structs"
 require "refinements/symbols"
 require "refinements/log_devices"
+require "refinements/loggers"
 ----
 
 === Using
@@ -96,6 +98,7 @@ class Example
   using Refinements::Structs
   using Refinements::Symbols
   using Refinements::LogDevices
+  using Refinements::Loggers
 end
 ----
 
@@ -639,6 +642,30 @@ device.reread                                # "Test."
 device = Logger::LogDevice.new $stdout
 device.write "Test."
 device.reread                                # ""
+----
+
+==== Logger
+
+===== #reread
+
+Answers previously written content by rewinding to beginning of log.
+
+[source,ruby]
+----
+# With File.
+logger = Logger.new "test.log"
+logger.write "Test."
+logger.reread                     # "Test."
+
+# With StringIO.
+logger = Logger.new StringIO.new
+logger.write "Test."
+logger.reread                     # "Test."
+
+# With STDOUT.
+logger = Logger.new $stdout
+logger.write "Test."
+logger.reread                     # ""
 ----
 
 ==== Pathname
