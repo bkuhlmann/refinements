@@ -1,5 +1,15 @@
 = Versions
 
+== 9.6.0 (2022-07-17)
+
+* Added array combinatorial - Brooke Kuhlmann
+* Added log device refinements - Brooke Kuhlmann
+* Added logger refinements - Brooke Kuhlmann
+* Added shared I/O reread functionality - Brooke Kuhlmann
+* Updated to Caliber 0.11.0 - Brooke Kuhlmann
+* Updated to Debug 1.6.0 - Brooke Kuhlmann
+* Refactored IOs and StringIOs moedules use shared reread functionality - Brooke Kuhlmann
+
 == 9.5.0 (2022-06-25)
 
 * Fixed Hash compact no method error when compacting non-empty objects - Brooke Kuhlmann
