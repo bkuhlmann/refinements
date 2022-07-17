@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "refinements/shared/ios/reread"
+
 module Refinements
   # Provides additional enhancements to the IO primitive.
   module IOs
@@ -15,6 +17,8 @@ module Refinements
     end
 
     refine IO do
+      import_methods Shared::IOs::Reread
+
       def redirect other
         return self unless block_given?
 
@@ -23,8 +27,6 @@ module Refinements
         yield self
         reopen backup
       end
-
-      def reread(length = nil, buffer: nil) = tap(&:rewind).read(length, buffer)
 
       def squelch(&) = self.class.void.then { |void| redirect(void, &) }
     end
