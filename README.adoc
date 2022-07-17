@@ -21,6 +21,7 @@ Enhances the following objects:
 * DateTime
 * Hash
 * IO
+* LogDevice
 * Pathname
 * String
 * StringIO
@@ -73,6 +74,7 @@ require "refinements/strings"
 require "refinements/string_ios"
 require "refinements/structs"
 require "refinements/symbols"
+require "refinements/log_devices"
 ----
 
 === Using
@@ -93,6 +95,7 @@ class Example
   using Refinements::StringIOs
   using Refinements::Structs
   using Refinements::Symbols
+  using Refinements::LogDevices
 end
 ----
 
@@ -612,6 +615,30 @@ io = IO.new IO.sysopen(Pathname("test.txt").to_s, "w+")
 io.squelch                      # "#<IO:fd 20>"
 io.squelch { io.write "Test" }  # "#<IO:fd 20>"
 io.reread                       # ""
+----
+
+==== LogDevice
+
+===== #reread
+
+Answers previously written content by rewinding to beginning of device.
+
+[source,ruby]
+----
+# With File.
+device = Logger::LogDevice.new "test.log"
+device.write "Test."
+device.reread                                # "Test."
+
+# With StringIO.
+device = Logger::LogDevice.new StringIO.new
+device.write "Test."
+device.reread                                # "Test."
+
+# With STDOUT.
+device = Logger::LogDevice.new $stdout
+device.write "Test."
+device.reread                                # ""
 ----
 
 ==== Pathname
