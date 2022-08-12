@@ -124,9 +124,9 @@ RSpec.describe Refinements::Arrays do
   describe "#filter_find" do
     let :handlers do
       [
-        ->(object) { object if object == :b },
+        -> object { object if object == :b },
         proc { false },
-        ->(object) { object if object == :a }
+        -> object { object if object == :a }
       ]
     end
 
