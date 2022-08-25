@@ -6,14 +6,14 @@ RSpec.describe Refinements::Hashes do
   using described_class
 
   describe ".infinite" do
-    subject(:infinite) { Hash.infinite }
+    subject(:a_hash) { Hash.infinite }
 
     it "answers empty hash for missing top-level key" do
-      expect(infinite[:a]).to eq({})
+      expect(a_hash[:a]).to eq({})
     end
 
     it "answers empty hash for missing nested key" do
-      expect(infinite[:a][:b][:c]).to eq({})
+      expect(a_hash[:a][:b][:c]).to eq({})
     end
   end
 
@@ -25,12 +25,12 @@ RSpec.describe Refinements::Hashes do
   end
 
   describe "#compress" do
-    subject(:a_hash) { {a: 1, b: "blueberry", c: nil, d: "", e: [], f: {}, g: an_object} }
+    subject(:a_hash) { {a: 1, b: "blueberry", c: nil, d: "", e: [], f: {}, g: object} }
 
-    let(:an_object) { Object.new }
+    let(:object) { Object.new }
 
     it "answers hash without nils and empty objects" do
-      expect(a_hash.compress).to eq(a: 1, b: "blueberry", g: an_object)
+      expect(a_hash.compress).to eq(a: 1, b: "blueberry", g: object)
     end
 
     it "answers itself with nothing to remove" do
@@ -44,17 +44,17 @@ RSpec.describe Refinements::Hashes do
 
     it "doesn't mutate itself" do
       a_hash.compress
-      expect(a_hash).to eq(a: 1, b: "blueberry", c: nil, d: "", e: [], f: {}, g: an_object)
+      expect(a_hash).to eq(a: 1, b: "blueberry", c: nil, d: "", e: [], f: {}, g: object)
     end
   end
 
   describe "#compress!" do
-    subject(:a_hash) { {a: 1, b: "blueberry", c: nil, d: "", e: [], f: {}, g: an_object} }
+    subject(:a_hash) { {a: 1, b: "blueberry", c: nil, d: "", e: [], f: {}, g: object} }
 
-    let(:an_object) { Object.new }
+    let(:object) { Object.new }
 
     it "answers hash without nils and empty objects" do
-      expect(a_hash.compress!).to eq(a: 1, b: "blueberry", g: an_object)
+      expect(a_hash.compress!).to eq(a: 1, b: "blueberry", g: object)
     end
 
     it "answers itself with nothing to remove" do
@@ -68,7 +68,7 @@ RSpec.describe Refinements::Hashes do
 
     it "mutates itself" do
       a_hash.compress!
-      expect(a_hash).to eq(a: 1, b: "blueberry", g: an_object)
+      expect(a_hash).to eq(a: 1, b: "blueberry", g: object)
     end
   end
 

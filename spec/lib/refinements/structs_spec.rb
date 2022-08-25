@@ -24,7 +24,7 @@ RSpec.describe Refinements::Structs do
 
   describe ".with_keywords" do
     context "with positional construction" do
-      let(:struct) { Struct.new :a, :b, :c }
+      subject(:struct) { Struct.new :a, :b, :c }
 
       it "answers struct with all positions filled" do
         expect(struct.with_keywords(a: 1, b: 2, c: 3)).to eq(struct[1, 2, 3])
@@ -40,7 +40,7 @@ RSpec.describe Refinements::Structs do
     end
 
     context "with keyword construction" do
-      let(:struct) { Struct.new :a, :b, :c, keyword_init: true }
+      subject(:struct) { Struct.new :a, :b, :c, keyword_init: true }
 
       it "answers struct with all positions filled" do
         expect(struct.with_keywords(a: 1, b: 2, c: 3)).to eq(struct[a: 1, b: 2, c: 3])
@@ -54,7 +54,7 @@ RSpec.describe Refinements::Structs do
 
   describe ".with_positions" do
     context "with positional construction" do
-      let(:struct) { Struct.new :a, :b, :c }
+      subject(:struct) { Struct.new :a, :b, :c }
 
       it "answers struct with all positions filled" do
         expect(struct.with_positions(1, 2, 3)).to eq(struct[1, 2, 3])
@@ -66,7 +66,7 @@ RSpec.describe Refinements::Structs do
     end
 
     context "with keyword construction" do
-      let(:struct) { Struct.new :a, :b, :c, keyword_init: true }
+      subject(:struct) { Struct.new :a, :b, :c, keyword_init: true }
 
       it "answers struct with all positions filled" do
         expect(struct.with_positions(1, 2, 3)).to eq(struct[a: 1, b: 2, c: 3])
@@ -80,7 +80,7 @@ RSpec.describe Refinements::Structs do
 
   shared_examples "a merge" do |method|
     context "with positional construction" do
-      let(:struct) { Struct.new(:a, :b, :c).new 1, 2, 3 }
+      subject(:struct) { Struct.new(:a, :b, :c).new 1, 2, 3 }
 
       it "answers struct with attributes rebuilt" do
         expect(struct.public_send(method, a: 7, b: 8, c: 9)).to eq(struct.class[7, 8, 9])
@@ -96,7 +96,7 @@ RSpec.describe Refinements::Structs do
     end
 
     context "with keyword construction" do
-      let(:struct) { Struct.new(:a, :b, :c, keyword_init: true).new a: 1, b: 2, c: 3 }
+      subject(:struct) { Struct.new(:a, :b, :c, keyword_init: true).new a: 1, b: 2, c: 3 }
 
       it "answers struct with attributes rebuilt" do
         expect(struct.public_send(method, a: 7, b: 8, c: 9)).to eq(struct.class[a: 7, b: 8, c: 9])
@@ -112,7 +112,8 @@ RSpec.describe Refinements::Structs do
     end
 
     context "with hash" do
-      let(:struct) { Struct.new(:a, :b, :c).new 1, 2, 3 }
+      subject(:struct) { Struct.new(:a, :b, :c).new 1, 2, 3 }
+
       let(:hash) { {a: 8, c: 9} }
 
       it "answers struct with attributes rebuilt" do
@@ -130,7 +131,8 @@ RSpec.describe Refinements::Structs do
     end
 
     context "with any object that responds as a hash" do
-      let(:struct) { Struct.new(:a, :b, :c).new 1, 2, 3 }
+      subject(:struct) { Struct.new(:a, :b, :c).new 1, 2, 3 }
+
       let(:object) { Object.new.tap { |instance| def instance.to_h = {c: 9} } }
 
       it "answers struct attributes rebuilt" do
@@ -193,7 +195,7 @@ RSpec.describe Refinements::Structs do
 
   describe "#revalue" do
     context "with positional construction" do
-      let(:struct) { Struct.new(:a, :b, :c).new 1, 2, 3 }
+      subject(:struct) { Struct.new(:a, :b, :c).new 1, 2, 3 }
 
       it_behaves_like "a revalue", :revalue
 
@@ -204,7 +206,7 @@ RSpec.describe Refinements::Structs do
     end
 
     context "with keyword construction" do
-      let(:struct) { Struct.new(:a, :b, :c, keyword_init: true).new a: 1, b: 2, c: 3 }
+      subject(:struct) { Struct.new(:a, :b, :c, keyword_init: true).new a: 1, b: 2, c: 3 }
 
       it_behaves_like "a revalue", :revalue
 
@@ -217,7 +219,7 @@ RSpec.describe Refinements::Structs do
 
   describe "#revalue!" do
     context "with positional construction" do
-      let(:struct) { Struct.new(:a, :b, :c).new 1, 2, 3 }
+      subject(:struct) { Struct.new(:a, :b, :c).new 1, 2, 3 }
 
       it_behaves_like "a revalue", :revalue!
 
@@ -228,7 +230,7 @@ RSpec.describe Refinements::Structs do
     end
 
     context "with keyword construction" do
-      let(:struct) { Struct.new(:a, :b, :c, keyword_init: true).new a: 1, b: 2, c: 3 }
+      subject(:struct) { Struct.new(:a, :b, :c, keyword_init: true).new a: 1, b: 2, c: 3 }
 
       it_behaves_like "a revalue", :revalue!
 
@@ -243,83 +245,87 @@ RSpec.describe Refinements::Structs do
     let(:a_hash) { {r: 10, s: 20, t: 30} }
 
     it "transforms and merges entire struct" do
-      result = source.public_send method, other, a: :x, b: :y, c: :z
-      expect(result).to eq(source.class.new.merge!(a: 7, b: 8, c: 9))
+      result = struct.public_send method, other, a: :x, b: :y, c: :z
+      expect(result).to eq(struct.class.new.merge!(a: 7, b: 8, c: 9))
     end
 
     it "transforms and merges partial struct" do
-      result = source.public_send method, other, a: :x, c: :z
-      expect(result).to eq(source.class.new.merge!(a: 7, b: 2, c: 9))
+      result = struct.public_send method, other, a: :x, c: :z
+      expect(result).to eq(struct.class.new.merge!(a: 7, b: 2, c: 9))
     end
 
     it "transforms and merges entire hash" do
-      result = source.public_send method, a_hash, a: :r, b: :s, c: :t
-      expect(result).to eq(source.class.new.merge!(a: 10, b: 20, c: 30))
+      result = struct.public_send method, a_hash, a: :r, b: :s, c: :t
+      expect(result).to eq(struct.class.new.merge!(a: 10, b: 20, c: 30))
     end
 
     it "transforms and merges partial hash" do
-      result = source.public_send method, a_hash, b: :s
-      expect(result).to eq(source.class.new.merge!(a: 1, b: 20, c: 3))
+      result = struct.public_send method, a_hash, b: :s
+      expect(result).to eq(struct.class.new.merge!(a: 1, b: 20, c: 3))
     end
 
     it "transforms and merges partial struct" do
-      result = source.public_send method, other, a: :x, c: :z
-      expect(result).to eq(source.class.new.merge!(a: 7, b: 2, c: 9))
+      result = struct.public_send method, other, a: :x, c: :z
+      expect(result).to eq(struct.class.new.merge!(a: 7, b: 2, c: 9))
     end
 
     it "answers original struct when no attributes are given" do
-      expect(source.public_send(method, other)).to eq(source.class.new.merge!(a: 1, b: 2, c: 3))
+      expect(struct.public_send(method, other)).to eq(struct.class.new.merge!(a: 1, b: 2, c: 3))
     end
   end
 
   describe "#transmute" do
     context "with positional construction" do
-      let(:source) { Struct.new(:a, :b, :c).new 1, 2, 3 }
+      subject(:struct) { Struct.new(:a, :b, :c).new 1, 2, 3 }
+
       let(:other) { Struct.new(:x, :y, :z).new 7, 8, 9 }
 
       it_behaves_like "a transmute", :transmute
 
       it "doesn't mutate itself" do
-        source.transmute other, x: :a
-        expect(source).to eq(source.class[1, 2, 3])
+        struct.transmute other, x: :a
+        expect(struct).to eq(struct.class[1, 2, 3])
       end
     end
 
     context "with keyword construction" do
-      let(:source) { Struct.new(:a, :b, :c, keyword_init: true).new a: 1, b: 2, c: 3 }
+      subject(:struct) { Struct.new(:a, :b, :c, keyword_init: true).new a: 1, b: 2, c: 3 }
+
       let(:other) { Struct.new(:x, :y, :z, keyword_init: true).new x: 7, y: 8, z: 9 }
 
       it_behaves_like "a transmute", :transmute
 
       it "doesn't mutate itself" do
-        source.transmute other, a: :x
-        expect(source).to eq(source.class[a: 1, b: 2, c: 3])
+        struct.transmute other, a: :x
+        expect(struct).to eq(struct.class[a: 1, b: 2, c: 3])
       end
     end
   end
 
   describe "#transmute!" do
     context "with positional construction" do
-      let(:source) { Struct.new(:a, :b, :c).new 1, 2, 3 }
+      subject(:struct) { Struct.new(:a, :b, :c).new 1, 2, 3 }
+
       let(:other) { Struct.new(:x, :y, :z).new 7, 8, 9 }
 
       it_behaves_like "a transmute", :transmute!
 
       it "mutates itself" do
-        source.transmute! other, a: :x
-        expect(source).to eq(source.class[7, 2, 3])
+        struct.transmute! other, a: :x
+        expect(struct).to eq(struct.class[7, 2, 3])
       end
     end
 
     context "with keyword construction" do
-      let(:source) { Struct.new(:a, :b, :c, keyword_init: true).new a: 1, b: 2, c: 3 }
+      subject(:struct) { Struct.new(:a, :b, :c, keyword_init: true).new a: 1, b: 2, c: 3 }
+
       let(:other) { Struct.new(:x, :y, :z, keyword_init: true).new x: 7, y: 8, z: 9 }
 
       it_behaves_like "a transmute", :transmute!
 
       it "mutates itself" do
-        source.transmute! other, a: :x
-        expect(source).to eq(source.class[a: 7, b: 2, c: 3])
+        struct.transmute! other, a: :x
+        expect(struct).to eq(struct.class[a: 7, b: 2, c: 3])
       end
     end
   end

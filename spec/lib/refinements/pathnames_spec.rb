@@ -240,7 +240,7 @@ RSpec.describe Refinements::Pathnames do
   end
 
   describe "#deep_touch" do
-    let(:path) { temp_dir.join("a/b/c/d.txt").deep_touch }
+    subject(:path) { temp_dir.join("a/b/c/d.txt").deep_touch }
 
     it_behaves_like "a touchable path"
 
@@ -250,7 +250,7 @@ RSpec.describe Refinements::Pathnames do
   end
 
   describe "#delete" do
-    let(:path) { temp_dir.join "test.txt" }
+    subject(:path) { temp_dir.join "test.txt" }
 
     it "deletes existing file" do
       path.touch.delete
@@ -441,7 +441,8 @@ RSpec.describe Refinements::Pathnames do
 
   describe "#make_ancestors" do
     context "when directory" do
-      let(:path) { ancestors.join "three" }
+      subject(:path) { ancestors.join "three" }
+
       let(:ancestors) { temp_dir.join "one", "two" }
 
       it "creates ancestors" do
@@ -456,7 +457,8 @@ RSpec.describe Refinements::Pathnames do
     end
 
     context "when file" do
-      let(:path) { ancestors.join "three.txt" }
+      subject(:path) { ancestors.join "three.txt" }
+
       let(:ancestors) { temp_dir.join "one", "two" }
 
       it "creates ancestors" do
@@ -477,7 +479,7 @@ RSpec.describe Refinements::Pathnames do
   end
 
   describe "#make_dir" do
-    let(:path) { temp_dir.join "demo" }
+    subject(:path) { temp_dir.join "demo" }
 
     it "makes new directory" do
       path.make_dir
@@ -495,7 +497,7 @@ RSpec.describe Refinements::Pathnames do
   end
 
   describe "#make_path" do
-    let(:path) { temp_dir.join "one", "two", "three" }
+    subject(:path) { temp_dir.join "one", "two", "three" }
 
     it "creates parents when parents don't exist" do
       path.make_path
@@ -548,7 +550,7 @@ RSpec.describe Refinements::Pathnames do
   end
 
   describe "#remove_dir" do
-    let(:path) { temp_dir.join "test" }
+    subject(:path) { temp_dir.join "test" }
 
     it "removes exsiting directory" do
       path.make_dir.remove_dir
@@ -570,69 +572,70 @@ RSpec.describe Refinements::Pathnames do
   end
 
   describe "#remove_tree" do
-    let(:parent_path) { temp_dir.join "one" }
-    let(:child_path) { parent_path.join "two" }
+    subject(:path) { temp_dir.join "one" }
+
+    let(:child_path) { path.join "two" }
 
     it "removes itself and children" do
       child_path.make_path
-      parent_path.remove_tree
+      path.remove_tree
 
-      expect(parent_path.exist?).to be(false)
+      expect(path.exist?).to be(false)
     end
 
     it "removes children only" do
       child_path.make_path
       child_path.remove_tree
 
-      expect(parent_path.exist?).to be(true)
+      expect(path.exist?).to be(true)
     end
 
     it "answers itself after being removed" do
       child_path.make_path
-      expect(parent_path.remove_tree).to eq(parent_path)
+      expect(path.remove_tree).to eq(path)
     end
 
     it "answers itself when not existing" do
-      expect(parent_path.remove_tree).to eq(parent_path)
+      expect(path.remove_tree).to eq(path)
     end
   end
 
   describe "#rewrite" do
-    let(:test_path) { temp_dir.join "test.txt" }
+    subject(:path) { temp_dir.join "test.txt" }
 
-    before { test_path.write "This is a [text]." }
+    before { path.write "This is a [text]." }
 
     it "reads and writes file" do
-      test_path.rewrite { |content| content.sub "[text]", "test" }
-      expect(test_path.read).to eq("This is a test.")
+      path.rewrite { |content| content.sub "[text]", "test" }
+      expect(path.read).to eq("This is a test.")
     end
 
     it "does nothing without a block" do
-      test_path.rewrite
-      expect(test_path.read).to eq("This is a [text].")
+      path.rewrite
+      expect(path.read).to eq("This is a [text].")
     end
 
     it "answers self" do
-      rewrite = test_path.rewrite { "Test." }
-      expect(rewrite).to eq(test_path)
+      rewrite = path.rewrite { "Test." }
+      expect(rewrite).to eq(path)
     end
   end
 
   describe "#touch" do
     context "with existing directory" do
-      let(:path) { temp_dir.join("test").make_dir }
+      subject(:path) { temp_dir.join("test").make_dir }
 
       it_behaves_like "a touchable path"
     end
 
     context "with existing file" do
-      let(:path) { temp_dir.join("test.txt").write "This is a test." }
+      subject(:path) { temp_dir.join("test.txt").write "This is a test." }
 
       it_behaves_like "a touchable path"
     end
 
     context "without existing path" do
-      let(:path) { temp_dir.join "test.txt" }
+      subject(:path) { temp_dir.join "test.txt" }
 
       it "creates empty file" do
         path.touch
@@ -651,7 +654,7 @@ RSpec.describe Refinements::Pathnames do
   end
 
   describe "#write" do
-    let(:path) { temp_dir.join "test.txt" }
+    subject(:path) { temp_dir.join "test.txt" }
 
     it "uses offset" do
       path.write "test", offset: 1

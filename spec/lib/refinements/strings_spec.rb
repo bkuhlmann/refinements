@@ -150,18 +150,18 @@ RSpec.describe Refinements::Strings do
   end
 
   describe "#first" do
-    subject(:strings) { "seedlings" }
+    subject(:string) { "seedlings" }
 
     it "answers first letter" do
-      expect(strings.first).to eq("s")
+      expect(string.first).to eq("s")
     end
 
     it "answers first letters with positive number" do
-      expect(strings.first(3)).to eq("see")
+      expect(string.first(3)).to eq("see")
     end
 
     it "answers empty string with negative number" do
-      expect(strings.first(-1)).to eq("")
+      expect(string.first(-1)).to eq("")
     end
 
     it "answers itself when empty" do
@@ -196,18 +196,18 @@ RSpec.describe Refinements::Strings do
   end
 
   describe "#last" do
-    subject(:strings) { "weather" }
+    subject(:string) { "weather" }
 
     it "answers last letter" do
-      expect(strings.last).to eq("r")
+      expect(string.last).to eq("r")
     end
 
     it "answers last letters with positive number" do
-      expect(strings.last(3)).to eq("her")
+      expect(string.last(3)).to eq("her")
     end
 
     it "answers empty string with negative number" do
-      expect(strings.last(-1)).to eq("")
+      expect(string.last(-1)).to eq("")
     end
 
     it "answers itself when empty" do

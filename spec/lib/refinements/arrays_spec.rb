@@ -42,12 +42,12 @@ RSpec.describe Refinements::Arrays do
   end
 
   describe "#compress" do
-    subject(:array) { [1, "blueberry", nil, "", [], {}, an_object] }
+    subject(:array) { [1, "blueberry", nil, "", [], {}, object] }
 
-    let(:an_object) { Object.new }
+    let(:object) { Object.new }
 
     it "answers array with nils and empty objects removed" do
-      expect(array.compress).to eq([1, "blueberry", an_object])
+      expect(array.compress).to eq([1, "blueberry", object])
     end
 
     it "answers itself with nothing to remove" do
@@ -61,17 +61,17 @@ RSpec.describe Refinements::Arrays do
 
     it "doesn't mutate itself" do
       array.compress
-      expect(array).to eq([1, "blueberry", nil, "", [], {}, an_object])
+      expect(array).to eq([1, "blueberry", nil, "", [], {}, object])
     end
   end
 
   describe "#compress!" do
-    subject(:array) { [1, "blueberry", nil, "", [], {}, an_object] }
+    subject(:array) { [1, "blueberry", nil, "", [], {}, object] }
 
-    let(:an_object) { Object.new }
+    let(:object) { Object.new }
 
     it "answers array with nils and empty objects removed" do
-      expect(array.compress!).to eq([1, "blueberry", an_object])
+      expect(array.compress!).to eq([1, "blueberry", object])
     end
 
     it "answers itself with nothing to remove" do
@@ -85,12 +85,12 @@ RSpec.describe Refinements::Arrays do
 
     it "mutates itself" do
       array.compress!
-      expect(array).to eq([1, "blueberry", an_object])
+      expect(array).to eq([1, "blueberry", object])
     end
   end
 
   describe "#excluding" do
-    let(:array) { [1, 2, 3, 4, 5] }
+    subject(:array) { [1, 2, 3, 4, 5] }
 
     it "answers array which exludes additional array" do
       expect(array.excluding([3, 4, 5])).to eq([1, 2])
@@ -146,7 +146,7 @@ RSpec.describe Refinements::Arrays do
   end
 
   describe "#including" do
-    let(:array) { [1, 2, 3] }
+    subject(:array) { [1, 2, 3] }
 
     it "answers array which includes additional array" do
       expect(array.including([4, 5, 6])).to eq([1, 2, 3, 4, 5, 6])
@@ -178,7 +178,7 @@ RSpec.describe Refinements::Arrays do
   end
 
   describe "#intersperse" do
-    let(:array) { [1, 2, 3] }
+    subject(:array) { [1, 2, 3] }
 
     it "answers original array with no arguments" do
       expect(array.intersperse).to eq([1, 2, 3])
