@@ -278,6 +278,30 @@ example.ring { |(before, current, after)| puts "#{before} #{current} #{after}" }
 # [2 3 1]
 ----
 
+===== #supplant
+
+Answers mutated array where first target element found is replaced by single or multiple elements.
+
+[source,ruby]
+----
+%i[a b a].supplant :a, :z       # [:z, :b, :a]
+%i[a b a].supplant :a, :z, :y   # [:z, :y, :b, :a]
+%i[a b a].supplant :a, %i[z y]  # [[:z, :y], :b, :a]
+----
+
+===== #supplant_if
+
+Answers mutated array where all target elements are replaced by single or multiple elements.
+
+⚠️ Be aware that this can be an expensive operation on large arrays.
+
+[source,ruby]
+----
+%i[a b a].supplant_if :a, :z       # [:z, :b, :z]
+%i[a b a].supplant_if :a, :z, :y   # [:z, :y, :b, :z, :y]
+%i[a b a].supplant_if :a, %i[z y]  # [[:z, :y], :b, [:z, :y]]
+----
+
 ===== #to_sentence
 
 Answers a sentence using `", "` as the default delimiter and `"and"` as the default conjunction.

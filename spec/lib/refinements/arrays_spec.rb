@@ -301,6 +301,38 @@ RSpec.describe Refinements::Arrays do
     end
   end
 
+  describe "#supplant" do
+    subject(:array) { %i[a b c a] }
+
+    it "replaces first target found with single element" do
+      expect(array.supplant(:a, :z)).to eq(%i[z b c a])
+    end
+
+    it "replaces first target found with multiple elements" do
+      expect(array.supplant(:a, :z, :y)).to eq(%i[z y b c a])
+    end
+
+    it "answers itself" do
+      expect(array.supplant(:a, :z)).to eq(array)
+    end
+  end
+
+  describe "#supplant_if" do
+    subject(:array) { %i[a b c a] }
+
+    it "replaces all matching targets with single element" do
+      expect(array.supplant_if(:a, :z)).to eq(%i[z b c z])
+    end
+
+    it "replaces all matching targets with multiple elements" do
+      expect(array.supplant_if(:a, :z, :y)).to eq(%i[z y b c z y])
+    end
+
+    it "answers itself" do
+      expect(array.supplant_if(:a, :z)).to eq(array)
+    end
+  end
+
   describe "#to_sentence" do
     it "answers empty string when empty" do
       array = []

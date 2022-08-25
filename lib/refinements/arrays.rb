@@ -35,6 +35,20 @@ module Refinements
 
       def ring(&) = [last, *self, first].each_cons(3, &)
 
+      def supplant target, *replacements
+        index(target).then do |position|
+          delete_at position
+          insert position, *replacements
+        end
+
+        self
+      end
+
+      def supplant_if target, *replacements
+        each { |item| supplant target, *replacements if item == target }
+        self
+      end
+
       def to_sentence delimiter: ", ", conjunction: "and"
         case length
           when (3..) then "#{self[..-2].join delimiter}#{delimiter}#{conjunction} #{last}"
