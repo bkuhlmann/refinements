@@ -1,5 +1,13 @@
 = Versions
 
+== 9.7.0 (2022-09-01)
+
+* Fixed RuboCop Style/StabbyLambdaParentheses issues - Brooke Kuhlmann
+* Added Circle CI SimpleCov artifacts - Brooke Kuhlmann
+* Added array supplant - Brooke Kuhlmann
+* Updated SimpleCov configuration to use filters and minimum coverage - Brooke Kuhlmann
+* Refactored specs to use consistent subjects and lets - Brooke Kuhlmann
+
 == 9.6.0 (2022-07-17)
 
 * Added array combinatorial - Brooke Kuhlmann
