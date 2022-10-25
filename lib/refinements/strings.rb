@@ -50,6 +50,8 @@ module Refinements
                                            .then { |parts| combine parts, :down, "_" }
       end
 
+      def squish = gsub(/[[:space:]]+/, " ").tap(&:strip!)
+
       def titleize
         return capitalize unless match? DELIMITERS
 

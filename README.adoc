@@ -1135,6 +1135,16 @@ Answers a snake cased string.
 "ThisIsAnExample".snakecase  # "this_is_an_example"
 ----
 
+===== #squish
+
+Removes leading, in body, and trailing whitespace, including any tabs or newlines, without mutating itself. Processes ASCII and unicode whitespace as well.
+
+[source,ruby]
+----
+"one two three".squish                  # "one two three"
+" one  two   \n    \t   three ".squish  # "one two three"
+----
+
 ===== #titleize
 
 Answers a title string with proper capitalization of each word.

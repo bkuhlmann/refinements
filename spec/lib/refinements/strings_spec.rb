@@ -375,6 +375,24 @@ RSpec.describe Refinements::Strings do
     end
   end
 
+  describe "#squish" do
+    it "answers string with leading, body, and trailing whitespace removed" do
+      expect(" one  two   \n    \t   three ".squish).to eq("one two three")
+    end
+
+    it "answers itself when nothing to do" do
+      text = "one two three"
+      expect(text.squish).to eq(text)
+    end
+
+    it "doesn't mutate itself" do
+      text = " one \n\t two "
+      text.squish
+
+      expect(text).to eq(" one \n\t two ")
+    end
+  end
+
   describe "#titleize" do
     it "answers empty string as empty string" do
       expect("".titleize).to eq("")
