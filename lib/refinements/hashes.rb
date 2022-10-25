@@ -47,9 +47,7 @@ module Refinements
 
       def deep_symbolize_keys! = replace(deep_symbolize_keys)
 
-      def fetch_value(key, *default_value, &)
-        fetch(key, *default_value, &) || default_value.first
-      end
+      def fetch_value(key, *default_value, &) = fetch(key, *default_value, &) || default_value.first
 
       # :reek:TooManyStatements
       def flatten_keys prefix: nil, delimiter: "_", cast: :to_sym
@@ -58,7 +56,7 @@ module Refinements
         reduce({}) do |flat, (key, value)|
           flat_key = prefix ? "#{prefix}#{delimiter}#{key}" : key
 
-          next flat.merge flat_key.public_send(cast) => value unless value.is_a? self.class
+          next flat.merge flat_key.public_send(cast) => value unless value in Hash
 
           flat.merge(
             recurse { value.flatten_keys prefix: flat_key, delimiter:, cast: }
@@ -74,10 +72,7 @@ module Refinements
         return self unless block
 
         transform = yield self
-
-        transform.each do |key, value|
-          transform[key] = value.recurse(&block) if value.is_a? self.class
-        end
+        transform.each { |key, value| transform[key] = value.recurse(&block) if value in Hash }
       end
 
       def stringify_keys = transform_keys(&:to_s)
