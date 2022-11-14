@@ -83,6 +83,17 @@ module Refinements
 
       def symbolize_keys! = transform_keys!(&:to_sym)
 
+      def transform_with(operations) = dup.transform_with! operations
+
+      def transform_with! operations
+        operations.each do |key, function|
+          value = self[key]
+          self[key] = function.call value if value
+        end
+
+        self
+      end
+
       def use &block
         return [] unless block
 

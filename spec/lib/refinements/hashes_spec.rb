@@ -427,6 +427,51 @@ RSpec.describe Refinements::Hashes do
     end
   end
 
+  shared_examples "a transform" do |method|
+    subject(:a_hash) { {name: "Jayne Doe", email: "<jd@example.com>"} }
+
+    it "answers transformed values" do
+      result = a_hash.public_send method,
+                                  name: -> value { value.delete_suffix " Doe" },
+                                  email: -> value { value.tr "<>", "" }
+
+      expect(result).to eq(name: "Jayne", email: "jd@example.com")
+    end
+
+    it "ignores invalid keys" do
+      result = a_hash.public_send method, bogus: -> value { value.tr "<>", "" }
+      expect(result).to eq(a_hash)
+    end
+
+    it "ignores nil values" do
+      a_hash = {email: nil}
+      result = a_hash.public_send method, email: -> value { value.tr "<>", "" }
+      expect(result).to eq(a_hash)
+    end
+  end
+
+  describe "#transform_with" do
+    it_behaves_like "a transform", :transform_with
+
+    it "doesn't mutate itself" do
+      a_hash = {email: "<test@example.com>"}
+      a_hash.transform_with email: -> value { value.tr "<>", "" }
+
+      expect(a_hash).to eq(email: "<test@example.com>")
+    end
+  end
+
+  describe "#transform_with!" do
+    it_behaves_like "a transform", :transform_with!
+
+    it "mutates itself" do
+      a_hash = {email: "<test@example.com>"}
+      a_hash.transform_with! email: -> value { value.tr "<>", "" }
+
+      expect(a_hash).to eq(email: "test@example.com")
+    end
+  end
+
   describe "#use" do
     subject(:a_hash) { {width: 10, height: 5, depth: 22} }
 

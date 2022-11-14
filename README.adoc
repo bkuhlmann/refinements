@@ -574,6 +574,82 @@ example.symbolize_keys!  # {a: 1, b: 2}
 example                  # {a: 1, b: 2}
 ----
 
+===== #transform_with
+
+Transforms key/value pairs based on specific operations where each operation (i.e. function that responds to the `call` message). Does not mutate itself.
+
+You can transform multiple values at once:
+
+[source,ruby]
+----
+example = {name: "Jayne Doe", email: "<jd@example.com>"}
+
+example.transform_with name: -> value { value.delete_suffix " Doe" },
+                       email: -> value { value.tr "<>", "" }
+# {name: "Jayne", email: "jd@example.com"}
+----
+
+Invalid keys are ignored:
+
+[source,ruby]
+----
+example.transform_with bogus: -> value { value.tr "<>", "" }
+# {email: "<jd@example.com>"}
+----
+
+Nil values are skipped:
+
+[source,ruby]
+----
+{email: nil}.transform_with email: -> value { value.tr "<>", "" }
+# {email: nil}
+----
+
+The original object will not be mutated:
+
+[source,ruby]
+----
+example  # {name: "Jayne Doe", email: "<jd@example.com>"}
+----
+
+===== #transform_with!
+
+Transforms key/value pairs based on specific operations where each operation (i.e. function that responds to the `call` message). Mutates itself.
+
+You can transform multiple values at once:
+
+[source,ruby]
+----
+example = {name: "Jayne Doe", email: "<jd@example.com>"}
+
+example.transform_with! name: -> value { value.delete_suffix " Doe" },
+                        email: -> value { value.tr "<>", "" }
+# {name: "Jayne", email: "jd@example.com"}
+----
+
+Invalid keys are ignored:
+
+[source,ruby]
+----
+example.transform_with! bogus: -> value { value.tr "<>", "" }
+# {email: "<jd@example.com>"}
+----
+
+Nil values are skipped:
+
+[source,ruby]
+----
+{email: nil}.transform_with! email: -> value { value.tr "<>", "" }
+# {email: nil}
+----
+
+The original object will be mutated:
+
+[source,ruby]
+----
+example  # {name: "Jayne", email: "jd@example.com"}
+----
+
 ===== #use
 
 Passes each hash value as a block argument for further processing.
