@@ -1,5 +1,11 @@
 = Versions
 
+== 9.8.0 (2022-11-14)
+
+* Added String squish - Brooke Kuhlmann
+* Added hash transform with operations - Brooke Kuhlmann
+* Refactored hashes to use pattern matching - Brooke Kuhlmann
+
 == 9.7.1 (2022-10-22)
 
 * Fixed Rakefile RSpec initialization - Brooke Kuhlmann
