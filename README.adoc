@@ -148,8 +148,8 @@ Removes `nil` and empty values while mutating itself.
 object = Object.new
 example = [1, "blueberry", nil, "", [], {}, object]
 
-example.compress  # [1, "blueberry", object]
-example           # [1, "blueberry", object]
+example.compress!  # [1, "blueberry", object]
+example            # [1, "blueberry", object]
 ----
 
 ===== #excluding
