@@ -4,7 +4,7 @@
 require "bundler/setup"
 Bundler.require :tools
 
-require "refinements"
 require "irb"
+require "refinements"
 
 IRB.start __FILE__

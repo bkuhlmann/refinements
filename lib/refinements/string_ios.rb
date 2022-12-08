@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require "stringio"
 require "refinements/shared/ios/reread"
+require "stringio"
 
 module Refinements
   # Provides additional enhancements to the StringIO primitive.
