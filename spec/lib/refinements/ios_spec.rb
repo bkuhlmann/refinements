@@ -66,7 +66,7 @@ RSpec.describe Refinements::IOs do
 
     it "writes to buffer" do
       buffer = +""
-      io.reread buffer: buffer
+      io.reread(buffer:)
 
       expect(buffer).to eq("This is a test.")
     end
