@@ -605,14 +605,6 @@ example.transform_with bogus: -> value { value.tr "<>", "" }
 # {email: "<jd@example.com>"}
 ----
 
-Nil values are skipped:
-
-[source,ruby]
-----
-{email: nil}.transform_with email: -> value { value.tr "<>", "" }
-# {email: nil}
-----
-
 The original object will not be mutated:
 
 [source,ruby]
@@ -641,14 +633,6 @@ Invalid keys are ignored:
 ----
 example.transform_with! bogus: -> value { value.tr "<>", "" }
 # {email: "<jd@example.com>"}
-----
-
-Nil values are skipped:
-
-[source,ruby]
-----
-{email: nil}.transform_with! email: -> value { value.tr "<>", "" }
-# {email: nil}
 ----
 
 The original object will be mutated:

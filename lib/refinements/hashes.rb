@@ -77,11 +77,7 @@ module Refinements
       def transform_with(operations) = dup.transform_with! operations
 
       def transform_with! operations
-        operations.each do |key, function|
-          value = self[key]
-          self[key] = function.call value if value
-        end
-
+        operations.each { |key, function| self[key] = function.call self[key] if key? key }
         self
       end
 

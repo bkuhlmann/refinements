@@ -429,12 +429,6 @@ RSpec.describe Refinements::Hashes do
       result = a_hash.public_send method, bogus: -> value { value.tr "<>", "" }
       expect(result).to eq(a_hash)
     end
-
-    it "ignores nil values" do
-      a_hash = {email: nil}
-      result = a_hash.public_send method, email: -> value { value.tr "<>", "" }
-      expect(result).to eq(a_hash)
-    end
   end
 
   describe "#transform_with" do
