@@ -5,23 +5,6 @@ require "spec_helper"
 RSpec.describe Refinements::Structs do
   using described_class
 
-  describe "#keyworded?" do
-    it "prints deprecation warning" do
-      expectation = proc { Struct.new(:a).keyworded? }
-      expect(&expectation).to output(/DEPRECATION/).to_stderr
-    end
-
-    it "answers true when constructed with keyword arguments" do
-      struct = Struct.new :a, keyword_init: true
-      expect(struct.keyworded?).to be(true)
-    end
-
-    it "answers false when constructed with positional arguments" do
-      struct = Struct.new :a
-      expect(struct.keyworded?).to be(false)
-    end
-  end
-
   describe ".with_keywords" do
     context "with positional construction" do
       subject(:struct) { Struct.new :a, :b, :c }
