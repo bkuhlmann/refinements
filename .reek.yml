@@ -15,6 +15,9 @@ detectors:
     exclude:
       - "Array#compress"
       - "Hash#compress"
+  TooManyStatements:
+    exclude:
+      - "Hash#flatten_keys"
   UncommunicativeMethodName:
     exclude:
       - "Kernel#Pathname"

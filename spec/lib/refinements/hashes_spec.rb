@@ -261,11 +261,6 @@ RSpec.describe Refinements::Hashes do
   end
 
   shared_examples "flattened keys" do |method|
-    it "fails with unknown cast" do
-      expectation = proc { Hash.new.flatten_keys cast: :invalid }
-      expect(&expectation).to raise_error(StandardError, "Unknown cast: invalid.")
-    end
-
     it "answers same structure when keys are not nested" do
       expect({a: 1, b: 2}.public_send(method)).to eq(a: 1, b: 2)
     end
@@ -284,14 +279,6 @@ RSpec.describe Refinements::Hashes do
 
     it "answers flattened keys with custom delimiter" do
       expect({a: {b: 1}}.public_send(method, delimiter: :I)).to eq(aIb: 1)
-    end
-
-    it "answers flattened, string keys when cast is a string" do
-      expect({a: {b: 1}}.public_send(method, cast: :to_s)).to eq("a_b" => 1)
-    end
-
-    it "answers flattened, symbol keys when cast is a symbol" do
-      expect({"a" => {"b" => 1}}.public_send(method, cast: :to_sym)).to eq(a_b: 1)
     end
 
     it "answers empty hash when hash is empty" do

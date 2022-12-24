@@ -493,9 +493,6 @@ though.
 {a: {b: 1}}.flatten_keys prefix: :test          # {test_a_b: 1}
 {a: {b: 1}}.flatten_keys delimiter: :|          # {:"a|b" => 1}
 
-{a: {b: 1}}.flatten_keys cast: :to_s            # {"a_b" => 1}
-{"a" => {"b" => 1}}.flatten_keys cast: :to_sym  # {a_b: 1}
-
 example = {a: {b: 1}}
 example.flatten_keys                            # {a_b: 1}
 example                                         # {a: {b: 1}}
@@ -508,6 +505,9 @@ though.
 
 [source,ruby]
 ----
+{a: {b: 1}}.flatten_keys! prefix: :test          # {test_a_b: 1}
+{a: {b: 1}}.flatten_keys! delimiter: :|          # {:"a|b" => 1}
+
 example = {a: {b: 1}}
 example.flatten_keys!  # {a_b: 1}
 example                # {a_b: 1}

@@ -47,24 +47,17 @@ module Refinements
 
       def fetch_value(key, *default_value, &) = fetch(key, *default_value, &) || default_value.first
 
-      # :reek:TooManyStatements
-      def flatten_keys prefix: nil, delimiter: "_", cast: :to_sym
-        fail StandardError, "Unknown cast: #{cast}." unless %i[to_sym to_s].include? cast
+      def flatten_keys prefix: nil, delimiter: "_"
+        reduce({}) do |accumulator, (key, value)|
+          flat_key = prefix ? "#{prefix}#{delimiter}#{key}".to_sym : key
 
-        reduce({}) do |flat, (key, value)|
-          flat_key = prefix ? "#{prefix}#{delimiter}#{key}" : key
+          next accumulator.merge flat_key => value unless value in Hash
 
-          next flat.merge flat_key.public_send(cast) => value unless value in Hash
-
-          flat.merge(
-            recurse { value.flatten_keys prefix: flat_key, delimiter:, cast: }
-          )
+          accumulator.merge(recurse { value.flatten_keys prefix: flat_key, delimiter: })
         end
       end
 
-      def flatten_keys! prefix: nil, delimiter: "_", cast: :to_sym
-        replace flatten_keys(prefix:, delimiter:, cast:)
-      end
+      def flatten_keys!(prefix: nil, delimiter: "_") = replace flatten_keys(prefix:, delimiter:)
 
       def recurse &block
         return self unless block
