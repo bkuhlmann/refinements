@@ -5,36 +5,6 @@ require "spec_helper"
 RSpec.describe Refinements::Structs do
   using described_class
 
-  describe ".with_keywords" do
-    context "with positionals" do
-      subject(:struct) { Struct.new :a, :b, :c }
-
-      it "answers struct with all positions filled" do
-        expect(struct.with_keywords(a: 1, b: 2, c: 3)).to eq(struct[1, 2, 3])
-      end
-
-      it "answers struct with first position filled" do
-        expect(struct.with_keywords(a: 1)).to eq(struct[1, nil, nil])
-      end
-
-      it "answers struct with last position filled" do
-        expect(struct.with_keywords(c: 1)).to eq(struct[nil, nil, 1])
-      end
-    end
-
-    context "with keywords" do
-      subject(:struct) { Struct.new :a, :b, :c, keyword_init: true }
-
-      it "answers struct with all positions filled" do
-        expect(struct.with_keywords(a: 1, b: 2, c: 3)).to eq(struct[a: 1, b: 2, c: 3])
-      end
-
-      it "answers struct with some positions filled" do
-        expect(struct.with_keywords(a: 1)).to eq(struct[a: 1, b: nil, c: nil])
-      end
-    end
-  end
-
   describe ".with_positions" do
     context "with positionals" do
       subject(:struct) { Struct.new :a, :b, :c }

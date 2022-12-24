@@ -4,8 +4,6 @@ module Refinements
   # Provides additional enhancements to the Struct primitive.
   module Structs
     refine Struct.singleton_class do
-      def with_keywords(**arguments) = keyword_init? ? new(**arguments) : new.merge!(**arguments)
-
       def with_positions(*values) = keyword_init? ? new(**members.zip(values).to_h) : new(*values)
     end
 

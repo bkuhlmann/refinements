@@ -1273,24 +1273,6 @@ buffer                     # "This is a test."
 
 ==== Struct
 
-===== .with_keywords
-
-Answers a struct instance with given keyword arguments regardless of
-whether the struct was constructed with positional or keyword arguments.
-
-[source,ruby]
-----
-Example = Struct.new :a, :b, :c
-Example.with_keywords a: 1, b: 2, c: 3  # #<struct a=1, b=2, c=3>
-Example.with_keywords a: 1              # #<struct a=1, b=nil, c=nil>
-Example.with_keywords c: 1              # #<struct a=nil, b=nil, c=1>
-
-Example = Struct.new :a, :b, :c, keyword_init: true
-Example.with_keywords a: 1, b: 2, c: 3  # #<struct a=1, b=2, c=3>
-Example.with_keywords a: 1              # #<struct a=1, b=nil, c=nil>
-Example.with_keywords c: 1              # #<struct a=nil, b=nil, c=1>
-----
-
 ===== .with_positions
 
 Answers a struct instance with given positional arguments regardless of
