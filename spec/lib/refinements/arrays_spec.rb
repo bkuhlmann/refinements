@@ -217,7 +217,7 @@ RSpec.describe Refinements::Arrays do
 
   describe "#maximum" do
     it "answers maximum extracted value" do
-      model = Struct.new :x, keyword_init: true
+      model = Struct.new :x
       records = [model[x: 3], model[x: 1], model[x: 2]]
 
       expect(records.maximum(:x)).to eq(3)
@@ -252,7 +252,7 @@ RSpec.describe Refinements::Arrays do
 
   describe "#minimum" do
     it "answers minimum extracted value" do
-      model = Struct.new :x, keyword_init: true
+      model = Struct.new :x
       records = [model[x: 3], model[x: 1], model[x: 2]]
 
       expect(records.minimum(:x)).to eq(1)
