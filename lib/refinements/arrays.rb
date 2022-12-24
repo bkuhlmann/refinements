@@ -10,11 +10,11 @@ module Refinements
 
       def combinatorial?(other) = !other.empty? && size == union(other).size
 
-      def compress = dup.compress!
+      def compress = compact.delete_if { |element| element.respond_to?(:empty?) && element.empty? }
 
       def compress!
-        compact!
         delete_if { |element| element.respond_to?(:empty?) && element.empty? }
+        compact!
       end
 
       def excluding(*elements) = self - elements.flatten

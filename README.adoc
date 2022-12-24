@@ -128,26 +128,30 @@ example.combinatorial? []           # false
 
 ===== #compress
 
-Removes `nil` and empty objects without mutating itself.
+Removes `nil` and empty objects without mutating itself. Answers itself if there is nothing to remove.
 
 [source,ruby]
 ----
 object = Object.new
 example = [1, "blueberry", nil, "", [], {}, object]
 
+[].compress       # []
+[1, 2].compress   # [1, 2]
 example.compress  # [1, "blueberry", object]
 example           # [1, "blueberry", nil, "", [], {}, object]
 ----
 
 ===== #compress!
 
-Removes `nil` and empty values while mutating itself.
+Removes `nil` and empty values while mutating itself. Answers `nil` if there is nothing to remove.
 
 [source,ruby]
 ----
 object = Object.new
 example = [1, "blueberry", nil, "", [], {}, object]
 
+[].compress!       # nil
+[1, 2].compress!   # nil
 example.compress!  # [1, "blueberry", object]
 example            # [1, "blueberry", object]
 ----
@@ -367,28 +371,32 @@ example[:b]  # []
 
 ===== #compress
 
-Removes `nil` and empty objects without mutating itself.
+Removes `nil` and empty objects without mutating itself. Answers itself if there is nothing to remove.
 
 [source,ruby]
 ----
 object = Object.new
 example = {a: 1, b: "blueberry", c: nil, d: "", e: [], f: {}, g: object}
 
-example.compress  # {a: 1, b: "blueberry", g: object}
-example           # {a: 1, b: "blueberry", c: nil, d: "", e: [], f: {}, g: object}
+{}.compress            # {}
+{a: 1, b: 2}.compress  # {a: 1, b: 2}
+example.compress       # {a: 1, b: "blueberry", g: object}
+example                # {a: 1, b: "blueberry", c: nil, d: "", e: [], f: {}, g: object}
 ----
 
 ===== #compress!
 
-Removes `nil` and empty objects while mutating itself.
+Removes `nil` and empty objects while mutating itself. Answers `nil` if there is nothing to remove.
 
 [source,ruby]
 ----
 object = Object.new
 example = {a: 1, b: "blueberry", c: nil, d: "", e: [], f: {}, g: object}
 
-example.compress!  # {a: 1, b: "blueberry", g: object}
-example            # {a: 1, b: "blueberry", g: object}
+{}.compress!            # nil
+{a: 1, b: 2}.compress!  # nil
+example.compress!       # {a: 1, b: "blueberry", g: object}
+example                 # {a: 1, b: "blueberry", g: object}
 ----
 
 ===== #deep_merge

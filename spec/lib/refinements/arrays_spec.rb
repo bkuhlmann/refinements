@@ -74,13 +74,13 @@ RSpec.describe Refinements::Arrays do
       expect(array.compress!).to eq([1, "blueberry", object])
     end
 
-    it "answers itself with nothing to remove" do
+    it "answers nil with nothing to remove" do
       slice = array.slice(0, 2).compress!
-      expect(slice).to contain_exactly(1, "blueberry")
+      expect(slice).to be(nil)
     end
 
-    it "answers itself when empty" do
-      expect([].compress!).to eq([])
+    it "answers nil when empty" do
+      expect([].compress!).to be(nil)
     end
 
     it "mutates itself" do

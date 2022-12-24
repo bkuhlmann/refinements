@@ -57,13 +57,13 @@ RSpec.describe Refinements::Hashes do
       expect(a_hash.compress!).to eq(a: 1, b: "blueberry", g: object)
     end
 
-    it "answers itself with nothing to remove" do
+    it "answers nil with nothing to remove" do
       slice = a_hash.slice(:a).compress!
-      expect(slice).to eq(a: 1)
+      expect(slice).to be(nil)
     end
 
-    it "answers itself when empty" do
-      expect({}.compress!).to eq({})
+    it "answers nil when empty" do
+      expect({}.compress!).to be(nil)
     end
 
     it "mutates itself" do

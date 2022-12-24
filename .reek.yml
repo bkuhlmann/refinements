@@ -9,12 +9,12 @@ detectors:
       - "singleton_class#make_temp_dir"
   FeatureEnvy:
     exclude:
-      - "Array#compress!"
-      - "Hash#compress!"
+      - "Array#compress"
+      - "Hash#compress"
   ManualDispatch:
     exclude:
-      - "Array#compress!"
-      - "Hash#compress!"
+      - "Array#compress"
+      - "Hash#compress"
   UncommunicativeMethodName:
     exclude:
       - "Kernel#Pathname"

@@ -16,13 +16,11 @@ module Refinements
     refine Hash do
       import_methods Shared::Enumerables::Many
 
-      def compress = dup.compress!
+      def compress = compact.delete_if { |_key, value| value.respond_to?(:empty?) && value.empty? }
 
       def compress!
-        return self if empty?
-
-        compact!
         delete_if { |_key, value| value.respond_to?(:empty?) && value.empty? }
+        compact!
       end
 
       def deep_merge other
