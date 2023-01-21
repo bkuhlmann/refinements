@@ -831,7 +831,7 @@ Pathname.require_tree __dir__
 Pathname.require_tree "/test"
 
 # Requires all files in RSpec shared examples directory structure.
-Pathname.require_tree Bundler.root.join("spec"), "support/shared_examples/**/*.rb"
+Pathname.require_tree SPEC_ROOT, "support/shared_examples/**/*.rb"
 ----
 
 ===== .root
