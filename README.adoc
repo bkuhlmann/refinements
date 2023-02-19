@@ -5,7 +5,7 @@
 = Refinements
 
 Refinements are a collection primitive Ruby objects enhancements without needing to resort to hard
-to debug link:https://www.alchemists.io/articles/ruby_antipatterns/#_monkey_patches[monkey patches].
+to debug link:https://alchemists.io/articles/ruby_antipatterns/#_monkey_patches[monkey patches].
 These refinements give you additional syntactic sugar to develop clean and concise implementations
 while using less code. By refining our code we can acquire the functionality we wish the core
 primitives had!
@@ -31,7 +31,7 @@ Enhances the following objects:
 == Requirements
 
 . https://www.ruby-lang.org[Ruby].
-. A solid understanding of link:https://www.alchemists.io/articles/ruby_refinements[Ruby refinements
+. A solid understanding of link:https://alchemists.io/articles/ruby_refinements[Ruby refinements
   and lexical scope].
 
 == Setup
@@ -1439,19 +1439,19 @@ To test, run:
 bin/rake
 ----
 
-== link:https://www.alchemists.io/policies/license[License]
+== link:https://alchemists.io/policies/license[License]
 
-== link:https://www.alchemists.io/policies/security[Security]
+== link:https://alchemists.io/policies/security[Security]
 
-== link:https://www.alchemists.io/policies/code_of_conduct[Code of Conduct]
+== link:https://alchemists.io/policies/code_of_conduct[Code of Conduct]
 
-== link:https://www.alchemists.io/policies/contributions[Contributions]
+== link:https://alchemists.io/policies/contributions[Contributions]
 
-== link:https://www.alchemists.io/projects/refinements/versions[Versions]
+== link:https://alchemists.io/projects/refinements/versions[Versions]
 
-== link:https://www.alchemists.io/community[Community]
+== link:https://alchemists.io/community[Community]
 
 == Credits
 
-* Built with link:https://www.alchemists.io/projects/gemsmith[Gemsmith].
-* Engineered by link:https://www.alchemists.io/team/brooke_kuhlmann[Brooke Kuhlmann].
+* Built with link:https://alchemists.io/projects/gemsmith[Gemsmith].
+* Engineered by link:https://alchemists.io/team/brooke_kuhlmann[Brooke Kuhlmann].

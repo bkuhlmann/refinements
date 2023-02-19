@@ -5,14 +5,14 @@ Gem::Specification.new do |spec|
   spec.version = "10.0.1"
   spec.authors = ["Brooke Kuhlmann"]
   spec.email = ["brooke@alchemists.io"]
-  spec.homepage = "https://www.alchemists.io/projects/refinements"
+  spec.homepage = "https://alchemists.io/projects/refinements"
   spec.summary = "A collection of refinements to core Ruby objects."
   spec.license = "Hippocratic-2.1"
 
   spec.metadata = {
     "bug_tracker_uri" => "https://github.com/bkuhlmann/refinements/issues",
-    "changelog_uri" => "https://www.alchemists.io/projects/refinements/versions",
-    "documentation_uri" => "https://www.alchemists.io/projects/refinements",
+    "changelog_uri" => "https://alchemists.io/projects/refinements/versions",
+    "documentation_uri" => "https://alchemists.io/projects/refinements",
     "funding_uri" => "https://github.com/sponsors/bkuhlmann",
     "label" => "Refinements",
     "rubygems_mfa_required" => "true",
