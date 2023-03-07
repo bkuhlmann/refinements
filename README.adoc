@@ -817,7 +817,7 @@ before being required to ensure consistent behavior. Example:
 Dir[File.join(__dir__, "support/shared_contexts/**/*.rb")].sort.each { |path| require path }
 
 # After
-Pathname.require_tree __dir__, "support/shared_contexts/**/*.rb"
+Pathname.require_tree "#{__dir__}/support/shared_contexts"
 ----
 
 The following are further examples of potential usage:
@@ -831,7 +831,7 @@ Pathname.require_tree __dir__
 Pathname.require_tree "/test"
 
 # Requires all files in RSpec shared examples directory structure.
-Pathname.require_tree SPEC_ROOT, "support/shared_examples/**/*.rb"
+Pathname.require_tree SPEC_ROOT.join("support/shared_examples")
 ----
 
 ===== .root
