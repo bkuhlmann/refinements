@@ -37,4 +37,18 @@ RSpec.describe Refinements::Loggers do
       end
     end
   end
+
+  describe "#any" do
+    let(:io) { StringIO.new }
+
+    it "logs message with block" do
+      logger.any { "Test." }
+      expect(logger.reread).to include("ANY -- : Test.")
+    end
+
+    it "logs message without block" do
+      logger.any "Test."
+      expect(logger.reread).to include("ANY -- : Test.")
+    end
+  end
 end

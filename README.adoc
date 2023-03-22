@@ -760,6 +760,20 @@ logger.write "Test."
 logger.reread                     # ""
 ----
 
+===== #any
+
+Allows you to log _any_ message which is identical in behavior and functionality to the `Logger#unknown` method only this requires less typing and better matches the terminology used by the `#unknown` method.
+
+``` ruby
+logger = Logger.new STDOUT
+
+logger.any "Test."
+# A, [2000-01-10T09:00:00.847428 #44925]   ANY -- : Test.
+
+logger.any { "Test." }
+A, [2000-01-10T09:00:00.330719 #44925]   ANY -- : Test.
+```
+
 ==== Pathname
 
 ===== Pathname
