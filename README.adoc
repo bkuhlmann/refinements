@@ -4,11 +4,7 @@
 
 = Refinements
 
-Refinements are a collection primitive Ruby objects enhancements without needing to resort to hard
-to debug link:https://alchemists.io/articles/ruby_antipatterns/#_monkey_patches[monkey patches].
-These refinements give you additional syntactic sugar to develop clean and concise implementations
-while using less code. By refining our code we can acquire the functionality we wish the core
-primitives had!
+These refinements augment and enhance Ruby primitives so you can avoid link:https://alchemists.io/articles/ruby_antipatterns/#_monkey_patches[monkey patches]. They also allow you to develop clean and concise implementations while using less code. By refining your code, you can acquire the functionality you wish the core primitives had!
 
 toc::[]
 
@@ -31,8 +27,7 @@ Enhances the following objects:
 == Requirements
 
 . https://www.ruby-lang.org[Ruby].
-. A solid understanding of link:https://alchemists.io/articles/ruby_refinements[Ruby refinements
-  and lexical scope].
+. A solid understanding of link:https://alchemists.io/articles/ruby_refinements[refinements].
 
 == Setup
 
@@ -54,7 +49,7 @@ gem "refinements"
 
 === Requires
 
-If all refinements are not desired, add the following to your `+Gemfile+` instead:
+If no refinements are desired, then add the following to your `Gemfile` instead:
 
 [source,ruby]
 ----
@@ -195,7 +190,7 @@ Adds given array or elements without mutating itself.
 
 ===== #intersperse
 
-Inserts additional elements or array between all members of given array.
+Inserts additional elements or an array between all members of given array.
 
 [source,ruby]
 ----
@@ -371,7 +366,7 @@ example[:b]  # []
 
 ===== #compress
 
-Removes `nil` and empty objects without mutating itself. Answers itself if there is nothing to remove.
+Removes `nil` and empty objects without mutating itself. Answers itself if nothing to remove.
 
 [source,ruby]
 ----
@@ -386,7 +381,7 @@ example                # {a: 1, b: "blueberry", c: nil, d: "", e: [], f: {}, g: 
 
 ===== #compress!
 
-Removes `nil` and empty objects while mutating itself. Answers `nil` if there is nothing to remove.
+Removes `nil` and empty objects while mutating itself. Answers `nil` if nothing to remove.
 
 [source,ruby]
 ----
@@ -584,7 +579,7 @@ example                  # {a: 1, b: 2}
 
 ===== #transform_with
 
-Transforms key/value pairs based on specific operations where each operation (i.e. function that responds to the `call` message). Does not mutate itself.
+Transforms key/value pairs based on specific operations where each operation (i.e. a function that responds to `#call`). Does not mutate itself.
 
 You can transform multiple values at once:
 
@@ -614,7 +609,7 @@ example  # {name: "Jayne Doe", email: "<jd@example.com>"}
 
 ===== #transform_with!
 
-Transforms key/value pairs based on specific operations where each operation (i.e. function that responds to the `call` message). Mutates itself.
+Transforms key/value pairs based on specific operations where each operation (i.e. a function that responds to `#call`). Mutates itself.
 
 You can transform multiple values at once:
 
@@ -1147,7 +1142,7 @@ Answers first character of a string or first set of characters if given a number
 
 ===== #indent
 
-Answers string indented by two spaces by default.
+Answers indentation (string) which is the result of the multiplier times padding. By default, the multiplier is `1` and the padding is `"  "` which equates to two spaces.
 
 [source,ruby]
 ----
