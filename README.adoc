@@ -579,9 +579,7 @@ example                  # {a: 1, b: 2}
 
 ===== #transform_with
 
-Transforms key/value pairs based on specific operations where each operation (i.e. a function that responds to `#call`). Does not mutate itself.
-
-You can transform multiple values at once:
+Transforms values of keys using specific operations (i.e. any object that responds to `#call`). Does not mutate itself and you can transform multiple values at once:
 
 [source,ruby]
 ----
@@ -600,7 +598,7 @@ example.transform_with bogus: -> value { value.tr "<>", "" }
 # {email: "<jd@example.com>"}
 ----
 
-The original object will not be mutated:
+The original object _will not_ be mutated:
 
 [source,ruby]
 ----
@@ -609,9 +607,7 @@ example  # {name: "Jayne Doe", email: "<jd@example.com>"}
 
 ===== #transform_with!
 
-Transforms key/value pairs based on specific operations where each operation (i.e. a function that responds to `#call`). Mutates itself.
-
-You can transform multiple values at once:
+Transforms values of keys using specific operations (i.e. any object that responds to `#call`). Mutates itself and you can transform multiple values at once:
 
 [source,ruby]
 ----
@@ -630,7 +626,7 @@ example.transform_with! bogus: -> value { value.tr "<>", "" }
 # {email: "<jd@example.com>"}
 ----
 
-The original object will be mutated:
+The original object _will be_ mutated:
 
 [source,ruby]
 ----

@@ -1,5 +1,12 @@
 = Versions
 
+== 10.1.1 (2023-04-08)
+
+* Fixed Hash use method to fallback to string key if symbol isn't found - Brooke Kuhlmann
+* Fixed RuboCop Style/FormatStringToken issues - Brooke Kuhlmann
+* Updated documentation with additional clarifications - Brooke Kuhlmann
+* Updated to Ruby 3.2.2 - Brooke Kuhlmann
+
 == 10.1.0 (2023-03-22)
 
 * Added logger any method alias - Brooke Kuhlmann
