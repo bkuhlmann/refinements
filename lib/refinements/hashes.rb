@@ -85,7 +85,7 @@ module Refinements
         return [] unless block
 
         block.parameters
-             .map { |(_type, key)| self[key] }
+             .map { |(_type, key)| self[key] || self[key.to_s] }
              .then { |values| yield values }
       end
     end

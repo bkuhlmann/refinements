@@ -639,7 +639,7 @@ example  # {name: "Jayne", email: "jd@example.com"}
 
 ===== #use
 
-Passes each hash value as a block argument for further processing.
+Uses the hash's keys as block arguments where the value of the block argument is equal to the value of the key found within the hash. Works best with hashes that use symbols for keys but falls back to string keys when symbol keys can't be found.
 
 [source,ruby]
 ----

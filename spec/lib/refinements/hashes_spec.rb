@@ -456,8 +456,15 @@ RSpec.describe Refinements::Hashes do
   describe "#use" do
     subject(:a_hash) { {width: 10, height: 5, depth: 22} }
 
-    it "answers result of selected values" do
+    it "answers result of selected values where keys are symbols" do
       area = a_hash.use { |width, height| width * height }
+      expect(area).to eq(50)
+    end
+
+    it "answers result of selected values where keys are strings" do
+      a_hash = {"width" => 10, "height" => 5, "depth" => 22}
+      area = a_hash.use { |width, height| width * height }
+
       expect(area).to eq(50)
     end
 
