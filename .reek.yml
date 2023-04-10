@@ -11,6 +11,8 @@ detectors:
     exclude:
       - "Array#compress"
       - "Hash#compress"
+  LongParameterList:
+    enabled: false
   ManualDispatch:
     exclude:
       - "Array#compress"
