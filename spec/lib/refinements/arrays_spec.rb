@@ -361,12 +361,12 @@ RSpec.describe Refinements::Arrays do
 
     it "answers string with multiple items using custom conjunction" do
       array = [1, "a", :b, 2.0, /\A\w\z/]
-      expect(array.to_sentence(conjunction: "or")).to eq("1, a, b, 2.0, or (?-mix:\\A\\w\\z)")
+      expect(array.to_sentence("or")).to eq("1, a, b, 2.0, or (?-mix:\\A\\w\\z)")
     end
 
     it "answers string with multiple items using custom delimiter and conjunction" do
       array = %w[eins zwei drei]
-      expect(array.to_sentence(delimiter: " ", conjunction: "und")).to eq("eins zwei und drei")
+      expect(array.to_sentence("und", delimiter: " ")).to eq("eins zwei und drei")
     end
   end
 end

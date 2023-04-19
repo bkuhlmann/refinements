@@ -49,7 +49,7 @@ module Refinements
         self
       end
 
-      def to_sentence delimiter: ", ", conjunction: "and"
+      def to_sentence conjunction = "and", delimiter: ", "
         case length
           when (3..) then "#{self[..-2].join delimiter}#{delimiter}#{conjunction} #{last}"
           when 2 then join " #{conjunction} "
