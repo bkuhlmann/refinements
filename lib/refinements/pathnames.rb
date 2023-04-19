@@ -24,9 +24,7 @@ module Refinements
         end
       end
 
-      def require_tree root, pattern = "**/*.rb"
-        new(root).files(pattern).each { |path| require path.to_s }
-      end
+      def require_tree(root) = new(root).files("**/*.rb").each { |path| require path.to_s }
 
       def root = new(File::SEPARATOR)
     end

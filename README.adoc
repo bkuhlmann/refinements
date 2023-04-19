@@ -829,8 +829,7 @@ Pathname.make_temp_dir { |path| path.join "sub_dir" }        # Pathname:/var/fol
 
 ===== .require_tree
 
-Requires all files in given root path and corresponding nested tree structure. All files are sorted
-before being required to ensure consistent behavior. Example:
+Requires all Ruby files in given root path and corresponding nested tree structure. All files are sorted before being required to ensure consistent behavior. Example:
 
 [source,ruby]
 ----
