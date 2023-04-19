@@ -56,6 +56,10 @@ module Refinements
           else join
         end
       end
+
+      def to_usage conjunction = "and", delimiter: ", "
+        map(&:inspect).to_sentence conjunction, delimiter:
+      end
     end
   end
 end

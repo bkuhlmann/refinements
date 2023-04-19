@@ -369,4 +369,26 @@ RSpec.describe Refinements::Arrays do
       expect(array.to_sentence("und", delimiter: " ")).to eq("eins zwei und drei")
     end
   end
+
+  describe "#to_usage" do
+    it "answers empty string when empty" do
+      array = []
+      expect(array.to_usage).to eq("")
+    end
+
+    it "answers single item string with one item" do
+      array = [:a]
+      expect(array.to_usage).to eq(":a")
+    end
+
+    it "answers string with multiple items" do
+      array = [1, "b", :c, 2.0, /\w+/]
+      expect(array.to_usage).to eq(%(1, "b", :c, 2.0, and /\\w+/))
+    end
+
+    it "answers string with multiple items using custom delimiter and conjunction" do
+      array = [1, "a", :b]
+      expect(array.to_usage("or", delimiter: " ")).to eq(%(1 "a" or :b))
+    end
+  end
 end
