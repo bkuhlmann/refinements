@@ -1157,11 +1157,11 @@ Answers indentation (string) which is the result of the multiplier times padding
 
 [source,ruby]
 ----
-"example".indent                  # "  example"
-"example".indent 0                # "example"
-"example".indent -1               # "example"
-"example".indent 2                # "    example"
-"example".indent 3, padding: " "  # "   example"
+"example".indent              # "  example"
+"example".indent 0            # "example"
+"example".indent -1           # "example"
+"example".indent 2            # "    example"
+"example".indent 3, pad: " "  # "   example"
 ----
 
 ===== #last

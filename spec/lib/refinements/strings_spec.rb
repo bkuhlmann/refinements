@@ -187,11 +187,11 @@ RSpec.describe Refinements::Strings do
     end
 
     it "answers indentation with custom padding" do
-      expect("test".indent(padding: " ")).to eq(" test")
+      expect("test".indent(pad: " ")).to eq(" test")
     end
 
     it "answers indentation with custom multiplier and padding" do
-      expect("test".indent(2, padding: " ")).to eq("  test")
+      expect("test".indent(2, pad: " ")).to eq("  test")
     end
   end
 

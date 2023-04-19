@@ -26,8 +26,8 @@ module Refinements
         self[..(maximum - 1)]
       end
 
-      def indent multiplier = 1, padding: "  "
-        multiplier.negative? ? self : (padding * multiplier) + self
+      def indent multiplier = 1, pad: "  "
+        multiplier.negative? ? self : (pad * multiplier) + self
       end
 
       def last minimum = 0
