@@ -6,7 +6,7 @@ Gem::Specification.new do |spec|
   spec.authors = ["Brooke Kuhlmann"]
   spec.email = ["brooke@alchemists.io"]
   spec.homepage = "https://alchemists.io/projects/refinements"
-  spec.summary = "A collection of refinements to core Ruby objects."
+  spec.summary = "A collection of core Ruby object refinements."
   spec.license = "Hippocratic-2.1"
 
   spec.metadata = {
