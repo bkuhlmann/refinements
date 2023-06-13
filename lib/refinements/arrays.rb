@@ -33,6 +33,11 @@ module Refinements
 
       def pad(value, max: size) = dup.fill(value, size..(max - 1))
 
+      def replace_at(index, *elements)
+        delete_at index
+        insert(index, *elements)
+      end
+
       def ring(&) = [last, *self, first].each_cons(3, &)
 
       def supplant target, *replacements

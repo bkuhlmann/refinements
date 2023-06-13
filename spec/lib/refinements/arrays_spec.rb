@@ -288,6 +288,46 @@ RSpec.describe Refinements::Arrays do
     end
   end
 
+  describe "#replace_at" do
+    subject(:array) { %i[a b c] }
+
+    it "replaces with element at start of array" do
+      array.replace_at 0, :x
+      expect(array).to eq(%i[x b c])
+    end
+
+    it "replaces with a single element at specific index" do
+      array.replace_at 1, :x
+      expect(array).to eq(%i[a x c])
+    end
+
+    it "replaces with multiple element at specific index" do
+      array.replace_at 1, :x, :y
+      expect(array).to eq(%i[a x y c])
+    end
+
+    it "replaces with element at end of array" do
+      array.replace_at(-1, :x)
+      expect(array).to eq(%i[a b x])
+    end
+
+    it "replaces with element at index larger than current array" do
+      array.replace_at 4, :x
+      expect(array).to eq([:a, :b, :c, nil, :x])
+    end
+
+    it "answers replaced array" do
+      expect(array.replace_at(1, :x)).to eq(%i[a x c])
+    end
+
+    it "mutates array" do
+      original = array.dup
+      array.replace_at 4, :x
+
+      expect(array).not_to eq(original)
+    end
+  end
+
   describe "#ring" do
     it "answers slices without block" do
       expect([1, 2, 3].ring).to contain_exactly([1, 2, 3], [2, 3, 1], [3, 1, 2])

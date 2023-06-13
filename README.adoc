@@ -278,6 +278,18 @@ needs to be a specific size with padded values.
 [1, 2].pad 3, max: 3  # [1, 2, 3]
 ----
 
+===== #replace_at
+
+Answers mutated array where an element -- at a specific index -- is replaced by single or multiple elements.
+
+[source,ruby]
+----
+%i[a b c].replace_at(0, :x)      # [:x, :b, :c]
+%i[a b c].replace_at(1, :x)      # [:a, :x, :c]
+%i[a b c].replace_at(1, :x, :y)  # [:a, :x, :y, :c]
+%i[a b c].replace_at(-1, :x)     # [:a, :b, :x]
+----
+
 ===== #ring
 
 Answers a circular array which can enumerate before, current, after elements.
