@@ -278,6 +278,34 @@ needs to be a specific size with padded values.
 [1, 2].pad 3, max: 3  # [1, 2, 3]
 ----
 
+===== #pick
+
+Answers value of first element that matches given key.
+
+[source,ruby]
+----
+array = [{name: "a", label: "A"}, {name: "b", label: "B"}, {name: "c", label: "C"}]
+
+array.pick :name          # "a"
+array.pick :name, :label  # ["a", "A"]
+array.pick                # nil
+[].pick(:test)            # nil
+----
+
+===== #pluck
+
+Answers values of all elements that match given keys.
+
+[source,ruby]
+----
+array = [{name: "a", label: "A"}, {name: "b", label: "B"}, {name: "c", label: "C"}]
+
+array.pluck :name          # ["a", "b", "c"]
+array.pluck :name, :label  # [["a", "A"], ["b", "B"], ["c", "C"]]
+array.pluck                # []
+[].pluck :test             # []
+----
+
 ===== #replace_at
 
 Answers mutated array where an element -- at a specific index -- is replaced by single or multiple elements.

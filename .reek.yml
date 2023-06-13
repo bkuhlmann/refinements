@@ -5,6 +5,7 @@ detectors:
       - "String#singularize"
   DuplicateMethodCall:
     exclude:
+      - "Array#pluck"
       - "Pathname#change_dir"
       - "singleton_class#make_temp_dir"
   FeatureEnvy:
@@ -17,8 +18,12 @@ detectors:
     exclude:
       - "Array#compress"
       - "Hash#compress"
+  NestedIterators:
+    exclude:
+      - "Array#pluck"
   TooManyStatements:
     exclude:
+      - "Array#pluck"
       - "Hash#flatten_keys"
   UncommunicativeMethodName:
     exclude:

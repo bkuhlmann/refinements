@@ -288,6 +288,51 @@ RSpec.describe Refinements::Arrays do
     end
   end
 
+  describe "#pick" do
+    subject(:array) { [{name: "a", label: "A"}, {name: "b", label: "B"}, {name: "c", label: "C"}] }
+
+    it "answers value for first element key" do
+      expect(array.pick(:name)).to eq("a")
+    end
+
+    it "answers values (array) first element keys" do
+      expect(array.pick(:name, :label)).to eq(%w[a A])
+    end
+
+    it "answers nil when not given keys" do
+      expect(array.pick).to be(nil)
+    end
+
+    it "answers nil when empty" do
+      expect([].pick(:test)).to be(nil)
+    end
+  end
+
+  describe "#pluck" do
+    subject(:array) { [{name: "a", label: "A"}, {name: "b", label: "B"}, {name: "c", label: "C"}] }
+
+    it "answers array of values for matching key" do
+      expect(array.pluck(:name)).to eq(%w[a b c])
+    end
+
+    it "answers nested array of values for matching keys" do
+      expect(array.pluck(:name, :label)).to eq([%w[a A], %w[b B], %w[c C]])
+    end
+
+    it "answers empty array when not given keys" do
+      expect(array.pluck).to eq([])
+    end
+
+    it "answers empty array when already empty" do
+      expect([].pluck(:test)).to eq([])
+    end
+
+    it "answers duplicate when empty" do
+      array = []
+      expect(array.pluck).not_to equal(array)
+    end
+  end
+
   describe "#replace_at" do
     subject(:array) { %i[a b c] }
 
