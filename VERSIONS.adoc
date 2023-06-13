@@ -1,5 +1,20 @@
 = Versions
 
+== 11.0.0 (2023-06-13)
+
+* Fixed RuboCop Style/MethodCallWithArgsParentheses issue - Brooke Kuhlmann
+* Added Array pick and pluck - Brooke Kuhlmann
+* Added Array replace at - Brooke Kuhlmann
+* Added Array to usage - Brooke Kuhlmann
+* Updated Reek configuration to disable long parameter lists - Brooke Kuhlmann
+* Updated project summary/abstract - Brooke Kuhlmann
+* Updated setup instructions to secure and insecure installs - Brooke Kuhlmann
+* Updated string indent padding keyword as pad instead - Brooke Kuhlmann
+* Updated to Caliber 0.30.0 - Brooke Kuhlmann
+* Updated to Debug 1.8.0 - Brooke Kuhlmann
+* Removed array to sentence conjunction keyword - Brooke Kuhlmann
+* Removed pattern from pathname require tree - Brooke Kuhlmann
+
 == 10.1.1 (2023-04-08)
 
 * Fixed Hash use method to fallback to string key if symbol isn't found - Brooke Kuhlmann
