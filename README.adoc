@@ -289,7 +289,7 @@ array = [{name: "a", label: "A"}, {name: "b", label: "B"}, {name: "c", label: "C
 array.pick :name          # "a"
 array.pick :name, :label  # ["a", "A"]
 array.pick                # nil
-[].pick(:test)            # nil
+[].pick(:other)           # nil
 ----
 
 ===== #pluck
@@ -303,7 +303,7 @@ array = [{name: "a", label: "A"}, {name: "b", label: "B"}, {name: "c", label: "C
 array.pluck :name          # ["a", "b", "c"]
 array.pluck :name, :label  # [["a", "A"], ["b", "B"], ["c", "C"]]
 array.pluck                # []
-[].pluck :test             # []
+[].pluck :other            # []
 ----
 
 ===== #replace_at
@@ -365,25 +365,25 @@ Useful when building documentation, answering human readable error messages, etc
 [source,ruby]
 ----
 [].to_sentence                                        # ""
-["test"].to_sentence                                  # "test"
+["demo"].to_sentence                                  # "demo"
 ["a", :b].to_sentence                                 # "a and b"
-[1, "a", :b, 2.0, /\w+/].map(&:inspect).to_sentence   # 1, "a", :b, 2.0, and /\w+/
+[1, "a", :b, 2.0, /\w+/].to_sentence                  # "1, a, b, 2.0, and (?-mix:\\w+)"
 %w[one two three].to_sentence                         # "one, two, and three"
 %w[eins zwei drei].to_sentence "und", delimiter: " "  # "eins zwei und drei"
 ----
 
 ===== #to_usage
 
-Builds upon and enhances `#to_sentence` further by answering a sentence which all elements are inspected -- where each element of the array is called with `#inspect` -- before turned into a sentence using `"and"` as the default conjunction and `", "` as the default delimiter. This is useful when providing detailed error messages _and_ you need to show the element types used.
+Builds upon and enhances `#to_sentence` further by answering a sentence which all elements are inspected -- where each element of the array is called with `#inspect` -- before turned into a sentence using `"and"` as the default conjunction and `", "` as the default delimiter. This is useful when providing detailed error messages _and_ you need to detail the types of element used.
 
 [source,ruby]
 ----
 [].to_usage                                        # ""
-["test"].to_usage                                  # "test"
-["a", :b].to_usage                                 # "a and b"
-[1, "a", :b, 2.0, /\w+/].map(&:inspect).to_usage   # 1, "a", :b, 2.0, and /\w+/
-%w[one two three].to_usage                         # "one, two, and three"
-%w[eins zwei drei].to_usage "und", delimiter: " "  # "eins zwei und drei"
+["demo"].to_usage                                  # "\"demo\""
+["a", :b].to_usage                                 # "\"a\" and :b"
+[1, "a", :b, 2.0, /\w+/].to_usage                  # "1, \"a\", :b, 2.0, and /\\w+/"
+%w[one two three].to_usage                         # "\"one\", \"two\", and \"three\""
+%w[eins zwei drei].to_usage "und", delimiter: " "  # "\"eins\" \"zwei\" und \"drei\""
 ----
 
 ==== Big Decimal
@@ -540,12 +540,12 @@ expression `example.fetch(:desired_key) || "default_value"`.
 
 [source,ruby]
 ----
-{a: "test"}.fetch_value :a, "default"  # "test"
-{a: "test"}.fetch_value :a             # "test"
+{a: "demo"}.fetch_value :a, "default"  # "demo"
+{a: "demo"}.fetch_value :a             # "demo"
 {a: nil}.fetch_value :a, "default"     # "default"
 {}.fetch_value(:a) { "default" }       # "default"
 {}.fetch_value :a                      # KeyError
-{a: "test"}.fetch_value                # ArgumentError
+{a: "demo"}.fetch_value                # ArgumentError
 ----
 
 ===== #flatten_keys
@@ -555,7 +555,7 @@ though.
 
 [source,ruby]
 ----
-{a: {b: 1}}.flatten_keys prefix: :test          # {test_a_b: 1}
+{a: {b: 1}}.flatten_keys prefix: :demo          # {demo_a_b: 1}
 {a: {b: 1}}.flatten_keys delimiter: :|          # {:"a|b" => 1}
 
 example = {a: {b: 1}}
@@ -570,7 +570,7 @@ though.
 
 [source,ruby]
 ----
-{a: {b: 1}}.flatten_keys! prefix: :test          # {test_a_b: 1}
+{a: {b: 1}}.flatten_keys! prefix: :demo          # {demo_a_b: 1}
 {a: {b: 1}}.flatten_keys! delimiter: :|          # {:"a|b" => 1}
 
 example = {a: {b: 1}}
@@ -735,11 +735,11 @@ answered instead.
 
 [source,ruby]
 ----
-io = IO.new IO.sysopen(Pathname("test.txt").to_s, "w+")
+io = IO.new IO.sysopen(Pathname("demo.txt").to_s, "w+")
 other = IO.new IO.sysopen(Pathname("other.txt").to_s, "w+")
 
 io.redirect other                                    # "#<IO:fd 20>"
-io.redirect(other) { |stream| stream.write "test" }  # "#<IO:fd 21>"
+io.redirect(other) { |stream| stream.write "demo" }  # "#<IO:fd 21>"
 ----
 
 ===== #reread
@@ -748,15 +748,15 @@ Answers full stream by rewinding to beginning of stream and reading all content.
 
 [source,ruby]
 ----
-io = IO.new IO.sysopen(Pathname("test.txt").to_s, "w+")
-io.write "This is a test."
+io = IO.new IO.sysopen(Pathname("demo.txt").to_s, "w+")
+io.write "This is a demo."
 
-io.reread                  # "This is a test."
+io.reread                  # "This is a demo."
 io.reread 4                # "This"
 
 buffer = "".dup
-io.reread(buffer: buffer)  # "This is a test."
-buffer                     # "This is a test."
+io.reread(buffer: buffer)  # "This is a demo."
+buffer                     # "This is a demo."
 ----
 
 ===== #squelch
