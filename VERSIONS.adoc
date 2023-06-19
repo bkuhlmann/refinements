@@ -1,5 +1,11 @@
 = Versions
 
+== 11.0.1 (2023-06-19)
+
+* Fixed example documentation typos - Brooke Kuhlmann
+* Updated to Caliber 0.35.0 - Brooke Kuhlmann
+* Updated to Git Lint 6.0.0 - Brooke Kuhlmann
+
 == 11.0.0 (2023-06-13)
 
 * Fixed RuboCop Style/MethodCallWithArgsParentheses issue - Brooke Kuhlmann
