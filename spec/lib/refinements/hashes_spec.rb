@@ -228,6 +228,43 @@ RSpec.describe Refinements::Hashes do
     end
   end
 
+  describe "#diff" do
+    it "answers differences when same types are not equal" do
+      one = {a: 1, b: 2, c: 3}
+      two = {a: 3, b: 2, c: 1}
+
+      expect(one.diff(two)).to eq(a: [1, 3], c: [3, 1])
+    end
+
+    it "answers differences when same types have different keys" do
+      one = {a: 1, b: 2}
+      two = {y: 1, z: 2}
+
+      expect(one.diff(two)).to eq(a: [1, nil], b: [2, nil])
+    end
+
+    it "answers differences when types are different" do
+      one = {a: 1, b: 2, c: 3}
+      two = Data.define :a, :b, :c
+
+      expect(one.diff(two)).to eq(a: [1, nil], b: [2, nil], c: [3, nil])
+    end
+
+    it "answers empty hash when same types have same keys but in different order" do
+      one = {a: 1, b: 2}
+      two = {b: 2, a: 1}
+
+      expect(one.diff(two)).to eq({})
+    end
+
+    it "answers empty hash with no differences" do
+      one = {a: 1, b: 2, c: 3}
+      two = {a: 1, b: 2, c: 3}
+
+      expect(one.diff(two)).to eq({})
+    end
+  end
+
   describe "#fetch_value" do
     it "answers original value when present" do
       value = {a: "test"}.fetch_value :a, "default"

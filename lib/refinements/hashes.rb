@@ -45,6 +45,12 @@ module Refinements
 
       def deep_symbolize_keys! = replace(deep_symbolize_keys)
 
+      def diff other
+        return differences_from other if other.is_a?(self.class) && keys.sort! == other.keys.sort!
+
+        each.with_object({}) { |(key, value), diff| diff[key] = [value, nil] }
+      end
+
       def fetch_value(key, *default_value, &) = fetch(key, *default_value, &) || default_value.first
 
       def flatten_keys prefix: nil, delimiter: "_"
@@ -87,6 +93,13 @@ module Refinements
         block.parameters
              .map { |(_type, key)| self[key] || self[key.to_s] }
              .then { |values| yield values }
+      end
+
+      private
+
+      def differences_from other
+        result = merge(other.to_h) { |_, one, two| [one, two].uniq }
+        result.select { |_, diff| diff.size == 2 }
       end
     end
   end
