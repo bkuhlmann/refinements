@@ -14,6 +14,7 @@ Enhances the following objects:
 
 * Array
 * BigDecimal
+* Data
 * DateTime
 * Hash
 * IO
@@ -78,6 +79,7 @@ gem "refinements", require: false
 ----
 require "refinements/arrays"
 require "refinements/big_decimals"
+require "refinements/data"
 require "refinements/date_times"
 require "refinements/hashes"
 require "refinements/ios"
@@ -100,6 +102,7 @@ refinement(s):
 class Example
   using Refinements::Arrays
   using Refinements::BigDecimals
+  using Refinements::Data
   using Refinements::DateTimes
   using Refinements::Hashes
   using Refinements::IOs
@@ -397,6 +400,28 @@ Allows one to inspect a big decimal with numeric representation.
 BigDecimal.new("5.0E-10").inspect  # "#<BigDecimal:3fd3d458fe84 0.0000000005>"
 ----
 
+==== Data
+
+===== #diff
+
+Allows you to obtain the differences between two objects.
+
+[source,ruby]
+----
+implementation = Data.define :a, :b, :c
+
+one = implementation.new a: 1, b: 2, c: 3
+two = implementation.new a: 3, b: 2, c: 1
+three = Data.define(:x, :y).new x: 1, y: 2
+
+one.diff one         # {}
+one.diff two         # {:a=>[1, 3], :c=>[3, 1]}
+one.diff three       # {:a=>[1, nil], :b=>[2, nil], :c=>[3, nil]}
+one.diff Object.new  # {:a=>[1, nil], :b=>[2, nil], :c=>[3, nil]}
+----
+
+Any object that _is not_ the same type will have a `nil` value as shown in the last two examples.
+
 ==== DateTime
 
 ===== .utc
@@ -531,6 +556,26 @@ example = {"a" => {"b" => 2}}
 example.deep_symbolize_keys!  # {a: {b: 1}}
 example                       # {a: {b: 1}}
 ----
+
+===== #diff
+
+Allows you to obtain the differences between two objects.
+
+[source,ruby]
+----
+one = {a: 1, b: 2, c: 3}
+two = {a: 3, b: 2, c: 1}
+three = {c: 3, b: 2, a: 1}
+four = Data.define(:x, :y).new x: 1, y: 2
+
+one.diff one         # {}
+one.diff two         # {:a=>[1, 3], :c=>[3, 1]}
+one.diff three       # {}
+one.diff four        # {:a=>[1, nil], :b=>[2, nil], :c=>[3, nil]}
+one.diff Object.new  # {:a=>[1, nil], :b=>[2, nil], :c=>[3, nil]}
+----
+
+Any object that _is not_ the same type will have a `nil` value as shown in the last two examples. Two hashes with the same keys but defined in different order behave as if they had the same key order.
 
 ===== #fetch_value
 
@@ -1354,6 +1399,26 @@ Example = Struct.new :a, :b, :c, keyword_init: true
 Example.with_positions 1, 2, 3  # #<struct a=1, b=2, c=3>
 Example.with_positions 1        # #<struct a=1, b=nil, c=nil>
 ----
+
+===== #diff
+
+Allows you to obtain the differences between two objects.
+
+[source,ruby]
+----
+implementation = Struct.new :a, :b, :c
+
+one = implementation.new a: 1, b: 2, c: 3
+two = implementation.new a: 3, b: 2, c: 1
+three = Struct.new(:x, :y).new x: 1, y: 2
+
+one.diff one         # {}
+one.diff two         # {:a=>[1, 3], :c=>[3, 1]}
+one.diff three       # {:a=>[1, nil], :b=>[2, nil], :c=>[3, nil]}
+one.diff Object.new  # {:a=>[1, nil], :b=>[2, nil], :c=>[3, nil]}
+----
+
+Any object that _is not_ the same type will have a `nil` value as shown in the last two examples.
 
 ===== #merge
 

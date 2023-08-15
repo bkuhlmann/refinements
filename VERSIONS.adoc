@@ -1,5 +1,14 @@
 = Versions
 
+== 11.1.0 (2023-08-14)
+
+* Fixed RuboCop Packaging/BundlerSetupInTests issues - Brooke Kuhlmann
+* Added Data refinement - Brooke Kuhlmann
+* Added Hash diffing - Brooke Kuhlmann
+* Added Struct diffing - Brooke Kuhlmann
+* Added shared whole value difference module - Brooke Kuhlmann
+* Updated Rake RSpec task configuration to not be verbose - Brooke Kuhlmann
+
 == 11.0.1 (2023-06-19)
 
 * Fixed example documentation typos - Brooke Kuhlmann
