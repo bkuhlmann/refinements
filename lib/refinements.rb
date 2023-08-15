@@ -2,6 +2,7 @@
 
 require "refinements/arrays"
 require "refinements/big_decimals"
+require "refinements/data"
 require "refinements/date_times"
 require "refinements/hashes"
 require "refinements/ios"
