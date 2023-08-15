@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "refinements/shared/values/diff"
+
 module Refinements
   # Provides additional enhancements to the Struct primitive.
   module Structs
@@ -8,6 +10,8 @@ module Refinements
     end
 
     refine Struct do
+      import_methods Shared::Values::Diff
+
       def merge(...) = dup.merge!(...)
 
       def merge! object = nil

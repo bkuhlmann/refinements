@@ -61,6 +61,31 @@ RSpec.describe Refinements::Structs do
     end
   end
 
+  describe "#diff" do
+    subject(:struct) { Struct.new :a, :b, :c }
+
+    it "answers differences when same types are not equal" do
+      one = struct.new 1, 2, 3
+      two = struct.new 3, 2, 1
+
+      expect(one.diff(two)).to eq(a: [1, 3], c: [3, 1])
+    end
+
+    it "answers differences when types are different" do
+      one = struct.new 1, 2, 3
+      two = Data.define
+
+      expect(one.diff(two)).to eq(a: [1, nil], b: [2, nil], c: [3, nil])
+    end
+
+    it "answers empty hash with no differences" do
+      one = struct.new 1, 2, 3
+      two = struct.new 1, 2, 3
+
+      expect(one.diff(two)).to eq({})
+    end
+  end
+
   describe "#merge" do
     it_behaves_like "a merge", :merge
 
