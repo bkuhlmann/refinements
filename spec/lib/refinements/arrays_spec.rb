@@ -216,11 +216,20 @@ RSpec.describe Refinements::Arrays do
   end
 
   describe "#maximum" do
-    it "answers maximum extracted value" do
-      model = Struct.new :x
-      records = [model[x: 3], model[x: 1], model[x: 2]]
+    let(:model) { Data.define :x }
 
+    it "answers maximum extracted value" do
+      records = [model[x: 3], model[x: 1], model[x: 2]]
       expect(records.maximum(:x)).to eq(3)
+    end
+
+    it "answers nil when empty" do
+      expect([].maximum(:x)).to be(nil)
+    end
+
+    it "fails when sending invalid message to elements" do
+      expectation = proc { [1, 2].maximum :bogus }
+      expect(&expectation).to raise_error(NoMethodError, /bogus/)
     end
   end
 
@@ -251,11 +260,20 @@ RSpec.describe Refinements::Arrays do
   end
 
   describe "#minimum" do
-    it "answers minimum extracted value" do
-      model = Struct.new :x
-      records = [model[x: 3], model[x: 1], model[x: 2]]
+    let(:model) { Data.define :x }
 
+    it "answers minimum extracted value" do
+      records = [model[x: 3], model[x: 1], model[x: 2]]
       expect(records.minimum(:x)).to eq(1)
+    end
+
+    it "answers nil when empty" do
+      expect([].minimum(:x)).to be(nil)
+    end
+
+    it "fails when sending invalid message to elements" do
+      expectation = proc { [1, 2].minimum :bogus }
+      expect(&expectation).to raise_error(NoMethodError, /bogus/)
     end
   end
 
