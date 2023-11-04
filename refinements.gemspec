@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |spec|
   spec.name = "refinements"
-  spec.version = "11.1.0"
+  spec.version = "11.1.1"
   spec.authors = ["Brooke Kuhlmann"]
   spec.email = ["brooke@alchemists.io"]
   spec.homepage = "https://alchemists.io/projects/refinements"

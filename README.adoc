@@ -187,9 +187,9 @@ Answers the first element which evaluates to true from a filtered collection.
 [source,ruby]
 ----
 handlers = [
-  ->(object) { object if object == :b },
+  -> object { object if object == :b },
   proc { false },
-  ->(object) { object if object == :a }
+  -> object { object if object == :a }
 ]
 
 handlers.filter_find                                # Enumerator::Lazy
@@ -209,7 +209,7 @@ Adds given array or elements without mutating itself.
 
 ===== #intersperse
 
-Inserts additional elements or an array between all members of given array.
+Inserts additional elements, or an array, between all members of given array.
 
 [source,ruby]
 ----
@@ -237,11 +237,13 @@ Answers the maximum extracted value from a collection of objects.
 
 [source,ruby]
 ----
-Point = Struct.new :x, :y
+Point = Data.define :x, :y
 points = [Point[x: 1, y: 2], Point[x: 0, y: 1], Point[x: 2, y: 3]]
 
-points.maximum(:x)  # 2
-points.maximum(:y)  # 3
+points.maximum :x  # 2
+points.maximum :y  # 3
+points.maximum :z  # undefined method `z' for #<data Point x=1, y=2> (NoMethodError)
+[].maximum :x      # nil
 ----
 
 ===== #mean
@@ -262,11 +264,13 @@ Answers the minimum extracted value from a collection of objects.
 
 [source,ruby]
 ----
-Point = Struct.new :x, :y
+Point = Data.define :x, :y
 points = [Point[x: 1, y: 2], Point[x: 0, y: 1], Point[x: 2, y: 3]]
 
-points.minimum(:x)  # 0
-points.minimum(:y)  # 1
+points.minimum :x  # 0
+points.minimum :y  # 1
+points.minimum :z  # undefined method `z' for #<data Point x=1, y=2> (NoMethodError)
+[].minimum :x      # nil
 ----
 
 ===== #pad
@@ -292,7 +296,7 @@ array = [{name: "a", label: "A"}, {name: "b", label: "B"}, {name: "c", label: "C
 array.pick :name          # "a"
 array.pick :name, :label  # ["a", "A"]
 array.pick                # nil
-[].pick(:other)           # nil
+[].pick :other            # nil
 ----
 
 ===== #pluck
@@ -315,10 +319,10 @@ Answers mutated array where an element -- at a specific index -- is replaced by 
 
 [source,ruby]
 ----
-%i[a b c].replace_at(0, :x)      # [:x, :b, :c]
-%i[a b c].replace_at(1, :x)      # [:a, :x, :c]
-%i[a b c].replace_at(1, :x, :y)  # [:a, :x, :y, :c]
-%i[a b c].replace_at(-1, :x)     # [:a, :b, :x]
+%i[a b c].replace_at 0, :x      # [:x, :b, :c]
+%i[a b c].replace_at 1, :x      # [:a, :x, :c]
+%i[a b c].replace_at 1, :x, :y  # [:a, :x, :y, :c]
+%i[a b c].replace_at -1, :x     # [:a, :b, :x]
 ----
 
 ===== #ring
@@ -796,12 +800,12 @@ Answers full stream by rewinding to beginning of stream and reading all content.
 io = IO.new IO.sysopen(Pathname("demo.txt").to_s, "w+")
 io.write "This is a demo."
 
-io.reread                  # "This is a demo."
-io.reread 4                # "This"
+io.reread           # "This is a demo."
+io.reread 4         # "This"
 
 buffer = "".dup
-io.reread(buffer: buffer)  # "This is a demo."
-buffer                     # "This is a demo."
+io.reread(buffer:)  # "This is a demo."
+buffer              # "This is a demo."
 ----
 
 ===== #squelch
@@ -829,17 +833,17 @@ Answers previously written content by rewinding to beginning of device.
 # With File.
 device = Logger::LogDevice.new "test.log"
 device.write "Test."
-device.reread                                # "Test."
+device.reread  # "Test."
 
 # With StringIO.
 device = Logger::LogDevice.new StringIO.new
 device.write "Test."
-device.reread                                # "Test."
+device.reread  # "Test."
 
 # With STDOUT.
 device = Logger::LogDevice.new $stdout
 device.write "Test."
-device.reread                                # ""
+device.reread  # ""
 ----
 
 ==== Logger
@@ -853,17 +857,17 @@ Answers previously written content by rewinding to beginning of log.
 # With File.
 logger = Logger.new "test.log"
 logger.write "Test."
-logger.reread                     # "Test."
+logger.reread  # "Test."
 
 # With StringIO.
 logger = Logger.new StringIO.new
 logger.write "Test."
-logger.reread                     # "Test."
+logger.reread  # "Test."
 
 # With STDOUT.
 logger = Logger.new $stdout
 logger.write "Test."
-logger.reread                     # ""
+logger.reread  # ""
 ----
 
 ===== #any
@@ -891,7 +895,7 @@ construct a valid path.
 
 [source,ruby]
 ----
-Pathname(nil)  # Pathname("")
+Pathname nil  # Pathname("")
 ----
 
 ===== .home
@@ -1017,9 +1021,9 @@ Deletes a path prefix and answers new pathname.
 
 [source,ruby]
 ----
-Pathname("a/path/example-test.rb").delete_prefix("example-")  # Pathname("a/path/test.rb")
-Pathname("example-test.rb").delete_prefix("example-")         # Pathname("test.rb")
-Pathname("example-test.rb").delete_prefix("miss")             # Pathname("example-test.rb")
+Pathname("a/path/example-test.rb").delete_prefix "example-"  # Pathname("a/path/test.rb")
+Pathname("example-test.rb").delete_prefix "example-"         # Pathname("test.rb")
+Pathname("example-test.rb").delete_prefix "miss"             # Pathname("example-test.rb")
 ----
 
 ===== #delete_suffix
@@ -1028,9 +1032,9 @@ Deletes a path suffix and answers new pathname.
 
 [source,ruby]
 ----
-Pathname("a/path/test-example.rb").delete_suffix("-example")  # Pathname("a/path/test.rb")
-Pathname("test-example.rb").delete_suffix("-example")         # Pathname("test.rb")
-Pathname("test-example.rb").delete_suffix("miss")             # Pathname("test-example.rb")
+Pathname("a/path/test-example.rb").delete_suffix "-example"  # Pathname("a/path/test.rb")
+Pathname("test-example.rb").delete_suffix "-example"         # Pathname("test.rb")
+Pathname("test-example.rb").delete_suffix "miss"             # Pathname("test-example.rb")
 ----
 
 ===== #directories
@@ -1084,10 +1088,10 @@ Same behavior as `String#gsub` but answers a path with patterns replaced with de
 
 [source,ruby]
 ----
-Pathname("/a/path/some/path").gsub("path", "test")
+Pathname("/a/path/some/path").gsub "path", "test"
 # Pathname("/a/test/some/test")
 
-Pathname("/%placeholder%/some/%placeholder%").gsub("%placeholder%", "test")
+Pathname("/%placeholder%/some/%placeholder%").gsub "%placeholder%", "test"
 # Pathname("/test/some/test")
 ----
 
@@ -1135,11 +1139,11 @@ Pathname("example.txt").name # Pathname("example")
 
 ===== #relative_parent
 
-Answers relative path from parent directory. This is a complement to `#relative_path_from`.
+Answers relative path from parent directory. This complements: `#relative_path_from`.
 
 [source,ruby]
 ----
-Pathname("/one/two/three").relative_parent("/one")  # Pathname "two"
+Pathname("/one/two/three").relative_parent "/one"  # Pathname "two"
 ----
 
 ===== #remove_dir
@@ -1378,8 +1382,8 @@ io.reread    # "This is a test."
 io.reread 4  # "This"
 
 buffer = "".dup
-io.reread(buffer: buffer)  # "This is a test."
-buffer                     # "This is a test."
+io.reread(buffer:)  # "This is a test."
+buffer              # "This is a test."
 ----
 
 ==== Struct
@@ -1458,8 +1462,7 @@ example                             # #<struct Struct::Example a=10, b=20, c=30>
 
 Transforms values without mutating itself. An optional hash can be supplied to target specific
 attributes. In the event that a block isn't supplied, the struct will answer itself since there is
-nothing to operate on. Behavior is the same regardless of whether the struct is constructed using
-positional or keyword arguments. Works regardless of whether the struct is constructed with
+nothing to operate on. Works regardless of whether the struct is constructed with
 positional or keyword arguments.
 
 [source,ruby]
@@ -1477,8 +1480,7 @@ example                                                           # #<struct Str
 
 Transforms values while mutating itself. An optional hash can be supplied to target specific
 attributes. In the event that a block isn't supplied, the struct will answer itself since there is
-nothing to operate on. Behavior is the same regardless of whether the struct is constructed using
-positional or keyword arguments. Works regardless of whether the struct is constructed with
+nothing to operate on. Works regardless of whether the struct is constructed with
 positional or keyword arguments.
 
 [source,ruby]

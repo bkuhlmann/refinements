@@ -2,9 +2,9 @@ cff-version: 1.2.0
 message: Please use the following metadata when citing this project in your work.
 title: Refinements
 abstract: A collection of core Ruby object refinements.
-version: 11.1.0
+version: 11.1.1
 license: Hippocratic-2.1
-date-released: 2023-08-14
+date-released: 2023-11-04
 authors:
   - family-names: Kuhlmann
     given-names: Brooke
