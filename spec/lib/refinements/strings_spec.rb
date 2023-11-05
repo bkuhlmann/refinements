@@ -221,23 +221,23 @@ RSpec.describe Refinements::Strings do
     end
 
     it "answers plural with zero count" do
-      expect("apple".pluralize("s", count: 0)).to eq("apples")
+      expect("apple".pluralize("s", 0)).to eq("apples")
     end
 
     it "answers plural with count greater than one" do
-      expect("apple".pluralize("s", count: 2)).to eq("apples")
+      expect("apple".pluralize("s", 2)).to eq("apples")
     end
 
     it "answers plural with count less than one" do
-      expect("apple".pluralize("s", count: -2)).to eq("apples")
+      expect("apple".pluralize("s", -2)).to eq("apples")
     end
 
     it "answers singular with positive count of one" do
-      expect("apple".pluralize("s", count: 1)).to eq("apple")
+      expect("apple".pluralize("s", 1)).to eq("apple")
     end
 
     it "ansers singular with negative count of one" do
-      expect("apple".pluralize("s", count: -1)).to eq("apple")
+      expect("apple".pluralize("s", -1)).to eq("apple")
     end
 
     it "answers plural with suffix replacement" do
@@ -255,23 +255,23 @@ RSpec.describe Refinements::Strings do
     end
 
     it "answers singular with positive count of one" do
-      expect("apples".singularize("s", count: 1)).to eq("apple")
+      expect("apples".singularize("s", 1)).to eq("apple")
     end
 
     it "answers singular with negative count of one" do
-      expect("apples".singularize("s", count: -1)).to eq("apple")
+      expect("apples".singularize("s", -1)).to eq("apple")
     end
 
     it "answers plural with zero count" do
-      expect("apples".singularize("s", count: 0)).to eq("apples")
+      expect("apples".singularize("s", 0)).to eq("apples")
     end
 
     it "answers plural with count greater than one" do
-      expect("apples".singularize("s", count: 2)).to eq("apples")
+      expect("apples".singularize("s", 2)).to eq("apples")
     end
 
     it "answers plural with count less than one" do
-      expect("apples".singularize("s", count: -2)).to eq("apples")
+      expect("apples".singularize("s", -2)).to eq("apples")
     end
 
     it "answers singular with simple replacement" do
