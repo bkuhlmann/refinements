@@ -31,7 +31,7 @@ module Refinements
 
       def minimum(key) = map(&key).min
 
-      def pad(value, max: size) = dup.fill(value, size..(max - 1))
+      def pad(value, max = size) = dup.fill(value, size..(max - 1))
 
       def pick(*keys)
         return if empty?

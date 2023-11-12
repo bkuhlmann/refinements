@@ -287,20 +287,20 @@ RSpec.describe Refinements::Arrays do
     end
 
     it "answers same array with smaller maximum" do
-      expect([1, 2].pad(0, max: 1)).to eq([1, 2])
+      expect([1, 2].pad(0, 1)).to eq([1, 2])
     end
 
     it "answers padded array with larger maximum" do
-      expect([1, 2].pad(0, max: 3)).to eq([1, 2, 0])
+      expect([1, 2].pad(0, 3)).to eq([1, 2, 0])
     end
 
     it "answers same array with negative maximum" do
-      expect([1, 2].pad(0, max: -1)).to eq([1, 2])
+      expect([1, 2].pad(0, -1)).to eq([1, 2])
     end
 
     it "doesn't mutate itself" do
       array = [1, 2]
-      array.pad 0, max: 5
+      array.pad 0, 5
 
       expect(array).to eq([1, 2])
     end
