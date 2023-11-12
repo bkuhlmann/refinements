@@ -13,7 +13,6 @@ toc::[]
 Enhances the following objects:
 
 * Array
-* BigDecimal
 * Data
 * DateTime
 * Hash
@@ -23,7 +22,7 @@ Enhances the following objects:
 * Pathname
 * String
 * StringIO
-* Structs
+* Struct
 
 == Requirements
 
@@ -77,19 +76,18 @@ gem "refinements", require: false
 
 [source,ruby]
 ----
-require "refinements/arrays"
-require "refinements/big_decimals"
+require "refinements/array"
 require "refinements/data"
-require "refinements/date_times"
-require "refinements/hashes"
-require "refinements/ios"
-require "refinements/pathnames"
-require "refinements/strings"
-require "refinements/string_ios"
-require "refinements/structs"
-require "refinements/symbols"
-require "refinements/log_devices"
-require "refinements/loggers"
+require "refinements/date_time"
+require "refinements/hash"
+require "refinements/io"
+require "refinements/log_device"
+require "refinements/logger"
+require "refinements/pathname"
+require "refinements/string"
+require "refinements/string_io"
+require "refinements/struct"
+require "refinements/symbol"
 ----
 
 === Using
@@ -100,19 +98,18 @@ refinement(s):
 [source,ruby]
 ----
 class Example
-  using Refinements::Arrays
-  using Refinements::BigDecimals
+  using Refinements::Array
   using Refinements::Data
-  using Refinements::DateTimes
-  using Refinements::Hashes
-  using Refinements::IOs
-  using Refinements::Pathnames
-  using Refinements::Strings
-  using Refinements::StringIOs
-  using Refinements::Structs
-  using Refinements::Symbols
-  using Refinements::LogDevices
-  using Refinements::Loggers
+  using Refinements::DateTime
+  using Refinements::Hash
+  using Refinements::IO
+  using Refinements::LogDevice
+  using Refinements::Logger
+  using Refinements::Pathname
+  using Refinements::String
+  using Refinements::StringIO
+  using Refinements::Struct
+  using Refinements::Symbol
 end
 ----
 
@@ -280,9 +277,9 @@ needs to be a specific size with padded values.
 
 [source,ruby]
 ----
-[1].pad 0             # [1]
-[1].pad 0, max: 3     # [1, 0, 0]
-[1, 2].pad 3, max: 3  # [1, 2, 3]
+["a"].pad 0         # ["a"]
+["a"].pad "-", 3    # ["a", "-", "-"]
+%w[a b].pad "-", 3  # ["a", "b", "-"]
 ----
 
 ===== #pick
@@ -391,17 +388,6 @@ Builds upon and enhances `#to_sentence` further by answering a sentence which al
 [1, "a", :b, 2.0, /\w+/].to_usage                  # "1, \"a\", :b, 2.0, and /\\w+/"
 %w[one two three].to_usage                         # "\"one\", \"two\", and \"three\""
 %w[eins zwei drei].to_usage "und", delimiter: " "  # "\"eins\" \"zwei\" und \"drei\""
-----
-
-==== Big Decimal
-
-===== #inspect
-
-Allows one to inspect a big decimal with numeric representation.
-
-[source,ruby]
-----
-BigDecimal.new("5.0E-10").inspect  # "#<BigDecimal:3fd3d458fe84 0.0000000005>"
 ----
 
 ==== Data
@@ -1288,11 +1274,11 @@ well in other languages.
 [source,ruby]
 ----
 "apple".pluralize "s"                      # apples
-"apple".pluralize "s", count: 0            # apples
-"apple".pluralize "s", count: 1            # apple
-"apple".pluralize "s", count: -1           # apple
-"apple".pluralize "s", count: 2            # apples
-"apple".pluralize "s", count: -2           # apples
+"apple".pluralize "s", 0                   # apples
+"apple".pluralize "s", 1                   # apple
+"apple".pluralize "s", -1                  # apple
+"apple".pluralize "s", 2                   # apples
+"apple".pluralize "s", -2                  # apples
 "cactus".pluralize "i", replace: "us"      # cacti
 "cul-de-sac".pluralize "ls", replace: "l"  # culs-de-sac
 ----
@@ -1308,11 +1294,11 @@ well in other languages.
 [source,ruby]
 ----
 "apples".singularize "s"                      # apple
-"apples".singularize "s", count: 0            # apples
-"apples".singularize "s", count: 1            # apple
-"apples".singularize "s", count: -1           # apple
-"apples".singularize "s", count: 2            # apples
-"apples".singularize "s", count: -2           # apples
+"apples".singularize "s", 0                   # apples
+"apples".singularize "s", 1                   # apple
+"apples".singularize "s", -1                  # apple
+"apples".singularize "s", 2                   # apples
+"apples".singularize "s", -2                  # apples
 "cacti".singularize "i", replace: "us"        # cactus
 "culs-de-sac".singularize "ls", replace: "l"  # cul-de-sac
 ----
@@ -1343,6 +1329,30 @@ Answers a title string with proper capitalization of each word.
 [source,ruby]
 ----
 "ThisIsAnExample".titleize  # "This Is An Example"
+----
+
+===== #truncate
+
+Answers a truncated, non-mutated, string for given length with optional delimiter and/or overflow.
+
+The delimiter is the second positional parameter (optional) and is `nil` by default. A custom string or regular expression can be used to customize truncation behavior.
+
+The trailer is an optional keyword parameter that is an ellipsis (i.e. `"..."`) by default. The trailer can be a custom or empty string. The string length of the trailer is added to the length of the string being truncated, so keep this in mind when setting truncation length.
+
+[source,ruby]
+----
+demo = "It was the best of times"
+length = demo.length
+
+demo.truncate 9                          # "It was..."
+demo.truncate 12                         # "It was th..."
+demo.truncate length                     # "It was the best of times"
+demo.truncate Float::INFINITY            # "It was the best of times"
+demo.truncate 12, " "                    # "It was..."
+demo.truncate 12, /\s/                   # "It was..."
+demo.truncate 6, trailer: ""             # "It was"
+demo.truncate 16, trailer: "... (more)"  # "It was... (more)"
+"demo".truncate 3                        # "..."
 ----
 
 ===== #to_bool
@@ -1551,7 +1561,7 @@ with public methods in order to not break encapsulation.
 ----
 
 ⚠️ Use of `#call` without any arguments or block should be avoided in order to not incur extra
-processing costs since the original symbol-to-proc call can used instead.
+processing costs since the original symbol-to-proc call can be used instead.
 
 == Development
 
