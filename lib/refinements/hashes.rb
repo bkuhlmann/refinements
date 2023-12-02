@@ -55,7 +55,7 @@ module Refinements
 
       def flatten_keys prefix: nil, delimiter: "_"
         reduce({}) do |accumulator, (key, value)|
-          flat_key = prefix ? "#{prefix}#{delimiter}#{key}".to_sym : key
+          flat_key = prefix ? :"#{prefix}#{delimiter}#{key}" : key
 
           next accumulator.merge flat_key => value unless value in Hash
 
