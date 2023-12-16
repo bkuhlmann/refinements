@@ -489,6 +489,52 @@ RSpec.describe Refinements::Strings do
     end
   end
 
+  describe "#truncate" do
+    let(:string) { "This is a test example." }
+    let(:length) { string.length }
+
+    it "answers string with length at word break" do
+      expect(string.truncate(10)).to eq("This is...")
+    end
+
+    it "answers string with length in middle of word" do
+      expect(string.truncate(15)).to eq("This is a te...")
+    end
+
+    it "answers full string when length is equal to string length" do
+      expect(string.truncate(length)).to eq("This is a test example.")
+    end
+
+    it "answers full string when length is larger than string length" do
+      expect(string.truncate(Float::INFINITY)).to eq("This is a test example.")
+    end
+
+    it "answers string with string delimiter" do
+      expect(string.truncate(15, " ")).to eq("This is a...")
+    end
+
+    it "answers string with regular expression delimiter" do
+      expect(string.truncate(15, /\s/)).to eq("This is a...")
+    end
+
+    it "answers string with custom trailer" do
+      expect(string.truncate(17, trailer: "... (more)")).to eq("This is... (more)")
+    end
+
+    it "answers string with no trailer" do
+      expect(string.truncate(7, trailer: "")).to eq("This is")
+    end
+
+    it "answers overflow when string length is smaller than truncation length" do
+      expect("test".truncate(3)).to eq("...")
+    end
+
+    it "doesn't mutate original string" do
+      string.truncate 10
+      expect(string).to eq("This is a test example.")
+    end
+  end
+
   describe "#to_bool" do
     %w[true yes on t y 1].each do |value|
       it %(answers true with "#{value}") do

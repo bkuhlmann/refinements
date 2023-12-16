@@ -60,7 +60,15 @@ module Refinements
                                               .then { |parts| combine parts, :up, "/" }
       end
 
-      def to_bool = %w[true yes on t y 1].include?(downcase.strip)
+      def truncate to, delimiter = nil, trailer: "..."
+        return dup if length <= to
+
+        offset = to - trailer.length
+        maximum = delimiter ? rindex(delimiter, offset) || offset : offset
+        "#{self[...maximum]}#{trailer}"
+      end
+
+      def to_bool = %w[true yes on t y 1].include? downcase.strip
 
       def up = empty? ? self : first.upcase + self[1, size]
 
