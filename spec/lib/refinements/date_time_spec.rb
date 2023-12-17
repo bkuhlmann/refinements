@@ -2,7 +2,7 @@
 
 require "spec_helper"
 
-RSpec.describe Refinements::DateTimes do
+RSpec.describe Refinements::DateTime do
   using described_class
 
   describe ".utc" do

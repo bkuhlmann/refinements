@@ -2,7 +2,7 @@
 
 require "spec_helper"
 
-RSpec.describe Refinements::LogDevices do
+RSpec.describe Refinements::LogDevice do
   using described_class
 
   subject(:device) { Logger::LogDevice.new io }

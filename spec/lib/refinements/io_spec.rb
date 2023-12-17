@@ -2,13 +2,13 @@
 
 require "spec_helper"
 
-RSpec.describe Refinements::IOs do
+RSpec.describe Refinements::IO do
   subject(:io) { IO.new IO.sysopen(main_path.to_s, "w+") }
 
   include_context "with temporary directory"
 
   using described_class
-  using Refinements::Pathnames
+  using Refinements::Pathname
 
   let(:main_path) { temp_dir.join("main.io").touch }
 

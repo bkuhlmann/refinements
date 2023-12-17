@@ -2,7 +2,7 @@
 
 require "spec_helper"
 
-RSpec.describe Refinements::Hashes do
+RSpec.describe Refinements::Hash do
   using described_class
 
   describe ".infinite" do

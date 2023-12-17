@@ -2,7 +2,7 @@
 
 require "spec_helper"
 
-RSpec.describe Refinements::Arrays do
+RSpec.describe Refinements::Array do
   using described_class
 
   describe "combinatorial?" do

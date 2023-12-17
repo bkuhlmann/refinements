@@ -2,7 +2,7 @@
 
 require "spec_helper"
 
-RSpec.describe Refinements::Strings do
+RSpec.describe Refinements::String do
   using described_class
 
   describe "#blank?" do

@@ -4,12 +4,12 @@ require "refinements/shared/values/diff"
 
 module Refinements
   # Provides additional enhancements to the Struct primitive.
-  module Structs
-    refine Struct.singleton_class do
+  module Struct
+    refine ::Struct.singleton_class do
       def with_positions(*values) = keyword_init? ? new(**members.zip(values).to_h) : new(*values)
     end
 
-    refine Struct do
+    refine ::Struct do
       import_methods Shared::Values::Diff
 
       def merge(...) = dup.merge!(...)

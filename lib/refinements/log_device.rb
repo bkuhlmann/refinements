@@ -1,18 +1,18 @@
 # frozen_string_literal: true
 
 require "logger"
-require "refinements/string_ios"
+require "refinements/string_io"
 
 module Refinements
   # Provides additional enhancements to a log device.
-  module LogDevices
-    using StringIOs
+  module LogDevice
+    using StringIO
 
-    refine Logger::LogDevice do
+    refine ::Logger::LogDevice do
       def reread
         case dev
-          when File then dev.class.new(dev).read
-          when StringIO then dev.reread
+          when ::File then dev.class.new(dev).read
+          when ::StringIO then dev.reread
           else ""
         end
       end

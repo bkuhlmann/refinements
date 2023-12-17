@@ -2,7 +2,7 @@
 
 require "spec_helper"
 
-RSpec.describe Refinements::Symbols do
+RSpec.describe Refinements::Symbol do
   using described_class
 
   describe "#call" do

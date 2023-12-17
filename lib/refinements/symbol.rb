@@ -2,8 +2,8 @@
 
 module Refinements
   # Provides additional enhancements to the Symbol primitive.
-  module Symbols
-    refine Symbol do
+  module Symbol
+    refine ::Symbol do
       # rubocop:todo Naming/BlockForwarding
       def call(*arguments, &block)
         proc { |receiver| receiver.public_send self, *arguments, &block }

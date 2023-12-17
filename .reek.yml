@@ -1,8 +1,4 @@
 detectors:
-  ControlParameter:
-    exclude:
-      - "String#pluralize"
-      - "String#singularize"
   DuplicateMethodCall:
     exclude:
       - "Array#pluck"
@@ -12,8 +8,6 @@ detectors:
     exclude:
       - "Array#compress"
       - "Hash#compress"
-  LongParameterList:
-    enabled: false
   ManualDispatch:
     exclude:
       - "Array#compress"

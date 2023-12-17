@@ -4,7 +4,7 @@ require "pathname"
 
 module Refinements
   # Provides additional enhancements to the Pathname primitive.
-  module Pathnames
+  module Pathname
     refine Kernel do
       def Pathname object
         return super(String(object)) unless object
@@ -13,7 +13,7 @@ module Refinements
       end
     end
 
-    refine Pathname.singleton_class do
+    refine ::Pathname.singleton_class do
       def home = new ENV.fetch("HOME", "")
 
       def make_temp_dir prefix: "temp-", suffix: nil, root: nil
@@ -29,7 +29,7 @@ module Refinements
       def root = new(File::SEPARATOR)
     end
 
-    refine Pathname do
+    refine ::Pathname do
       def change_dir
         if block_given?
           Dir.chdir(self) { |path| yield Pathname(path) }

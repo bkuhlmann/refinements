@@ -4,8 +4,8 @@ require "refinements/shared/enumerables/many"
 
 module Refinements
   # Provides additional enhancements to the Array primitive.
-  module Arrays
-    refine Array do
+  module Array
+    refine ::Array do
       import_methods Shared::Enumerables::Many
 
       def combinatorial?(other) = !other.empty? && size == union(other).size

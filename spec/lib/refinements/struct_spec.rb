@@ -2,7 +2,7 @@
 
 require "spec_helper"
 
-RSpec.describe Refinements::Structs do
+RSpec.describe Refinements::Struct do
   using described_class
 
   describe ".with_positions" do

@@ -5,8 +5,8 @@ require "stringio"
 
 module Refinements
   # Provides additional enhancements to the StringIO primitive.
-  module StringIOs
-    refine StringIO do
+  module StringIO
+    refine ::StringIO do
       import_methods Shared::IOs::Reread
     end
   end

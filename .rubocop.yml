@@ -1,7 +1,2 @@
 inherit_gem:
   caliber: config/all.yml
-
-RSpec/SpecFilePathFormat:
-  CustomTransform:
-    IOs: ios
-    StringIOs: string_ios

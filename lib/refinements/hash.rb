@@ -4,8 +4,8 @@ require "refinements/shared/enumerables/many"
 
 module Refinements
   # Provides additional enhancements to the Hash primitive.
-  module Hashes
-    refine Hash.singleton_class do
+  module Hash
+    refine ::Hash.singleton_class do
       def infinite
         new { |new_hash, missing_key| new_hash[missing_key] = new(&new_hash.default_proc) }
       end
@@ -13,7 +13,7 @@ module Refinements
       def with_default(value) = new { |new_hash, missing_key| new_hash[missing_key] = value }
     end
 
-    refine Hash do
+    refine ::Hash do
       import_methods Shared::Enumerables::Many
 
       def compress = compact.delete_if { |_key, value| value.respond_to?(:empty?) && value.empty? }
@@ -57,7 +57,7 @@ module Refinements
         reduce({}) do |accumulator, (key, value)|
           flat_key = prefix ? :"#{prefix}#{delimiter}#{key}" : key
 
-          next accumulator.merge flat_key => value unless value in Hash
+          next accumulator.merge flat_key => value unless value.is_a? ::Hash
 
           accumulator.merge(recurse { value.flatten_keys prefix: flat_key, delimiter: })
         end
@@ -69,7 +69,7 @@ module Refinements
         return self unless block
 
         transform = yield self
-        transform.each { |key, value| transform[key] = value.recurse(&block) if value in Hash }
+        transform.each { |key, value| transform[key] = value.recurse(&block) if value.is_a? ::Hash }
       end
 
       def stringify_keys = transform_keys(&:to_s)

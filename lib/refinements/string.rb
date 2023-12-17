@@ -2,10 +2,10 @@
 
 module Refinements
   # Provides additional enhancements to the String primitive.
-  module Strings
+  module String
     DELIMITERS = %r([a-z][A-Z]|\s*-\s*|\s*/\s*|\s*:+\s*|\s*_\s*|\s+)
 
-    refine String do
+    refine ::String do
       def blank? = empty? || match?(/\A[[:space:]]*\z/)
 
       def camelcase

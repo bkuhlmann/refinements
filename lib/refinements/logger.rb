@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
-require "refinements/log_devices"
+require "refinements/log_device"
 
 module Refinements
   # Provides additional enhancements to a logger.
-  module Loggers
-    using LogDevices
+  module Logger
+    using LogDevice
 
-    refine Logger do
+    refine ::Logger do
       def reread = @logdev.reread
 
       alias_method :any, :unknown

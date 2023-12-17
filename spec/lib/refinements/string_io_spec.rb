@@ -2,7 +2,7 @@
 
 require "spec_helper"
 
-RSpec.describe Refinements::StringIOs do
+RSpec.describe Refinements::StringIO do
   using described_class
 
   subject(:io) { StringIO.new }
