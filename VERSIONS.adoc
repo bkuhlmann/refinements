@@ -1,5 +1,10 @@
 = Versions
 
+== 11.1.3 (2023-12-25)
+
+* Fixed RuboCop Lint/SymbolConversion issue - Brooke Kuhlmann
+* Fixed nested anonymous parameter forwarding - Brooke Kuhlmann
+
 == 11.1.2 (2023-11-15)
 
 * Updated Gemfile to support next minor Ruby version - Brooke Kuhlmann
