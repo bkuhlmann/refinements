@@ -28,7 +28,9 @@ module Refinements
         reopen backup
       end
 
-      def squelch(&) = self.class.void.then { |void| redirect(void, &) }
+      # rubocop:todo Naming/BlockForwarding
+      def squelch(&block) = self.class.void.then { |void| redirect(void, &block) }
+      # rubocop:enable Naming/BlockForwarding
     end
   end
 end
