@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "refinements/array"
-require "refinements/big_decimal"
 require "refinements/data"
 require "refinements/date_time"
 require "refinements/hash"
