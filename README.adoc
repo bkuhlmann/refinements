@@ -575,12 +575,13 @@ expression `example.fetch(:desired_key) || "default_value"`.
 
 [source,ruby]
 ----
-{a: "demo"}.fetch_value :a, "default"  # "demo"
-{a: "demo"}.fetch_value :a             # "demo"
-{a: nil}.fetch_value :a, "default"     # "default"
-{}.fetch_value(:a) { "default" }       # "default"
-{}.fetch_value :a                      # KeyError
-{a: "demo"}.fetch_value                # ArgumentError
+{a: "demo"}.fetch_value :a, "default"   # "demo"
+{a: "demo"}.fetch_value :a              # "demo"
+{a: nil}.fetch_value :a, "default"      # "default"
+{a: nil}.fetch_value(:a) { "default" }  # "default"
+{}.fetch_value :a                       # KeyError
+{}.fetch_value(:a) { "default" }        # "default"
+{a: "demo"}.fetch_value                 # ArgumentError
 ----
 
 ===== #flatten_keys
