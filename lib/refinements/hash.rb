@@ -51,7 +51,9 @@ module Refinements
         each.with_object({}) { |(key, value), diff| diff[key] = [value, nil] }
       end
 
-      def fetch_value(key, *default, &) = fetch(key, *default, &) || default.first
+      def fetch_value(key, *default, &)
+        fetch(key, *default, &) || (yield if block_given?) || default.first
+      end
 
       def flatten_keys prefix: nil, delimiter: "_"
         reduce({}) do |accumulator, (key, value)|

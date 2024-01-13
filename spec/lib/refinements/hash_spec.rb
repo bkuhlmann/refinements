@@ -281,6 +281,11 @@ RSpec.describe Refinements::Hash do
       expect(value).to eq("default")
     end
 
+    it "answers block default when value is missing" do
+      value = {a: nil}.fetch_value(:a) { "default" }
+      expect(value).to eq("default")
+    end
+
     it "answers block default when key is missing" do
       value = {}.fetch_value(:a) { "default" }
       expect(value).to eq("default")
