@@ -1,5 +1,13 @@
 = Versions
 
+== 12.1.0 (2024-01-28)
+
+* ✅ Fixed RuboCop Naming/BlockForwarding issues - Brooke Kuhlmann
+* 🟢 Added repl_type_completor gem - Brooke Kuhlmann
+* 🟢 Added version release notes - Brooke Kuhlmann
+* 🔼 Updated to Caliber 0.50.0 - Brooke Kuhlmann
+* 🔼 Updated to Reek 6.3.0 - Brooke Kuhlmann
+
 == 12.0.1 (2024-01-13)
 
 ✅ Fixed hash fetch value for block default - Brooke Kuhlmann

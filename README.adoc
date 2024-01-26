@@ -376,9 +376,11 @@ Useful when building documentation, answering human readable error messages, etc
 %w[eins zwei drei].to_sentence "und", delimiter: " "  # "eins zwei und drei"
 ----
 
+💡 You can use a string or a symbol for the conjunction (i.e. `"and"` or `:and`).
+
 ===== #to_usage
 
-Builds upon and enhances `#to_sentence` further by answering a sentence which all elements are inspected -- where each element of the array is called with `#inspect` -- before turned into a sentence using `"and"` as the default conjunction and `", "` as the default delimiter. This is useful when providing detailed error messages _and_ you need to detail the types of element used.
+Further enhances `#to_sentence` by answering a sentence where all elements are inspected (i.e. `#inspect`) before turned into a sentence using `"and"` as the default conjunction and `", "` as the default delimiter. This is useful when providing detailed error messages _and_ you need the _types_ of all elements preserved.
 
 [source,ruby]
 ----
@@ -389,6 +391,8 @@ Builds upon and enhances `#to_sentence` further by answering a sentence which al
 %w[one two three].to_usage                         # "\"one\", \"two\", and \"three\""
 %w[eins zwei drei].to_usage "und", delimiter: " "  # "\"eins\" \"zwei\" und \"drei\""
 ----
+
+💡 You can use a string or a symbol for the conjunction (i.e. `"and"` or `:and`).
 
 ==== Data
 
