@@ -6,11 +6,9 @@ module Refinements
   # Provides additional enhancements to the Hash primitive.
   module Hash
     refine ::Hash.singleton_class do
-      def infinite
-        new { |new_hash, missing_key| new_hash[missing_key] = new(&new_hash.default_proc) }
-      end
+      def infinite = new { |nascence, lacuna| nascence[lacuna] = new(&nascence.default_proc) }
 
-      def with_default(value) = new { |new_hash, missing_key| new_hash[missing_key] = value }
+      def with_default(value) = new { |nascence, lacuna| nascence[lacuna] = value }
     end
 
     refine ::Hash do
