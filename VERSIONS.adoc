@@ -1,5 +1,13 @@
 = Versions
 
+== 12.3.0 (2024-04-21)
+
+* 🔼 Updated setup script as a Ruby script - Brooke Kuhlmann
+* 🔼 Updated to Amazing Print 1.6.0 - Brooke Kuhlmann
+* 🔼 Updated to Git Lint 7.3.0 - Brooke Kuhlmann
+* 🔼 Updated to Rake 13.2.0 - Brooke Kuhlmann
+* 🔁 Refactored Hash infinite and with default class method terminology - Brooke Kuhlmann
+
 == 12.2.0 (2024-03-03)
 
 * 🔼 Updated RuboCop to use XDG local configuration - Brooke Kuhlmann
