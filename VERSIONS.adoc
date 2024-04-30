@@ -1,5 +1,10 @@
 = Versions
 
+== 12.3.1 (2024-05-07)
+
+* 🟢 Added String singularize spec for regular expression - Brooke Kuhlmann
+* 🔼 Updated to Ruby 3.3.1 - Brooke Kuhlmann
+
 == 12.3.0 (2024-04-21)
 
 * 🔼 Updated setup script as a Ruby script - Brooke Kuhlmann

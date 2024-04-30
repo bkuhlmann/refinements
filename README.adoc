@@ -1299,6 +1299,7 @@ well in other languages.
 [source,ruby]
 ----
 "apples".singularize "s"                      # apple
+"sacks".singularize /s$/                      # sack
 "apples".singularize "s", 0                   # apples
 "apples".singularize "s", 1                   # apple
 "apples".singularize "s", -1                  # apple
