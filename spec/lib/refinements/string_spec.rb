@@ -254,6 +254,10 @@ RSpec.describe Refinements::String do
       expect("apples".singularize("s")).to eq("apple")
     end
 
+    it "answers singular with regular expession" do
+      expect("sacks".singularize(/s$/)).to eq("sack")
+    end
+
     it "answers singular with positive count of one" do
       expect("apples".singularize("s", 1)).to eq("apple")
     end
