@@ -1,5 +1,11 @@
 = Versions
 
+== 12.5.0 (2024-06-22)
+
+* 🟢 Added Pathname puts method - Brooke Kuhlmann
+* 🔼 Updated to Caliber 0.58.0 - Brooke Kuhlmann
+* 🔼 Updated to Ruby 3.3.3 - Brooke Kuhlmann
+
 == 12.4.0 (2024-06-01)
 
 * 🟢 Added IRB Kit gem - Brooke Kuhlmann

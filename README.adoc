@@ -1128,6 +1128,19 @@ Answers file name without extension.
 Pathname("example.txt").name # Pathname("example")
 ----
 
+===== #puts
+
+Wraps `#write` by writing content to file with new line and answering itself. Allows you to more easily swap out a `Pathname` object with similar IO objects who support `#puts`: `IO`, `StringIO`, `File`, `Kernel`, and so forth.
+
+[source,ruby]
+----
+path = Pathname("test.txt").touch
+path.puts "Test."
+path.read                                      # "Test.\n"
+
+Pathname("text.txt").touch.puts("Test.").read  # "Test.\n"
+----
+
 ===== #relative_parent
 
 Answers relative path from parent directory. This complements: `#relative_path_from`.
