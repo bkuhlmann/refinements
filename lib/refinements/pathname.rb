@@ -78,6 +78,8 @@ module Refinements
 
       def name = basename extname
 
+      def puts(content) = write "#{content}\n"
+
       def relative_parent(root_dir) = relative_path_from(root_dir).parent
 
       def remove_dir = exist? ? (rmdir and self) : self

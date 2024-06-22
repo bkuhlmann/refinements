@@ -526,6 +526,19 @@ RSpec.describe Refinements::Pathname do
     end
   end
 
+  describe "#puts" do
+    let(:path) { temp_dir.join("test.txt").touch }
+
+    it "writes to file with newline" do
+      path.puts "Test."
+      expect(path.read).to eq("Test.\n")
+    end
+
+    it "answers itself" do
+      expect(path.puts("Test.")).to eq(path)
+    end
+  end
+
   describe "#relative_parent" do
     it "answers relative path with absolute path" do
       expect(Pathname("/one/two/three").relative_parent("/one")).to eq(Pathname("two"))
