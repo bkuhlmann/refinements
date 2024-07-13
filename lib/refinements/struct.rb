@@ -38,6 +38,8 @@ module Refinements
         mapping = key_map.invert
         merge! object.to_h.slice(*mapping.keys).transform_keys!(mapping)
       end
+
+      alias_method :with, :merge
     end
   end
 end
