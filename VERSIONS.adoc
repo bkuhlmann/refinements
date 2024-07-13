@@ -1,5 +1,13 @@
 = Versions
 
+== 12.6.0 (2024-07-13)
+
+* 🟢 Added struct with method - Brooke Kuhlmann
+* 🟢 Added version release notes - Brooke Kuhlmann
+* 🔼 Updated to Git Lint 8.0.0 - Brooke Kuhlmann
+* 🔼 Updated to IRB Kit 0.3.0 - Brooke Kuhlmann
+* 🔼 Updated to Ruby 3.3.4 - Brooke Kuhlmann
+
 == 12.5.0 (2024-06-22)
 
 * 🟢 Added Pathname puts method - Brooke Kuhlmann

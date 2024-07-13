@@ -1564,6 +1564,10 @@ a.transmute! c, c: :t                # #<struct Struct::A a=1, b=2, c=30>
 a                                    # #<struct Struct::A a=7, b=8, c=30>
 ----
 
+===== #with
+
+An alias of `#merge` and identical in behavior (see `#merge` documentation for details). Allows you to use `Struct` and `Data` objects more interchangeably since they share the same method.
+
 ==== Symbol
 
 ===== #call
