@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "refinements/shared/ios/reread"
+require "refinements/shared/reread"
 
 module Refinements
   # Provides additional enhancements to the IO primitive.
@@ -17,7 +17,7 @@ module Refinements
     end
 
     refine ::IO do
-      import_methods Shared::IOs::Reread
+      import_methods Shared::Reread
 
       def redirect other
         return self unless block_given?

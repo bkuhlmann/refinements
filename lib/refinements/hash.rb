@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "refinements/shared/enumerables/many"
+require "refinements/shared/many"
 
 module Refinements
   # Provides additional enhancements to the Hash primitive.
@@ -12,7 +12,7 @@ module Refinements
     end
 
     refine ::Hash do
-      import_methods Shared::Enumerables::Many
+      import_methods Shared::Many
 
       def compress = compact.delete_if { |_key, value| value.respond_to?(:empty?) && value.empty? }
 

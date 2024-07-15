@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-require "refinements/shared/enumerables/many"
+require "refinements/shared/many"
 
 module Refinements
   # Provides additional enhancements to the Array primitive.
   module Array
     refine ::Array do
-      import_methods Shared::Enumerables::Many
+      import_methods Shared::Many
 
       def combinatorial?(other) = !other.empty? && size == union(other).size
 
