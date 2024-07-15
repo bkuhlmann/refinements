@@ -13,16 +13,19 @@ toc::[]
 Enhances the following objects:
 
 * Array
+* Binding
 * Data
 * DateTime
 * Hash
 * IO
 * LogDevice
 * Logger
+* Object
 * Pathname
 * String
 * StringIO
 * Struct
+* Symbol
 
 == Requirements
 
@@ -77,12 +80,14 @@ gem "refinements", require: false
 [source,ruby]
 ----
 require "refinements/array"
+require "refinements/binding"
 require "refinements/data"
 require "refinements/date_time"
 require "refinements/hash"
 require "refinements/io"
 require "refinements/log_device"
 require "refinements/logger"
+require "refinements/object"
 require "refinements/pathname"
 require "refinements/string"
 require "refinements/string_io"
@@ -99,12 +104,14 @@ refinement(s):
 ----
 class Example
   using Refinements::Array
+  using Refinements::Binding
   using Refinements::Data
   using Refinements::DateTime
   using Refinements::Hash
   using Refinements::IO
   using Refinements::LogDevice
   using Refinements::Logger
+  using Refinements::Object
   using Refinements::Pathname
   using Refinements::String
   using Refinements::StringIO
@@ -393,6 +400,59 @@ Further enhances `#to_sentence` by answering a sentence where all elements are i
 ----
 
 💡 You can use a string or a symbol for the conjunction (i.e. `"and"` or `:and`).
+
+==== Binding
+
+===== #[]
+
+Allows you to obtain a local variable. This is an alias to `#local_variable_get`.
+
+[source,ruby]
+----
+a = 1
+binding[:a]      # 1
+binding[:bogus]  # `bogus' is not defined (NameError)
+----
+
+===== #[]=
+
+Allows you to set a local variable. This is an alias to `#local_variable_set`.
+
+[source,ruby]
+----
+a = 1
+binding[:a] = 5
+binding[:bogus] = "bad"
+
+binding[:a]      # 5
+binding[:bogus]  # # `bogus' is not defined (NameError)
+----
+
+===== #local?
+
+Allows you to check if local variable is defined. This is an alias to `#local_variable_defined?`.
+
+[source,ruby]
+----
+a = 1
+
+binding.local? :a  # true
+binding.local? :b  # false
+----
+
+===== #locals
+
+Allows you to acquire all locally defined variables. This is an alias to `#local_variables`.
+
+[source,ruby]
+----
+binding.locals  # []
+
+a = 1
+b = 2
+
+binding.locals  # [:a, :b]
+----
 
 ==== Data
 
@@ -874,6 +934,55 @@ logger.any "Test."
 logger.any { "Test." }
 A, [2000-01-10T09:00:00.330719 #44925]   ANY -- : Test.
 ```
+
+==== Object
+
+===== #in?
+
+Allows you to know if `self` is included in, or an element of, the target object.
+
+[source,ruby]
+----
+1.in? [1, 2, 3]             # true
+9.in? [1, 2, 3]             # false
+
+"a".in? %w[a b c]           # true
+"z".in? %w[a b c]           # false
+
+:a.in? %i[a b c]            # true
+:z.in? %i[a b c]            # false
+
+:a.in? %i[a b c].to_enum    # true
+:z.in? %i[a b c].to_enum    # false
+
+:a.in?({a: 1, b: 2, c: 3})  # true
+:z.in?({a: 1, b: 2, c: 3})  # false
+
+1.in? 1..5                  # true
+9.in? 1..5                  # false
+
+1.in? Set[1, 2, 3]          # true
+9.in? Set[1, 2, 3]          # false
+
+"a".in? "abcde"             # true
+"z".in? "abcde"             # false
+
+"z".in? Object.new          # `String#include?` must be implemented. (NoMethodError)
+----
+
+===== #to_proc
+
+Allows you to cast any object to a proc.
+
+[source,ruby]
+----
+one = Class.new { def call = :test }
+           .new
+two = Object.new
+
+one.to_proc  # #<Proc:0x0000000124019580 (lambda)>
+two.to_proc  # `Object#call` must be implemented. (NoMethodError)
+----
 
 ==== Pathname
 

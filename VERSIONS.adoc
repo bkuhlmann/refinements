@@ -1,5 +1,11 @@
 = Versions
 
+== 12.7.0 (2024-07-15)
+
+* 🟢 Added Binding refinement - Brooke Kuhlmann
+* 🟢 Added Object refinements - Brooke Kuhlmann
+* 🔁 Refactored shared modules to not use subdirectories - Brooke Kuhlmann
+
 == 12.6.0 (2024-07-13)
 
 * 🟢 Added struct with method - Brooke Kuhlmann
