@@ -12,6 +12,7 @@ detectors:
     exclude:
       - "Array#compress"
       - "Hash#compress"
+      - "Object#to_proc"
   NestedIterators:
     exclude:
       - "Array#pluck"
