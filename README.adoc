@@ -1681,19 +1681,19 @@ An alias of `#merge` and identical in behavior (see `#merge` documentation for d
 
 ===== #call
 
-Enhances symbol-to-proc by allowing you to send additional arguments and/or a block. This only works
-with public methods in order to not break encapsulation.
+Enhances symbol-to-proc functionality by allowing you to send positional, keyword, and/or a block arguments. This only works with public methods in order to not break encapsulation.
 
 [source,ruby]
 ----
+
 %w[clue crow cow].map(&:tr.call("c", "b"))                              # ["blue", "brow", "bow"]
+[1.3, 1.5, 1.9].map(&:round.call(half: :up))                            # [1, 2, 2]
 [%w[a b c], %w[c a b]].map(&:index.call { |element| element == "b" })   # [1, 2]
-%w[1.outside 2.inside].map(&:sub.call(/\./) { |bullet| bullet + " " })  # ["1. outside", "2. inside"]
+%w[1.out 2.in].map(&:sub.call(/\./) { |bullet| bullet + " " })          # ["1. out", "2. in"]
 [1, 2, 3].map(&:to_s.call)                                              # ["1", "2", "3"]
 ----
 
-⚠️ Use of `#call` without any arguments or block should be avoided in order to not incur extra
-processing costs since the original symbol-to-proc call can be used instead.
+⚠️ Use of `#call` without any arguments should be avoided in order to not incur extra processing costs since the original symbol-to-proc call can be used instead.
 
 == Development
 
