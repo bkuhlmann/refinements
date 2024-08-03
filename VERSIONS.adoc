@@ -1,5 +1,10 @@
 = Versions
 
+== 12.7.1 (2024-08-03)
+
+* ✅ Fixed symbol refinement to allow keyword arguments - Brooke Kuhlmann
+* ⛔️ Removed Guard - Brooke Kuhlmann
+
 == 12.7.0 (2024-07-15)
 
 * 🟢 Added Binding refinement - Brooke Kuhlmann
