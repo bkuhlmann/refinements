@@ -1524,6 +1524,32 @@ io.reread(buffer:)  # "This is a test."
 buffer              # "This is a test."
 ----
 
+===== #to_s
+
+Answers underlying string representation for _explicit_ conversion.
+
+[source,ruby]
+----
+io = StringIO.new
+io.write "One"
+io.write ", "
+io.write "Two."
+io.to_s # "One, Two."
+----
+
+===== #to_str
+
+Answers underlying string representation for _implicit_ conversion.
+
+[source,ruby]
+----
+io = StringIO.new
+io.write "One"
+io.write ", "
+io.write "Two."
+io.to_str # "One, Two."
+----
+
 ==== Struct
 
 ===== .with_positions

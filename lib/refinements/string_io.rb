@@ -8,6 +8,9 @@ module Refinements
   module StringIO
     refine ::StringIO do
       import_methods Shared::Reread
+
+      alias_method :to_s, :string
+      alias_method :to_str, :string
     end
   end
 end
