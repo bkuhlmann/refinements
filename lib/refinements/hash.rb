@@ -80,9 +80,9 @@ module Refinements
 
       def symbolize_keys! = transform_keys!(&:to_sym)
 
-      def transform_with(operations) = dup.transform_with! operations
+      def transform_with(**) = dup.transform_with!(**)
 
-      def transform_with! operations
+      def transform_with!(**operations)
         operations.each { |key, function| self[key] = function.call self[key] if key? key }
         self
       end
