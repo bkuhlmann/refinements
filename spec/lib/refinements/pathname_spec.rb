@@ -311,9 +311,9 @@ RSpec.describe Refinements::Pathname do
     end
 
     it "answers sorted directories" do
-      a = temp_dir.join("a").tap(&:mkdir)
-      b = temp_dir.join("b").tap(&:mkdir)
       c = temp_dir.join("c").tap(&:mkdir)
+      b = temp_dir.join("b").tap(&:mkdir)
+      a = temp_dir.join("a").tap(&:mkdir)
 
       expect(temp_dir.directories).to eq([a, b, c])
     end
@@ -405,9 +405,9 @@ RSpec.describe Refinements::Pathname do
     end
 
     it "answers sorted files" do
-      a = temp_dir.join("a.txt").tap(&:touch)
-      b = temp_dir.join("b.txt").tap(&:touch)
       c = temp_dir.join("c.txt").tap(&:touch)
+      b = temp_dir.join("b.txt").tap(&:touch)
+      a = temp_dir.join("a.txt").tap(&:touch)
 
       expect(temp_dir.files).to eq([a, b, c])
     end

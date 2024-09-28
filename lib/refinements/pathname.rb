@@ -53,14 +53,14 @@ module Refinements
       def delete_suffix(pattern) = parent.join %(#{name.sub(/#{pattern}\z/, "")}#{extname})
 
       def directories pattern = "*", flag: File::FNM_SYSCASE
-        glob(pattern, flag).select(&:directory?).sort
+        glob(pattern, flag).select(&:directory?)
       end
 
       def empty = file? ? (truncate(0) and self) : remove_tree.make_dir
 
       def extensions = basename.to_s.split(/(?=\.)+/).tap(&:shift)
 
-      def files(pattern = "*", flag: File::FNM_SYSCASE) = glob(pattern, flag).select(&:file?).sort
+      def files(pattern = "*", flag: File::FNM_SYSCASE) = glob(pattern, flag).select(&:file?)
 
       def gsub(pattern, replacement) = self.class.new(to_s.gsub(pattern, replacement))
 
