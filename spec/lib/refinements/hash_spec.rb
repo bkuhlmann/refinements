@@ -502,7 +502,7 @@ RSpec.describe Refinements::Hash do
     end
   end
 
-  shared_examples "a transform" do |method|
+  shared_examples "a transform with" do |method|
     subject(:a_hash) { {name: "Jayne Doe", email: "<jd@example.com>"} }
 
     it "answers transformed values" do
@@ -520,7 +520,7 @@ RSpec.describe Refinements::Hash do
   end
 
   describe "#transform_with" do
-    it_behaves_like "a transform", :transform_with
+    it_behaves_like "a transform with", :transform_with
 
     it "doesn't mutate itself" do
       a_hash = {email: "<test@example.com>"}
@@ -531,7 +531,7 @@ RSpec.describe Refinements::Hash do
   end
 
   describe "#transform_with!" do
-    it_behaves_like "a transform", :transform_with!
+    it_behaves_like "a transform with", :transform_with!
 
     it "mutates itself" do
       a_hash = {email: "<test@example.com>"}
