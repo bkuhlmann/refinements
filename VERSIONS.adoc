@@ -1,5 +1,14 @@
 = Versions
 
+== 12.9.0 (2024-10-01)
+
+* ✅ Fixed hash transforms to use keyword parameter splats - Brooke Kuhlmann
+* 🟢 Added Hash transform value - Brooke Kuhlmann
+* 🔼 Updated to Ruby 3.3.5 - Brooke Kuhlmann
+* ⛔️ Removed pathname directory and file sorting - Brooke Kuhlmann
+* 🔁 Refactored Hash transform with spec descriptions - Brooke Kuhlmann
+* 🔁 Refactored array filter find to use implicit block - Brooke Kuhlmann
+
 == 12.8.0 (2024-09-01)
 
 * 🟢 Added README Developer Certificate of Origin documentation - Brooke Kuhlmann

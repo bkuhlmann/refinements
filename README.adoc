@@ -635,7 +635,7 @@ Any object that _is not_ the same type will have a `nil` value as shown in the l
 
 Fetches value for exiting or missing key. Behavior is identical to `#fetch` except when the value of
 the key is `nil` you'll get the default value instead. This eliminates the need for using an _or_
-expression `example.fetch(:desired_key) || "default_value"`.
+expression: `example.fetch(:desired_key) || "default_value"`.
 
 [source,ruby]
 ----
@@ -650,8 +650,7 @@ expression `example.fetch(:desired_key) || "default_value"`.
 
 ===== #flatten_keys
 
-Flattens nested keys as top-level keys without mutating itself. Does not handle nested arrays,
-though.
+Flattens nested keys as top-level keys without mutating itself. Keys are converted to symbols. Does not handle nested arrays.
 
 [source,ruby]
 ----
@@ -665,8 +664,7 @@ example                                         # {a: {b: 1}}
 
 ===== #flatten_keys!
 
-Flattens nested keys as top-level keys while mutating itself. Does not handle nested arrays,
-though.
+Flattens nested keys as top-level keys while mutating itself. Keys are converted to symbols. Does not handle nested arrays.
 
 [source,ruby]
 ----
@@ -747,6 +745,52 @@ example.symbolize_keys!  # {a: 1, b: 2}
 example                  # {a: 1, b: 2}
 ----
 
+===== #transform_value
+
+Transforms a value for the specified key _only_ if the key exists and a block is given. Otherwise, the original hash is answered. Does not mutate itself.
+
+[source,ruby]
+----
+example = {a: 1, b: 2}
+
+example.transform_value :b                          # {a: 1, b: 2}
+example.transform_value(:b) { 20 }                  # {a: 1, b: 20}
+example.transform_value(:b) { |value| value * 10 }  # {a: 1, b: 20}
+example.transform_value :c                          # {a: 1, b: 2}
+example.transform_value(:c) { :bogus }              # {a: 1, b: 2}
+----
+
+The original object _is not_ mutated:
+
+[source,ruby]
+----
+example.transform_value(:b) { 20 }  # {a: 1, b: 20}
+example                             # {a: 1, b: 2}
+----
+
+===== #transform_value!
+
+Transforms a value for the specified key _only_ if the key exists and a block is given. Otherwise, the original hash is answered. Mutates itself.
+
+[source,ruby]
+----
+example = {a: 1, b: 2}
+
+example.transform_value! :b                          # {a: 1, b: 2}
+example.transform_value!(:b) { 20 }                  # {a: 1, b: 20}
+example.transform_value!(:b) { |value| value * 10 }  # {a: 1, b: 20}
+example.transform_value! :c                          # {a: 1, b: 2}
+example.transform_value!(:c) { :bogus }              # {a: 1, b: 2}
+----
+
+The original object _is_ mutated:
+
+[source,ruby]
+----
+example.transform_value!(:b) { 20 }  # {a: 1, b: 20}
+example                              # {a: 1, b: 20}
+----
+
 ===== #transform_with
 
 Transforms values of keys using specific operations (i.e. any object that responds to `#call`). Does not mutate itself and you can transform multiple values at once:
@@ -768,7 +812,7 @@ example.transform_with bogus: -> value { value.tr "<>", "" }
 # {email: "<jd@example.com>"}
 ----
 
-The original object _will not_ be mutated:
+The original object _is not_ mutated:
 
 [source,ruby]
 ----
@@ -796,7 +840,7 @@ example.transform_with! bogus: -> value { value.tr "<>", "" }
 # {email: "<jd@example.com>"}
 ----
 
-The original object _will be_ mutated:
+The original object _is_ mutated:
 
 [source,ruby]
 ----
