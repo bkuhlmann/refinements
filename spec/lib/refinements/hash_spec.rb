@@ -456,6 +456,52 @@ RSpec.describe Refinements::Hash do
     end
   end
 
+  shared_examples "a value transform" do |method|
+    subject(:a_hash) { {a: 1, b: 2} }
+
+    it "answers transformed value (without block parameter)" do
+      result = a_hash.public_send(method, :b) { :altered }
+      expect(result).to eq(a: 1, b: :altered)
+    end
+
+    it "answers transformed value (with block parameter)" do
+      result = a_hash.public_send(method, :b) { |value| value * 5 }
+      expect(result).to eq(a: 1, b: 10)
+    end
+
+    it "ignores when block is missing" do
+      result = a_hash.public_send method, :b
+      expect(result).to eq(a: 1, b: 2)
+    end
+
+    it "ignores invalid key" do
+      result = a_hash.public_send(method, :c) { :altered }
+      expect(result).to eq(a: 1, b: 2)
+    end
+  end
+
+  describe "#transform_value" do
+    it_behaves_like "a value transform", :transform_value
+
+    it "doesn't mutate itself" do
+      a_hash = {a: 1, b: 2}
+      a_hash.transform_value(:b) { 20 }
+
+      expect(a_hash).to eq(a: 1, b: 2)
+    end
+  end
+
+  describe "#transform_value!" do
+    it_behaves_like "a value transform", :transform_value!
+
+    it "mutates itself" do
+      a_hash = {a: 1, b: 2}
+      a_hash.transform_value!(:b) { 20 }
+
+      expect(a_hash).to eq(a: 1, b: 20)
+    end
+  end
+
   shared_examples "a transform" do |method|
     subject(:a_hash) { {name: "Jayne Doe", email: "<jd@example.com>"} }
 

@@ -80,6 +80,12 @@ module Refinements
 
       def symbolize_keys! = transform_keys!(&:to_sym)
 
+      def transform_value(key, &) = dup.transform_value!(key, &)
+
+      def transform_value! key
+        block_given? && key?(key) ? merge!(key => yield(self[key])) : self
+      end
+
       def transform_with(**) = dup.transform_with!(**)
 
       def transform_with!(**operations)
