@@ -1,5 +1,12 @@
 = Versions
 
+== 12.10.0 (2024-10-22)
+
+* 🟢 Added array filter find deprecation - Brooke Kuhlmann
+* 🟢 Added module refinement - Brooke Kuhlmann
+* 🟢 Added struct with positions deprecation warning - Brooke Kuhlmann
+* 🟢 Added version release notes - Brooke Kuhlmann
+
 == 12.9.0 (2024-10-01)
 
 * ✅ Fixed hash transforms to use keyword parameter splats - Brooke Kuhlmann

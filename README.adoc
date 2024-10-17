@@ -20,6 +20,7 @@ Enhances the following objects:
 * IO
 * LogDevice
 * Logger
+* Module
 * Object
 * Pathname
 * String
@@ -87,6 +88,7 @@ require "refinements/hash"
 require "refinements/io"
 require "refinements/log_device"
 require "refinements/logger"
+require "refinements/module"
 require "refinements/object"
 require "refinements/pathname"
 require "refinements/string"
@@ -111,6 +113,7 @@ class Example
   using Refinements::IO
   using Refinements::LogDevice
   using Refinements::Logger
+  using Refinements::Module
   using Refinements::Object
   using Refinements::Pathname
   using Refinements::String
@@ -185,6 +188,8 @@ Removes given array or elements without mutating itself.
 ----
 
 ===== #filter_find
+
+⚠️ _This is deprecated and will be removed in Version 13.0.0._
 
 Answers the first element which evaluates to true from a filtered collection.
 
@@ -969,7 +974,8 @@ logger.reread  # ""
 
 Allows you to log _any_ message which is identical in behavior and functionality to the `Logger#unknown` method only this requires less typing and better matches the terminology used by the `#unknown` method.
 
-``` ruby
+[source,ruby]
+----
 logger = Logger.new STDOUT
 
 logger.any "Test."
@@ -977,7 +983,33 @@ logger.any "Test."
 
 logger.any { "Test." }
 A, [2000-01-10T09:00:00.330719 #44925]   ANY -- : Test.
-```
+----
+
+==== Module
+
+===== #pseudonym
+
+Allows you to set a temporary name for your anonymous `Module` (or `Class` since `Class` inherits from `Module`) with a better default than what `+#set_temporary_name+` provides.
+
+[source,ruby]
+----
+Module.new.pseudonym "demo"                       # demo-44600
+Module.new.pseudonym "demo", delimiter: "_"       # demo_60900
+Module.new.pseudonym "demo", nil                  # demo-
+Module.new.pseudonym "demo", nil, delimiter: nil  # demo
+----
+
+The same applies for anonymous classes since classes inherit from modules:
+
+[source,ruby]
+----
+Class.new.pseudonym "demo"                       # demo-44600 < Object
+Class.new.pseudonym "demo", delimiter: "_"       # demo_60900 < Object
+Class.new.pseudonym "demo", nil                  # demo- < Object
+Class.new.pseudonym "demo", nil, delimiter: nil  # demo < Object
+----
+
+💡 While convenient, if you find yourself nullifying the suffix and/or delimiter, you're better off using `+#set_temporary_name+`.
 
 ==== Object
 
@@ -1597,6 +1629,8 @@ io.to_str # "One, Two."
 ==== Struct
 
 ===== .with_positions
+
+⚠️ _This is deprecated and will be removed in Version 13.0.0._
 
 Answers a struct instance with given positional arguments regardless of
 whether the struct was constructed with positional or keyword arguments.
