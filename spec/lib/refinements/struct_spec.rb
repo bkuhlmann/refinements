@@ -9,6 +9,11 @@ RSpec.describe Refinements::Struct do
     context "with positionals" do
       subject(:struct) { Struct.new :a, :b, :c }
 
+      it "prints deprecation warning" do
+        expectation = proc { struct.with_positions 1, 2, 3 }
+        expect(&expectation).to output(/is deprecated/).to_stderr
+      end
+
       it "answers struct with all positions filled" do
         expect(struct.with_positions(1, 2, 3)).to eq(struct[1, 2, 3])
       end
@@ -20,6 +25,11 @@ RSpec.describe Refinements::Struct do
 
     context "with keywords" do
       subject(:struct) { Struct.new :a, :b, :c, keyword_init: true }
+
+      it "prints deprecation warning" do
+        expectation = proc { struct.with_positions 1, 2, 3 }
+        expect(&expectation).to output(/is deprecated/).to_stderr
+      end
 
       it "answers struct with all positions filled" do
         expect(struct.with_positions(1, 2, 3)).to eq(struct[a: 1, b: 2, c: 3])

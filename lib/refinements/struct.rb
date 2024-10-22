@@ -6,7 +6,12 @@ module Refinements
   # Provides additional enhancements to the Struct primitive.
   module Struct
     refine ::Struct.singleton_class do
-      def with_positions(*values) = keyword_init? ? new(**members.zip(values).to_h) : new(*values)
+      def with_positions(*values)
+        warn "`#{self.class}##{__method__}` is deprecated and will be removed in Version 13.0.0.",
+             category: :deprecated
+
+        keyword_init? ? new(**members.zip(values).to_h) : new(*values)
+      end
     end
 
     refine ::Struct do
