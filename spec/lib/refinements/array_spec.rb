@@ -130,6 +130,11 @@ RSpec.describe Refinements::Array do
       ]
     end
 
+    it "prints deprecation warning" do
+      expectation = proc { handlers.filter_find }
+      expect(&expectation).to output(/is deprecated/).to_stderr
+    end
+
     it "answers lazy enumerator when not given a block" do
       expect(handlers.filter_find).to be_a(Enumerator::Lazy)
     end
