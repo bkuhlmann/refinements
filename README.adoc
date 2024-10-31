@@ -18,8 +18,6 @@ Enhances the following objects:
 * DateTime
 * Hash
 * IO
-* LogDevice
-* Logger
 * Module
 * Object
 * Pathname
@@ -86,8 +84,6 @@ require "refinements/data"
 require "refinements/date_time"
 require "refinements/hash"
 require "refinements/io"
-require "refinements/log_device"
-require "refinements/logger"
 require "refinements/module"
 require "refinements/object"
 require "refinements/pathname"
@@ -111,8 +107,6 @@ class Example
   using Refinements::DateTime
   using Refinements::Hash
   using Refinements::IO
-  using Refinements::LogDevice
-  using Refinements::Logger
   using Refinements::Module
   using Refinements::Object
   using Refinements::Pathname
@@ -185,25 +179,6 @@ Removes given array or elements without mutating itself.
 ----
 [1, 2, 3, 4, 5].excluding [4, 5]  # [1, 2, 3]
 [1, 2, 3, 4, 5].excluding 4, 5    # [1, 2, 3]
-----
-
-===== #filter_find
-
-⚠️ _This is deprecated and will be removed in Version 13.0.0._
-
-Answers the first element which evaluates to true from a filtered collection.
-
-[source,ruby]
-----
-handlers = [
-  -> object { object if object == :b },
-  proc { false },
-  -> object { object if object == :a }
-]
-
-handlers.filter_find                                # Enumerator::Lazy
-handlers.filter_find { |handler| handler.call :a }  # :a
-handlers.filter_find { |handler| handler.call :x }  # nil
 ----
 
 ===== #including
@@ -922,69 +897,6 @@ io.squelch { io.write "Test" }  # "#<IO:fd 20>"
 io.reread                       # ""
 ----
 
-==== LogDevice
-
-===== #reread
-
-Answers previously written content by rewinding to beginning of device.
-
-[source,ruby]
-----
-# With File.
-device = Logger::LogDevice.new "test.log"
-device.write "Test."
-device.reread  # "Test."
-
-# With StringIO.
-device = Logger::LogDevice.new StringIO.new
-device.write "Test."
-device.reread  # "Test."
-
-# With STDOUT.
-device = Logger::LogDevice.new $stdout
-device.write "Test."
-device.reread  # ""
-----
-
-==== Logger
-
-===== #reread
-
-Answers previously written content by rewinding to beginning of log.
-
-[source,ruby]
-----
-# With File.
-logger = Logger.new "test.log"
-logger.write "Test."
-logger.reread  # "Test."
-
-# With StringIO.
-logger = Logger.new StringIO.new
-logger.write "Test."
-logger.reread  # "Test."
-
-# With STDOUT.
-logger = Logger.new $stdout
-logger.write "Test."
-logger.reread  # ""
-----
-
-===== #any
-
-Allows you to log _any_ message which is identical in behavior and functionality to the `Logger#unknown` method only this requires less typing and better matches the terminology used by the `#unknown` method.
-
-[source,ruby]
-----
-logger = Logger.new STDOUT
-
-logger.any "Test."
-# A, [2000-01-10T09:00:00.847428 #44925]   ANY -- : Test.
-
-logger.any { "Test." }
-A, [2000-01-10T09:00:00.330719 #44925]   ANY -- : Test.
-----
-
 ==== Module
 
 ===== #pseudonym
@@ -1081,29 +993,6 @@ Answers user home directory.
 [source,ruby]
 ----
 Pathname.home  # Pathname "/Users/demo"
-----
-
-===== .make_temp_dir
-
-Wraps `Dir.mktmpdir` with the following behavior (see
-link:https://rubyapi.org/o/Dir.mktmpdir#method-c-mktmpdir[Dir.mktmpdir] for details):
-
-* *Without Block* - Answers a newly created Pathname instance which is not automatically cleaned up.
-* *With Block*  Yields a Pathname instance, answers result of given block, and automatically cleans
-  up temporary directory after block exits.
-
-The following examples use truncated temporary directories for illustration purposes only. In
-reality, these paths will be longer depending on which operating system you are using.
-
-[source,ruby]
-----
-Pathname.make_temp_dir                                       # Pathname:/var/folders/T/temp-20200101-16940-r8
-Pathname.make_temp_dir prefix: "prefix-"                     # Pathname:/var/folders/T/prefix-20200101-16940-r8
-Pathname.make_temp_dir suffix: "-suffix"                     # Pathname:/var/folders/T/temp-20200101-16940-r8-suffix
-Pathname.make_temp_dir prefix: "prefix-", suffix: "-suffix"  # Pathname:/var/folders/T/prefix-20200101-16940-r8-suffix
-Pathname.make_temp_dir root: "/example"                      # Pathname:/example/temp-20200101-16940-r8
-Pathname.make_temp_dir { "I am a block result" }             # "I am a block result"
-Pathname.make_temp_dir { |path| path.join "sub_dir" }        # Pathname:/var/folders/T/temp-20200101-16940-r8/sub_dir
 ----
 
 ===== .require_tree
@@ -1233,7 +1122,7 @@ of contents. If a directory or file doesn't exist, it will be created.
 
 [source,ruby]
 ----
-directory = Pathname("test").make_path
+directory = Pathname("test").mkpath
 file = directory.join("test.txt").write("example")
 
 file.empty.read           # ""
@@ -1295,17 +1184,6 @@ Pathname("/one").make_dir           # Pathname("/one")
 Pathname("/one").make_dir.make_dir  # Pathname("/one")
 ----
 
-===== #make_path
-
-Provides alternative `#mkpath` behavior by always answering itself (even when full path exists) and
-not throwing errors when directory does exist in order to ensure the pathname can be chained.
-
-[source,ruby]
-----
-Pathname("/one/two/three").make_path            # Pathname("/one/two/three")
-Pathname("/one/two/three").make_path.make_path  # Pathname("/one/two/three")
-----
-
 ===== #name
 
 Answers file name without extension.
@@ -1347,27 +1225,6 @@ not throwing errors when directory does exist in order to ensure the pathname ca
 Pathname("/test").make_dir.remove_dir.exist?  # false
 Pathname("/test").remove_dir                  # Pathname("/test")
 Pathname("/test").remove_dir.remove_dir       # Pathname("/test")
-----
-
-===== #remove_tree
-
-Provides alternative `#rmtree` behavior by always answering itself (even when full path exists) and
-not throwing errors when directory does exist in order to ensure the pathname can be chained.
-
-[source,ruby]
-----
-parent_path = Pathname "/one"
-child_path = parent_path.join "two"
-
-child_path.make_path
-parent_path.remove_tree  # Pathname "/one"
-child_path.exist?        # false
-parent_path.exist?       # false
-
-child_path.make_path
-child_path.remove_tree   # Pathname "/one/two"
-child_path.exist?        # false
-parent_path.exist?       # true
 ----
 
 ===== #rewrite
@@ -1630,24 +1487,6 @@ io.to_str # "One, Two."
 
 ==== Struct
 
-===== .with_positions
-
-⚠️ _This is deprecated and will be removed in Version 13.0.0._
-
-Answers a struct instance with given positional arguments regardless of
-whether the struct was constructed with positional or keyword arguments.
-
-[source,ruby]
-----
-Example = Struct.new :a, :b, :c
-Example.with_positions 1, 2, 3  # #<struct a=1, b=2, c=3>
-Example.with_positions 1        # #<struct a=1, b=nil, c=nil>
-
-Example = Struct.new :a, :b, :c, keyword_init: true
-Example.with_positions 1, 2, 3  # #<struct a=1, b=2, c=3>
-Example.with_positions 1        # #<struct a=1, b=nil, c=nil>
-----
-
 ===== #diff
 
 Allows you to obtain the differences between two objects.
@@ -1700,47 +1539,6 @@ example.merge! a: 10, c: 30         # #<struct Struct::Example a=10, b=2, c=30>
 example.merge! other                # #<struct Struct::Example a=7, b=8, c=9>
 example.merge! a: 10, b: 20, c: 30  # #<struct Struct::Example a=10, b=20, c=30>
 example                             # #<struct Struct::Example a=10, b=20, c=30>
-----
-
-===== #revalue
-
-Transforms values without mutating itself. An optional hash can be supplied to target specific
-attributes. In the event that a block isn't supplied, the struct will answer itself since there is
-nothing to operate on. Works regardless of whether the struct is constructed with
-positional or keyword arguments.
-
-[source,ruby]
-----
-example = Struct.new("Example", :a, :b, :c).new 1, 2, 3
-
-example.revalue { |value| value * 2 }                             # #<struct Struct::Example a=2, b=4, c=6>
-example.revalue(c: 2) { |previous, current| previous + current }  # #<struct Struct::Example a=1, b=2, c=5>
-example.revalue c: 2                                              # #<struct Struct::Example a=1, b=2, c=3>
-example.revalue                                                   # #<struct Struct::Example a=1, b=2, c=3>
-example                                                           # #<struct Struct::Example a=1, b=2, c=3>
-----
-
-===== #revalue!
-
-Transforms values while mutating itself. An optional hash can be supplied to target specific
-attributes. In the event that a block isn't supplied, the struct will answer itself since there is
-nothing to operate on. Works regardless of whether the struct is constructed with
-positional or keyword arguments.
-
-[source,ruby]
-----
-one = Struct.new("One", :a, :b, :c).new 1, 2, 3
-one.revalue! { |value| value * 2 }                             # #<struct Struct::One a=2, b=4, c=6>
-one                                                            # #<struct Struct::One a=2, b=4, c=6>
-
-two = Struct.new("Two", :a, :b, :c).new 1, 2, 3
-two.revalue!(c: 2) { |previous, current| previous + current }  # #<struct Struct::Two a=1, b=2, c=5>
-two                                                            # #<struct Struct::Two a=1, b=2, c=5>
-
-three = Struct.new("Three", :a, :b, :c).new 1, 2, 3
-three.revalue! c: 2                                            # #<struct Struct::Three a=1, b=2, c=3>
-three.revalue!                                                 # #<struct Struct::Three a=1, b=2, c=3>
-three                                                          # #<struct Struct::Three a=1, b=2, c=3>
 ----
 
 ===== #transmute
