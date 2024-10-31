@@ -5,42 +5,6 @@ require "spec_helper"
 RSpec.describe Refinements::Struct do
   using described_class
 
-  describe ".with_positions" do
-    context "with positionals" do
-      subject(:struct) { Struct.new :a, :b, :c }
-
-      it "prints deprecation warning" do
-        expectation = proc { struct.with_positions 1, 2, 3 }
-        expect(&expectation).to output(/is deprecated/).to_stderr
-      end
-
-      it "answers struct with all positions filled" do
-        expect(struct.with_positions(1, 2, 3)).to eq(struct[1, 2, 3])
-      end
-
-      it "answers struct with some positions filled" do
-        expect(struct.with_positions(1)).to eq(struct[1, nil, nil])
-      end
-    end
-
-    context "with keywords" do
-      subject(:struct) { Struct.new :a, :b, :c, keyword_init: true }
-
-      it "prints deprecation warning" do
-        expectation = proc { struct.with_positions 1, 2, 3 }
-        expect(&expectation).to output(/is deprecated/).to_stderr
-      end
-
-      it "answers struct with all positions filled" do
-        expect(struct.with_positions(1, 2, 3)).to eq(struct[a: 1, b: 2, c: 3])
-      end
-
-      it "answers struct with some positions filled" do
-        expect(struct.with_positions(1)).to eq(struct[a: 1, b: nil, c: nil])
-      end
-    end
-  end
-
   shared_examples "a merge" do |method|
     subject(:struct) { Struct.new(:a, :b, :c).new a: 1, b: 2, c: 3 }
 
@@ -115,44 +79,6 @@ RSpec.describe Refinements::Struct do
       struct.merge! a: 7, b: 8, c: 9
 
       expect(struct).to eq(struct.class[a: 7, b: 8, c: 9])
-    end
-  end
-
-  shared_examples "a revalue" do |method|
-    it "answers transformed values with block" do
-      expectation = struct.public_send(method) { |value| value * 2 }
-      expect(expectation).to eq(struct.class.new.merge(a: 2, b: 4, c: 6))
-    end
-
-    it "answers transformed values with hash and block" do
-      expectation = struct.public_send(method, b: 1) { |previous, current| previous + current }
-      expect(expectation).to eq(struct.class.new.merge(a: 1, b: 3, c: 3))
-    end
-
-    it "answers itself when block isn't given" do
-      expect(struct.public_send(method)).to eq(struct)
-    end
-  end
-
-  describe "#revalue" do
-    subject(:struct) { Struct.new(:a, :b, :c).new a: 1, b: 2, c: 3 }
-
-    it_behaves_like "a revalue", :revalue
-
-    it "doesn't mutate itself" do
-      struct.revalue { |value| value * 2 }
-      expect(struct).to eq(struct.class[a: 1, b: 2, c: 3])
-    end
-  end
-
-  describe "#revalue!" do
-    subject(:struct) { Struct.new(:a, :b, :c).new a: 1, b: 2, c: 3 }
-
-    it_behaves_like "a revalue", :revalue!
-
-    it "mutates itself" do
-      struct.revalue! { |value| value * 2 }
-      expect(struct).to eq(struct.class[a: 2, b: 4, c: 6])
     end
   end
 
