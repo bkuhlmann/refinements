@@ -16,14 +16,6 @@ module Refinements
     refine ::Pathname.singleton_class do
       def home = new ENV.fetch("HOME", "")
 
-      def make_temp_dir prefix: "temp-", suffix: nil, root: nil
-        if block_given?
-          Dir.mktmpdir([prefix, suffix], root) { |path| yield new(path) }
-        else
-          new Dir.mktmpdir([prefix, suffix], root)
-        end
-      end
-
       def require_tree(root) = new(root).files("**/*.rb").each { |path| require path.to_s }
 
       def root = new(File::SEPARATOR)
