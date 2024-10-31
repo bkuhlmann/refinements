@@ -121,35 +121,6 @@ RSpec.describe Refinements::Array do
     end
   end
 
-  describe "#filter_find" do
-    let :handlers do
-      [
-        -> object { object if object == :b },
-        proc { false },
-        -> object { object if object == :a }
-      ]
-    end
-
-    it "prints deprecation warning" do
-      expectation = proc { handlers.filter_find }
-      expect(&expectation).to output(/is deprecated/).to_stderr
-    end
-
-    it "answers lazy enumerator when not given a block" do
-      expect(handlers.filter_find).to be_a(Enumerator::Lazy)
-    end
-
-    it "answers matching filtered symbol" do
-      result = handlers.filter_find { |handler| handler.call :a }
-      expect(result).to eq(:a)
-    end
-
-    it "answers nil when filtered object can't be found" do
-      result = handlers.filter_find { |handler| handler.call :x }
-      expect(result).to be(nil)
-    end
-  end
-
   describe "#including" do
     subject(:array) { [1, 2, 3] }
 

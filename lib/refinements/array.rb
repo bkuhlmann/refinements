@@ -19,13 +19,6 @@ module Refinements
 
       def excluding(*elements) = self - elements.flatten
 
-      def filter_find(&)
-        warn "`#{self.class}##{__method__}` is deprecated and will be removed in Version 13.0.0.",
-             category: :deprecated
-
-        block_given? ? lazy.map(&).find(&:itself) : lazy
-      end
-
       def including(*elements) = self + elements.flatten
 
       def intersperse(*elements) = product([elements]).tap(&:pop).flatten.push(last)
