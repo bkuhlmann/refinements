@@ -1,5 +1,11 @@
 = Versions
 
+== 12.11.0 (2024-11-09)
+
+* 🔼 Updated to Caliber 0.64.0 - Brooke Kuhlmann
+* 🔼 Updated to Git Lint 8.7.0 - Brooke Kuhlmann
+* 🔼 Updated to Ruby 3.3.6 - Brooke Kuhlmann
+
 == 12.10.0 (2024-10-22)
 
 * 🟢 Added array filter find deprecation - Brooke Kuhlmann
