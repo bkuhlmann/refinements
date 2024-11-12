@@ -48,7 +48,7 @@ module Refinements
         glob(pattern, flag).select(&:directory?)
       end
 
-      def empty = file? ? (truncate(0) and self) : remove_tree.make_dir
+      def empty = file? ? (truncate(0) and self) : rmtree.make_dir
 
       def extensions = basename.to_s.split(/(?=\.)+/).tap(&:shift)
 
@@ -63,11 +63,6 @@ module Refinements
 
       def make_dir = exist? ? self : (mkdir and self)
 
-      def make_path
-        mkpath
-        self
-      end
-
       def name = basename extname
 
       def puts(content) = write "#{content}\n"
@@ -75,11 +70,6 @@ module Refinements
       def relative_parent(root_dir) = relative_path_from(root_dir).parent
 
       def remove_dir = exist? ? (rmdir and self) : self
-
-      def remove_tree
-        rmtree if exist?
-        self
-      end
 
       def rewrite = read.then { |content| write yield(content) if block_given? }
 
