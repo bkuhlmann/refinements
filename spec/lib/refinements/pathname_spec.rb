@@ -293,7 +293,7 @@ RSpec.describe Refinements::Pathname do
     end
 
     it "empties directory with files and directories" do
-      temp_dir.join("test/nested").make_path.join("a.txt").touch
+      temp_dir.join("test/nested").mkpath.join("a.txt").touch
       temp_dir.join("test/b.txt").touch
       temp_dir.join("c.txt").touch
       temp_dir.empty
@@ -426,29 +426,6 @@ RSpec.describe Refinements::Pathname do
     end
   end
 
-  describe "#make_path" do
-    subject(:path) { temp_dir.join "one", "two", "three" }
-
-    it "creates parents when parents don't exist" do
-      path.make_path
-      expect(path.parent.exist?).to be(true)
-    end
-
-    it "creates full path hierarchy when path doesn't exist" do
-      path.make_path
-      expect(path.exist?).to be(true)
-    end
-
-    it "answers itself" do
-      expect(path.make_path).to eq(path)
-    end
-
-    it "answers itself when created multiple times" do
-      path.make_path.make_path
-      expect(path.make_path.make_path).to eq(path)
-    end
-  end
-
   describe "#name" do
     it "answers name of file without extension" do
       path = Pathname "example.txt"
@@ -511,35 +488,6 @@ RSpec.describe Refinements::Pathname do
 
     it "answers itself when chained" do
       expect(path.remove_dir.remove_dir).to eq(path)
-    end
-  end
-
-  describe "#remove_tree" do
-    subject(:path) { temp_dir.join "one" }
-
-    let(:child_path) { path.join "two" }
-
-    it "removes itself and children" do
-      child_path.make_path
-      path.remove_tree
-
-      expect(path.exist?).to be(false)
-    end
-
-    it "removes children only" do
-      child_path.make_path
-      child_path.remove_tree
-
-      expect(path.exist?).to be(true)
-    end
-
-    it "answers itself after being removed" do
-      child_path.make_path
-      expect(path.remove_tree).to eq(path)
-    end
-
-    it "answers itself when not existing" do
-      expect(path.remove_tree).to eq(path)
     end
   end
 
