@@ -7,7 +7,7 @@ module Refinements
   module IO
     refine ::IO.singleton_class do
       def void
-        new(sysopen("/dev/null", "w+")).then do |io|
+        new(sysopen(File::NULL, "w+")).then do |io|
           return io unless block_given?
 
           yield io
