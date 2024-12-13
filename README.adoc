@@ -1158,6 +1158,8 @@ custom.change_dir { |path| path }       # Pathname "$HOME/demo/test"
 Pathname.pwd                            # "$HOME/demo" (Present Working Directory)
 ----
 
+⚠️ This method is _not thread safe_ and suffers the same issues as found with native `Dir.chdir` functionality because the underlying native call is global. Use with care.
+
 ===== #copy
 
 Copies file from current location to new location while answering itself so it can be chained.
