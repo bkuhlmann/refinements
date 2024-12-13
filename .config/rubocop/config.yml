@@ -1,2 +1,8 @@
 inherit_gem:
   caliber: config/all.yml
+
+ThreadSafety/DirChdir:
+  Exclude:
+    - "bin/setup"
+    - "lib/refinements/pathname.rb"
+    - "spec/lib/refinements/pathname_spec.rb"
