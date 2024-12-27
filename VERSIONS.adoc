@@ -1,5 +1,20 @@
 = Versions
 
+== 13.0.0 (2024-12-27)
+
+* ✅ Fixed Style/FileNull issue - Brooke Kuhlmann
+* 🟢 Added Pathname change directory thread safety warning documentation - Brooke Kuhlmann
+* 🟢 Added RuboCop ThreadSafety/DirChdir configuration - Brooke Kuhlmann
+* 🟢 Added version release notes - Brooke Kuhlmann
+* 🔼 Updated to Ruby 3.4.0 - Brooke Kuhlmann
+* 🔼 Updated transform with methods to use transform value methods - Brooke Kuhlmann
+* ⛔️ Removed Array filter find - Brooke Kuhlmann
+* ⛔️ Removed Logger refinements - Brooke Kuhlmann
+* ⛔️ Removed Pathname make path and remove tree methods - Brooke Kuhlmann
+* ⛔️ Removed Pathname make temporary directory - Brooke Kuhlmann
+* ⛔️ Removed Struct with positions and revalue functionality - Brooke Kuhlmann
+* ⛔️ Removed log device refinements - Brooke Kuhlmann
+
 == 12.11.0 (2024-11-09)
 
 * 🔼 Updated to Caliber 0.64.0 - Brooke Kuhlmann
