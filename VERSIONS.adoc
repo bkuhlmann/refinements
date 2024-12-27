@@ -1,5 +1,10 @@
 = Versions
 
+== 13.0.1 (2024-12-27)
+
+* ✅ Fixed Hash transform with to use original implementation - Brooke Kuhlmann
+* 🔼 Updated to IRB Kit 1.0.0 - Brooke Kuhlmann
+
 == 13.0.0 (2024-12-27)
 
 * ✅ Fixed Style/FileNull issue - Brooke Kuhlmann

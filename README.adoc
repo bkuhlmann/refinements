@@ -781,7 +781,7 @@ example = {name: "Jayne Doe", email: "<jd@example.com>"}
 
 example.transform_with name: -> value { value.delete_suffix " Doe" },
                        email: -> value { value.tr "<>", "" }
-# {name: "Jayne", email: "jd@example.com"}
+# {name: "Jayne Doe", email: "<jd@example.com>"}
 ----
 
 Invalid keys are ignored:
@@ -789,7 +789,7 @@ Invalid keys are ignored:
 [source,ruby]
 ----
 example.transform_with bogus: -> value { value.tr "<>", "" }
-# {email: "<jd@example.com>"}
+# {name: "Jayne Doe", email: "jd@example.com"}
 ----
 
 The original object _is not_ mutated:
@@ -817,7 +817,7 @@ Invalid keys are ignored:
 [source,ruby]
 ----
 example.transform_with! bogus: -> value { value.tr "<>", "" }
-# {email: "<jd@example.com>"}
+# {name: "Jayne", email: "jd@example.com"}
 ----
 
 The original object _is_ mutated:
