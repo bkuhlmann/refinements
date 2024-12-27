@@ -13,7 +13,7 @@ RSpec.describe Refinements::Binding do
 
     it "fails when local variable doesn't exist" do
       expectation = proc { binding[:bogus] }
-      expect(&expectation).to raise_error(NameError, /local variable `bogus' is not defined/)
+      expect(&expectation).to raise_error(NameError, /local variable 'bogus' is not defined/)
     end
   end
 
@@ -29,7 +29,7 @@ RSpec.describe Refinements::Binding do
       binding[:bogus] = "bad"
       expectation = proc { binding[:bogus] }
 
-      expect(&expectation).to raise_error(NameError, /local variable `bogus' is not defined/)
+      expect(&expectation).to raise_error(NameError, /local variable 'bogus' is not defined/)
     end
   end
 
