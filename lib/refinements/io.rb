@@ -28,7 +28,7 @@ module Refinements
         reopen backup
       end
 
-      def squelch(&block) = self.class.void.then { |void| redirect(void, &block) }
+      def squelch(&) = self.class.void.then { |void| redirect(void, &) }
     end
   end
 end
