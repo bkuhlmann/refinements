@@ -572,6 +572,13 @@ RSpec.describe Refinements::String do
   end
 
   describe "#to_bool" do
+    it "prints deprecation warning" do
+      expectation = proc { "yes".to_bool }
+      message = "`String#to_bool` is deprecated, use `#truthy?` or `#falsey?` instead.\n"
+
+      expect(&expectation).to output(message).to_stderr
+    end
+
     %w[true yes on t y 1].each do |value|
       it %(answers true with "#{value}") do
         expect(value.to_bool).to be(true)
