@@ -149,6 +149,14 @@ RSpec.describe Refinements::String do
     end
   end
 
+  describe "#falsey?" do
+    %w[true yes on t y 1].each do |value|
+      it %(answers false with "#{value}") do
+        expect(value.falsey?).to be(false)
+      end
+    end
+  end
+
   describe "#first" do
     subject(:string) { "seedlings" }
 
@@ -490,6 +498,30 @@ RSpec.describe Refinements::String do
       expect("this is_a-mixed/test:case::example".titleize).to eq(
         "This Is A Mixed/Test/Case/Example"
       )
+    end
+  end
+
+  describe "#truthy?" do
+    %w[true yes on t y 1].each do |value|
+      it %(answers true with "#{value}") do
+        expect(value.truthy?).to be(true)
+      end
+    end
+
+    it "answers true when surrounded by empty spaces" do
+      expect(" yes  ".truthy?).to be(true)
+    end
+
+    it "answers true with mixed case" do
+      expect("TrUe".truthy?).to be(true)
+    end
+
+    it "answers false with empty string" do
+      expect("".truthy?).to be(false)
+    end
+
+    it "answers false with invalid value" do
+      expect("bogus".truthy?).to be(false)
     end
   end
 

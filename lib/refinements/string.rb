@@ -18,6 +18,8 @@ module Refinements
 
       def down = empty? ? self : first.downcase + self[1, size]
 
+      def falsey? = !truthy?
+
       def first maximum = 0
         return self if empty?
         return self[0] if maximum.zero?
@@ -60,6 +62,8 @@ module Refinements
                                               .then { |parts| combine parts, :up, "/" }
       end
 
+      def truthy? = %w[true yes on t y 1].include? downcase.strip
+
       def truncate to, delimiter = nil, trailer: "..."
         return dup if length <= to
 
@@ -68,7 +72,11 @@ module Refinements
         "#{self[...maximum]}#{trailer}"
       end
 
-      def to_bool = %w[true yes on t y 1].include? downcase.strip
+      # rubocop:disable Naming/PredicateMethod
+      def to_bool
+        truthy?
+      end
+      # rubocop:enable Naming/PredicateMethod
 
       def up = empty? ? self : first.upcase + self[1, size]
 
