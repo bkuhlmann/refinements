@@ -1292,6 +1292,22 @@ Answers string with only first letter down cased.
 "EXAMPLE".down  # "eXAMPLE"
 ----
 
+===== #falsey?
+
+Answers if string is falsey.
+
+[source,ruby]
+----
+"false".falsey?    # true
+"0".falsey?        # true
+"no".falsey?       # true
+"".falsey?         # true
+"example".falsey?  # true
+"true".falsey?     # false
+"yes".falsey?      # false
+"1".falsey?        # false
+----
+
 ===== #first
 
 Answers first character of a string or first set of characters if given a number.
@@ -1394,6 +1410,19 @@ Answers a title string with proper capitalization of each word.
 "ThisIsAnExample".titleize  # "This Is An Example"
 ----
 
+===== #truthy?
+
+Answers if string is truthy.
+
+[source,ruby]
+----
+"true".truthy?     # true
+"yes".truthy?      # true
+"1".truthy?        # true
+"".truthy?         # false
+"example".truthy?  # false
+----
+
 ===== #truncate
 
 Answers a truncated, non-mutated, string for given length with optional delimiter and/or overflow.
@@ -1419,6 +1448,8 @@ demo.truncate 16, trailer: "... (more)"  # "It was... (more)"
 ----
 
 ===== #to_bool
+
+⚠️ This method is deprecated and will be removed in Version 14.0.0. Please use `#truthy?` or `#falsey?` instead.
 
 Answers string as a boolean.
 
