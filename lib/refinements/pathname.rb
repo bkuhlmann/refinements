@@ -32,7 +32,7 @@ module Refinements
 
       def copy to
         destination = to.directory? ? to.join(basename) : to
-        read.then { |content| destination.write content }
+        ::IO.copy_stream self, destination
         self
       end
 
