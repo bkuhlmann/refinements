@@ -265,6 +265,56 @@ RSpec.describe Refinements::Hash do
     end
   end
 
+  describe "#fetch_deep" do
+    subject(:a_hash) { {a: {b: {c: [1, 2, 3]}}} }
+
+    it "answers nested hash value" do
+      expect(a_hash.fetch_deep(:a, :b, :c)).to eq([1, 2, 3])
+    end
+
+    it "answers nested array value" do
+      expect(a_hash.fetch_deep(:a, :b, :c, 1)).to eq(2)
+    end
+
+    it "answers default when single key isn't found" do
+      expect(a_hash.fetch_deep(:bogus, default: "fallback")).to eq("fallback")
+    end
+
+    it "answers default when nested key isn't found" do
+      expect(a_hash.fetch_deep(:a, :bogus, default: "fallback")).to eq("fallback")
+    end
+
+    it "answers block result when single key isn't found" do
+      value = a_hash.fetch_deep(:bogus) { "fallback" }
+      expect(value).to eq("fallback")
+    end
+
+    it "answers block result when nested key isn't found" do
+      value = a_hash.fetch_deep(:a, :b, :bogus) { "fallback" }
+      expect(value).to eq("fallback")
+    end
+
+    it "fails when no keys are given" do
+      expectation = proc { a_hash.fetch_deep }
+      expect(&expectation).to raise_error(KeyError, /nil/)
+    end
+
+    it "fails when single key isn't found" do
+      expectation = proc { a_hash.fetch_deep :bogus }
+      expect(&expectation).to raise_error(KeyError, /:bogus/)
+    end
+
+    it "fails when nested key isn't found" do
+      expectation = proc { a_hash.fetch_deep :a, :b, :bogus }
+      expect(&expectation).to raise_error(KeyError, /:bogus/)
+    end
+
+    it "fails with invalid key" do
+      expectation = proc { a_hash.fetch_deep :a, :b, :c, :bogus }
+      expect(&expectation).to raise_error(KeyError, "Unable to find :bogus in [1, 2, 3].")
+    end
+  end
+
   describe "#fetch_value" do
     it "answers original value when present" do
       value = {a: "test"}.fetch_value :a, "default"

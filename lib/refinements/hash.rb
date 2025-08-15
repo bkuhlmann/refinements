@@ -49,6 +49,16 @@ module Refinements
         each.with_object({}) { |(key, value), diff| diff[key] = [value, nil] }
       end
 
+      def fetch_deep(*keys, default: NilClass, &)
+        keys.reduce fallback(keys.shift, default, &) do |value, key|
+          unless value.is_a?(::Hash) || (value.is_a?(::Array) && key.is_a?(::Integer))
+            fail KeyError, "Unable to find #{key.inspect} in #{value.inspect}."
+          end
+
+          default == NilClass ? value.fetch(key, &) : value.fetch(key, default)
+        end
+      end
+
       def fetch_value(key, *default, &)
         fetch(key, *default, &) || (yield if block_given?) || default.first
       end
@@ -106,6 +116,10 @@ module Refinements
       def differences_from other
         result = merge(other.to_h) { |_, one, two| [one, two].uniq }
         result.select { |_, diff| diff.size == 2 }
+      end
+
+      def fallback(key, default, &)
+        default == NilClass ? fetch(key, &) : fetch(key, default)
       end
     end
   end
