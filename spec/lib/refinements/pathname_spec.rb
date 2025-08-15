@@ -124,6 +124,20 @@ RSpec.describe Refinements::Pathname do
     end
   end
 
+  describe "#clear" do
+    it "removes all directories and files" do
+      temp_dir.join("one.txt").touch
+      temp_dir.join("nested/two.txt").deep_touch
+      temp_dir.clear
+
+      expect(temp_dir.children).to eq([])
+    end
+
+    it "answers itself" do
+      expect(temp_dir.clear).to eq(temp_dir)
+    end
+  end
+
   describe "#copy" do
     it "copies file to file" do
       input_path = temp_dir.join "input.txt"

@@ -30,6 +30,8 @@ module Refinements
         end
       end
 
+      def clear = children.each(&:rmtree) && self
+
       def copy to
         destination = to.directory? ? to.join(basename) : to
         ::IO.copy_stream self, destination
