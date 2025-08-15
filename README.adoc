@@ -611,6 +611,25 @@ one.diff Object.new  # {:a=>[1, nil], :b=>[2, nil], :c=>[3, nil]}
 
 Any object that _is not_ the same type will have a `nil` value as shown in the last two examples. Two hashes with the same keys but defined in different order behave as if they had the same key order.
 
+===== #fetch_deep
+
+Fetches a nested value by combining the behavior of `#fetch` and `#dig` into a single method. This works with nested arrays too. Examples:
+
+[source,ruby]
+----
+demo = {a: {b: {c: [1, 2, 3]}}}
+
+demo.fetch_deep :a                            # {b: {c: [1, 2, 3]}}
+demo.fetch_deep :a, :b                        # {c: [1, 2, 3]}
+demo.fetch_deep :a, :b, :c                    # [1, 2, 3]
+demo.fetch_deep :a, :b, :c, 1                 # 2
+demo.fetch_deep(:a, :x, default: "fallback")  # "fallback"
+demo.fetch_deep(:a, :x) { "fallback" }        # "fallback"
+demo.fetch_deep                               # key not found: nil (KeyError)
+demo.fetch_deep :a, :bogus                    # key not found: :bogus (KeyError)
+demo.fetch_deep :a, :b, :c, :bogus            # Unable to find :bogus in [1, 2, 3]. (KeyError)
+----
+
 ===== #fetch_value
 
 Fetches value for exiting or missing key. Behavior is identical to `#fetch` except when the value of
@@ -1048,6 +1067,21 @@ Pathname.pwd                            # "$HOME/demo" (Present Working Director
 ----
 
 ⚠️ This method is _not thread safe_ and suffers the same issues as found with native `Dir.chdir` functionality because the underlying native call is global. Use with care.
+
+===== #clear
+
+Removes all child directories and files from path while answering itself.
+
+[source,ruby]
+----
+root = Pathname("demo")
+root.join("a/path/to/a.txt").deep_touch
+root.join("b.txt").touch
+root.clear
+
+root.children  # []
+root.clear     # Pathname "demo"
+----
 
 ===== #copy
 
