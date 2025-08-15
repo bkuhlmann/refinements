@@ -8,6 +8,7 @@ detectors:
     exclude:
       - "Array#compress"
       - "Hash#compress"
+      - "Hash#fetch_deep"
   ManualDispatch:
     exclude:
       - "Array#compress"
