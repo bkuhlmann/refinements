@@ -611,6 +611,25 @@ one.diff Object.new  # {:a=>[1, nil], :b=>[2, nil], :c=>[3, nil]}
 
 Any object that _is not_ the same type will have a `nil` value as shown in the last two examples. Two hashes with the same keys but defined in different order behave as if they had the same key order.
 
+===== #fetch_deep
+
+Fetches a nested value by combining the behavior of `#fetch` and `#dig` into a single method. This works with nested arrays too. Examples:
+
+[source,ruby]
+----
+demo = {a: {b: {c: [1, 2, 3]}}}
+
+demo.fetch_deep :a                            # {b: {c: [1, 2, 3]}}
+demo.fetch_deep :a, :b                        # {c: [1, 2, 3]}
+demo.fetch_deep :a, :b, :c                    # [1, 2, 3]
+demo.fetch_deep :a, :b, :c, 1                 # 2
+demo.fetch_deep(:a, :x, default: "fallback")  # "fallback"
+demo.fetch_deep(:a, :x) { "fallback" }        # "fallback"
+demo.fetch_deep                               # key not found: nil (KeyError)
+demo.fetch_deep :a, :bogus                    # key not found: :bogus (KeyError)
+demo.fetch_deep :a, :b, :c, :bogus            # Unable to find :bogus in [1, 2, 3]. (KeyError)
+----
+
 ===== #fetch_value
 
 Fetches value for exiting or missing key. Behavior is identical to `#fetch` except when the value of
@@ -1049,6 +1068,21 @@ Pathname.pwd                            # "$HOME/demo" (Present Working Director
 
 ⚠️ This method is _not thread safe_ and suffers the same issues as found with native `Dir.chdir` functionality because the underlying native call is global. Use with care.
 
+===== #clear
+
+Removes all child directories and files from path while answering itself.
+
+[source,ruby]
+----
+root = Pathname("demo")
+root.join("a/path/to/a.txt").touch_deep
+root.join("b.txt").touch
+root.clear
+
+root.children  # []
+root.clear     # Pathname "demo"
+----
+
 ===== #copy
 
 Copies file from current location to new location while answering itself so it can be chained.
@@ -1060,14 +1094,7 @@ Pathname("input.txt").copy Pathname("output.txt")  # Pathname("input.txt")
 
 ===== #deep_touch
 
-Has all of the same functionality as the `#touch` method while being able to create ancestor
-directories no matter how deeply nested the file might be.
-
-[source,ruby]
-----
-Pathname("a/b/c/d.txt").touch               # Pathname("a/b/c/d.txt")
-Pathname("a/b/c/d.txt").touch Time.now - 1  # Pathname("a/b/c/d.txt")
-----
+⚠️ This method is deprecated and will be removed in Version 14.0.0. Please use `#touch_deep` instead.
 
 ===== #delete
 
@@ -1251,6 +1278,17 @@ Pathname("example.txt").touch               # Pathname("example.txt")
 Pathname("example.txt").touch Time.now - 1  # Pathname("example.txt")
 ----
 
+===== #touch_deep
+
+Has all of the same functionality as the `#touch` method while being able to create ancestor
+directories no matter how deeply nested the path might be.
+
+[source,ruby]
+----
+Pathname("a/b/c/d.txt").touch_deep               # Pathname("a/b/c/d.txt")
+Pathname("a/b/c/d.txt").touch_deep Time.now - 1  # Pathname("a/b/c/d.txt")
+----
+
 ===== #write
 
 Writes to file and answers itself so it can be chained. See `IO.write` for details on additional
@@ -1410,6 +1448,30 @@ Answers a title string with proper capitalization of each word.
 "ThisIsAnExample".titleize  # "This Is An Example"
 ----
 
+===== #trim_end
+
+Answers the trimmed end of a string (non-mutated) for given length with optional delimiter and/or overflow.
+
+The delimiter is the second positional parameter (optional) and is `nil` by default. A custom string or regular expression can be used to customize behavior.
+
+The trailer is an optional keyword parameter that is an ellipsis (i.e. `"..."`) by default. The trailer can be a custom or empty string. The string length of the trailer is added to the length of the string being trimmed, so keep this in mind when setting length.
+
+[source,ruby]
+----
+demo = "It was the best of times"
+length = demo.length
+
+demo.trim_end 9                          # "It was..."
+demo.trim_end 12                         # "It was th..."
+demo.trim_end length                     # "It was the best of times"
+demo.trim_end Float::INFINITY            # "It was the best of times"
+demo.trim_end 12, " "                    # "It was..."
+demo.trim_end 12, /\s/                   # "It was..."
+demo.trim_end 6, trailer: ""             # "It was"
+demo.trim_end 16, trailer: "... (more)"  # "It was... (more)"
+"demo".trim_end 3                        # "..."
+----
+
 ===== #truthy?
 
 Answers if string is truthy.
@@ -1425,27 +1487,7 @@ Answers if string is truthy.
 
 ===== #truncate
 
-Answers a truncated, non-mutated, string for given length with optional delimiter and/or overflow.
-
-The delimiter is the second positional parameter (optional) and is `nil` by default. A custom string or regular expression can be used to customize truncation behavior.
-
-The trailer is an optional keyword parameter that is an ellipsis (i.e. `"..."`) by default. The trailer can be a custom or empty string. The string length of the trailer is added to the length of the string being truncated, so keep this in mind when setting truncation length.
-
-[source,ruby]
-----
-demo = "It was the best of times"
-length = demo.length
-
-demo.truncate 9                          # "It was..."
-demo.truncate 12                         # "It was th..."
-demo.truncate length                     # "It was the best of times"
-demo.truncate Float::INFINITY            # "It was the best of times"
-demo.truncate 12, " "                    # "It was..."
-demo.truncate 12, /\s/                   # "It was..."
-demo.truncate 6, trailer: ""             # "It was"
-demo.truncate 16, trailer: "... (more)"  # "It was... (more)"
-"demo".truncate 3                        # "..."
-----
+⚠️ This method is deprecated and will be removed in Version 14.0.0. Please use `#trim_end` instead.
 
 ===== #to_bool
 
@@ -1540,37 +1582,11 @@ Any object that _is not_ the same type will have a `nil` value as shown in the l
 
 ===== #merge
 
-Merges multiple attributes without mutating itself and supports any object that responds to `#to_h`.
-Works regardless of whether the struct is constructed with positional or keyword arguments.
-
-[source,ruby]
-----
-example = Struct.new("Example", :a, :b, :c).new 1, 2, 3
-other = Struct.new("Other", :a, :b, :c).new 7, 8, 9
-
-example.merge a: 10                # #<struct Struct::Example a=10, b=2, c=3>
-example.merge a: 10, c: 30         # #<struct Struct::Example a=10, b=2, c=30>
-example.merge a: 10, b: 20, c: 30  # #<struct Struct::Example a=10, b=20, c=30>
-example.merge other                # #<struct Struct::Example a=7, b=8, c=9>
-example                            # #<struct Struct::Example a=1, b=2, c=3>
-----
+⚠️ This method is deprecated and will be removed in Version 14.0.0. Please use xref:_with[#with] instead.
 
 ===== #merge!
 
-Merges multiple attributes while mutating itself and supports any object that responds to `#to_h`.
-Works regardless of whether the struct is constructed with positional or keyword arguments.
-
-[source,ruby]
-----
-example = Struct.new("Example", :a, :b, :c).new 1, 2, 3
-other = Struct.new("Other", :a, :b, :c).new 7, 8, 9
-
-example.merge! a: 10                # #<struct Struct::Example a=10, b=2, c=3>
-example.merge! a: 10, c: 30         # #<struct Struct::Example a=10, b=2, c=30>
-example.merge! other                # #<struct Struct::Example a=7, b=8, c=9>
-example.merge! a: 10, b: 20, c: 30  # #<struct Struct::Example a=10, b=20, c=30>
-example                             # #<struct Struct::Example a=10, b=20, c=30>
-----
+⚠️ This method is deprecated and will be removed in Version 14.0.0. Please use xref:_with_2[#with!] instead.
 
 ===== #transmute
 
@@ -1610,7 +1626,35 @@ a                                    # #<struct Struct::A a=7, b=8, c=30>
 
 ===== #with
 
-An alias of `#merge` and identical in behavior (see `#merge` documentation for details). Allows you to use `Struct` and `Data` objects more interchangeably since they share the same method.
+Allows you to use `Struct` and `Data` objects more interchangeably by merging multiple attributes without mutating itself. Supports any object that responds to `#to_h`. Works regardless of whether the struct is constructed with positional or keyword arguments.
+
+[source,ruby]
+----
+example = Struct.new("Example", :a, :b, :c).new 1, 2, 3
+other = Struct.new("Other", :a, :b, :c).new 7, 8, 9
+
+example.with a: 10                # #<struct Struct::Example a=10, b=2, c=3>
+example.with a: 10, c: 30         # #<struct Struct::Example a=10, b=2, c=30>
+example.with a: 10, b: 20, c: 30  # #<struct Struct::Example a=10, b=20, c=30>
+example.with other                # #<struct Struct::Example a=7, b=8, c=9>
+example                           # #<struct Struct::Example a=1, b=2, c=3>
+----
+
+===== #with!
+
+Allows you to merge multiple attributes while mutating itself. Supports any object that responds to `#to_h`. Works regardless of whether the struct is constructed with positional or keyword arguments.
+
+[source,ruby]
+----
+example = Struct.new("Example", :a, :b, :c).new 1, 2, 3
+other = Struct.new("Other", :a, :b, :c).new 7, 8, 9
+
+example.with! a: 10                # #<struct Struct::Example a=10, b=2, c=3>
+example.with! a: 10, c: 30         # #<struct Struct::Example a=10, b=2, c=30>
+example.with! other                # #<struct Struct::Example a=7, b=8, c=9>
+example.with! a: 10, b: 20, c: 30  # #<struct Struct::Example a=10, b=20, c=30>
+example                            # #<struct Struct::Example a=10, b=20, c=30>
+----
 
 ==== Symbol
 
