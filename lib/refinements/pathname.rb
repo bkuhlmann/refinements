@@ -38,7 +38,12 @@ module Refinements
         self
       end
 
-      def deep_touch(...) = touch_deep(...)
+      def deep_touch(...)
+        warn "`#{self.class}##{__method__}` is deprecated, use `#touch_deep` instead.",
+             category: :deprecated
+
+        touch_deep(...)
+      end
 
       def delete = super && self
 
