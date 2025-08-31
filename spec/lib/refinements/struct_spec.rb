@@ -63,6 +63,13 @@ RSpec.describe Refinements::Struct do
   describe "#merge" do
     it_behaves_like "a merge", :merge
 
+    it "prints deprecation warning" do
+      struct = Struct.new(:a).new a: 1
+      expectation = proc { struct.merge a: 2 }
+
+      expect(&expectation).to output(/`.+#merge` is deprecated, use `#with` instead./).to_stderr
+    end
+
     it "doesn't mutate itself" do
       struct = Struct.new(:a, :b, :c).new a: 1, b: 2, c: 3
       struct.merge a: 7, b: 8, c: 9
@@ -73,6 +80,13 @@ RSpec.describe Refinements::Struct do
 
   describe "#merge!" do
     it_behaves_like "a merge", :merge!
+
+    it "prints deprecation warning" do
+      struct = Struct.new(:a).new a: 1
+      expectation = proc { struct.merge! a: 2 }
+
+      expect(&expectation).to output(/`.+#merge!` is deprecated, use `#with!` instead./).to_stderr
+    end
 
     it "mutates itself with keywords" do
       struct = Struct.new(:a, :b, :c).new a: 1, b: 2, c: 3
