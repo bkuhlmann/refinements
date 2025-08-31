@@ -72,12 +72,11 @@ module Refinements
 
       def truthy? = %w[true yes on t y 1].include? downcase.strip
 
-      def truncate to, delimiter = nil, trailer: "..."
-        return dup if length <= to
+      def truncate(...)
+        warn "`#{self.class}##{__method__}` is deprecated, use `#trim_end` instead.",
+             category: :deprecated
 
-        offset = to - trailer.length
-        maximum = delimiter ? rindex(delimiter, offset) || offset : offset
-        "#{self[...maximum]}#{trailer}"
+        trim_end(...)
       end
 
       # rubocop:disable Naming/PredicateMethod

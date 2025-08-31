@@ -575,6 +575,11 @@ RSpec.describe Refinements::String do
     let(:string) { "This is a test example." }
     let(:length) { string.length }
 
+    it "prints deprecation warning" do
+      expectation = proc { string.truncate 10 }
+      expect(&expectation).to output(/#truncate` is deprecated, use `#trim_end` instead/).to_stderr
+    end
+
     it "answers string with length at word break" do
       expect(string.truncate(10)).to eq("This is...")
     end
