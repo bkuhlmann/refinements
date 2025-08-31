@@ -62,6 +62,14 @@ module Refinements
                                               .then { |parts| combine parts, :up, "/" }
       end
 
+      def trim_end to, delimiter = nil, trailer: "..."
+        return dup if length <= to
+
+        offset = to - trailer.length
+        maximum = delimiter ? rindex(delimiter, offset) || offset : offset
+        "#{self[...maximum]}#{trailer}"
+      end
+
       def truthy? = %w[true yes on t y 1].include? downcase.strip
 
       def truncate to, delimiter = nil, trailer: "..."
