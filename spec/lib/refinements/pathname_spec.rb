@@ -127,7 +127,7 @@ RSpec.describe Refinements::Pathname do
   describe "#clear" do
     it "removes all directories and files" do
       temp_dir.join("one.txt").touch
-      temp_dir.join("nested/two.txt").deep_touch
+      temp_dir.join("nested/two.txt").touch_deep
       temp_dir.clear
 
       expect(temp_dir.children).to eq([])
@@ -555,6 +555,16 @@ RSpec.describe Refinements::Pathname do
     it "fails when given a nested directory structure that doesn't exist" do
       expectation = proc { temp_dir.join("a/b/c/d.txt").touch }
       expect(&expectation).to raise_error(Errno::ENOENT, /no such file or directory/i)
+    end
+  end
+
+  describe "#touch_deep" do
+    subject(:path) { temp_dir.join("a/b/c/d.txt").touch_deep }
+
+    it_behaves_like "a touchable path"
+
+    it "creates nested file path" do
+      expect(path.exist?).to be(true)
     end
   end
 

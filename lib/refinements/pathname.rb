@@ -38,7 +38,7 @@ module Refinements
         self
       end
 
-      def deep_touch(...) = make_ancestors.touch(...)
+      def deep_touch(...) = touch_deep(...)
 
       def delete = super && self
 
@@ -79,6 +79,8 @@ module Refinements
         exist? ? utime(at, at) : write("")
         self
       end
+
+      def touch_deep(...) = make_ancestors.touch(...)
 
       def write content, offset: nil, **options
         super content, offset, **options
