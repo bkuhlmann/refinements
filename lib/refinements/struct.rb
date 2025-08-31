@@ -22,7 +22,12 @@ module Refinements
         merge! object.to_h.slice(*mapping.keys).transform_keys!(mapping)
       end
 
-      alias_method :with, :merge
+      def with(...) = dup.with!(...)
+
+      def with! object = nil
+        to_h.merge!(**object.to_h).each { |key, value| self[key] = value }
+        self
+      end
     end
   end
 end

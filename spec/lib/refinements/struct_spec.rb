@@ -151,4 +151,15 @@ RSpec.describe Refinements::Struct do
       expect(struct).to eq(struct.class[a: 1, b: 2, c: 3])
     end
   end
+
+  describe "#with!" do
+    it_behaves_like "a merge", :with!
+
+    it "mutates itself with keywords" do
+      struct = Struct.new(:a, :b, :c).new a: 1, b: 2, c: 3
+      struct.with! a: 7, b: 8, c: 9
+
+      expect(struct).to eq(struct.class[a: 7, b: 8, c: 9])
+    end
+  end
 end
