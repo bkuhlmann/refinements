@@ -8,25 +8,11 @@ module Refinements
     refine ::Struct do
       import_methods Shared::Diff
 
-      def merge(...)
-        warn "`#{self.class}##{__method__}` is deprecated, use `#with` instead.",
-             category: :deprecated
-
-        with(...)
-      end
-
-      def merge!(...)
-        warn "`#{self.class}##{__method__}` is deprecated, use `#with!` instead.",
-             category: :deprecated
-
-        with!(...)
-      end
-
       def transmute(...) = dup.transmute!(...)
 
       def transmute! object, **key_map
         mapping = key_map.invert
-        merge! object.to_h.slice(*mapping.keys).transform_keys!(mapping)
+        with! object.to_h.slice(*mapping.keys).transform_keys!(mapping)
       end
 
       def with(...) = dup.with!(...)
