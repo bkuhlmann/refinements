@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "pathname"
-
 module Refinements
   # Provides additional enhancements to the Pathname primitive.
   module Pathname
@@ -36,13 +34,6 @@ module Refinements
         destination = to.directory? ? to.join(basename) : to
         ::IO.copy_stream self, destination
         self
-      end
-
-      def deep_touch(...)
-        warn "`#{self.class}##{__method__}` is deprecated, use `#touch_deep` instead.",
-             category: :deprecated
-
-        touch_deep(...)
       end
 
       def delete = super && self
