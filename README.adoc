@@ -1092,10 +1092,6 @@ Copies file from current location to new location while answering itself so it c
 Pathname("input.txt").copy Pathname("output.txt")  # Pathname("input.txt")
 ----
 
-===== #deep_touch
-
-⚠️ This method is deprecated and will be removed in Version 14.0.0. Please use `#touch_deep` instead.
-
 ===== #delete
 
 Deletes file or directory and answers itself so it can be chained.
@@ -1485,25 +1481,6 @@ Answers if string is truthy.
 "example".truthy?  # false
 ----
 
-===== #truncate
-
-⚠️ This method is deprecated and will be removed in Version 14.0.0. Please use `#trim_end` instead.
-
-===== #to_bool
-
-⚠️ This method is deprecated and will be removed in Version 14.0.0. Please use `#truthy?` or `#falsey?` instead.
-
-Answers string as a boolean.
-
-[source,ruby]
-----
-"true".to_bool     # true
-"yes".to_bool      # true
-"1".to_bool        # true
-"".to_bool         # false
-"example".to_bool  # false
-----
-
 ===== #up
 
 Answers string with only first letter capitalized.
@@ -1579,14 +1556,6 @@ one.diff Object.new  # {:a=>[1, nil], :b=>[2, nil], :c=>[3, nil]}
 ----
 
 Any object that _is not_ the same type will have a `nil` value as shown in the last two examples.
-
-===== #merge
-
-⚠️ This method is deprecated and will be removed in Version 14.0.0. Please use xref:_with[#with] instead.
-
-===== #merge!
-
-⚠️ This method is deprecated and will be removed in Version 14.0.0. Please use xref:_with_2[#with!] instead.
 
 ===== #transmute
 
