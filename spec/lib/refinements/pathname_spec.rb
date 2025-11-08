@@ -183,23 +183,6 @@ RSpec.describe Refinements::Pathname do
     end
   end
 
-  describe "#deep_touch" do
-    subject(:path) { temp_dir.join("a/b/c/d.txt").deep_touch }
-
-    it "prints deprecation warning" do
-      expectation = proc { path.deep_touch }
-      pattern = /#deep_touch` is deprecated, use `#touch_deep` instead\./
-
-      expect(&expectation).to output(pattern).to_stderr
-    end
-
-    it_behaves_like "a touchable path"
-
-    it "creates nested file path" do
-      expect(path.exist?).to be(true)
-    end
-  end
-
   describe "#delete" do
     subject(:path) { temp_dir.join "test.txt" }
 
