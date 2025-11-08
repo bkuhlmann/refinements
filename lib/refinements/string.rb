@@ -72,13 +72,6 @@ module Refinements
 
       def truthy? = %w[true yes on t y 1].include? downcase.strip
 
-      def truncate(...)
-        warn "`#{self.class}##{__method__}` is deprecated, use `#trim_end` instead.",
-             category: :deprecated
-
-        trim_end(...)
-      end
-
       def up = empty? ? self : first.upcase + self[1, size]
 
       private
