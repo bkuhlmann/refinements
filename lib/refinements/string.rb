@@ -79,14 +79,6 @@ module Refinements
         trim_end(...)
       end
 
-      # rubocop:disable Naming/PredicateMethod
-      def to_bool
-        warn "`#{self.class}##{__method__}` is deprecated, use `#truthy?` or `#falsey?` instead.",
-             category: :deprecated
-        truthy?
-      end
-      # rubocop:enable Naming/PredicateMethod
-
       def up = empty? ? self : first.upcase + self[1, size]
 
       private
