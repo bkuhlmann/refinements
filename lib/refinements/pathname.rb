@@ -71,7 +71,7 @@ module Refinements
 
       def rewrite = read.then { |content| write yield(content) if block_given? }
 
-      def touch at = Time.now
+      def touch at = ::Time.now
         exist? ? utime(at, at) : write("")
         self
       end

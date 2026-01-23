@@ -24,3 +24,4 @@ detectors:
   UncommunicativeMethodName:
     exclude:
       - "Kernel#Pathname"
+      - "Time#rfc_3339"
