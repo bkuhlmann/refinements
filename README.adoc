@@ -25,6 +25,7 @@ Enhances the following objects:
 * StringIO
 * Struct
 * Symbol
+* Time
 
 == Requirements
 
@@ -91,6 +92,7 @@ require "refinements/string"
 require "refinements/string_io"
 require "refinements/struct"
 require "refinements/symbol"
+require "refinements/time"
 ----
 
 === Using
@@ -114,6 +116,7 @@ class Example
   using Refinements::StringIO
   using Refinements::Struct
   using Refinements::Symbol
+  using Refinements::Time
 end
 ----
 
@@ -461,6 +464,8 @@ Any object that _is not_ the same type will have a `nil` value as shown in the l
 ===== .utc
 
 Answers new DateTime object for current UTC date/time.
+
+⚠️ This method (and refinement) is deprecated and will be removed in the next major release.
 
 [source,ruby]
 ----
@@ -1446,26 +1451,41 @@ Answers a title string with proper capitalization of each word.
 
 ===== #trim_end
 
-Answers the trimmed end of a string (non-mutated) for given length with optional delimiter and/or overflow.
+Answers the trimmed end of a string for maximum length with optional delimiter and/or overflow.
 
-The delimiter is the second positional parameter (optional) and is `nil` by default. A custom string or regular expression can be used to customize behavior.
+The delimiter is the second positional parameter (optional) and is `nil` by default. A string or regular expression can be used to customize behavior.
 
-The trailer is an optional keyword parameter that is an ellipsis (i.e. `"..."`) by default. The trailer can be a custom or empty string. The string length of the trailer is added to the length of the string being trimmed, so keep this in mind when setting length.
+The trailer is an optional keyword parameter that is an ellipsis by default. The trailer can be a custom or empty string. The string size of the trailer is added to the size of the string being trimmed, so keep this in mind when setting the maximum length.
 
 [source,ruby]
 ----
 demo = "It was the best of times"
-length = demo.length
+size = demo.size
 
 demo.trim_end 9                          # "It was..."
 demo.trim_end 12                         # "It was th..."
-demo.trim_end length                     # "It was the best of times"
-demo.trim_end Float::INFINITY            # "It was the best of times"
+demo.trim_end size                       # "It was the best of times"
 demo.trim_end 12, " "                    # "It was..."
 demo.trim_end 12, /\s/                   # "It was..."
 demo.trim_end 6, trailer: ""             # "It was"
 demo.trim_end 16, trailer: "... (more)"  # "It was... (more)"
 "demo".trim_end 3                        # "..."
+----
+
+===== #trim_middle
+
+Answers the trimmed middle of a string for maximum length with optional gap (default: ellipsis). The minimum length is always the size of the gap plus one character on each side of the gap.
+
+[source,ruby]
+----
+demo = "It was the best of times"
+size = demo.size
+
+demo.trim_middle 14                         # "It w...times"
+demo.trim_middle size                       # "It was the...t of times"
+"space".trim_middle 5                       # "s...e"
+demo.trim_middle 14, gap: "+"               # "It was+ times"
+demo.trim_middle 3                          # "It was the best of times"
 ----
 
 ===== #truthy?
@@ -1633,7 +1653,6 @@ Enhances symbol-to-proc functionality by allowing you to send positional, keywor
 
 [source,ruby]
 ----
-
 %w[clue crow cow].map(&:tr.call("c", "b"))                              # ["blue", "brow", "bow"]
 [1.3, 1.5, 1.9].map(&:round.call(half: :up))                            # [1, 2, 2]
 [%w[a b c], %w[c a b]].map(&:index.call { |element| element == "b" })   # [1, 2]
@@ -1642,6 +1661,18 @@ Enhances symbol-to-proc functionality by allowing you to send positional, keywor
 ----
 
 ⚠️ Use of `#call` without any arguments should be avoided in order to not incur extra processing costs since the original symbol-to-proc call can be used instead.
+
+==== Time
+
+===== #rfc_3339
+
+Answers time, as a string, in RFC 3339 format.
+
+[source,ruby]
+----
+Time.now.rfc_3339      # "2026-01-24T08:56:55-07:00"
+Time.now.utc.rfc_3339  # "2026-01-24T15:57:13+00:00"
+----
 
 == Development
 
