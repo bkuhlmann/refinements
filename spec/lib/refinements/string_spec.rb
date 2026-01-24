@@ -547,6 +547,30 @@ RSpec.describe Refinements::String do
     end
   end
 
+  describe "#trim_middle" do
+    let(:string) { "A basic test." }
+
+    it "answers duplicated original when maximum is less than minimum" do
+      expect(string.trim_middle(2)).to eq("A basic test.")
+    end
+
+    it "answers duplicated original when maximum is larger than size" do
+      expect(string.trim_middle(50)).to eq("A basic test.")
+    end
+
+    it "answers truncation when minimum and maximum are equal" do
+      expect("space".trim_middle(5)).to eq("s...e")
+    end
+
+    it "answers truncation with even split" do
+      expect("A base test.".trim_middle(12)).to eq("A ba...est.")
+    end
+
+    it "answers truncation with odd split" do
+      expect(string.trim_middle(13)).to eq("A ba...test.")
+    end
+  end
+
   describe "#truthy?" do
     %w[true yes on t y 1].each do |value|
       it %(answers true with "#{value}") do

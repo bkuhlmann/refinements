@@ -22,6 +22,7 @@ detectors:
     exclude:
       - "Array#pluck"
       - "Hash#flatten_keys"
+      - "String#trim_middle"
   UncommunicativeMethodName:
     exclude:
       - "Kernel#Pathname"

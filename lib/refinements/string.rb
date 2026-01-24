@@ -78,6 +78,20 @@ module Refinements
         "#{self[...maximum]}#{trailer}"
       end
 
+      def trim_middle maximum, gap: "..."
+        gap_size = gap.size
+        minimum = gap_size + 2
+        limit = maximum - gap_size
+
+        return dup if maximum < minimum || maximum > size
+        return "#{first}#{gap}#{last}" if minimum == maximum
+
+        half = limit / 2
+        stop = half.odd? ? half - 1 : half
+
+        "#{self[...stop]}#{gap}#{self[-half...]}"
+      end
+
       def truthy? = %w[true yes on t y 1].include? downcase.strip
 
       def up = empty? ? self : first.upcase + self[1, size]
