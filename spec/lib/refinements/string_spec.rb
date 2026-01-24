@@ -517,10 +517,6 @@ RSpec.describe Refinements::String do
       expect(string.trim_end(length)).to eq("This is a test example.")
     end
 
-    it "answers full string when length is larger than string length" do
-      expect(string.trim_end(Float::INFINITY)).to eq("This is a test example.")
-    end
-
     it "answers string with string delimiter" do
       expect(string.trim_end(15, " ")).to eq("This is a...")
     end

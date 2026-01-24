@@ -70,12 +70,12 @@ module Refinements
                                               .then { |parts| combine parts, :up, "/" }
       end
 
-      def trim_end to, delimiter = nil, trailer: "..."
-        return dup if length <= to
+      def trim_end maximum, delimiter = nil, trailer: "..."
+        return dup if size <= maximum
 
-        offset = to - trailer.length
-        maximum = delimiter ? rindex(delimiter, offset) || offset : offset
-        "#{self[...maximum]}#{trailer}"
+        offset = maximum - trailer.size
+        stop = delimiter ? rindex(delimiter, offset) || offset : offset
+        "#{self[...stop]}#{trailer}"
       end
 
       def trim_middle maximum, gap: "..."
