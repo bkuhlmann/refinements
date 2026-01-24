@@ -9,6 +9,7 @@ detectors:
       - "Array#compress"
       - "Hash#compress"
       - "Hash#fetch_deep"
+      - "String#squish"
   ManualDispatch:
     exclude:
       - "Array#compress"

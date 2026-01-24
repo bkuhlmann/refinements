@@ -52,7 +52,15 @@ module Refinements
                                            .then { |parts| combine parts, :down, "_" }
       end
 
-      def squish = gsub(/[[:space:]]+/, " ").tap(&:strip!)
+      def squish
+        duplicate = dup
+
+        # Find two or more spaces/tabs/newlines or a single space that isn't " ".
+        duplicate.gsub!(/([[:space:]]{2,}|[[[:space:]]&&[^ ]])/, " ")
+
+        duplicate.strip!
+        duplicate
+      end
 
       def titleize
         return capitalize unless match? DELIMITERS
