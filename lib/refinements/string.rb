@@ -34,7 +34,7 @@ module Refinements
 
       def last minimum = 0
         return self if empty?
-        return self[size - 1] if minimum.zero?
+        return self[-1] if minimum.zero?
         return "" if minimum.negative?
 
         self[(minimum + 1)..]
