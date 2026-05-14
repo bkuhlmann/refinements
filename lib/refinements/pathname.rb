@@ -69,7 +69,7 @@ module Refinements
 
       def remove_dir = exist? ? (rmdir and self) : self
 
-      def rewrite = read.then { |content| write yield(content) if block_given? }
+      def rewrite = read.then { |content| write(yield(content)) if block_given? }
 
       def touch at = ::Time.now
         exist? ? utime(at, at) : write("")
