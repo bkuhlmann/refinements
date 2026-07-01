@@ -31,13 +31,13 @@ module Refinements
 
       def pad(value, max = size) = dup.fill(value, size..(max - 1))
 
-      def pick(*keys)
+      def pick *keys
         return if empty?
 
         keys.many? ? keys.map { |key| first[key] } : first[keys.first]
       end
 
-      def pluck(*keys)
+      def pluck *keys
         return dup if empty?
         return [] if keys.empty?
 
@@ -49,7 +49,7 @@ module Refinements
         end
       end
 
-      def replace_at(index, *elements)
+      def replace_at index, *elements
         delete_at index
         insert(index, *elements)
       end
