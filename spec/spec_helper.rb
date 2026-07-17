@@ -3,7 +3,7 @@
 require "simplecov"
 
 unless ENV["COVERAGE"] == "no"
-  SimpleCov.start "strict" do
+  SimpleCov.start :strict do
     skip "lib/refinements/shared"
   end
 end
