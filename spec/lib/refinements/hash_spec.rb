@@ -594,6 +594,13 @@ RSpec.describe Refinements::Hash do
   describe "#use" do
     subject(:a_hash) { {width: 10, height: 5, depth: 22} }
 
+    it "answers deprecation warning" do
+      expectation = proc { a_hash.use { |width, height| width * height } }
+      message = "`Hash#use` is deprecated and will be removed in the next major version.\n"
+
+      expect(&expectation).to output(message).to_stderr
+    end
+
     it "answers result of selected values where keys are symbols" do
       area = a_hash.use { |width, height| width * height }
       expect(area).to eq(50)

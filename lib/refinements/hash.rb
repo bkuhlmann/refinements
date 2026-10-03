@@ -104,6 +104,10 @@ module Refinements
       end
 
       def use &block
+        warn "`#{self.class}##{__method__}` is deprecated and will be removed " \
+             "in the next major version.",
+             category: :deprecated
+
         return [] unless block
 
         block.parameters
