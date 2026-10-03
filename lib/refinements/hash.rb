@@ -44,7 +44,7 @@ module Refinements
       def deep_symbolize_keys! = replace(deep_symbolize_keys)
 
       def diff other
-        return differences_from other if other.is_a?(self.class) && keys.sort! == other.keys.sort!
+        return diff_array other if other.is_a?(self.class) && keys.sort! == other.keys.sort!
 
         each.with_object({}) { |(key, value), diff| diff[key] = [value, nil] }
       end
@@ -136,9 +136,9 @@ module Refinements
         first
       end
 
-      def differences_from other
-        this_array = merge(other.to_h) { |_, one, two| [one, two].uniq }
-        this_array.select { |_, diff| diff.size == 2 }
+      def diff_array other
+        merged = merge(other.to_h) { |_, one, two| [one, two].uniq }
+        merged.select { |_, diff| diff.size == 2 }
       end
 
       def fallback(key, default, &)
