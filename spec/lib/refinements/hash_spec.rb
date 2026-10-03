@@ -316,6 +316,33 @@ RSpec.describe Refinements::Hash do
     end
   end
 
+  describe "#expand_keys" do
+    it "answers empty hash when empty" do
+      flat = {}
+      expect(flat.expand_keys).to eq({})
+    end
+
+    it "answers hash with symbol keys as string keys" do
+      flat = {a: 1, b: 2}
+      expect(flat.expand_keys).to eq({"a" => 1, "b" => 2})
+    end
+
+    it "answers expanded hash (sorted)" do
+      flat = {"a.a" => 0, "a.b.one" => 1, "a.b.two" => 2}
+      expect(flat.expand_keys).to eq("a" => {"a" => 0, "b" => {"one" => 1, "two" => 2}})
+    end
+
+    it "answers expanded hash (unsorted)" do
+      flat = {"a.b.two" => 2, "a.b.one" => 1, "a.a" => 0}
+      expect(flat.expand_keys).to eq("a" => {"a" => 0, "b" => {"one" => 1, "two" => 2}})
+    end
+
+    it "answers hash with roots overwritten by children" do
+      flat = {"a" => 0, "a.b" => 1, "a.b.one" => :test}
+      expect(flat.expand_keys).to eq("a" => {"b" => {"one" => :test}})
+    end
+  end
+
   describe "#fetch_deep" do
     subject(:a_hash) { {a: {b: {c: [1, 2, 3]}}} }
 

@@ -19,6 +19,7 @@ detectors:
   NestedIterators:
     exclude:
       - "Array#pluck"
+      - "Hash#expand_keys"
   TooManyStatements:
     exclude:
       - Hash#deep_concat

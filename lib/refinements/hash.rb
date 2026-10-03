@@ -4,6 +4,7 @@ require "refinements/shared/many"
 
 module Refinements
   # Provides additional enhancements to the Hash primitive.
+  # rubocop:todo-next Metrics/ModuleLength
   module Hash
     refine ::Hash.singleton_class do
       def infinite = new { |nascence, lacuna| nascence[lacuna] = new(&nascence.default_proc) }
@@ -47,6 +48,13 @@ module Refinements
         return diff_array other if other.is_a?(self.class) && keys.sort! == other.keys.sort!
 
         each.with_object({}) { |(key, value), diff| diff[key] = [value, nil] }
+      end
+
+      def expand_keys delimiter: "."
+        each.with_object({}) do |(key, value), all|
+          parts = String(key).split(delimiter).reverse
+          all.deep_merge! parts.reduce(value) { |accumulator, part| {part => accumulator} }
+        end
       end
 
       def fetch_deep(*keys, default: NilClass, &)
