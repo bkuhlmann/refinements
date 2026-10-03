@@ -463,9 +463,9 @@ Any object that _is not_ the same type will have a `nil` value as shown in the l
 
 ===== .utc
 
-Answers new DateTime object for current UTC date/time.
-
 ⚠️ This method (and refinement) is deprecated and will be removed in the next major release.
+
+Answers new DateTime object for current UTC date/time.
 
 [source,ruby]
 ----
@@ -534,10 +534,34 @@ Merges deeply nested hashes together without mutating itself.
 
 [source,ruby]
 ----
-example = {a: "A", b: {one: "One", two: "Two"}}
+example = {demo: {one: "One"}}
 
-example.deep_merge b: {one: 1}  # {a: "A", b: {one: 1, two: "Two"}}
-example                         # {a: "A", b: {one: "One", two: "Two"}}
+example.deep_merge demo: {one: 1}  # {demo: {one: 1}}
+example                            # {demo: {one: "One"}}
+----
+
+Nested arrays are concatenated:
+
+[source,ruby]
+----
+{demo: [1, 2]}.deep_merge(demo: [3, 4])
+# {demo: [1, 2, 3, 4]}
+----
+
+Arrays are concatenated by index so ensure both arrays are in the same order when needing to merge nested arrays and/or hashes. If the other array has more elements which are not arrays or hashes, they will be appended. Example:
+
+[source,ruby]
+----
+{demo: [1, [2, 3], {a: 1}]}.deep_merge(demo: [:a, [4, 5], {a: :one, b: :two}, 6])
+# {
+#   demo: [
+#     1,
+#     [2, 3, 4, 5],
+#     {a: :one, b: :two},
+#     :a
+#     6
+#   ]
+# }
 ----
 
 ===== #deep_merge!
@@ -551,6 +575,8 @@ example = {a: "A", b: {one: "One", two: "Two"}}
 example.deep_merge! b: {one: 1}  # {a: "A", b: {one: 1, two: "Two"}}
 example                          # {a: "A", b: {one: 1, two: "Two"}}
 ----
+
+For more example, see `+#deep_merge+` above.
 
 ===== #deep_stringify_keys
 
@@ -615,6 +641,52 @@ one.diff Object.new  # {:a=>[1, nil], :b=>[2, nil], :c=>[3, nil]}
 ----
 
 Any object that _is not_ the same type will have a `nil` value as shown in the last two examples. Two hashes with the same keys but defined in different order behave as if they had the same key order.
+
+===== #expand_keys
+
+Allows you to expand flat keys into a nested hash. This is the reverse of `+#flatten_keys+`.
+
+[source,ruby]
+----
+{"a.a" => 0, "a.b.one" => 1, "a.b.two" => 2}.expand_keys
+
+# {
+#   "a" => {
+#     "a" => 0,
+#     "b" => {
+#       "one" => 1,
+#       "two" => 2
+#     }
+#   }
+# }
+
+{"a_a" => 0, "a_b_one" => 1, "a_b_two" => 2}.expand_keys delimiter: "_"
+
+# {
+#   "a" => {
+#     "a" => 0,
+#     "b" => {
+#       "one" => 1,
+#       "two" => 2
+#     }
+#   }
+# }
+----
+
+Parent values -- which are not hashes -- are ignored when a nested child hash exists. Example:
+
+[source,ruby]
+----
+{"a" => 0, "a.b" => 1, "a.b.one" => :test}.expand_keys
+
+# {
+#   "a" => {
+#     "b" => {
+#       "one" => :test
+#     }
+#   }
+# }
+----
 
 ===== #fetch_deep
 
@@ -852,6 +924,8 @@ example  # {name: "Jayne", email: "jd@example.com"}
 ----
 
 ===== #use
+
+⚠️ This method is deprecated and will be removed in the next major release.
 
 Uses the hash's keys as block arguments where the value of the block argument is equal to the value of the key found within the hash. Works best with hashes that use symbols for keys but falls back to string keys when symbol keys can't be found.
 
