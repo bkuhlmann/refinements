@@ -6,3 +6,6 @@ ThreadSafety/DirChdir:
     - "bin/setup"
     - "lib/refinements/pathname.rb"
     - "spec/lib/refinements/pathname_spec.rb"
+Metrics/MethodLength:
+  AllowedMethods:
+    - deep_concat

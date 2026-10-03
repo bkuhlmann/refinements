@@ -73,58 +73,109 @@ RSpec.describe Refinements::Hash do
   end
 
   shared_examples "a deep merge" do |method|
-    subject :a_hash do
+    subject :original do
       {
-        label: "Example",
+        label: "Original",
         nested: {
-          level_1: {
-            value: "example"
+          one: {
+            value: "original"
           },
-          level_2: %w[a b c]
+          two: :original
         }
       }
     end
 
     context "with identical keys" do
-      let :proof do
+      let :other do
         {
-          label: "Test",
+          label: "Other",
           nested: {
-            level_1: {
-              value: "test"
+            one: {
+              value: "other"
             },
-            level_2: %w[x y z]
+            two: :other
           }
         }
       end
 
-      it "replaces all values" do
-        result = a_hash.public_send method, proof
+      let :proof do
+        {
+          label: "Other",
+          nested: {
+            one: {
+              value: "other"
+            },
+            two: :other
+          }
+        }
+      end
+
+      it "updates values of matching keys" do
+        result = original.public_send method, other
         expect(result).to eq(proof)
       end
     end
 
-    context "with new keys" do
+    context "with additional attributes" do
       let :proof do
         {
-          label: "Example",
+          label: "Original",
           basic: {
             a: 1,
-            b: [1, 2, 3]
+            b: [1, 2]
           },
           nested: {
-            level_1: {
-              value: "example"
+            one: {
+              value: "original"
             },
-            level_2: %w[a b c]
+            two: :original,
+            three: 3
           }
         }
       end
 
-      it "merges structure with existing structure" do
-        result = a_hash.public_send method, basic: {a: 1, b: [1, 2, 3]}
+      it "merges additional attributes" do
+        result = original.public_send method, basic: {a: 1, b: [1, 2]}, nested: {three: 3}
         expect(result).to eq(proof)
       end
+    end
+
+    it "merges with block" do
+      original = {one: {b: 2}}
+
+      result = original.public_send method, one: {b: 3} do |key, first, second|
+        first * second if key == :b
+      end
+
+      expect(result).to eq(one: {b: 6})
+    end
+
+    it "concatenates arrays with matching keys" do
+      original = {one: [1, 2]}
+      result = original.public_send method, one: [3, 4]
+
+      expect(result).to eq(one: [1, 2, 3, 4])
+    end
+
+    it "merges nested hashes by position" do
+      original = {one: [:a, {b: 2}]}
+      result = original.public_send method, one: [:a, {b: :other}]
+
+      expect(result).to eq(one: [:a, {b: :other}])
+    end
+
+    it "concatenates nested arrays by position" do
+      original = {one: [:a, [1, 2]]}
+      result = original.public_send method, one: [:a, [3, 4]]
+
+      expect(result).to eq(one: [:a, [1, 2, 3, 4]])
+    end
+
+    it "appends extra elements" do
+      original = {one: [:a, {b: 2}]}
+      result = original.public_send method, one: %i[y z]
+
+      expect(result).to eq(one: [:a, {b: 2}, :y, :z])
     end
   end
 

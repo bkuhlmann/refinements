@@ -6,6 +6,7 @@ detectors:
       - "singleton_class#make_temp_dir"
   FeatureEnvy:
     exclude:
+      - Hash#deep_concat
       - "Array#compress"
       - "Hash#compress"
       - "Hash#fetch_deep"
@@ -20,6 +21,8 @@ detectors:
       - "Array#pluck"
   TooManyStatements:
     exclude:
+      - Hash#deep_concat
+      - Hash#deep_merge!
       - "Array#pluck"
       - "Hash#flatten_keys"
       - "String#trim_middle"

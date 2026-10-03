@@ -21,19 +21,19 @@ module Refinements
         compact!
       end
 
-      def deep_merge other
-        clazz = self.class
+      def deep_merge(other, &) = dup.deep_merge!(other, &)
 
-        merge other do |_key, this_value, other_value|
-          if this_value.is_a?(clazz) && other_value.is_a?(clazz)
-            this_value.deep_merge other_value
-          else
-            other_value
+      def deep_merge!(other, &)
+        klass = self.class
+
+        merge! other do |key, first, second|
+          if first.is_a?(klass) && second.is_a?(klass) then first.deep_merge(second, &)
+          elsif first.is_a?(::Array) && second.is_a?(::Array) then deep_concat(first, second, &)
+          elsif block_given? then yield key, first, second
+          else second
           end
         end
       end
-
-      def deep_merge!(other) = replace(deep_merge(other))
 
       def deep_stringify_keys = recurse(&:stringify_keys)
 
@@ -117,9 +117,28 @@ module Refinements
 
       private
 
+      def deep_concat(original, second, &)
+        first = original.dup
+        klass = self.class
+
+        second.each.with_index do |second_item, index|
+          first_item = first[index]
+
+          if first_item.is_a?(klass) && second_item.is_a?(klass)
+            first[index] = first_item.deep_merge!(second_item, &)
+          elsif second_item.is_a? ::Array
+            first[index] = deep_concat(first_item, second_item, &)
+          else
+            first.append(second_item).uniq!
+          end
+        end
+
+        first
+      end
+
       def differences_from other
-        result = merge(other.to_h) { |_, one, two| [one, two].uniq }
-        result.select { |_, diff| diff.size == 2 }
+        this_array = merge(other.to_h) { |_, one, two| [one, two].uniq }
+        this_array.select { |_, diff| diff.size == 2 }
       end
 
       def fallback(key, default, &)
