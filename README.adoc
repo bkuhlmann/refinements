@@ -1136,13 +1136,13 @@ link:https://rubyapi.org/o/Dir.chdir#method-c-chdir[Dir.chdir] for details.
 
 [source,ruby]
 ----
-current = Pathname.pwd                  # "$HOME/demo" (Present Working Directory)
-custom = current.join("test").make_dir  # Pathname "$HOME/demo/test"
-custom.change_dir                       # "$HOME/demo/test" (Present Working Directory)
-current.change_dir                      # "$HOME/demo" (Present Working Directory)
-custom.change_dir { "example" }         # "example"
-custom.change_dir { |path| path }       # Pathname "$HOME/demo/test"
-Pathname.pwd                            # "$HOME/demo" (Present Working Directory)
+current = Pathname.pwd                # "$HOME/demo" (Present Working Directory)
+custom = current.join("test").mkpath  # Pathname "$HOME/demo/test"
+custom.change_dir                     # "$HOME/demo/test" (Present Working Directory)
+current.change_dir                    # "$HOME/demo" (Present Working Directory)
+custom.change_dir { "example" }       # "example"
+custom.change_dir { |path| path }     # Pathname "$HOME/demo/test"
+Pathname.pwd                          # "$HOME/demo" (Present Working Directory)
 ----
 
 ⚠️ This method is _not thread safe_ and suffers the same issues as found with native `Dir.chdir` functionality because the underlying native call is global. Use with care.
@@ -1277,6 +1277,8 @@ Pathname("/one/two").exist?          # false
 
 ===== #make_dir
 
+⚠️ This method is deprecated and will be removed in the next major release.
+
 Provides alternative `#mkdir` behavior by always answering itself (even when directory exists) and
 not throwing errors when directory does exist in order to ensure the pathname can be chained.
 
@@ -1324,9 +1326,9 @@ not throwing errors when directory does exist in order to ensure the pathname ca
 
 [source,ruby]
 ----
-Pathname("/test").make_dir.remove_dir.exist?  # false
-Pathname("/test").remove_dir                  # Pathname("/test")
-Pathname("/test").remove_dir.remove_dir       # Pathname("/test")
+Pathname("/test").mkpath.remove_dir.exist?  # false
+Pathname("/test").remove_dir                # Pathname("/test")
+Pathname("/test").remove_dir.remove_dir     # Pathname("/test")
 ----
 
 ===== #rewrite

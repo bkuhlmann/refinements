@@ -46,7 +46,7 @@ module Refinements
         glob(pattern, flag).select(&:directory?)
       end
 
-      def empty = file? ? (truncate(0) and self) : rmtree.make_dir
+      def empty = file? ? (truncate(0) and self) : rmtree.mkpath
 
       def extensions = basename.to_s.split(/(?=\.)+/).tap(&:shift)
 
@@ -59,7 +59,12 @@ module Refinements
         self
       end
 
-      def make_dir = exist? ? self : (mkdir and self)
+      def make_dir
+        warn "`#{self.class}##{__method__}` is deprecated, use `mkpath` instead.",
+             category: :deprecated
+
+        mkpath
+      end
 
       def name = basename extname
 

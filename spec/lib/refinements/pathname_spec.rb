@@ -415,6 +415,13 @@ RSpec.describe Refinements::Pathname do
   describe "#make_dir" do
     subject(:path) { temp_dir.join "demo" }
 
+    it "prints deprecation warning" do
+      expectation = proc { path.make_dir }
+      message = "`Pathname#make_dir` is deprecated, use `mkpath` instead.\n"
+
+      expect(&expectation).to output(message).to_stderr
+    end
+
     it "makes new directory" do
       path.make_dir
       expect(path.exist?).to be(true)
